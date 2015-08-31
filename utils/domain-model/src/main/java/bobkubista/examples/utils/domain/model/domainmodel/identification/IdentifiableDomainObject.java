@@ -1,0 +1,58 @@
+/**
+ *
+ */
+package bobkubista.examples.utils.domain.model.domainmodel.identification;
+
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * @author bkubista
+ * @param <ID>
+ *            the {@link Serializable} identifier
+ */
+@XmlType
+@XmlAccessorType(XmlAccessType.NONE)
+public abstract class IdentifiableDomainObject<ID extends Serializable> implements DomainObject {
+
+	private static final long serialVersionUID = 6041983912533900961L;
+
+	public IdentifiableDomainObject() {
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass() && !obj.getClass().isAssignableFrom(this.getClass()) && !this.getClass().isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+		@SuppressWarnings("unchecked")
+		final IdentifiableDomainObject<ID> other = (IdentifiableDomainObject<ID>) obj;
+		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
+	}
+
+	public abstract ID getId();
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(this.getId()).toHashCode();
+	}
+
+	public abstract void setId(ID id);
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+}

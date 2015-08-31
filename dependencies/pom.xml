@@ -13,5 +13,7 @@
   	<module>test-dependency</module>
   	<module>validation-dependency</module>
   	<module>rest-dependencie</module>
+  	<module>apache-commons</module>
+  	<module>javaee-dependency</module>
   </modules>
 </project>

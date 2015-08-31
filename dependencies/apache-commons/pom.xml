@@ -3,32 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>bobkubista.examples</groupId>
+		<artifactId>dependencies</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<artifactId>build</artifactId>
-		<relativePath>../build/pom.xml</relativePath>
 	</parent>
-	<artifactId>webapps</artifactId>
+	<groupId>bobkubista.examples.dependencies</groupId>
+	<artifactId>apache-commons</artifactId>
 	<packaging>pom</packaging>
-	<modules>
-		<module>jsf-app</module>
-	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>bobkubista.examples.dependencies</groupId>
-				<artifactId>javaee-dependency</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.2.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-		</dependency>
-	</dependencies>
 </project>
