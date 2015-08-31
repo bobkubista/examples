@@ -1,0 +1,355 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>build</artifactId>
+	<packaging>pom</packaging>
+
+	<parent>
+		<artifactId>main</artifactId>
+		<groupId>bobkubista.examples</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<buildhelper.version>1.7</buildhelper.version>
+
+		<!-- plugin versions -->
+		<maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+		<maven.resources.plugin.version>2.7</maven.resources.plugin.version>
+		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
+		<maven-release-plugin.version>2.4.1</maven-release-plugin.version>
+		<maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+		<maven-surefire-report-plugin.version>2.18.1</maven-surefire-report-plugin.version>
+		<maven-failsafe-plugin.version>2.12.1</maven-failsafe-plugin.version>
+		<maven-war-plugin.version>2.3</maven-war-plugin.version>
+		<versions-maven-plugin.version>2.2</versions-maven-plugin.version>
+		<sonar-maven-plugin.version>2.4</sonar-maven-plugin.version>
+
+		<skipUnitTests>true</skipUnitTests>
+		<skipITTests>true</skipITTests>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+	</properties>
+
+	<repositories></repositories>
+	<pluginRepositories></pluginRepositories>
+
+	<ciManagement></ciManagement>
+
+	<issueManagement></issueManagement>
+
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+		</testResources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven.resources.plugin.version}</version>
+				</plugin>
+				<!-- Analyze maven dependencies plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>${maven-eclipse-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${buildhelper.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-report-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${maven-surefire-report-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+					<configuration>
+						<archive>
+							<index>true</index>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Build-Date>${maven.build.timestamp}</Build-Date>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.4.201502262128</version>
+				</plugin>
+				<!-- plugin to update versions in multi-module projects To update the 
+					version numbers in your POMs, run: mvn release:update-versions You will be 
+					prompted for the version number for each module of the project. If you prefer 
+					that each module version be the same as the parent POM, you can use the option 
+					autoVersionSubmodules. mvn release:update-versions -DautoVersionSubmodules=true -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<!-- disable annotation processing for the compile plugin because of 
+						conflicts with the JPAMetaModelEntityProcessor -->
+					<compilerArgument>-proc:none</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>analyze</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>${skipUnitTests}</skipTests>
+					<argLine>${surefireArgLine}</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<skip>${skipITTests}</skip>
+					<testFailureIgnore>false</testFailureIgnore>
+					<argLine>${failsafeArgLine}</argLine>
+					<properties>
+
+					</properties>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-tests</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<!--suppress MavenModelInspection -->
+							<argLine>${failsafeArgLine}</argLine>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<configuration>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<!-- Sets the name of the property containing the settings for JaCoCo runtime agent. -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!-- Ensures that the code coverage report for unit tests is created after unit tests have been run. -->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+					<!-- The Executions required by unit tests are omitted. -->
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+						is passed as VM argument when Maven the Failsafe plugin is executed. -->
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+
+							<!--<destFile>${project.basedir}/coverage-reports/jacoco-it.exec</destFile> -->
+							<classDumpDir>target/classes</classDumpDir>
+							<!-- Sets the name of the property containing the settings for JaCoCo 
+								runtime agent. -->
+							<propertyName>failsafeArgLine</propertyName>
+							<includes>
+							</includes>
+						</configuration>
+					</execution>
+					<!-- Ensures that the code coverage report for integration tests after 
+						integration tests have been run. -->
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report-integration</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<!--<dataFile>${project.basedir}/coverage-reports/jacoco-it.exec</dataFile> -->
+							<!-- Sets the output directory for the code coverage report. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<configuration>
+					<includes>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven-surefire-report-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<skipUnitTests>false</skipUnitTests>
+				<skipITTests>true</skipITTests>
+				<maven.test.failure.ignore>false</maven.test.failure.ignore>
+			</properties>
+		</profile>
+		<profile>
+			<id>integration-test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<skipUnitTests>true</skipUnitTests>
+				<skipITTests>false</skipITTests>
+				<maven.test.failure.ignore>false</maven.test.failure.ignore>
+			</properties>
+		</profile>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+				<skipUnitTests>true</skipUnitTests>
+				<skipITTests>true</skipITTests>
+				<maven.test.failure.ignore>true</maven.test.failure.ignore>
+				<sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
+				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+				<sonar.jacoco.itReportPath>${project.build.directory}/coverage-reports/jacoco-it.exec</sonar.jacoco.itReportPath>
+				<sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
+				<sonar.exclusions>
+				</sonar.exclusions>
+			</properties>
+		</profile>
+
+	</profiles>
+</project>
