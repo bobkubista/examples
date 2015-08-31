@@ -17,6 +17,7 @@
 	<modules>
 		<module>build</module>
 		<module>dependencies</module>
+		<module>webapps</module>
 	</modules>
 
 	<distributionManagement>
