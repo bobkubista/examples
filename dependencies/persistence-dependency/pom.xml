@@ -67,6 +67,11 @@
                 <version>${hibernate.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>${hibernate.jpa.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.mchange</groupId>
                 <artifactId>c3p0</artifactId>
                 <version>${c3p0.version}</version>

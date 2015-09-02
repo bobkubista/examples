@@ -84,7 +84,6 @@
 		<dependency>
 			<groupId>domain-model</groupId>
 			<artifactId>domain-model</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>bobkubista.examples.utils</groupId>

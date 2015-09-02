@@ -7,9 +7,16 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>bobkubista.examples.utils</groupId>
-	<artifactId>property-utils</artifactId>
+	<artifactId>rest-utils</artifactId>
 
 	<dependencies>
-		
+		<dependency>
+			<groupId>domain-model</groupId>
+			<artifactId>domain-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
 	</dependencies>
 </project>

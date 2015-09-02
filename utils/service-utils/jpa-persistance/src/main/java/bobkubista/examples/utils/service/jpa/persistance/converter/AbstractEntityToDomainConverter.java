@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
@@ -27,10 +30,12 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  */
 public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends IdentifiableEntity<ID>, ID extends Serializable>
 		implements EntityToDomainConverter<DMO, DMOL, EO> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
 	@Override
 	public DMOL convertToDomainObject(final Collection<EO> entities) {
 		final DMOL result = this.getNewDomainObjectCollection();
+		LOGGER.debug("Converting entities to domain");
 		if (entities != null) {
 			for (final EO entity : entities) {
 				final DMO domainObject = this.convertToDomainObject(entity);
@@ -42,6 +47,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 
 	@Override
 	public DMO convertToDomainObject(final EO entity) {
+		LOGGER.debug("Converting entity to domain with id {}", entity.getId());
 		return this.doConvertToDomainObject(entity);
 	}
 
@@ -51,6 +57,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 		if (domainModelObject == null) {
 			entity = null;
 		} else {
+			LOGGER.debug("Converting domain to entity with id {}", domainModelObject.getId());
 			final EO oldEntity;
 			if (domainModelObject.getId() != null && (oldEntity = this.getService().getById(domainModelObject.getId())) != null) {
 				entity = oldEntity;
@@ -65,6 +72,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 	@Override
 	public Collection<EO> convertToEntity(final DomainObjectCollection<DMO> domainObjects) {
 		final Collection<EO> result = new LinkedList<EO>();
+		LOGGER.debug("Converting domain to entities");
 		if (domainObjects != null) {
 			for (final DMO domainObject : domainObjects.getDomainCollection()) {
 				final EO entity = this.convertToEntity(domainObject);

@@ -25,6 +25,7 @@
 		<maven-war-plugin.version>2.3</maven-war-plugin.version>
 		<versions-maven-plugin.version>2.2</versions-maven-plugin.version>
 		<sonar-maven-plugin.version>2.4</sonar-maven-plugin.version>
+		<jacoco.version>0.7.4.201502262128</jacoco.version>
 
 		<skipUnitTests>true</skipUnitTests>
 		<skipITTests>true</skipITTests>
@@ -136,7 +137,7 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.7.4.201502262128</version>
+					<version>${jacoco.version}</version>
 				</plugin>
 				<!-- plugin to update versions in multi-module projects To update the 
 					version numbers in your POMs, run: mvn release:update-versions You will be 

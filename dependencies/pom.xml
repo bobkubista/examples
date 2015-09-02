@@ -15,5 +15,7 @@
   	<module>rest-dependencie</module>
   	<module>apache-commons</module>
   	<module>javaee-dependency</module>
+  	<module>logging-dependency</module>
+  	<module>common-dependency</module>
   </modules>
 </project>

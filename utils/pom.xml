@@ -13,10 +13,13 @@
 		<module>service-utils</module>
 		<module>domain-model</module>
 		<module>property-utils</module>
+		<module>rest-utils</module>
+		<module>test-utils</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+		<!-- BOM -->
 			<dependency>
 				<groupId>bobkubista.examples.dependencies</groupId>
 				<artifactId>test-dependency</artifactId>
@@ -52,6 +55,39 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.dependencies</groupId>
+				<artifactId>logging-dependency</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.dependencies</groupId>
+				<artifactId>common-dependency</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.dependencies</groupId>
+				<artifactId>persistence-dependency</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- utils -->
+			<dependency>
+				<groupId>domain-model</groupId>
+				<artifactId>domain-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+			<groupId>bobkubista.examples.utils.service</groupId>
+			<artifactId>jpa-persistance</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -59,6 +95,24 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
+		</dependency>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<!-- testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
