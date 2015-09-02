@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.rest.utils;
+package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.api.IdentifiableFacade;
+import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
 
 /**
@@ -20,7 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
  *            the type of {@link IdentifiableDomainObject}
  */
 public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
-		implements IdentifiableFacade<TYPE, ID> {
+		implements IdentifiableApi<TYPE, ID> {
 
 	private WebTarget service;
 

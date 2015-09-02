@@ -37,10 +37,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 		final DMOL result = this.getNewDomainObjectCollection();
 		LOGGER.debug("Converting entities to domain");
 		if (entities != null) {
-			for (final EO entity : entities) {
-				final DMO domainObject = this.convertToDomainObject(entity);
-				result.getDomainCollection().add(domainObject);
-			}
+			entities.stream().forEach(v -> result.getDomainCollection().add(this.convertToDomainObject(v)));
 		}
 		return result;
 	}
@@ -74,10 +71,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 		final Collection<EO> result = new LinkedList<EO>();
 		LOGGER.debug("Converting domain to entities");
 		if (domainObjects != null) {
-			for (final DMO domainObject : domainObjects.getDomainCollection()) {
-				final EO entity = this.convertToEntity(domainObject);
-				result.add(entity);
-			}
+			domainObjects.getDomainCollection().stream().forEach(v -> result.add(this.convertToEntity(v)));
 		}
 		return result;
 	}

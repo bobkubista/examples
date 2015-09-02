@@ -20,7 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
  * @param <ID>
  *            the identifier of the {@link FunctionalIdentifiableDomainObject}
  */
-public interface FunctionalIdentifiableFacade<DMO extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableFacade<DMO, ID> {
+public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
 
 	/**
 	 * get the {@link DomainObject}
@@ -36,6 +36,19 @@ public interface FunctionalIdentifiableFacade<DMO extends FunctionalIdentifiable
 	public Response getByFunctionalId(@PathParam("id") String identifier);
 
 	/**
+	 * Get the identifier that goes with the functional id
+	 * 
+	 * @param fId
+	 *            functional id
+	 * @return the <code>ID</code>
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("id/{functionalId}")
+	Response getIdByFunctionalId(@PathParam("functionalId") String fId);
+
+	/**
 	 * get the {@link DomainObject}
 	 *
 	 * @param identifier
@@ -46,5 +59,5 @@ public interface FunctionalIdentifiableFacade<DMO extends FunctionalIdentifiable
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("searchByFunctionalId/{id}")
-	Response searchByFunctionalID(String identifier);
+	Response searchByFunctionalID(@PathParam("id") String identifier);
 }

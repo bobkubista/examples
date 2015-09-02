@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.utils.rest.utils;
+package bobkubista.examples.utils.rest.utils.proxy;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author bkubista
  *
  */
+// TODO status code handling
 public abstract class AbstractRestProxy {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());

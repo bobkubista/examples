@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.api.ActiveFacade;
+import bobkubista.examples.utils.domain.model.api.ActiveApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
@@ -22,7 +22,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *            {@link DomainObjectCollection}
  */
 public abstract class GenericActiveFacade<DMO extends ActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends DomainObjectCollection<DMO>>
-		extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveFacade<DMO, ID> {
+		extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
 	@Override
 	public Response getAllActive() {

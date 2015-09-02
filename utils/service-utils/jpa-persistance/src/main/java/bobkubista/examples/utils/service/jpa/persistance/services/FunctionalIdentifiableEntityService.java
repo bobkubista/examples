@@ -34,6 +34,16 @@ public interface FunctionalIdentifiableEntityService<TYPE extends FunctionalIden
 
 	/**
 	 *
+	 * @param fId
+	 *            functional id
+	 * @return the identifier <code>ID</code> for the given functional id
+	 */
+	public default ID getIdByFunctionalId(final String fId) {
+		return this.getDAO().getIdByFunctionalId(fId);
+	}
+
+	/**
+	 *
 	 * @param identifier
 	 *            the functioanl identifier to use
 	 * @return search for <code>TYPE</code> which has the identifier as part of

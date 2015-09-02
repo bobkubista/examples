@@ -118,7 +118,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 	 * @return true when done and succesfull
 	 */
 	public boolean refresh() {
-		this.cache.asMap().keySet().parallelStream().forEach(key -> this.cache.refresh(key));
+		this.cache.asMap().keySet().stream().forEach(key -> this.cache.refresh(key));
 		return true;
 	}
 

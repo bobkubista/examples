@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableFacade;
+import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdentifiableEntity;
@@ -25,7 +25,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIden
  *            {@link DomainObjectCollection}
  */
 public abstract class GenericFunctionalIdentifiableFacade<DMO extends FunctionalIdentifiableDomainObject<ID>, TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends DomainObjectCollection<DMO>>
-		extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableFacade<DMO, ID> {
+		extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
 
 	@Override
 	public Response getByFunctionalId(final String identifier) {
@@ -34,11 +34,16 @@ public abstract class GenericFunctionalIdentifiableFacade<DMO extends Functional
 	}
 
 	@Override
-	protected abstract FunctionalIdentifiableEntityService<TYPE, ID> getService();
+	public Response getIdByFunctionalId(final String fId) {
+		return Response.ok(this.getService().getIdByFunctionalId(fId)).build();
+	}
 
 	@Override
 	public Response searchByFunctionalID(final String identifier) {
 		return Response.ok(this.getConverter().convertToDomainObject(this.getService().searchByFunctionalID(identifier))).build();
 	}
+
+	@Override
+	protected abstract FunctionalIdentifiableEntityService<TYPE, ID> getService();
 
 }

@@ -8,4 +8,17 @@
   <groupId>bobkubista.examples.services</groupId>
   <artifactId>rest-services</artifactId>
   <packaging>pom</packaging>
+  <modules>
+  	<module>todo-rest -service</module>
+  </modules>
+  
+  <dependencyManagement>
+  <dependencies>
+  <dependency>
+  		<groupId>bobkubista.examples.utils.service</groupId>
+  		<artifactId>jpa-persistance</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
+  </dependencyManagement>
 </project>

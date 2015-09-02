@@ -27,9 +27,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
 public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
 
 	private final Class<TYPE> entityClass;
-
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	private final Class<ID> identifierClass;
 
 	/**
 	 * Constructor
@@ -38,11 +39,8 @@ public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID
 	public AbstractGenericDao() {
 		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
 		this.entityClass = (Class<TYPE>) genericSuperclass.getActualTypeArguments()[0];
+		this.identifierClass = (Class<ID>) genericSuperclass.getActualTypeArguments()[1];
 
-	}
-
-	protected boolean contains(final TYPE entity) {
-		return this.entityManager.contains(entity);
 	}
 
 	@Override
@@ -57,44 +55,12 @@ public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID
 		this.entityManager.remove(attachedEntity);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected Collection<TYPE> findByCriteria(final int firstResult, final int maxResults, final Criterion... criterions) {
-		final Session session = (Session) this.getEntityManager().getDelegate();
-		final Criteria crit = session.createCriteria(this.getEntityClass());
-
-		for (final Criterion c : criterions) {
-			crit.add(c);
-		}
-
-		if (firstResult > 0) {
-			crit.setFirstResult(firstResult);
-		}
-
-		if (maxResults > 0) {
-			crit.setMaxResults(maxResults);
-		}
-
-		return crit.list();
-	}
-
-	protected void flush() {
-		this.entityManager.flush();
-	}
-
 	@Override
 	public abstract TYPE getByFunctionalId(Object id);
 
 	@Override
 	public TYPE getById(final ID id) {
 		return this.entityManager.find(this.entityClass, id);
-	}
-
-	protected Class<TYPE> getEntityClass() {
-		return this.entityClass;
-	}
-
-	protected EntityManager getEntityManager() {
-		return this.entityManager;
 	}
 
 	@Override
@@ -109,5 +75,25 @@ public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID
 	@Override
 	public TYPE update(final TYPE object) {
 		return this.entityManager.merge(object);
+	}
+
+	protected boolean contains(final TYPE entity) {
+		return this.entityManager.contains(entity);
+	}
+
+	protected void flush() {
+		this.entityManager.flush();
+	}
+
+	protected Class<TYPE> getEntityClass() {
+		return this.entityClass;
+	}
+
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	protected Class<ID> getIdentifierClass() {
+		return this.identifierClass;
 	}
 }

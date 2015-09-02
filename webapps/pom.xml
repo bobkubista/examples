@@ -10,7 +10,8 @@
 	<artifactId>webapps</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>jsf-app</module>
+<!-- 		<module>jsf-app</module> -->
+<!-- 		<module>wicket-app</module> -->
 	</modules>
 
 	<dependencyManagement>

@@ -48,6 +48,26 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 		}
 	}
 
+	public ID getIdByFunctionalId(final String fId) {
+		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<ID> query = builder.createQuery(this.getIdentifierClass());
+		final Root<TYPE> root = query.from(this.getEntityClass());
+		query.multiselect(root.get("id"));
+		return this.getEntityManager().createQuery(query).getSingleResult();
+	}
+
+	@Override
+	public Collection<TYPE> searchByFunctionalId(final Object id) {
+		FunctionalIdentifiableEntityDao.LOGGER.debug("Searching for object with {} in the functional id", id);
+		final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
+		final Root<TYPE> entity = cq.from(entityType);
+		cq.where(criteriaBuilder.like(this.getFunctionalIdField(entity), "%" + id + "%"));
+		final TypedQuery<TYPE> tp = this.getEntityManager().createQuery(cq);
+		return tp.getResultList();
+	}
+
 	protected abstract Path<String> getFunctionalIdField(Root<TYPE> entity);
 
 	/**
@@ -91,17 +111,5 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 		query.orderBy(builder.desc(queryRoot.get(field)));
 		FunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by {}", field);
 		return this.getEntityManager().createQuery(query).getResultList();
-	}
-
-	@Override
-	public Collection<TYPE> searchByFunctionalId(final Object id) {
-		FunctionalIdentifiableEntityDao.LOGGER.debug("Searching for object with {} in the functional id", id);
-		final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
-		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
-		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
-		final Root<TYPE> entity = cq.from(entityType);
-		cq.where(criteriaBuilder.like(this.getFunctionalIdField(entity), "%" + id + "%"));
-		final TypedQuery<TYPE> tp = this.getEntityManager().createQuery(cq);
-		return tp.getResultList();
 	}
 }

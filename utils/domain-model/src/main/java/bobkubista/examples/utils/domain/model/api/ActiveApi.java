@@ -18,7 +18,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveD
  * @param <ID>
  *            The idertifier
  */
-public interface ActiveFacade<DMO extends ActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableFacade<DMO, ID> {
+public interface ActiveApi<DMO extends ActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
 
 	/**
 	 *

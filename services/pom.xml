@@ -23,6 +23,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.utils</groupId>
+				<artifactId>property-utils</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>domain-model</groupId>
+				<artifactId>domain-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -30,6 +40,14 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>domain-model</groupId>
+			<artifactId>domain-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>bobkubista.examples.utils</groupId>
+			<artifactId>property-utils</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -8,7 +8,7 @@ import java.util.Collection;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.api.IdentifiableFacade;
+import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
@@ -16,7 +16,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
- * A generic implementation of the {@link IdentifiableFacade}. In general, only
+ * A generic implementation of the {@link IdentifiableApi}. In general, only
  * get opperations are supported. Create, update and delete should only be used
  * in admin applications. If you want to create, update or delete from a webapp,
  * override the methodes and implement them seperatly.
@@ -34,7 +34,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  *
  */
 public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL extends DomainObjectCollection<DMO>, TYPE extends IdentifiableEntity<ID>, ID extends Serializable>
-		implements IdentifiableFacade<DMO, ID> {
+		implements IdentifiableApi<DMO, ID> {
 
 	@Override
 	public Response create(final DMO object) {

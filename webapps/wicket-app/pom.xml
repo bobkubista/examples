@@ -2,14 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>bobkubista.examples</groupId>
-    <artifactId>services</artifactId>
+    <artifactId>webapps</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>bobkubista.examples.services</groupId>
-  <artifactId>api</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>todo-rest-api</module>
-  </modules>
-  
+  <artifactId>wicket-app</artifactId>
+  <packaging>war</packaging>
 </project>
