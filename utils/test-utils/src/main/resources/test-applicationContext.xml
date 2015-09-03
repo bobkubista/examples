@@ -17,6 +17,6 @@
           class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="databaseConfig" ref="dbUnitDatabaseConfig"/>
-        <property name="schema" value="${datasource.defaultSchema}"/>
+        <property name="schema" value="${database.defaultSchema}"/>
     </bean>
 </beans>

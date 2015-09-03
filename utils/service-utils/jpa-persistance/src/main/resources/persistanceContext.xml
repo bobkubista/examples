@@ -18,13 +18,13 @@
     <bean name="serverProperties" class="bobkubista.example.utils.property.ServerProperties" factory-method="getProperies"/>    
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${datasource.driverClassName}" />
-        <property name="jdbcUrl" value="${datasource.url}" />
-        <property name="user" value="${datasource.username}" />
-        <property name="password" value="${datasource.password}" />
-        <property name="minPoolSize" value="${datasource.minPoolSize}" />
-        <property name="maxPoolSize" value="${datasource.maxPoolSize}" />
-        <property name="idleConnectionTestPeriod" value="${datasource.idleConnectionTestPeriod}" />
+        <property name="driverClass" value="${database.driverClassName}" />
+        <property name="jdbcUrl" value="${database.url}" />
+        <property name="user" value="${database.username}" />
+        <property name="password" value="${database.password}" />
+        <property name="minPoolSize" value="${database.minPoolSize}" />
+        <property name="maxPoolSize" value="${database.maxPoolSize}" />
+        <property name="idleConnectionTestPeriod" value="${database.idleConnectionTestPeriod}" />
     </bean>
 
     <bean id="entityManagerFactory"
@@ -37,11 +37,11 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">${datasource.dialect}</prop>
-                <prop key="hibernate.show_sql">${datasource.showSql}</prop>
-                <prop key="hibernate.format_sql">${datasource.formatSql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${datasource.ddlAuto}</prop>
-                <prop key="hibernate.default_schema">${datasource.defaultSchema}</prop>
+                <prop key="hibernate.dialect">${database.dialect}</prop>
+                <prop key="hibernate.show_sql">${database.showSql}</prop>
+                <prop key="hibernate.format_sql">${database.formatSql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${database.ddlAuto}</prop>
+                <prop key="hibernate.default_schema">${database.defaultSchema}</prop>
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                 <prop key="hibernate.cache.use_query_cache">false</prop>
                 <prop key="hibernate.cache.use_structured_entries">false</prop>

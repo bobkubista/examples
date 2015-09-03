@@ -1,7 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -27,11 +27,11 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 	private static final long serialVersionUID = 4957722166359705216L;
 
 	@Column(name = "insertedDate", nullable = false)
-	private Timestamp insertedDate;
+	private ZonedDateTime insertedDate;
 
 	@Version
 	@Column(name = "updatedDate", nullable = false)
-	private Timestamp updatedDate;
+	private ZonedDateTime updatedDate;
 
 	public IdentifiableEntity() {
 	}
@@ -51,11 +51,11 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 
 	public abstract ID getId();
 
-	public Timestamp getInsertedDate() {
+	public ZonedDateTime getInsertedDate() {
 		return this.insertedDate;
 	}
 
-	public Timestamp getUpdatedDate() {
+	public ZonedDateTime getUpdatedDate() {
 		return this.updatedDate;
 	}
 
@@ -66,13 +66,13 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 
 	public abstract void setId(ID id);
 
-	@PrePersist
-	private void setInsertedDate() {
-		this.insertedDate = new Timestamp(System.currentTimeMillis());
-	}
-
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
+	}
+
+	@PrePersist
+	private void setInsertedDate() {
+		this.insertedDate = ZonedDateTime.now();
 	}
 }

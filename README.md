@@ -20,6 +20,7 @@ backend:
 - JMS
 - Batch processing
 - Lambda logging
+- new Date api 
 
 frontend:
 - wicket
