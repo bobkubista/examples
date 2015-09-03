@@ -5,8 +5,8 @@ Todo:
 backend:
 - implement futures
 - static methodes in interfaces
-- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion 
-- Asynchronous calls
+- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
+- Asynchronous calls 
 - Non blocking IO
 - Security
 - SOAP
@@ -25,6 +25,12 @@ backend:
 - Vert.x
 - Webservlet: Java EE essentials
 - Rest services
+	- starting up service
+	- @queryparam
+	- @cookieparam
+	- @hearderparam
+	- @matrixparam
+	- JSESSIONID
 - Error handling in clients
 
 

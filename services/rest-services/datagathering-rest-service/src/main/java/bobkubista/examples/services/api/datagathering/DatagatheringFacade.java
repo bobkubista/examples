@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
@@ -60,4 +62,17 @@ public class DatagatheringFacade implements DatagatheringApi {
 		return Response.ok().build();
 	}
 
+	@Override
+	public void getAsync(@Suspended final AsyncResponse response) {
+		new Thread(() -> {
+			LOGGER.debug("waiting");
+			try {
+				Thread.sleep(2000);
+			} catch (final Exception e) {
+				LOGGER.error(e.getMessage(), e);
+			}
+			LOGGER.debug("resuming request");
+			response.resume("resuming");
+		});
+	}
 }
