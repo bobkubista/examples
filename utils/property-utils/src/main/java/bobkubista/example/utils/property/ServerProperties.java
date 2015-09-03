@@ -27,6 +27,10 @@ public enum ServerProperties {
 
 	private static final String SERVER_PROP_FILE = "server.properties";
 
+	public static Properties getProperies() {
+		return props;
+	}
+
 	public static String getString(final String key) {
 		String result = null;
 		LOGGER.debug("Getting property for key {}", key);

@@ -37,7 +37,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  *
  */
 @Path("/")
-public interface IdentifiableApi<DMO extends DomainObject, ID> {
+public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
 
 	/**
 	 * Create the object of {@link DomainObject} type

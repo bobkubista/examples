@@ -6,7 +6,7 @@ backend:
 - implement futures
 - default methodes on api -> return Response.notAllowed
 - static methodes in interfaces
-- SOLID
+- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion 
 - Asynchronous calls
 - Non blocking IO
 - Security
@@ -24,6 +24,9 @@ backend:
 - try with resources
 - server props with JNDI and java8 IO api
 - Vert.x
+- Webservlet: Java EE essentials
+- Rest services
+
 
 frontend:
 - wicket
