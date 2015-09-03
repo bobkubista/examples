@@ -54,6 +54,7 @@ public abstract class AbstractRestProxy {
 	 *            the paths to get for the rest service
 	 * @return {@link javax.ws.rs.client.Invocation.Builder}
 	 */
+	// TODO refactor to make use of template see page 84 JEE essentials
 	protected Builder getRequest(final String... paths) {
 		WebTarget serviceWithPath = this.getServiceWithPaths();
 		for (final String path : paths) {

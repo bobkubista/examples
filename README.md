@@ -32,7 +32,7 @@ backend:
 	- @matrixparam
 	- JSESSIONID
 - Error handling in clients
-
+- datagathering client
 
 frontend:
 - wicket

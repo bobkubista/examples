@@ -4,10 +4,7 @@
 package bobkubista.examples.services.api.datagathering;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Request;
@@ -27,7 +24,6 @@ public interface DatagatheringApi {
 	 *
 	 * @return {@link Response} when done processing
 	 */
-	@POST
 	public Response gatherData(@Context HttpServletRequest servletRequest, @Context UriInfo info, @Context HttpHeaders httpHeaders, @Context Request request,
 			@Context SecurityContext securityContext);
 
@@ -37,7 +33,7 @@ public interface DatagatheringApi {
 	 * @param response
 	 *            {@link AsyncResponse}
 	 */
-	@GET
-	void getAsync(AsyncResponse response);
+	// @GET
+	// void getAsync(AsyncResponse response);
 
 }

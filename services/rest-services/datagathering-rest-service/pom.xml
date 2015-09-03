@@ -14,7 +14,22 @@
   	<groupId>bobkubista.examples.services.api</groupId>
   	<artifactId>datagathering-rest-api</artifactId>
   	<version>${project.version}</version>
+  	<exclusions>
+  		<exclusion>
+  			<artifactId>domain-model</artifactId>
+  			<groupId>domain-model</groupId>
+  		</exclusion>
+  	</exclusions>
   </dependency>
-  
+  <dependency>
+  	<groupId>bobkubista.examples.utils</groupId>
+  	<artifactId>test-utils</artifactId>
+  	<exclusions>
+  		<exclusion>
+  			<artifactId>domain-model</artifactId>
+  			<groupId>domain-model</groupId>
+  		</exclusion>
+  	</exclusions>
+  </dependency>
   </dependencies>
 </project>

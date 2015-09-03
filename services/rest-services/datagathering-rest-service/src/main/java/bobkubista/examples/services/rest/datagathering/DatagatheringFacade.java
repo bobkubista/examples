@@ -1,18 +1,21 @@
 /**
  *
  */
-package bobkubista.examples.services.api.datagathering;
+package bobkubista.examples.services.rest.datagathering;
 
 import java.net.URI;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.container.Suspended;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
@@ -23,10 +26,13 @@ import javax.ws.rs.ext.Providers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.services.api.datagathering.DatagatheringApi;
+
 /**
  * @author Bob Kubista
  *
  */
+@Path("/")
 public class DatagatheringFacade implements DatagatheringApi {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DatagatheringFacade.class);
@@ -39,9 +45,12 @@ public class DatagatheringFacade implements DatagatheringApi {
 
 	private @Context Providers providers;
 
+	@GET
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Override
-	public Response gatherData(final HttpServletRequest servletRequest, final UriInfo info, final HttpHeaders httpHeaders, final Request request,
-			final SecurityContext securityContext) {
+	public Response gatherData(@Context final HttpServletRequest servletRequest, @Context final UriInfo info, @Context final HttpHeaders httpHeaders,
+			@Context final Request request, @Context final SecurityContext securityContext) {
 		LOGGER.debug("remote adress: {}", servletRequest.getRemoteAddr());
 		final MultivaluedMap<String, String> queryParams = info.getQueryParameters();
 		LOGGER.debug("Logging query params");
@@ -62,17 +71,17 @@ public class DatagatheringFacade implements DatagatheringApi {
 		return Response.ok().build();
 	}
 
-	@Override
-	public void getAsync(@Suspended final AsyncResponse response) {
-		new Thread(() -> {
-			LOGGER.debug("waiting");
-			try {
-				Thread.sleep(2000);
-			} catch (final Exception e) {
-				LOGGER.error(e.getMessage(), e);
-			}
-			LOGGER.debug("resuming request");
-			response.resume("resuming");
-		});
-	}
+	// @Override
+	// public void getAsync(@Suspended final AsyncResponse response) {
+	// new Thread(() -> {
+	// LOGGER.debug("waiting");
+	// try {
+	// Thread.sleep(2000);
+	// } catch (final Exception e) {
+	// LOGGER.error(e.getMessage(), e);
+	// }
+	// LOGGER.debug("resuming request");
+	// response.resume("resuming");
+	// });
+	// }
 }
