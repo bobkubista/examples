@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
 
@@ -28,5 +29,7 @@ public interface ActiveApi<DMO extends ActiveDomainObject<ID>, ID extends Serial
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("active/")
-	Response getAllActive();
+	default Response getAllActive() {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 }

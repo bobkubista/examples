@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 
@@ -49,7 +50,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response create(DMO object);
+	default Response create(final DMO object) {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 
 	/**
 	 * delete the specific object of {@link DomainObject}
@@ -61,7 +64,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@DELETE
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("{id}")
-	public Response delete(@PathParam("id") ID identifier);
+	default Response delete(@PathParam("id") final ID identifier) {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 
 	/**
 	 * get all known {@link DomainObject} of that type
@@ -71,7 +76,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@GET
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response getAll();
+	default Response getAll() {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 
 	/**
 	 * get the {@link DomainObject}
@@ -84,7 +91,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("{id}")
-	public Response getByID(@PathParam("id") ID identifier);
+	default Response getByID(@PathParam("id") final ID identifier) {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 
 	/**
 	 * update the object of {@link DomainObject}
@@ -96,6 +105,8 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@PUT
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response update(DMO object);
+	default Response update(final DMO object) {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
 
 }
