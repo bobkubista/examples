@@ -9,7 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
@@ -35,7 +34,7 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("functionId/{id}")
 	default Response getByFunctionalId(@PathParam("id") final String identifier) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -50,7 +49,7 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("id/{functionalId}")
 	default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -65,6 +64,6 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("searchByFunctionalId/{id}")
 	default Response searchByFunctionalID(@PathParam("id") final String identifier) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 }

@@ -41,6 +41,13 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
 
 	/**
+	 * @return a response with {@link Status.NOT_IMPLEMENTED} as status
+	 */
+	static Response buildNotImplementedResponse() {
+		return Response.status(Status.NOT_IMPLEMENTED).build();
+	}
+
+	/**
 	 * Create the object of {@link DomainObject} type
 	 *
 	 * @param object
@@ -51,7 +58,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response create(final DMO object) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -65,7 +72,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("{id}")
 	default Response delete(@PathParam("id") final ID identifier) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -77,7 +84,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response getAll() {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -92,7 +99,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("{id}")
 	default Response getByID(@PathParam("id") final ID identifier) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 	/**
@@ -106,7 +113,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response update(final DMO object) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+		return IdentifiableApi.buildNotImplementedResponse();
 	}
 
 }
