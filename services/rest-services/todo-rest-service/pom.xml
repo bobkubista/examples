@@ -23,5 +23,10 @@
   		<groupId>bobkubista.examples.utils.service</groupId>
   		<artifactId>jpa-persistance</artifactId>
   	</dependency>
+  	<!-- testing -->
+  	<dependency>
+  		<groupId>bobkubista.examples.utils</groupId>
+  		<artifactId>test-utils</artifactId>
+  	</dependency>
   </dependencies>
 </project>

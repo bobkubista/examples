@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.utils.rest.utils.cache.generic;
+package bobkubista.examples.utils.rest.utils.cache;
 
 import java.util.Collection;
 import java.util.List;

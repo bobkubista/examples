@@ -8,10 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-
 import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
 
 /**

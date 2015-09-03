@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.utils.rest.utils.cache.generic;
+package bobkubista.examples.utils.rest.utils.cache;
 
 import java.io.Serializable;
 import java.util.Collection;

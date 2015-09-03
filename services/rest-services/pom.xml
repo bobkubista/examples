@@ -9,7 +9,7 @@
   <artifactId>rest-services</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>todo-rest -service</module>
+  	<module>todo-rest-service</module>
   </modules>
   
   <dependencyManagement>
@@ -19,6 +19,11 @@
   		<artifactId>jpa-persistance</artifactId>
   		<version>${project.version}</version>
   	</dependency>
+  <dependency>
+  	<groupId>bobkubista.examples.utils</groupId>
+  	<artifactId>test-utils</artifactId>
+  	<version>${project.version}</version>
+  </dependency>
   </dependencies>
   </dependencyManagement>
 </project>
