@@ -18,23 +18,23 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class IdentifierCollection implements DomainObject {
+public class IdentifierCollection<ID> implements DomainObject {
 
 	private static final long serialVersionUID = -8623470897577981147L;
 
 	@XmlElementWrapper(name = "ids")
 	@XmlElement(name = "id")
-	private Collection<Integer> collection = new LinkedList<Integer>();
+	private Collection<ID> collection = new LinkedList<ID>();
 
 	public IdentifierCollection() {
 		super();
 	}
 
-	public IdentifierCollection(final Collection<Integer> collection) {
+	public IdentifierCollection(final Collection<ID> collection) {
 		this.collection = collection;
 	}
 
-	public Collection<Integer> getIdentifiers() {
+	public Collection<ID> getIdentifiers() {
 		return this.collection;
 	}
 }

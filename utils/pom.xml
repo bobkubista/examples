@@ -15,11 +15,12 @@
 		<module>property-utils</module>
 		<module>rest-utils</module>
 		<module>test-utils</module>
+		<module>clients</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
-		<!-- BOM -->
+			<!-- BOM -->
 			<dependency>
 				<groupId>bobkubista.examples.dependencies</groupId>
 				<artifactId>test-dependency</artifactId>
@@ -84,10 +85,10 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-			<groupId>bobkubista.examples.utils.service</groupId>
-			<artifactId>jpa-persistance</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+				<groupId>bobkubista.examples.utils.service</groupId>
+				<artifactId>jpa-persistance</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
