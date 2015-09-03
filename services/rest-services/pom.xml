@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>todo-rest-service</module>
+  	<module>datagathering-rest-service</module>
   </modules>
   
   <dependencyManagement>
