@@ -4,7 +4,6 @@ This is my examples of code that I am trying out stuff with. It is for reference
 Todo:
 backend:
 - implement futures
-- default methodes on api -> return Response.notAllowed
 - static methodes in interfaces
 - SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion 
 - Asynchronous calls
@@ -26,6 +25,7 @@ backend:
 - Vert.x
 - Webservlet: Java EE essentials
 - Rest services
+- Error handling in clients
 
 
 frontend:

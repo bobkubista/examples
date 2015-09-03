@@ -3,6 +3,8 @@
  */
 package bobkubista.example.utils.property;
 
+import java.util.Properties;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,6 +13,14 @@ import org.junit.Test;
  *
  */
 public class ServerPropertiesTest {
+
+	@Test
+	public void testGetProperies() {
+		final Properties result = ServerProperties.getProperies();
+		Assert.assertNotNull(result);
+		Assert.assertFalse(result.isEmpty());
+		Assert.assertEquals(1, result.size());
+	}
 
 	/**
 	 * Test method for

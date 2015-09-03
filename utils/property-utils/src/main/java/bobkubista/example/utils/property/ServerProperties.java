@@ -23,23 +23,11 @@ public enum ServerProperties {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
-	private static Properties props = ServerProperties.getPropertiesFromClasspathFile();
+	private static Properties props;;
 
 	private static final String SERVER_PROP_FILE = "server.properties";
 
-	public static Properties getProperies() {
-		return props;
-	}
-
-	public static String getString(final String key) {
-		String result = null;
-		LOGGER.debug("Getting property for key {}", key);
-		result = props.getProperty(key);
-		LOGGER.debug("Got property for key {} and value {}", key, result);
-		return result;
-	}
-
-	private static Properties getPropertiesFromClasspathFile() {
+	static {
 		if (props == null) {
 			LOGGER.debug("Getting resource file location from classpath");
 			final URL serverPropLocation = Thread.currentThread().getContextClassLoader().getResource(ServerProperties.SERVER_PROP_FILE);
@@ -67,7 +55,18 @@ public enum ServerProperties {
 				}
 			}
 		}
+	}
+
+	public static Properties getProperies() {
 		return props;
+	}
+
+	public static String getString(final String key) {
+		String result = null;
+		LOGGER.debug("Getting property for key {}", key);
+		result = props.getProperty(key);
+		LOGGER.debug("Got property for key {} and value {}", key, result);
+		return result;
 	}
 
 }
