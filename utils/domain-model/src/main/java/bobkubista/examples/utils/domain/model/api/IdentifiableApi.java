@@ -70,7 +70,6 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	 */
 	@DELETE
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("{id}")
 	default Response delete(@PathParam("id") final ID identifier) {
 		return IdentifiableApi.buildNotImplementedResponse();
 	}

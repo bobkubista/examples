@@ -3,6 +3,8 @@
  */
 package bobkubista.examples.services.rest.todo;
 
+import javax.inject.Inject;
+
 import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
 
@@ -12,6 +14,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  */
 public class TodoListService implements ActiveEntityService<TodoListEntity, Long> {
 
+	@Inject
 	private TodoListDao dao;
 
 	@Override

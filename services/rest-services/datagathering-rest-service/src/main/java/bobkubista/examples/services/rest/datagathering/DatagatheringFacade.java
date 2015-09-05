@@ -6,6 +6,7 @@ package bobkubista.examples.services.rest.datagathering;
 import java.net.URI;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -39,7 +40,7 @@ public class DatagatheringFacade implements DatagatheringApi {
 
 	private @Context Application application;
 
-	private final BiConsumer<? super String, ? super Object> keyValueObjectLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
+	private final Consumer<? super String> keyLogger = (t) -> LOGGER.debug("key: {}", t);
 
 	private final BiConsumer<? super String, ? super List<String>> keyValueStringLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
 
@@ -61,7 +62,7 @@ public class DatagatheringFacade implements DatagatheringApi {
 		final URI path = info.getAbsolutePath();
 		LOGGER.debug("path: {}", path.toString());
 		LOGGER.debug("Logging application properties");
-		this.application.getProperties().forEach(this.keyValueObjectLogger);
+		this.application.getProperties().keySet().forEach(this.keyLogger);
 		LOGGER.debug("Logging http request headers");
 		httpHeaders.getRequestHeaders().forEach(this.keyValueStringLogger);
 		LOGGER.debug("Request methode: {}", request.getMethod());

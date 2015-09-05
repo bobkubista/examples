@@ -1,11 +1,7 @@
 package bobkubista.example.utils.property;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -30,24 +26,20 @@ public enum ServerProperties {
 	static {
 		if (props == null) {
 			LOGGER.debug("Getting resource file location from classpath");
-			final URL serverPropLocation = Thread.currentThread().getContextClassLoader().getResource(ServerProperties.SERVER_PROP_FILE);
+			final InputStream serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
 			props = new Properties();
 
 			if (serverPropLocation != null) {
-				final File configFile;
-				InputStream stream = null;
 				try {
 					LOGGER.debug("Loading resource file location from classpath");
-					configFile = new File(serverPropLocation.toURI());
-					stream = new FileInputStream(configFile);
 					LOGGER.debug("Loading properties");
-					props.load(stream);
-				} catch (final URISyntaxException | IOException e) {
+					props.load(serverPropLocation);
+				} catch (final IOException e) {
 					LOGGER.error("Could not load file", e);
 				} finally {
-					if (stream != null) {
+					if (serverPropLocation != null) {
 						try {
-							stream.close();
+							serverPropLocation.close();
 						} catch (final IOException e) {
 							e.printStackTrace();
 						}
