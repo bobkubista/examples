@@ -37,7 +37,6 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * @author bkubista
  *
  */
-@Path("/")
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
 
 	/**
@@ -69,6 +68,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	 * @return
 	 */
 	@DELETE
+	@Path("{id}")
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response delete(@PathParam("id") final ID identifier) {
 		return IdentifiableApi.buildNotImplementedResponse();

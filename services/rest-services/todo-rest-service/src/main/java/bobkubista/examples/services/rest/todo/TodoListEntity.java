@@ -44,8 +44,9 @@ public class TodoListEntity extends ActiveEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todolist")
 	@Column(name = "todolistid")
 	private Long id;
-	@OneToMany(mappedBy = "todolist", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	private final List<TodoEntity> todoList = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private final List<TodoEntity> todoItems = new ArrayList<>();
 	@Basic
 	@Column(unique = true, nullable = false)
 	private String todoListName;
@@ -61,7 +62,7 @@ public class TodoListEntity extends ActiveEntity<Long> {
 	}
 
 	public List<TodoEntity> getTodoList() {
-		return this.todoList;
+		return this.todoItems;
 	}
 
 	@Override
