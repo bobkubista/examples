@@ -12,6 +12,7 @@
 	<modules>
 		<module>todo-rest-service</module>
 		<module>datagathering-rest-service</module>
+		<module>rest-example</module>
 	</modules>
 
 	<dependencyManagement>
