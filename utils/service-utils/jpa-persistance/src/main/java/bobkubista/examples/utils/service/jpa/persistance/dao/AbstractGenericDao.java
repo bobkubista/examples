@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
@@ -24,7 +24,7 @@ public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID
 
 	private final Class<TYPE> entityClass;
 
-	@Inject
+	@PersistenceContext(name = "jpaData")
 	private EntityManager entityManager;
 
 	private final Class<ID> identifierClass;
