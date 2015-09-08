@@ -9,14 +9,18 @@
 	<artifactId>wicket-app</artifactId>
 	<packaging>war</packaging>
 
+	<properties>
+		<wicket.version>7.0.0</wicket.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>1.4.17</version>
+			<artifactId>wicket-core</artifactId>
+			<version>${wicket.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>WicketExamples</finalName>
 

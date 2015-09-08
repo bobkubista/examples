@@ -1,9 +1,8 @@
 /**
  *
  */
-package bobkubista.examples.webapps.wicket;
+package bobkubista.examples.webapps.wicket.helloworld;
 
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
@@ -13,7 +12,9 @@ import org.apache.wicket.markup.html.basic.Label;
  */
 public class Hello extends WebPage {
 
-	public Hello(final PageParameters parameters) {
+	private static final long serialVersionUID = 8569314481611244857L;
+
+	public Hello() {
 
 		this.add(new Label("message", "Hello World, Wicket"));
 
