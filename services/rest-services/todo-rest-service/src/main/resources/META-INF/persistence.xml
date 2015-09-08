@@ -7,7 +7,7 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.default_schema" value="todoitems" />
 			<property name="hibernate.cache.use_second_level_cache"
 				value="false" />
