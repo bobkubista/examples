@@ -19,6 +19,11 @@
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.wicket</groupId> -->
+<!-- 			<artifactId>wicket</artifactId> -->
+<!-- 			<version>1.4.17</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>

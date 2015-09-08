@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.webapps.wicket.helloworld;
+package bobkubista.examples.webapps.wicket.hello;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
