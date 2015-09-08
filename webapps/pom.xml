@@ -10,8 +10,8 @@
 	<artifactId>webapps</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-<!-- 		<module>jsf-app</module> -->
-<!-- 		<module>wicket-app</module> -->
+		<!-- <module>jsf-app</module> -->
+		<module>wicket-app</module>
 	</modules>
 
 	<dependencyManagement>
@@ -19,6 +19,13 @@
 			<dependency>
 				<groupId>bobkubista.examples.dependencies</groupId>
 				<artifactId>javaee-dependency</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.dependencies</groupId>
+				<artifactId>logging-dependency</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -31,5 +38,10 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
 	</dependencies>
+	
 </project>
