@@ -28,16 +28,17 @@ class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoLi
 	@Override
 	protected TodoList doConvertToDomainObject(final TodoListEntity entity) {
 		final TodoList result = new TodoList();
-		result.setActive(entity.isActive());
-		result.setFunctionalId(entity.getFunctionalId());
-		result.setId(entity.getId());
-		result.getTodoList().addAll(entity.getTodoList().stream().map(t -> {
-			final Todo todo = new Todo();
-			todo.setActive(t.isActive());
-			todo.setValue(t.getValue());
-			return todo;
-		}).collect(Collectors.toList()));
-
+		if (entity != null) {
+			result.setActive(entity.isActive());
+			result.setFunctionalId(entity.getFunctionalId());
+			result.setId(entity.getId());
+			result.getTodoList().addAll(entity.getTodoList().stream().map(t -> {
+				final Todo todo = new Todo();
+				todo.setActive(t.isActive());
+				todo.setValue(t.getValue());
+				return todo;
+			}).collect(Collectors.toList()));
+		}
 		return result;
 	}
 

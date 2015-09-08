@@ -3,9 +3,10 @@
  */
 package bobkubista.examples.services.rest.todo;
 
+import org.junit.Assert;
+
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractEntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractTestEntityToDomainConverter;
 
 /**
@@ -14,40 +15,56 @@ import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractTestE
  */
 public class TodoListConverterTest extends AbstractTestEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long> {
 
+	private final TodoListConverter converter = new TodoListConverter();
+
 	@Override
 	protected void assertDomainObject(final TodoList domainModelObject, final TodoListEntity entity) {
-		// TODO Auto-generated method stub
-
+		Assert.assertNotNull(domainModelObject);
+		Assert.assertEquals(entity.getId(), domainModelObject.getId());
+		Assert.assertEquals(entity.isActive(), domainModelObject.isActive());
+		Assert.assertEquals(entity.getFunctionalId(), domainModelObject.getFunctionalId());
+		Assert.assertEquals(entity.getTodoList().size(), domainModelObject.getTodoList().size());
 	}
 
 	@Override
 	protected void assertEntity(final TodoList domainModelObject, final TodoListEntity entity) {
-		// TODO Auto-generated method stub
-
+		Assert.assertNotNull(entity);
+		Assert.assertEquals(entity.getId(), domainModelObject.getId());
+		Assert.assertEquals(entity.isActive(), domainModelObject.isActive());
+		Assert.assertEquals(entity.getFunctionalId(), domainModelObject.getFunctionalId());
+		Assert.assertEquals(entity.getTodoList().size(), domainModelObject.getTodoList().size());
 	}
 
 	@Override
-	protected AbstractEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long> getConverter() {
-		// TODO Auto-generated method stub
-		return null;
+	protected TodoListConverter getConverter() {
+		return this.converter;
 	}
 
 	@Override
 	protected TodoList getEmptyDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TodoList();
 	}
 
 	@Override
 	protected TodoList getValidDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		final TodoList todoList = new TodoList();
+
+		todoList.setActive(true);
+		todoList.setFunctionalId("functionalId");
+		todoList.setId(1L);
+
+		return todoList;
 	}
 
 	@Override
 	protected TodoListEntity getValidEntity() {
-		// TODO Auto-generated method stub
-		return null;
+		final TodoListEntity todoList = new TodoListEntity();
+
+		todoList.setActive(true);
+		todoList.setFunctionalId("functionalId");
+		todoList.setId(1L);
+
+		return todoList;
 	}
 
 }
