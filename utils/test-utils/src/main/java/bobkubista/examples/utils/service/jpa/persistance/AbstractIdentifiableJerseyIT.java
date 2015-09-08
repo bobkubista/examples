@@ -22,8 +22,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 		extends BaseJerseyDbUnitTest {
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/AdminFacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldAcceptJsonAsContentTypeForPostRequest() {
 		final TYPE domainObject = this.create();
 		final TYPE response = this.target("/").request().post(Entity.json(domainObject), this.getSingleClass());
@@ -31,8 +31,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/AdminFacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldAcceptXmlAsContentTypeForPostRequest() {
 		final TYPE domainObject = this.create();
 		final TYPE response = this.target("/").request().post(Entity.xml(domainObject), this.getSingleClass());
@@ -40,8 +40,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/AdminFacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldCreate() {
 		final TYPE domainObject = this.create();
 		final TYPE response = this.target("/").request().post(Entity.xml(domainObject), this.getSingleClass());
@@ -49,29 +49,29 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/AdminFacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldDelete() {
 		this.target("/-1").request().delete();
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetAll() {
 		final COL response = this.target("/").request().get(this.getCollectionClass());
-		this.checkResponse(response, 3);
+		this.checkResponseGetAll(response, 3);
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetById() {
 		final TYPE response = this.target("/" + this.getId()).request().get(this.getSingleClass());
 		this.checkSingle(response);
 	}
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/AdminFacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldUpdate() {
 		TYPE response = this.target("/-1").request().get(this.getSingleClass());
 		response = this.update(response);
@@ -85,7 +85,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	 * @param i
 	 *            the amount in the collection
 	 */
-	protected abstract void checkResponse(COL response, int i);
+	protected abstract void checkResponseGetAll(COL response, int i);
 
 	/**
 	 * check a single instance
