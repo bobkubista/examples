@@ -8,14 +8,15 @@ backend:
 - SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 - Asynchronous calls 
 - Non blocking IO
-- Security
+- Security:
+	- stateless security client side cross site request forgery tokens (CSRF tokens) in cookie and http header check in a 		filter/interceptor
+- apache kafka
+- spring data
 - SOAP
 - Websockets
-- CDI
 - Message driven beans
 - EJB
 - JTA
-- JPA
 - JMS
 - Batch processing
 - Lambda logging
