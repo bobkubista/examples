@@ -41,7 +41,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 	 * Constructor
 	 */
 	public AbstractIdentifiableAutoCache() {
-		this.cache = CacheBuilder.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES).expireAfterWrite(1, TimeUnit.MINUTES).recordStats().concurrencyLevel(255)
+		this.cache = CacheBuilder.newBuilder().expireAfterAccess(15, TimeUnit.MINUTES).expireAfterWrite(30, TimeUnit.MINUTES).recordStats().concurrencyLevel(255)
 				.initialCapacity(INITIAL_CAPACITY).ticker(Ticker.systemTicker()).build(this);
 	}
 
