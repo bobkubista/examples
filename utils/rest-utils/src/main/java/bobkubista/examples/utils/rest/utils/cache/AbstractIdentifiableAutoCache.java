@@ -19,7 +19,7 @@ import com.google.common.cache.LoadingCache;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
-import bobkubista.examples.utils.rest.utils.IdentifiableService;
+import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
 /**
  * Abstract Cacheloader that cleans its self and only retains used objects.

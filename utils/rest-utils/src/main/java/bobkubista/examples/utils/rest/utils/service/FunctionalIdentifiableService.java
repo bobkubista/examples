@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.rest.utils;
+package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 

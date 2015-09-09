@@ -12,8 +12,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
-import bobkubista.examples.utils.rest.utils.FunctionalIdentifiableService;
-import bobkubista.examples.utils.rest.utils.IdentifiableService;
+import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
+import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
 /**
  * @author bkubista
