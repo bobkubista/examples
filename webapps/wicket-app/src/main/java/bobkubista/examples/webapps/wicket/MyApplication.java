@@ -18,5 +18,4 @@ public class MyApplication extends WebApplication {
 	public Class<? extends Page> getHomePage() {
 		return Hello.class;
 	}
-
 }

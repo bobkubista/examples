@@ -18,12 +18,33 @@
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>bobkubista.examples.utils.clients</groupId>
-			<artifactId>todo-client</artifactId>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-cdi</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-cdi-1.1</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>bobkubista.examples.utils</groupId>
+			<artifactId>rest-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>bobkubista.examples.services.api</groupId>
+			<artifactId>todo-rest-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>bobkubista.examples.utils.clients</groupId> -->
+		<!-- <artifactId>todo-client</artifactId> -->
+		<!-- <version>${project.version}</version> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 	<build>

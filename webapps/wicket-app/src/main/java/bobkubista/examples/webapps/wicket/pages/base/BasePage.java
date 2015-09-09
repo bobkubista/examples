@@ -16,4 +16,5 @@ public abstract class BasePage extends WebPage {
 		this.add(new Label("header", "This is in the header"));
 		this.add(new Label("footer", "This is in the footer"));
 	}
+
 }
