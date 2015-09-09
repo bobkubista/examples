@@ -1,10 +1,8 @@
-/**
- *
- */
 package bobkubista.examples.webapps.wicket.pages;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import bobkubista.examples.services.api.todo.domain.Todo;
@@ -30,18 +28,33 @@ public class TodoServiceMock implements TodoService {
 		return todoService;
 	}
 
+	private final Map<String, Long> functionalIdMap = new HashMap<>();
+
+	private final Map<Long, TodoList> list = new HashMap<>();
+
 	private TodoServiceMock() {
+		for (long i = 0; i < 3; i++) {
+			final TodoList todoList = this.buildTodoList(i);
+			this.functionalIdMap.put(todoList.getFunctionalId(), todoList.getId());
+			this.list.put(todoList.getId(), todoList);
+		}
+	}
+
+	@Override
+	public void create(final TodoList object) {
+		this.list.put(object.getId(), object);
+		this.functionalIdMap.put(object.getFunctionalId(), object.getId());
+	}
+
+	@Override
+	public void delete(final Long id) {
+		this.functionalIdMap.remove(this.list.get(id).getFunctionalId());
+		this.list.remove(id);
 	}
 
 	@Override
 	public Collection<TodoList> getAll() {
-		final Collection<TodoList> result = new ArrayList<>();
-		for (long i = 0; i < 3; i++) {
-			final TodoList todoList = this.buildTodoList(i);
-
-			result.add(todoList);
-		}
-		return result;
+		return this.list.values();
 	}
 
 	@Override
@@ -51,17 +64,24 @@ public class TodoServiceMock implements TodoService {
 
 	@Override
 	public TodoList getByFunctionalId(final String functionalId) {
-		return this.buildTodoList(functionalId);
+		return this.list.get(this.functionalIdMap.get(functionalId));
 	}
 
 	@Override
 	public TodoList getByID(final Long id) {
-		return this.buildTodoList(id);
+		return this.list.get(id);
 	}
 
 	@Override
 	public Long getIdByFunctionalId(final String fId) {
-		return 1L;
+		return this.functionalIdMap.get(fId);
+	}
+
+	@Override
+	public TodoList update(final TodoList object) {
+		this.list.replace(object.getId(), object);
+		this.functionalIdMap.put(object.getFunctionalId(), object.getId());
+		return object;
 	}
 
 	private Todo buildTodo() {
@@ -86,10 +106,6 @@ public class TodoServiceMock implements TodoService {
 			return todoList;
 		};
 		return biFunction.apply(i, functionalId);
-	}
-
-	private TodoList buildTodoList(final String functionalId) {
-		return this.buildTodoList(1l, functionalId);
 	}
 
 }
