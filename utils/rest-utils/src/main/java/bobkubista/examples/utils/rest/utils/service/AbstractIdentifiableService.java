@@ -7,9 +7,9 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
+import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
-import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy;
 
 /**
  * @author Bob Kubista
@@ -31,6 +31,16 @@ public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomai
 	}
 
 	@Override
+	public void create(final TYPE object) {
+		this.getProxy().create(object);
+	}
+
+	@Override
+	public void delete(final ID id) {
+		this.getProxy().delete(id);
+	}
+
+	@Override
 	public Collection<TYPE> getAll() {
 		return this.getProxy().getAll().readEntity(this.collectionClass).getDomainCollection();
 	}
@@ -38,6 +48,11 @@ public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomai
 	@Override
 	public TYPE getByID(final ID id) {
 		return this.getProxy().getByID(id).readEntity(this.domainClass);
+	}
+
+	@Override
+	public TYPE update(final TYPE object) {
+		return this.getProxy().update(object).readEntity(this.domainClass);
 	}
 
 	protected Class<COL> getCollectionClass() {
@@ -52,5 +67,5 @@ public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomai
 		return this.identifierClass;
 	}
 
-	protected abstract AbstractGenericRestIdentifiableProxy<TYPE, ID> getProxy();
+	protected abstract IdentifiableApi<TYPE, ID> getProxy();
 }
