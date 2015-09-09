@@ -5,11 +5,15 @@
 <body>
 	<wicket:extend>
 		<span wicket:id="body"></span>
-		<span wicket:id="todos">
-			<p>
-				<span wicket:id="todoListName">1/1/2015</span><br>
-			</p>
+		<span wicket:id="todos"> <BR> <span
+			wicket:id="todoListName">1/1/2015</span><br>
 		</span>
+		<form wicket:id="form">
+			<select wicket:id="todo">
+				<option>Some Person</option>
+				<option>Some Other Person</option>
+			</select>
+		</form>
 	</wicket:extend>
 </body>
 </html>

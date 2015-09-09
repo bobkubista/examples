@@ -4,9 +4,12 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 
+import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.webapps.wicket.pages.base.BasePage;
 
@@ -38,7 +41,10 @@ public class Hello extends BasePage {
 				item.add(new Label("todoListName"));
 			}
 		});
-
+		final Form form = new Form("form");
+		this.add(form);
+		final DropDownChoice<Todo> dcc = new DropDownChoice<Todo>("todo", Hello.this.todoService.getByID(1L).getTodoList());
+		form.add(dcc);
 	}
 
 }
