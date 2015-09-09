@@ -11,6 +11,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>todo-client</module>
+		<module>user-client</module>
 	</modules>
 
 	<dependencyManagement>
@@ -23,6 +24,11 @@
 			<dependency>
 				<groupId>bobkubista.examples.services.api</groupId>
 				<artifactId>todo-rest-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.services</groupId>
+				<artifactId>user-service-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
