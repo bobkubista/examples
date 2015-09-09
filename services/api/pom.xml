@@ -11,6 +11,7 @@
   <modules>
   	<module>todo-rest-api</module>
   	<module>datagathering-rest-api</module>
+  	<module>user-service-api</module>
   </modules>
   
 </project>
