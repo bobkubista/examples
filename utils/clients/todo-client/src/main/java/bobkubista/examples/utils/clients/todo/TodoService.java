@@ -5,17 +5,19 @@ package bobkubista.examples.utils.clients.todo;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.rest.utils.ActiveService;
 
 /**
  * @author Bob Kubista
  *
  */
 // TODO make this generic
-public class TodoService implements ActiveService<TodoList, Long, TodoListCollection> {
+public class TodoService implements TodoServiceInteface {
 
+	@Inject
 	private TodoProxy proxy;
 
 	@Override
