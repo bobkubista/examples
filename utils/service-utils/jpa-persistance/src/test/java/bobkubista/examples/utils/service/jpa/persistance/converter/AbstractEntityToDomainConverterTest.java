@@ -9,6 +9,11 @@ import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import bobkubista.examples.utils.service.jpa.persistance.mocks.MockConverter;
+import bobkubista.examples.utils.service.jpa.persistance.mocks.MockDomain;
+import bobkubista.examples.utils.service.jpa.persistance.mocks.MockDomainCollection;
+import bobkubista.examples.utils.service.jpa.persistance.mocks.MockEntity;
+
 /**
  * @author Bob Kubista
  *

@@ -1,12 +1,13 @@
 /**
  *
  */
-package bobkubista.examples.utils.service.jpa.persistance.converter;
+package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
+import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractEntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**

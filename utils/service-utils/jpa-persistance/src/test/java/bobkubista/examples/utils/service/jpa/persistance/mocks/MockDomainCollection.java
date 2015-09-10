@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance.converter;
+package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
 import java.util.Collection;
 import java.util.LinkedList;

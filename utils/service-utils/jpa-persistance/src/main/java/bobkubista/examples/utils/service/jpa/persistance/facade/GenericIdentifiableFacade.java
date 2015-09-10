@@ -16,19 +16,14 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
- * A generic implementation of the {@link IdentifiableApi}. In general, only
- * get opperations are supported. Create, update and delete should only be used
- * in admin applications. If you want to create, update or delete from a webapp,
+ * A generic implementation of the {@link IdentifiableApi}. In general, only get
+ * opperations are supported. Create, update and delete should only be used in
+ * admin applications. If you want to create, update or delete from a webapp,
  * override the methodes and implement them seperatly.
  *
- * @param <DMO>
- *            A {@link DomainObject}
- * @param <TYPE>
- *            An {@link IdentifiableEntity}
- * @param <ID>
- *            An {@link Serializable} identifier
- * @param <DMOL>
- *            A {@link DomainObjectCollection}
+ * @param <DMO> A {@link DomainObject} @param <TYPE> An {@link
+ * IdentifiableEntity} @param <ID> An {@link Serializable} identifier @param
+ * <DMOL> A {@link DomainObjectCollection}
  *
  * @author bkubista
  *
@@ -54,7 +49,7 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 			this.getService().delete(entity);
 			return Response.ok().build();
 		} else {
-			return Response.serverError().build();
+			throw new NotFoundException();
 		}
 	}
 
@@ -74,6 +69,13 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 		}
 	}
 
+	@Override
+	public Response update(final DMO object) {
+		final TYPE entity = this.getConverter().convertToEntity(object);
+		this.getService().update(entity);
+		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
+	}
+
 	/**
 	 * Get the {@link EntityToDomainConverter}
 	 *
@@ -87,11 +89,4 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 	 * @return {@link IdentifiableEntityService}
 	 */
 	protected abstract IdentifiableEntityService<TYPE, ID> getService();
-
-	@Override
-	public Response update(final DMO object) {
-		final TYPE entity = this.getConverter().convertToEntity(object);
-		this.getService().update(entity);
-		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
-	}
 }

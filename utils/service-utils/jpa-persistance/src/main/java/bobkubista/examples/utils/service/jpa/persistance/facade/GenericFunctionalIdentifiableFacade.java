@@ -5,6 +5,7 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
@@ -14,15 +15,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdenti
 import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIdentifiableEntityService;
 
 /**
- * @author bkubista
- * @param <DMO>
- *            {@link FunctionalIdentifiableDomainObject}
- * @param <TYPE>
- *            {@link FunctionalIdentifiableEntity}
- * @param <ID>
- *            Identifier
- * @param <DMOL>
- *            {@link DomainObjectCollection}
+ * @author bkubista @param <DMO> {@link
+ * FunctionalIdentifiableDomainObject} @param <TYPE> {@link
+ * FunctionalIdentifiableEntity} @param <ID> Identifier @param <DMOL> {@link
+ * DomainObjectCollection}
  */
 public abstract class GenericFunctionalIdentifiableFacade<DMO extends FunctionalIdentifiableDomainObject<ID>, TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends DomainObjectCollection<DMO>>
 		extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
@@ -30,12 +26,22 @@ public abstract class GenericFunctionalIdentifiableFacade<DMO extends Functional
 	@Override
 	public Response getByFunctionalId(final String identifier) {
 		final TYPE result = this.getService().getByFunctionalId(identifier);
-		return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+		if (result == null) {
+			throw new NotFoundException();
+		} else {
+			return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+		}
 	}
 
 	@Override
 	public Response getIdByFunctionalId(final String fId) {
-		return Response.ok(this.getService().getIdByFunctionalId(fId)).build();
+		final ID result = this.getService().getIdByFunctionalId(fId);
+
+		if (result == null) {
+			throw new NotFoundException();
+		} else {
+			return Response.ok(result).build();
+		}
 	}
 
 	@Override

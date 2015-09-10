@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance.converter;
+package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
 
