@@ -18,11 +18,21 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  */
 public class MockFacade extends GenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
 
+	/**
+	 * @return
+	 */
+	private MockEntity buildMockEntity() {
+		final MockEntity entity = new MockEntity();
+		entity.setId(1L);
+		entity.setFunctionalId("Bla");
+		return entity;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> getConverter() {
-		@SuppressWarnings("unchecked")
-		final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito.mock(EntityToDomainConverter.class);
+		final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito
+				.mock(EntityToDomainConverter.class);
 		Mockito.when(mock.convertToEntity((MockDomain) null)).thenReturn(null);
 
 		final MockEntity entity = this.buildMockEntity();
@@ -53,17 +63,9 @@ public class MockFacade extends GenericActiveFacade<MockDomain, Long, MockEntity
 
 		Mockito.when(mock.searchByFunctionalID("B")).thenReturn(Collections.singletonList(this.buildMockEntity()));
 
-		return mock;
-	}
+		Mockito.when(mock.update(Matchers.any(MockEntity.class))).thenReturn(this.buildMockEntity());
 
-	/**
-	 * @return
-	 */
-	private MockEntity buildMockEntity() {
-		final MockEntity entity = new MockEntity();
-		entity.setId(1L);
-		entity.setFunctionalId("Bla");
-		return entity;
+		return mock;
 	}
 
 }
