@@ -12,9 +12,9 @@ public class GenericTestActiveDomainObject extends ActiveDomainObject<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
+	private final Integer id = 1;
 	private final boolean active = true;
 	private final String functionalId = "testObject";
-	private final Integer id = 1;
 
 	@Override
 	public String getFunctionalId() {
