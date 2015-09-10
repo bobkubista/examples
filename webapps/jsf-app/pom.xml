@@ -8,4 +8,10 @@
   <groupId>bobkubista.examples.webapps</groupId>
   <artifactId>jsf-app</artifactId>
   <packaging>war</packaging>
+  <dependencies>
+  	<dependency>
+  		<groupId>bobkubista.examples.utils.clients</groupId>
+  		<artifactId>user-client</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

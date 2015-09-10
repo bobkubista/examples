@@ -10,7 +10,7 @@
 	<artifactId>webapps</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<!-- <module>jsf-app</module> -->
+		<module>jsf-app</module>
 		<module>wicket-app</module>
 	</modules>
 
@@ -36,6 +36,11 @@
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.utils.clients</groupId>
+				<artifactId>user-client</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
