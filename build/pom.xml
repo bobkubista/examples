@@ -58,7 +58,9 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<ciManagement></ciManagement>
+	<ciManagement>
+		<url>localhost:8080</url>
+	</ciManagement>
 
 	<issueManagement></issueManagement>
 
