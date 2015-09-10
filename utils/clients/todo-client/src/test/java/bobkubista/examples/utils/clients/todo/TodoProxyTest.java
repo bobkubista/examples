@@ -3,9 +3,11 @@
  */
 package bobkubista.examples.utils.clients.todo;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
@@ -16,8 +18,10 @@ import bobkubista.examples.services.api.todo.domain.TodoListCollection;
  * @author Bob Kubista
  *
  */
+@Ignore // TODO
 public class TodoProxyTest {
 
+	@Inject
 	private TodoProxy proxy;
 
 	@Test
