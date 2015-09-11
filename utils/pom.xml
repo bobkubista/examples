@@ -16,6 +16,7 @@
 		<module>rest-utils</module>
 		<module>test-utils</module>
 		<module>clients</module>
+		<module>jee-utils</module>
 	</modules>
 
 	<dependencyManagement>
@@ -102,11 +103,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- testing -->
