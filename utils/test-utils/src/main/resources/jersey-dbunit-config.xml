@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 
     <import resource="classpath:/spring/spring-config.xml"/>
-    <import resource="classpath:/persistanceContext.xml" />
+    <import resource="classpath:/persistenceContext.xml" />
 
     <!-- db unit configuration -->
     <bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
