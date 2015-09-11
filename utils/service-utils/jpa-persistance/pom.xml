@@ -90,5 +90,10 @@
 			<artifactId>property-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>bobkubista.examples.utils</groupId>
+			<artifactId>jee-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
