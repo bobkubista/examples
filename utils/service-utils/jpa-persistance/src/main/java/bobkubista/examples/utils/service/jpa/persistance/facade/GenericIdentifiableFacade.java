@@ -21,15 +21,16 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * admin applications. If you want to create, update or delete from a webapp,
  * override the methodes and implement them seperatly.
  *
- * @param <DMO> A {@link DomainObject} @param <TYPE> An {@link
- * IdentifiableEntity} @param <ID> An {@link Serializable} identifier @param
- * <DMOL> A {@link DomainObjectCollection}
+ * @param <DMO>
+ *            A {@link DomainObject} @param <TYPE> An
+ *            {@link IdentifiableEntity} @param <ID> An {@link Serializable}
+ *            identifier @param <DMOL> A {@link DomainObjectCollection}
  *
  * @author bkubista
  *
  */
 public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL extends DomainObjectCollection<DMO>, TYPE extends IdentifiableEntity<ID>, ID extends Serializable>
-		implements IdentifiableApi<DMO, ID> {
+        implements IdentifiableApi<DMO, ID> {
 
 	@Override
 	public Response create(final DMO object) {
@@ -69,13 +70,6 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 		}
 	}
 
-	@Override
-	public Response update(final DMO object) {
-		final TYPE entity = this.getConverter().convertToEntity(object);
-		this.getService().update(entity);
-		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
-	}
-
 	/**
 	 * Get the {@link EntityToDomainConverter}
 	 *
@@ -89,4 +83,11 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 	 * @return {@link IdentifiableEntityService}
 	 */
 	protected abstract IdentifiableEntityService<TYPE, ID> getService();
+
+	@Override
+	public Response update(final DMO object) {
+		final TYPE entity = this.getConverter().convertToEntity(object);
+		this.getService().update(entity);
+		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
+	}
 }
