@@ -17,5 +17,6 @@
   	<module>javaee-dependency</module>
   	<module>logging-dependency</module>
   	<module>common-dependency</module>
+  	<module>spring-dependency</module>
   </modules>
 </project>
