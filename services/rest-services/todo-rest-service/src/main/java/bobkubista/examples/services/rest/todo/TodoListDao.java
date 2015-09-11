@@ -3,9 +3,10 @@
  */
 package bobkubista.examples.services.rest.todo;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
 import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
@@ -14,7 +15,7 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
  * @author Bob Kubista
  *
  */
-@Default
+@Repository
 class TodoListDao extends ActiveEntityDao<TodoListEntity, Long>implements ActiveDAO<TodoListEntity, Long> {
 
 	@Override

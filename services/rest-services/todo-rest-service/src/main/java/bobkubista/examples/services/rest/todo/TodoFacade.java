@@ -1,7 +1,8 @@
 package bobkubista.examples.services.rest.todo;
 
-import javax.inject.Inject;
 import javax.ws.rs.Path;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import bobkubista.examples.services.api.todo.TodoApi;
 import bobkubista.examples.services.api.todo.domain.TodoList;
@@ -13,9 +14,9 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFac
 @Logging
 public class TodoFacade extends GenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
 
-	@Inject
+	@Autowired
 	private TodoListConverter converter;
-	@Inject
+	@Autowired
 	private TodoListService service;
 
 	@Override

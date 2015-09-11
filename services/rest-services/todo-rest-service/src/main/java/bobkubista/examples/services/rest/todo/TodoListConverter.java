@@ -5,9 +5,9 @@ package bobkubista.examples.services.rest.todo;
 
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
@@ -19,10 +19,11 @@ import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomai
  * @author Bob Kubista
  *
  */
+@Component
 class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long>
 		implements EntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity> {
 
-	@Inject
+	@Autowired
 	private TodoListService service;
 
 	@Override

@@ -13,13 +13,11 @@ import org.slf4j.LoggerFactory;
  * @author Bob Kubista
  *
  */
-public enum ServerProperties {
-
-	INSTANCE;
+public final class ServerProperties {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
-	private static Properties props;;
+	private static Properties props;
 
 	private static final String SERVER_PROP_FILE = "server.properties";
 
