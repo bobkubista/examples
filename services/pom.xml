@@ -33,6 +33,13 @@
 				<artifactId>domain-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.dependencies</groupId>
+				<artifactId>logging-dependency</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -48,6 +55,11 @@
 		<dependency>
 			<groupId>bobkubista.examples.utils</groupId>
 			<artifactId>property-utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
