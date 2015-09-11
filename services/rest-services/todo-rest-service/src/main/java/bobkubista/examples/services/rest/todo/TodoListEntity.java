@@ -49,7 +49,7 @@ public class TodoListEntity extends ActiveEntity<Long> {
 	// orphanRemoval = true)
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "todoitem")
-	private final List<TodoEntity> todoItems = new ArrayList<>();
+	private List<TodoEntity> todoItems = new ArrayList<>();
 
 	@Basic
 	@Column(unique = true, nullable = false)
