@@ -19,7 +19,6 @@
 		<jersey-test-framework-provider-grizzly2.version>2.17</jersey-test-framework-provider-grizzly2.version>
 		<jsoup.version>1.8.2</jsoup.version>
 		<jayway-jsonpath.version>2.0.0</jayway-jsonpath.version>
-		
 	</properties>
 
 	<dependencyManagement>
@@ -66,10 +65,10 @@
 			</dependency>
 
 			<dependency>
-                <groupId>com.github.springtestdbunit</groupId>
-                <artifactId>spring-test-dbunit</artifactId>
-                <version>${spring-test-dbunit.version}</version>
-            </dependency>
+				<groupId>com.github.springtestdbunit</groupId>
+				<artifactId>spring-test-dbunit</artifactId>
+				<version>${spring-test-dbunit.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.jayway.jsonpath</groupId>
 				<artifactId>json-path</artifactId>
