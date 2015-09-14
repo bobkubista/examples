@@ -15,4 +15,14 @@
 		<module>todo-cdi-rest-service</module>
 		<module>user-cdi-rest-service</module>
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+		<dependency>
+			<groupId>bobkubista.examples.utils.service</groupId>
+			<artifactId>jpa-persistance</artifactId>
+			<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
