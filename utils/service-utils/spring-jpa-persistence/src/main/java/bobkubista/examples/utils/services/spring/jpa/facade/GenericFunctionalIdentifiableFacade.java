@@ -29,7 +29,8 @@ public abstract class GenericFunctionalIdentifiableFacade<DMO extends Functional
 		if (result == null) {
 			throw new NotFoundException();
 		} else {
-			return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+			DMO convertToDomainObject = this.getConverter().convertToDomainObject(result);
+			return Response.ok(convertToDomainObject).build();
 		}
 	}
 

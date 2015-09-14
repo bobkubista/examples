@@ -3,22 +3,20 @@
  */
 package bobkubista.examples.utils.services.spring.jpa.facade;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.services.spring.jpa.mocks.MockDomain;
-import bobkubista.examples.utils.services.spring.jpa.mocks.MockDomainCollection;
 import bobkubista.examples.utils.services.spring.jpa.mocks.MockFacade;
 
 /**
  * @author Bob Kubista
  *
  */
-@Ignore // TODO fix classnotfoundexception
+// @Ignore // TODO fix classnotfoundexception
 public class GenericActiveFacadeTest {
 
 	MockFacade facade = new MockFacade();
@@ -35,11 +33,9 @@ public class GenericActiveFacadeTest {
 		Assert.assertEquals(201, result.getStatus());
 	}
 
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testCreateNull() {
-		final Response result = this.facade.create(null);
-		Assert.assertNotNull(result);
-		Assert.assertEquals(500, result.getStatus());
+		this.facade.create(null);
 	}
 
 	/**
@@ -54,11 +50,10 @@ public class GenericActiveFacadeTest {
 		Assert.assertEquals(200, result.getStatus());
 	}
 
-	@Test
+	@Test(expected = NotFoundException.class)
 	public void testDeleteNotFound() {
-		final Response result = this.facade.delete(2L);
-		Assert.assertNotNull(result);
-		Assert.assertEquals(404, result.getStatus());
+		this.facade.delete(2L);
+		Assert.fail();
 	}
 
 	/**
@@ -70,8 +65,7 @@ public class GenericActiveFacadeTest {
 	public void testGetAll() {
 		final Response result = this.facade.getAll();
 		Assert.assertNotNull(result);
-		final MockDomainCollection collection = result.readEntity(MockDomainCollection.class);
-		Assert.assertNotNull(collection);
+		Assert.assertNotNull(result.getEntity());
 	}
 
 	/**
@@ -83,8 +77,7 @@ public class GenericActiveFacadeTest {
 	public void testGetAllActive() {
 		final Response result = this.facade.getAllActive();
 		Assert.assertNotNull(result);
-		final MockDomainCollection collection = result.readEntity(MockDomainCollection.class);
-		Assert.assertNotNull(collection);
+		Assert.assertNotNull(result.getEntity());
 	}
 
 	/**
@@ -97,15 +90,12 @@ public class GenericActiveFacadeTest {
 		final Response result = this.facade.getByFunctionalId("Bla");
 		Assert.assertNotNull(result);
 		Assert.assertEquals(200, result.getStatus());
-		Assert.assertNotNull(result.readEntity(MockDomain.class));
+		Assert.assertNotNull(result.getEntity());
 	}
 
-	@Test
+	@Test(expected = NotFoundException.class)
 	public void testGetByFunctionalIdNull() {
-		final Response result = this.facade.getByFunctionalId("");
-		Assert.assertNotNull(result);
-		Assert.assertEquals(404, result.getStatus());
-		Assert.assertNotNull(result.readEntity(MockDomain.class));
+		this.facade.getByFunctionalId("");
 	}
 
 	/**
@@ -118,14 +108,13 @@ public class GenericActiveFacadeTest {
 		final Response result = this.facade.getByFunctionalId("Bla");
 		Assert.assertNotNull(result);
 		Assert.assertEquals(200, result.getStatus());
-		Assert.assertNotNull(result.readEntity(MockDomain.class));
+		Assert.assertNotNull(result.getEntity());
 	}
 
-	@Test
+	@Test(expected = NotFoundException.class)
 	public void testGetByIDNull() {
-		final Response result = this.facade.getByID(2L);
-		Assert.assertNotNull(result);
-		Assert.assertEquals(404, result.getStatus());
+		this.facade.getByID(2L);
+		Assert.fail();
 	}
 
 	/**
@@ -138,14 +127,13 @@ public class GenericActiveFacadeTest {
 		final Response result = this.facade.getIdByFunctionalId("Bla");
 		Assert.assertNotNull(result);
 		Assert.assertEquals(200, result.getStatus());
-		Assert.assertNotNull(result.readEntity(Long.class));
+		Assert.assertNotNull(result.getEntity());
 	}
 
-	@Test
+	@Test(expected = NotFoundException.class)
 	public void testGetIdByFunctionalIdNull() {
-		final Response result = this.facade.getIdByFunctionalId("");
-		Assert.assertNotNull(result);
-		Assert.assertEquals(404, result.getStatus());
+		this.facade.getIdByFunctionalId("");
+		Assert.fail();
 	}
 
 	/**
@@ -158,10 +146,7 @@ public class GenericActiveFacadeTest {
 		final Response result = this.facade.searchByFunctionalID("B");
 		Assert.assertNotNull(result);
 		Assert.assertEquals(200, result.getStatus());
-		@SuppressWarnings("unchecked")
-		final DomainObjectCollection<MockDomain> collection = result.readEntity(DomainObjectCollection.class);
-		Assert.assertNotNull(collection);
-		Assert.assertFalse(collection.getDomainCollection().isEmpty());
+		Assert.assertNotNull(result.getEntity());
 	}
 
 	/**
@@ -175,7 +160,7 @@ public class GenericActiveFacadeTest {
 		final Response result = this.facade.update(object);
 
 		Assert.assertNotNull(result);
-		Assert.assertNull(result.readEntity(MockDomain.class));
+		Assert.assertNotNull(result.getEntity());
 	}
 
 }
