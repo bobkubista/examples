@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>jpa-persistance</module>
+  	<module>spring-jpa-persistence</module>
   </modules>
   
    <dependencyManagement>
