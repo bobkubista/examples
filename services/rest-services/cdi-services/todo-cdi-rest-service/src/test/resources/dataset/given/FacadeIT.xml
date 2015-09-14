@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<todolist todolistid="1" inserteddate="2015-01-01" updateddate="2015-01-01" functionalid="todoitem.a" active="true"/>
+	<todolist todolistid="2" inserteddate="2015-01-01" updateddate="2015-01-01" functionalid="todoitem.b" active="true"/>
+	<todolist todolistid="3" inserteddate="2015-01-01" updateddate="2015-01-01" functionalid="todoitem.c" active="true"/>
+	<todoitem id="1" inserteddate="2015-01-01" updateddate="2015-01-01"/>
+	<todoitem id="2" inserteddate="2015-01-01" updateddate="2015-01-01"/>
+</dataset>
