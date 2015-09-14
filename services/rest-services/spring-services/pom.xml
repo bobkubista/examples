@@ -9,6 +9,12 @@
 	<groupId>bobkubista.examples.services.rest</groupId>
 	<artifactId>spring-services</artifactId>
 	<packaging>pom</packaging>
+
+	<modules>
+		<module>todo-rest-service</module>
+		<module>user-service</module>
+	</modules>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -17,6 +23,11 @@
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>bobkubista.examples.utils.services</groupId>
+				<artifactId>spring-jpa-persistence</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -21,10 +21,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>bobkubista.examples.utils.service</groupId>
-			<artifactId>jpa-persistance</artifactId>
+			<groupId>bobkubista.examples.utils.services</groupId>
+			<artifactId>spring-jpa-persistence</artifactId>
 		</dependency>
-
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -47,9 +46,9 @@
 			<artifactId>spring-test-dbunit</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
-        </dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-spring3</artifactId>
+		</dependency>
 		<!-- testing -->
 		<dependency>
 			<groupId>bobkubista.examples.utils</groupId>
