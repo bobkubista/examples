@@ -10,10 +10,8 @@
 	<artifactId>rest-services</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>todo-rest-service</module>
-		<module>datagathering-rest-service</module>
-		<module>rest-example</module>
-		<module>user-service</module>
+		<module>spring-services</module>
+		<module>cdi-services</module>
 	</modules>
 
 	<dependencyManagement>
@@ -31,13 +29,6 @@
 			<dependency>
 				<groupId>bobkubista.examples.dependencies</groupId>
 				<artifactId>rest-dependency</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>bobkubista.examples.dependencies</groupId>
-				<artifactId>spring-dependency</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

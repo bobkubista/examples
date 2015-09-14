@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>bobkubista.examples.services</groupId>
-		<artifactId>rest-services</artifactId>
+		<groupId>bobkubista.examples.services.rest</groupId>
+		<artifactId>spring-services</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>bobkubista.examples.services.rest</groupId>
+	<groupId>bobkubista.examples.services.rest.spring</groupId>
 	<artifactId>todo-rest-service</artifactId>
 	<packaging>war</packaging>
 

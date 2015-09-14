@@ -5,6 +5,7 @@
     <artifactId>rest-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>rest-example</artifactId>
-  <packaging>war</packaging>
+  <groupId>bobkubista.examples.services.rest</groupId>
+  <artifactId>cdi-services</artifactId>
+  <packaging>pom</packaging>
 </project>
