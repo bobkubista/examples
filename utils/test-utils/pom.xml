@@ -19,7 +19,7 @@
 			<artifactId>domain-model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>bobkubista.examples.utils.service</groupId>
+			<groupId>bobkubista.examples.utils.services</groupId>
 			<artifactId>jpa-persistance</artifactId>
 		</dependency>
 		<dependency>

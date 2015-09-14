@@ -21,7 +21,7 @@
 		</dependency>
 		<dependency>
 			<groupId>bobkubista.examples.utils.services</groupId>
-			<artifactId>spring-jpa-persistence</artifactId>
+			<artifactId>jpa-persistance</artifactId>
 		</dependency>
 		<!-- testing -->
 		<dependency>

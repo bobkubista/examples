@@ -19,7 +19,7 @@
 	<dependencyManagement>
 		<dependencies>
 		<dependency>
-			<groupId>bobkubista.examples.utils.service</groupId>
+			<groupId>bobkubista.examples.utils.services</groupId>
 			<artifactId>jpa-persistance</artifactId>
 			<version>${project.version}</version>
 			</dependency>

@@ -6,7 +6,7 @@
 		<artifactId>service-utils</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>bobkubista.examples.utils.service</groupId>
+	<groupId>bobkubista.examples.utils.services</groupId>
 	<artifactId>jpa-persistance</artifactId>
 
 	<dependencies>

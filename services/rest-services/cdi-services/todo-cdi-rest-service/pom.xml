@@ -20,7 +20,7 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>bobkubista.examples.utils.service</groupId>
+			<groupId>bobkubista.examples.utils.services</groupId>
 			<artifactId>jpa-persistance</artifactId>
 			<exclusions>
 				<exclusion>
