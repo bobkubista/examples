@@ -9,6 +9,7 @@ import org.junit.Assert;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.services.rest.todo.TodoFacade;
 import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
 
 /**
@@ -17,9 +18,9 @@ import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerse
  */
 public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Long, TodoListCollection> {
 
-	private static final String FUNCTIONALID = "something";
-	private static final Long ID = -1L;
-	private static final String PARTIAL_FUNCTIONAL_ID = "some";
+	private static final String FUNCTIONALID = "todoitem.a";
+	private static final Long ID = 1L;
+	private static final String PARTIAL_FUNCTIONAL_ID = "todoitem";
 
 	@Override
 	public ResourceConfig configure(final ResourceConfig rc) {
@@ -55,7 +56,7 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
 
 		todoList.setActive(true);
 		todoList.setFunctionalId("bla");
-		todoList.setId(1L);
+		todoList.setId(2L);
 		final Todo todo = new Todo();
 		todo.setActive(true);
 		todo.setValue("something");

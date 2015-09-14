@@ -8,14 +8,14 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,11 +45,8 @@ public class TodoListEntity extends ActiveEntity<Long> {
 	@Column(name = "todolistid")
 	private Long id;
 
-	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-	// orphanRemoval = true)
-	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "todoitem")
-	private List<TodoEntity> todoItems = new ArrayList<>();
+	@OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private final List<TodoEntity> items = new ArrayList<>();
 
 	@Basic
 	@Column(unique = true, nullable = false)
@@ -66,7 +63,7 @@ public class TodoListEntity extends ActiveEntity<Long> {
 	}
 
 	public List<TodoEntity> getTodoList() {
-		return this.todoItems;
+		return this.items;
 	}
 
 	@Override

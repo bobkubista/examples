@@ -7,6 +7,8 @@ import org.junit.Assert;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.services.rest.todo.TodoListConverter;
+import bobkubista.examples.services.rest.todo.TodoListEntity;
 import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractTestEntityToDomainConverter;
 
 /**

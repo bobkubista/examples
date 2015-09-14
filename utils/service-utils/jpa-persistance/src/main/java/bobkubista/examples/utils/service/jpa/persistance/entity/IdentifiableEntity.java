@@ -2,7 +2,6 @@ package bobkubista.examples.utils.service.jpa.persistance.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -28,7 +27,7 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 	private static final long serialVersionUID = 4957722166359705216L;
 
 	@Column(name = "insertedDate", nullable = false)
-	private ZonedDateTime insertedDate;
+	private Timestamp insertedDate;
 
 	@Version
 	@Column(name = "updatedDate", nullable = false)
@@ -52,7 +51,7 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 
 	public abstract ID getId();
 
-	public ZonedDateTime getInsertedDate() {
+	public Timestamp getInsertedDate() {
 		return this.insertedDate;
 	}
 
@@ -74,6 +73,6 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 
 	@PrePersist
 	private void setInsertedDate() {
-		this.insertedDate = ZonedDateTime.now();
+		this.insertedDate = new Timestamp(System.currentTimeMillis());
 	}
 }

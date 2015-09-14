@@ -10,10 +10,10 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 
 public abstract class AbstractFunctionalJerseyIT<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-		extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
+        extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
 
 	@Test
-	@DatabaseSetup(value = "/dataset/given/AdminFacadeIT.xml")
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetByFunctionalId() {
 		this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
 	}

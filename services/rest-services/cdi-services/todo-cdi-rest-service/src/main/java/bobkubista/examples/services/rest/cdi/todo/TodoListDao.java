@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.services.rest.todo;
+package bobkubista.examples.services.rest.cdi.todo;
 
 import javax.enterprise.inject.Default;
 import javax.persistence.criteria.Path;

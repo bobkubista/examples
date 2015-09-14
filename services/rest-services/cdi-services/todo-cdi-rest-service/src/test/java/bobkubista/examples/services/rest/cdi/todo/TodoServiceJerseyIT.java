@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.services.rest.todo;
+package bobkubista.examples.services.rest.cdi.todo;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.services.rest.cdi.todo.TodoFacade;
 import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
 
 /**

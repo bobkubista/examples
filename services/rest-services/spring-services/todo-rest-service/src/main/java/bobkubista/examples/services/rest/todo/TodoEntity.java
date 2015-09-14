@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,12 +40,20 @@ public class TodoEntity extends IdentifiableEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
 	private Long id;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "todolistid", nullable = false)
+	private TodoListEntity listEntity;
+
 	@Column(nullable = false)
 	private String value;
 
 	@Override
 	public Long getId() {
 		return this.id;
+	}
+
+	public TodoListEntity getListEntity() {
+		return this.listEntity;
 	}
 
 	public String getValue() {
@@ -61,6 +71,10 @@ public class TodoEntity extends IdentifiableEntity<Long> {
 	@Override
 	public void setId(final Long id) {
 		this.id = id;
+	}
+
+	public void setListEntity(TodoListEntity listEntity) {
+		this.listEntity = listEntity;
 	}
 
 	public void setValue(final String value) {

@@ -21,7 +21,7 @@ import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomai
  */
 @Component
 class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long>
-		implements EntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity> {
+        implements EntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity> {
 
 	@Autowired
 	private TodoListService service;
@@ -58,10 +58,12 @@ class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoLi
 		entityObject.setActive(domainModelObject.isActive());
 		entityObject.setFunctionalId(domainModelObject.getFunctionalId());
 		entityObject.setId(domainModelObject.getId());
+		entityObject.getTodoList().clear();
 		entityObject.getTodoList().addAll(domainModelObject.getTodoList().stream().map(t -> {
 			final TodoEntity todo = new TodoEntity();
 			todo.setActive(t.isActive());
 			todo.setValue(t.getValue());
+			todo.setListEntity(entityObject);
 			return todo;
 		}).collect(Collectors.toList()));
 	}

@@ -11,7 +11,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<jersey.version>2.21</jersey.version>
+		<jersey.version>2.17</jersey.version>
 		<!--<jackson-jaxrs-json-provider.version>2.5.3</jackson-jaxrs-json-provider.version> -->
 	</properties>
 

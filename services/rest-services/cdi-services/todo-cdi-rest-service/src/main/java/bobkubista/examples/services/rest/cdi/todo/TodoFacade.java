@@ -1,4 +1,4 @@
-package bobkubista.examples.services.rest.todo;
+package bobkubista.examples.services.rest.cdi.todo;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;

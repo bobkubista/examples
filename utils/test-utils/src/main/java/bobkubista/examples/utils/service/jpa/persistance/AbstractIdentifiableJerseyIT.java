@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -19,33 +23,17 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
  *
  */
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-		extends BaseJerseyDbUnitTest {
-
-	@Test
-	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-	public void shouldAcceptJsonAsContentTypeForPostRequest() {
-		final TYPE domainObject = this.create();
-		final TYPE response = this.target("/").request().post(Entity.json(domainObject), this.getSingleClass());
-		this.checkUpdated(response);
-	}
-
-	@Test
-	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
-	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-	public void shouldAcceptXmlAsContentTypeForPostRequest() {
-		final TYPE domainObject = this.create();
-		final TYPE response = this.target("/").request().post(Entity.xml(domainObject), this.getSingleClass());
-		this.checkUpdated(response);
-	}
+        extends BaseJerseyDbUnitTest {
 
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldCreate() {
 		final TYPE domainObject = this.create();
-		final TYPE response = this.target("/").request().post(Entity.xml(domainObject), this.getSingleClass());
-		this.checkUpdated(response);
+		final Response response = this.target("/").request().post(Entity.xml(domainObject));
+		Assert.assertNotNull(response);
+		Assert.assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
+		Assert.assertTrue(StringUtils.isNotBlank(response.getLocation().getPath()));
 	}
 
 	@Test
@@ -59,7 +47,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetAll() {
 		final COL response = this.target("/").request().get(this.getCollectionClass());
-		this.checkResponseGetAll(response, 3);
+		this.checkResponseGetAll(response, 1);
 	}
 
 	@Test
@@ -73,7 +61,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldUpdate() {
-		TYPE response = this.target("/-1").request().get(this.getSingleClass());
+		TYPE response = this.target("/1").request().get(this.getSingleClass());
 		response = this.update(response);
 		this.target("/").request().put(Entity.xml(response));
 	}

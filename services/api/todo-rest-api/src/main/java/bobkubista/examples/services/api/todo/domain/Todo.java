@@ -20,6 +20,7 @@ public class Todo implements DomainObject {
 
 	private static final long serialVersionUID = 8637857516325951534L;
 
+	@XmlElement(nillable = false, required = true)
 	private boolean active;
 	@XmlElement(nillable = false, required = true)
 	private String value;

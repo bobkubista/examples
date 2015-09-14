@@ -1,12 +1,14 @@
 /**
  *
  */
-package bobkubista.examples.services.rest.todo;
+package bobkubista.examples.services.rest.cdi.todo;
 
 import org.junit.Assert;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.services.rest.cdi.todo.TodoListConverter;
+import bobkubista.examples.services.rest.cdi.todo.TodoListEntity;
 import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractTestEntityToDomainConverter;
 
 /**

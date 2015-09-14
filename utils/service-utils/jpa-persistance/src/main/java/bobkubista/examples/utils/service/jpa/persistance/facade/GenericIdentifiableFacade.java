@@ -38,9 +38,9 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 	public Response create(final DMO object) {
 		Validate.notNull(object);
 		final TYPE entity = this.getConverter().convertToEntity(object);
-		this.getService().create(entity);
+		final TYPE result = this.getService().create(entity);
 		try {
-			return Response.created(new URI(entity.getId().toString())).build();
+			return Response.created(new URI(result.getId().toString())).build();
 		} catch (final URISyntaxException e) {
 			return Response.serverError().build();
 		}
