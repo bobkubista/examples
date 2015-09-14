@@ -8,6 +8,8 @@ import java.util.Collection;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.Validate;
+
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
@@ -34,6 +36,7 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 
 	@Override
 	public Response create(final DMO object) {
+		Validate.notNull(object);
 		final TYPE entity = this.getConverter().convertToEntity(object);
 		this.getService().create(entity);
 		try {
@@ -70,6 +73,13 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 		}
 	}
 
+	@Override
+	public Response update(final DMO object) {
+		final TYPE entity = this.getConverter().convertToEntity(object);
+		this.getService().update(entity);
+		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
+	}
+
 	/**
 	 * Get the {@link EntityToDomainConverter}
 	 *
@@ -83,11 +93,4 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 	 * @return {@link IdentifiableEntityService}
 	 */
 	protected abstract IdentifiableEntityService<TYPE, ID> getService();
-
-	@Override
-	public Response update(final DMO object) {
-		final TYPE entity = this.getConverter().convertToEntity(object);
-		this.getService().update(entity);
-		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
-	}
 }

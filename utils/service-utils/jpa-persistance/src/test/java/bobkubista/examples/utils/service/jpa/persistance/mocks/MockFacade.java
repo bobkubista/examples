@@ -18,25 +18,15 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  */
 public class MockFacade extends GenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
 
-	/**
-	 * @return
-	 */
-	private MockEntity buildMockEntity() {
-		final MockEntity entity = new MockEntity();
-		entity.setId(1L);
-		entity.setFunctionalId("Bla");
-		return entity;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	protected EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> getConverter() {
-		final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito
-				.mock(EntityToDomainConverter.class);
+		final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito.mock(EntityToDomainConverter.class);
 		Mockito.when(mock.convertToEntity((MockDomain) null)).thenReturn(null);
 
 		final MockEntity entity = this.buildMockEntity();
 		Mockito.when(mock.convertToEntity(Matchers.any(MockDomain.class))).thenReturn(entity);
+		Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class))).thenReturn(this.buildMockDomain());
 
 		Mockito.when(mock.convertToDomainObject(Matchers.anyCollection())).thenReturn(new MockDomainCollection());
 
@@ -61,11 +51,30 @@ public class MockFacade extends GenericActiveFacade<MockDomain, Long, MockEntity
 		Mockito.when(mock.getByFunctionalId("Bla")).thenReturn(this.buildMockEntity());
 		Mockito.when(mock.getByFunctionalId("")).thenReturn(null);
 
+		Mockito.when(mock.getIdByFunctionalId("Bla")).thenReturn(1L);
+
 		Mockito.when(mock.searchByFunctionalID("B")).thenReturn(Collections.singletonList(this.buildMockEntity()));
 
 		Mockito.when(mock.update(Matchers.any(MockEntity.class))).thenReturn(this.buildMockEntity());
 
 		return mock;
+	}
+
+	private MockDomain buildMockDomain() {
+		final MockDomain domainObject = new MockDomain();
+		domainObject.setId(1L);
+		domainObject.setFunctionalId("Bla");
+		return domainObject;
+	}
+
+	/**
+	 * @return
+	 */
+	private MockEntity buildMockEntity() {
+		final MockEntity entity = new MockEntity();
+		entity.setId(1L);
+		entity.setFunctionalId("Bla");
+		return entity;
 	}
 
 }
