@@ -9,6 +9,8 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
@@ -34,6 +36,8 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
 public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL extends DomainObjectCollection<DMO>, TYPE extends IdentifiableEntity<ID>, ID extends Serializable>
         implements IdentifiableApi<DMO, ID> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(GenericIdentifiableFacade.class);
+
 	@Override
 	public Response create(final DMO object) {
 		Validate.notNull(object);
@@ -42,6 +46,7 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 		try {
 			return Response.created(new URI(result.getId().toString())).build();
 		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
 			return Response.serverError().build();
 		}
 	}
@@ -53,6 +58,7 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 			this.getService().delete(entity);
 			return Response.ok().build();
 		} else {
+			LOGGER.debug("resource {} not found", identifier);
 			throw new NotFoundException();
 		}
 	}
@@ -67,6 +73,7 @@ public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL e
 	public Response getByID(final ID identifier) {
 		final TYPE result = this.getService().getById(identifier);
 		if (result == null) {
+			LOGGER.debug("resource {} not found", identifier);
 			throw new NotFoundException();
 		} else {
 			return Response.ok(this.getConverter().convertToDomainObject(result)).build();

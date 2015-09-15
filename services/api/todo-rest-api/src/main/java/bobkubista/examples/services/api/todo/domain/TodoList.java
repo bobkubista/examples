@@ -29,7 +29,7 @@ public class TodoList extends ActiveDomainObject<Long> {
 	private Long id;
 	@XmlElementWrapper(name = "todos")
 	@XmlElement(name = "todo")
-	private final List<Todo> todoList = new ArrayList<>();
+	private final List<Todo> todos = new ArrayList<>();
 	@XmlElement(required = true)
 	private String todoListName;
 
@@ -44,7 +44,7 @@ public class TodoList extends ActiveDomainObject<Long> {
 	}
 
 	public List<Todo> getTodoList() {
-		return this.todoList;
+		return this.todos;
 	}
 
 	@Override
