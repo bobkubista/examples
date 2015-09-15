@@ -47,6 +47,10 @@ public @interface XorFields {
 	@Documented
 	@interface List {
 
+		/**
+		 *
+		 * @return value
+		 */
 		XorFields[]value();
 	}
 
@@ -55,10 +59,22 @@ public @interface XorFields {
 	 */
 	String first();
 
+	/**
+	 *
+	 * @return get groups
+	 */
 	Class<?>[]groups() default {};
 
+	/**
+	 *
+	 * @return get the message
+	 */
 	String message() default "{constraints.fieldmatch}";
 
+	/**
+	 *
+	 * @return get the payload
+	 */
 	Class<? extends Payload>[]payload() default {};
 
 	/**

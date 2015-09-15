@@ -26,6 +26,15 @@ public class LoggingInterceptor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
 
+	/**
+	 * Log
+	 *
+	 * @param context
+	 *            {@link InvocationContext}
+	 * @return {@link Object}
+	 * @throws Exception
+	 *             when the context cannot proceed
+	 */
 	@AroundInvoke
 	public Object log(InvocationContext context) throws Exception {
 		final String name = context.getMethod().getName();

@@ -7,6 +7,11 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ *
+ * @author Bob {@link ConstraintValidator} for {@link XorFields} and
+ *         {@link Object}
+ */
 public class XorFieldsValidator implements ConstraintValidator<XorFields, Object> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(XorFieldsValidator.class);

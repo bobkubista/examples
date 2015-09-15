@@ -14,7 +14,8 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author bkubista
- *
+ * @param <ID>
+ *            identifier
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
@@ -26,14 +27,27 @@ public class IdentifierCollection<ID> implements DomainObject {
 	@XmlElement(name = "id")
 	private Collection<ID> collection = new LinkedList<ID>();
 
+	/**
+	 * Constructor
+	 */
 	public IdentifierCollection() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param collection
+	 *            to set
+	 */
 	public IdentifierCollection(final Collection<ID> collection) {
 		this.collection = collection;
 	}
 
+	/**
+	 *
+	 * @return Collection<ID>
+	 */
 	public Collection<ID> getIdentifiers() {
 		return this.collection;
 	}
