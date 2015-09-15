@@ -11,9 +11,6 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Abstract class to help with Rest proxies
  *
@@ -23,7 +20,6 @@ import org.slf4j.LoggerFactory;
 // TODO status code handling
 public abstract class AbstractRestProxy {
 
-	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	private Client client;
 	private WebTarget service;
 
