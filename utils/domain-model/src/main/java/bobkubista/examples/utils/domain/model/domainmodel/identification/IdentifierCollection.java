@@ -36,7 +36,7 @@ public class IdentifierCollection<ID> implements DomainObject {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param collection
 	 *            to set
 	 */
@@ -46,7 +46,7 @@ public class IdentifierCollection<ID> implements DomainObject {
 
 	/**
 	 *
-	 * @return Collection<ID>
+	 * @return {@link Collection} of identifiers
 	 */
 	public Collection<ID> getIdentifiers() {
 		return this.collection;
