@@ -3,8 +3,6 @@
  */
 package bobkubista.examples.services.rest.todo;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +18,11 @@ public class TodoListService implements ActiveEntityService<TodoListEntity, Long
 	@Autowired
 	private TodoListDao dao;
 
+	/**
+	 * Constructor
+	 */
 	public TodoListService() {
 		super();
-	}
-
-	@PostConstruct
-	public void doNothing() {
-
 	}
 
 	@Override

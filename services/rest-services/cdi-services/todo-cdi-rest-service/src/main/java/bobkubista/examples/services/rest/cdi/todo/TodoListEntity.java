@@ -34,7 +34,6 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todolist", allocationSize = 1, sequenceName = "sq_todolist", initialValue = 1)
 public class TodoListEntity extends ActiveEntity<Long> {
-
 	private static final long serialVersionUID = 9086574784838581996L;
 
 	@Basic
@@ -47,10 +46,14 @@ public class TodoListEntity extends ActiveEntity<Long> {
 
 	@OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<TodoEntity> items = new ArrayList<>();
-
 	@Basic
 	@Column(unique = true, nullable = false)
 	private String todoListName;
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 	@Override
 	public String getFunctionalId() {
@@ -64,6 +67,11 @@ public class TodoListEntity extends ActiveEntity<Long> {
 
 	public List<TodoEntity> getTodoList() {
 		return this.items;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	@Override

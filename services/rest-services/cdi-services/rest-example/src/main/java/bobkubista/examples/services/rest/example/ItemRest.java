@@ -2,7 +2,6 @@ package bobkubista.examples.services.rest.example;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -16,20 +15,39 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @Path("")
 public class ItemRest {
-	@Context
-	UriInfo uriInfo;
-
 	@PersistenceContext
 	private EntityManager em;
 
+	@Context
+	private UriInfo uriInfo;
+
+	/**
+	 * Create
+	 *
+	 * @param entity
+	 *            {@link Item} to create
+	 */
 	@POST
 	@Consumes({ "application/xml", "application/json" })
 	public void create(final Item entity) {
 		this.em.persist(entity);
 	}
 
+	/**
+	 * edit
+	 *
+	 * @param id
+	 *            identifier
+	 * @param entity
+	 *            {@link Item}
+	 */
 	@PUT
 	@Path("{id}")
 	@Consumes({ "application/xml", "application/json" })
@@ -37,6 +55,13 @@ public class ItemRest {
 		this.em.merge(entity);
 	}
 
+	/**
+	 * find
+	 *
+	 * @param id
+	 *            identifier
+	 * @return {@link Item}
+	 */
 	@GET
 	@Path("{id}")
 	@Produces({ "application/xml; qs=0.50", "application/json" })
@@ -44,18 +69,23 @@ public class ItemRest {
 		return this.em.createNamedQuery("Item.findById", Item.class).setParameter("id", id).getSingleResult();
 	}
 
+	/**
+	 * get all
+	 *
+	 * @return {@link List} of {@link Item}s
+	 */
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	public List<Item> findAll() {
 		return this.em.createNamedQuery("Item.findAll", Item.class).getResultList();
 	}
 
-	@PostConstruct
-	public void init() {
-		System.out.println("base URI: " + this.uriInfo.getBaseUri());
-		System.out.println("request URI: " + this.uriInfo.getRequestUri());
-	}
-
+	/**
+	 * delete
+	 * 
+	 * @param id
+	 *            identifier
+	 */
 	@DELETE
 	@Path("{id}")
 	public void remove(@PathParam("id") final Integer id) {

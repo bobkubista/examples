@@ -36,6 +36,7 @@ public class TodoEntity extends IdentifiableEntity<Long> {
 	@Basic
 	@Column(nullable = false)
 	private boolean active;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
 	private Long id;
@@ -43,9 +44,13 @@ public class TodoEntity extends IdentifiableEntity<Long> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "todolistid", nullable = false)
 	private TodoListEntity listEntity;
-
 	@Column(nullable = false)
 	private String value;
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 	@Override
 	public Long getId() {
@@ -58,6 +63,11 @@ public class TodoEntity extends IdentifiableEntity<Long> {
 
 	public String getValue() {
 		return this.value;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	public boolean isActive() {

@@ -9,64 +9,79 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
-    @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i where i.id = :id")
-})
+@NamedQueries({ @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"), @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i where i.id = :id") })
 @XmlRootElement
-public class Item implements Serializable{
+public class Item implements Serializable {
 
 	private static final long serialVersionUID = -8081979073600140467L;
 
-	 @Id
-	    private int id;
-	    
-	    @Column(length=60)
-	    private String name;
+	@Column(length = 100)
+	private String description;
 
-	    @Column
-	    private int type;
-	    
-	    @Column(length=100)
-	    private String description;
-	    
-	    public Item() { }
+	@Id
+	private int id;
 
-	    public Item(String name, int type) {
-	        this.name = name;
-	        this.type = type;
-	    }
+	@Column(length = 60)
+	private String name;
 
-	    public int getId() {
-	        return id;
-	    }
+	@Column
+	private int type;
 
-	    public void setId(int id) {
-	        this.id = id;
-	    }
+	/**
+	 * Constructor
+	 */
+	public Item() {
+		super();
+	}
 
-	    public String getName() {
-	        return name;
-	    }
+	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 *            name
+	 * @param type
+	 *            type
+	 */
+	public Item(String name, int type) {
+		this.name = name;
+		this.type = type;
+	}
 
-	    public void setName(String name) {
-	        this.name = name;
-	    }
+	public String getDescription() {
+		return this.description;
+	}
 
-	    public int getType() {
-	        return type;
-	    }
+	public int getId() {
+		return this.id;
+	}
 
-	    public void setType(int type) {
-	        this.type = type;
-	    }
+	public String getName() {
+		return this.name;
+	}
 
-	    public String getDescription() {
-	        return description;
-	    }
+	public int getType() {
+		return this.type;
+	}
 
-	    public void setDescription(String description) {
-	        this.description = description;
-	    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 }
