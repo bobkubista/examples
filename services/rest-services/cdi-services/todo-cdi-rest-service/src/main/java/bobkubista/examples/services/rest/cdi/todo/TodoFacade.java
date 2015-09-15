@@ -9,6 +9,11 @@ import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 import bobkubista.examples.utils.jee.annotation.Logging;
 import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFacade;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @Path("/")
 @Logging
 public class TodoFacade extends GenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
