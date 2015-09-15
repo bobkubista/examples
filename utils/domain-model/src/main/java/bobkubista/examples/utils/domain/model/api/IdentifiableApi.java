@@ -33,8 +33,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * identifier stays the same.
  *
  * @param <DMO>
- *            The {@link DomainObject} @param <ID> The {@link Serializable}
- *            identifier @author bkubista
+ *            The {@link DomainObject}
+ * @param <ID>
+ *            The {@link Serializable} identifier @author bkubista
  *
  */
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
