@@ -39,7 +39,7 @@ public final class ServerProperties {
 						try {
 							serverPropLocation.close();
 						} catch (final IOException e) {
-							e.printStackTrace();
+							LOGGER.error(e.getMessage(), e);
 						}
 					}
 				}
