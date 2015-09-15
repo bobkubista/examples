@@ -9,9 +9,11 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * {@link XmlAdapter} for {@link String} to {@link Locale} Can be used with
- * {@link javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter}<P> Examlpe:<P>
- * <code> @XmlJavaTypeAdapter(LocaleAdapter.class)<BR>private Locale locale;</
- * code>
+ * {@link javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter}
+ * <P>
+ * Examlpe:
+ * <P>
+ * <code> @XmlJavaTypeAdapter(LocaleAdapter.class)<BR>private Locale locale;</code>
  *
  * @author bkubista
  *
