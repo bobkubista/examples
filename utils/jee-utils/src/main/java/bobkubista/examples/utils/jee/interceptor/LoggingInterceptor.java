@@ -36,7 +36,7 @@ public class LoggingInterceptor {
 	 *             when the context cannot proceed
 	 */
 	@AroundInvoke
-	public Object log(InvocationContext context) throws Exception {
+	public Object log(InvocationContext context) throws Exception { // NOSONAR
 		final String name = context.getMethod().getName();
 		final String params = Arrays.toString(context.getParameters());
 		LOGGER.info("Invoking methode {} with params {}", name, params);
@@ -45,7 +45,7 @@ public class LoggingInterceptor {
 			return context.proceed();
 		} catch (final Exception e) {
 			LOGGER.error(e.getMessage(), e);
-			throw e;
+			throw e; // NOSONAR
 		}
 	}
 }
