@@ -35,22 +35,34 @@ public final class ServerProperties {
 				} catch (final IOException e) {
 					LOGGER.error("Could not load file", e);
 				} finally {
-					if (serverPropLocation != null) {
-						try {
-							serverPropLocation.close();
-						} catch (final IOException e) {
-							LOGGER.error(e.getMessage(), e);
-						}
-					}
+					closeProperties(serverPropLocation);
 				}
 			}
 		}
 	}
 
+	/**
+	 * Constructor
+	 */
+	private ServerProperties() {
+		super();
+	}
+
+	/**
+	 * Get all properties
+	 *
+	 * @return
+	 */
 	public static Properties getProperies() {
 		return props;
 	}
 
+	/**
+	 *
+	 * @param key
+	 *            of the property
+	 * @return the property value
+	 */
 	public static String getString(final String key) {
 		String result = null;
 		LOGGER.debug("Getting property for key {}", key);
@@ -59,11 +71,14 @@ public final class ServerProperties {
 		return result;
 	}
 
-	/**
-	 * Constructor
-	 */
-	private ServerProperties() {
-		super();
+	private static void closeProperties(final InputStream serverPropLocation) {
+		if (serverPropLocation != null) {
+			try {
+				serverPropLocation.close();
+			} catch (final IOException e) {
+				LOGGER.error(e.getMessage(), e);
+			}
+		}
 	}
 
 }
