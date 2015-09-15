@@ -5,6 +5,12 @@ import java.io.Serializable;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Implemantation of {@link ServletContextListener}
+ *
+ * @author Bob
+ *
+ */
 public class WebAppListener implements ServletContextListener, Serializable {
 
 	/**
@@ -21,6 +27,7 @@ public class WebAppListener implements ServletContextListener, Serializable {
 
 	@Override
 	public void contextInitialized(final ServletContextEvent servletContextEvent) {
+		// CHECKSTYLE IGNORE
 	}
 
 }
