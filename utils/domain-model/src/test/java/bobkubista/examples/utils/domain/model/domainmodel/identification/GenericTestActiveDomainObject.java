@@ -1,6 +1,6 @@
 package bobkubista.examples.utils.domain.model.domainmodel.identification;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
 /**
  * Abstract domain object for testing
@@ -8,7 +8,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveD
  * @author bkubista
  *
  */
-public class GenericTestActiveDomainObject extends ActiveDomainObject<Integer> {
+public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainObject<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

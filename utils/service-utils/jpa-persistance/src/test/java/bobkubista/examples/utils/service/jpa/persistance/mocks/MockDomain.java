@@ -1,8 +1,8 @@
 package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
-public class MockDomain extends ActiveDomainObject<Long> {
+public class MockDomain extends AbstractGenericActiveDomainObject<Long> {
 
 	private static final long serialVersionUID = -3472971306874956522L;
 	private boolean active;

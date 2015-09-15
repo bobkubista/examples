@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
 /**
  * @author Bob Kubista
@@ -20,7 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveD
  */
 @XmlRootElement(name = "todoList")
 @XmlAccessorType(XmlAccessType.NONE)
-public class TodoList extends ActiveDomainObject<Long> {
+public class TodoList extends AbstractGenericActiveDomainObject<Long> {
 	private static final long serialVersionUID = 435396239252623825L;
 
 	@XmlElement(required = true)

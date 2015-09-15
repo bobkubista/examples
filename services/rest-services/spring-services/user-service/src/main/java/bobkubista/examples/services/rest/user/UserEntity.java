@@ -9,6 +9,11 @@ import javax.persistence.SequenceGenerator;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @Entity
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
 public class UserEntity extends ActiveEntity<Long> {

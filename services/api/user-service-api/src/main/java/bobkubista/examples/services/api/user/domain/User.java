@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
 /**
  * @author Bob Kubista
@@ -16,7 +16,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveD
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class User extends ActiveDomainObject<Long> {
+public class User extends AbstractGenericActiveDomainObject<Long> {
 
 	private static final long serialVersionUID = 8804522919297114084L;
 

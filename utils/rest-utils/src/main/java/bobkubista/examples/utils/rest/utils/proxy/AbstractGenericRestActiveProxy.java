@@ -8,17 +8,17 @@ import java.io.Serializable;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
 /**
  * @author bkubista
  *
  * @param <TYPE>
- *            {@link ActiveDomainObject}
+ *            {@link AbstractGenericActiveDomainObject}
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractGenericRestActiveProxy<TYPE extends ActiveDomainObject<ID>, ID extends Serializable> extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>
+public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>
 		implements ActiveApi<TYPE, ID> {
 
 	@Override

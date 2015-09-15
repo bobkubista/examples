@@ -1,16 +1,12 @@
 package bobkubista.examples.utils.clients.user;
+
 import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.api.user.UserApi;
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
 
 /**
- *
- */
-
-/**
- * @author Bob Kubista
- *
+ * @author Bob Kubista {@link AbstractGenericRestActiveProxy} for {@link User}
  */
 public class UserProxy extends AbstractGenericRestActiveProxy<User, Long>implements UserApi {
 

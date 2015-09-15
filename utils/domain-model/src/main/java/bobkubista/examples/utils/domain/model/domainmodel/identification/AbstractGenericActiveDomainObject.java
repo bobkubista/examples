@@ -16,11 +16,11 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class ActiveDomainObject<ID extends Serializable> extends FunctionalIdentifiableDomainObject<ID> {
+public abstract class AbstractGenericActiveDomainObject<ID extends Serializable> extends FunctionalIdentifiableDomainObject<ID> {
 
 	private static final long serialVersionUID = -7516244737080941032L;
 
-	public ActiveDomainObject() {
+	public AbstractGenericActiveDomainObject() {
 	}
 
 	@NotBlank

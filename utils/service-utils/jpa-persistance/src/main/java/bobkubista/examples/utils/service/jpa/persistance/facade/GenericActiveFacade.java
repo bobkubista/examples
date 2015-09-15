@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
@@ -13,7 +13,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
 /**
  * @author bkubista
  * @param <DMO>
- *            {@link ActiveDomainObject}
+ *            {@link AbstractGenericActiveDomainObject}
  * @param <ID>
  *            The idertifier
  * @param <TYPE>
@@ -21,7 +21,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  * @param <DMOL>
  *            {@link DomainObjectCollection}
  */
-public abstract class GenericActiveFacade<DMO extends ActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends DomainObjectCollection<DMO>>
+public abstract class GenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends DomainObjectCollection<DMO>>
 		extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
 	@Override

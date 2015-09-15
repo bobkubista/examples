@@ -9,20 +9,20 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.ActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
 /**
  * @author bkubista
  * @param <DMO>
- *            {@link ActiveDomainObject}
+ *            {@link AbstractGenericActiveDomainObject}
  * @param <ID>
  *            The idertifier
  */
-public interface ActiveApi<DMO extends ActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
+public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
 
 	/**
 	 *
-	 * @return get all {@link ActiveDomainObject}s
+	 * @return get all {@link AbstractGenericActiveDomainObject}s
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
