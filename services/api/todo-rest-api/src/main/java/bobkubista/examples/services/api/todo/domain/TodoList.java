@@ -27,11 +27,17 @@ public class TodoList extends ActiveDomainObject<Long> {
 	private boolean active;
 	@XmlElement(required = true)
 	private Long id;
+	@XmlElement(required = true)
+	private String todoListName;
+
 	@XmlElementWrapper(name = "todos")
 	@XmlElement(name = "todo")
 	private final List<Todo> todos = new ArrayList<>();
-	@XmlElement(required = true)
-	private String todoListName;
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 	@Override
 	public String getFunctionalId() {
@@ -45,6 +51,11 @@ public class TodoList extends ActiveDomainObject<Long> {
 
 	public List<Todo> getTodoList() {
 		return this.todos;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	@Override
