@@ -52,7 +52,11 @@ public class ItemRest {
 	@Path("{id}")
 	@Consumes({ "application/xml", "application/json" })
 	public void edit(@PathParam("id") final Integer id, final Item entity) {
-		this.em.merge(entity);
+		if (this.find(id) != null) {
+			this.em.merge(entity);
+		} else {
+			this.create(entity);
+		}
 	}
 
 	/**
@@ -82,7 +86,7 @@ public class ItemRest {
 
 	/**
 	 * delete
-	 * 
+	 *
 	 * @param id
 	 *            identifier
 	 */
