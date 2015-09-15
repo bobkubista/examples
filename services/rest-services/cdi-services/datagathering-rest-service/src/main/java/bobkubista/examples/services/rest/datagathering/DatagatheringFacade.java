@@ -51,7 +51,7 @@ public class DatagatheringFacade implements DatagatheringApi {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Override
 	public Response gatherData(@Context final HttpServletRequest servletRequest, @Context final UriInfo info, @Context final HttpHeaders httpHeaders,
-			@Context final Request request, @Context final SecurityContext securityContext) {
+	        @Context final Request request, @Context final SecurityContext securityContext) {
 		LOGGER.debug("remote adress: {}", servletRequest.getRemoteAddr());
 		final MultivaluedMap<String, String> queryParams = info.getQueryParameters();
 		LOGGER.debug("Logging query params");
@@ -72,17 +72,4 @@ public class DatagatheringFacade implements DatagatheringApi {
 		return Response.ok().build();
 	}
 
-	// @Override
-	// public void getAsync(@Suspended final AsyncResponse response) {
-	// new Thread(() -> {
-	// LOGGER.debug("waiting");
-	// try {
-	// Thread.sleep(2000);
-	// } catch (final Exception e) {
-	// LOGGER.error(e.getMessage(), e);
-	// }
-	// LOGGER.debug("resuming request");
-	// response.resume("resuming");
-	// });
-	// }
 }
