@@ -13,13 +13,17 @@ import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author bkubista
- *
+ * @param <ID>
+ *            identifier
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class FunctionalIdentifiableDomainObject<ID extends Serializable> extends IdentifiableDomainObject<ID> {
 
 	private static final long serialVersionUID = 332043130860626788L;
 
+	/**
+	 * Constructor
+	 */
 	public FunctionalIdentifiableDomainObject() {
 	}
 

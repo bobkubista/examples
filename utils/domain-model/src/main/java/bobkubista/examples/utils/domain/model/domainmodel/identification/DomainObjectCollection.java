@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * @author bkubista
  * @param <TYPE>
+ *            {@link DomainObject}
  *
  */
 @XmlType
@@ -20,6 +21,9 @@ public abstract class DomainObjectCollection<TYPE extends DomainObject> implemen
 
 	private static final long serialVersionUID = -7020164336355743584L;
 
+	/**
+	 * Constructor
+	 */
 	public DomainObjectCollection() {
 		super();
 	}
