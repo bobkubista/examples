@@ -19,7 +19,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
  *            {@link FunctionalIdentifiableDomainObject}
  * @param <ID>
  *            the identifier of the {@link FunctionalIdentifiableDomainObject}
- * 
+ *
  */
 public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
 
@@ -34,7 +34,7 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("functionId/{id}")
 	default Response getByFunctionalId(@PathParam("id") final String identifier) {
-		return IdentifiableApi.buildNotImplementedResponse();
+		return IdentifiableApi.buildNotImplementedResponse(identifier);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("id/{functionalId}")
 	default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
-		return IdentifiableApi.buildNotImplementedResponse();
+		return IdentifiableApi.buildNotImplementedResponse(fId);
 	}
 
 	/**
@@ -62,6 +62,6 @@ public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDom
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("searchByFunctionalId/{id}")
 	default Response searchByFunctionalID(@PathParam("id") final String identifier) {
-		return IdentifiableApi.buildNotImplementedResponse();
+		return IdentifiableApi.buildNotImplementedResponse(identifier);
 	}
 }
