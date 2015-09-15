@@ -18,8 +18,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
 public class UserEntity extends ActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
+
 	@Column(nullable = false)
 	private boolean active;
+
 	@Column(nullable = false, unique = true)
 	private String email;
 	private String encryptedPassword;
@@ -29,6 +31,11 @@ public class UserEntity extends ActiveEntity<Long> {
 	private Long id;
 	@Column
 	private String name;
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 	public String getEncryptedPassword() {
 		return this.encryptedPassword;
@@ -46,6 +53,11 @@ public class UserEntity extends ActiveEntity<Long> {
 
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	@Override
