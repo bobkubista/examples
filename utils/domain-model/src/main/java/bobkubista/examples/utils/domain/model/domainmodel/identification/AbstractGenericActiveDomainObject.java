@@ -13,7 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author bkubista
- *
+ * @param <ID>
+ *            identifier
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractGenericActiveDomainObject<ID extends Serializable> extends FunctionalIdentifiableDomainObject<ID> {
