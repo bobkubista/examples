@@ -59,4 +59,11 @@ public final class ServerProperties {
 		return result;
 	}
 
+	/**
+	 * Constructor
+	 */
+	private ServerProperties() {
+		super();
+	}
+
 }
