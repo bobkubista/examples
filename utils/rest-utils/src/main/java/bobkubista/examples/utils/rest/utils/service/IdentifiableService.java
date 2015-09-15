@@ -41,11 +41,17 @@ public interface IdentifiableService<TYPE extends IdentifiableDomainObject<ID>, 
 	 * Get a <code>TYPE</code> with <code>ID</code>
 	 *
 	 * @param id
-	 *            the identifier @return the single instance of the
-	 *            <code>TYPE</code>
+	 *            the identifier
+	 * @return the single instance of the <code>TYPE</code>
 	 */
 	TYPE getByID(ID id);
 
+	/**
+	 *
+	 * @param object
+	 *            the TYPE to update
+	 * @return the updated TYPE
+	 */
 	TYPE update(TYPE object);
 
 }
