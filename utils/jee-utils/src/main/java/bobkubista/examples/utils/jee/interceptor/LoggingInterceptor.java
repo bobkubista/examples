@@ -3,6 +3,8 @@
  */
 package bobkubista.examples.utils.jee.interceptor;
 
+import java.util.Arrays;
+
 import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -27,9 +29,14 @@ public class LoggingInterceptor {
 	@AroundInvoke
 	public Object log(InvocationContext context) throws Exception {
 		final String name = context.getMethod().getName();
-		final String params = context.getParameters().toString();
+		final String params = Arrays.toString(context.getParameters());
 		LOGGER.info("Invoking methode {} with params {}", name, params);
 
-		return context.proceed();
+		try {
+			return context.proceed();
+		} catch (final Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw e;
+		}
 	}
 }
