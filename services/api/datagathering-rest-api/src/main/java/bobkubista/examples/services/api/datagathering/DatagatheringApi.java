@@ -17,23 +17,25 @@ import javax.ws.rs.core.UriInfo;
  *
  */
 @Path("/")
+@FunctionalInterface
 public interface DatagatheringApi {
 
 	/**
 	 * Gather data based apon data in the context
-	 *
+	 * 
+	 * @param servletRequest
+	 *            {@link HttpServletRequest}
+	 * @param info
+	 *            {@link UriInfo}
+	 * @param httpHeaders
+	 *            {@link HttpHeaders}
+	 * @param request
+	 *            {@link Request}
+	 * @param securityContext
+	 *            {@link SecurityContext}
 	 * @return {@link Response} when done processing
 	 */
 	public Response gatherData(@Context HttpServletRequest servletRequest, @Context UriInfo info, @Context HttpHeaders httpHeaders, @Context Request request,
-			@Context SecurityContext securityContext);
-
-	/**
-	 * get an async response
-	 *
-	 * @param response
-	 *            {@link AsyncResponse}
-	 */
-	// @GET
-	// void getAsync(AsyncResponse response);
+	        @Context SecurityContext securityContext);
 
 }
