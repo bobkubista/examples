@@ -34,6 +34,8 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  */
 public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V extends IdentifiableDomainObject<K>> extends CacheLoader<K, V> {
 
+	private static final int WRITE_TIMEOUT = 30;
+	private static final int ACCESS_TIMEOUT = 15;
 	public static final int INITIAL_CAPACITY = 150;
 	private final LoadingCache<K, V> cache;
 
@@ -41,8 +43,8 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 	 * Constructor
 	 */
 	public AbstractIdentifiableAutoCache() {
-		this.cache = CacheBuilder.newBuilder().expireAfterAccess(15, TimeUnit.MINUTES).expireAfterWrite(30, TimeUnit.MINUTES).recordStats().concurrencyLevel(255)
-				.initialCapacity(INITIAL_CAPACITY).ticker(Ticker.systemTicker()).build(this);
+		this.cache = CacheBuilder.newBuilder().expireAfterAccess(ACCESS_TIMEOUT, TimeUnit.MINUTES).expireAfterWrite(WRITE_TIMEOUT, TimeUnit.MINUTES).recordStats().concurrencyLevel(255)
+		        .initialCapacity(INITIAL_CAPACITY).ticker(Ticker.systemTicker()).build(this);
 	}
 
 	/**
@@ -100,6 +102,9 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 		return this.getIdentifiableService().getByID(key);
 	}
 
+	/**
+	 * Load all on init
+	 */
 	@PostConstruct
 	public void loadAll() {
 		final Map<K, V> map = this.getIdentifiableService().getAll().stream().collect(Collectors.toMap(t -> t.getId(), t -> t));
@@ -118,7 +123,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 	 * @return true when done and succesfull
 	 */
 	public boolean refresh() {
-		this.cache.asMap().keySet().stream().forEach(key -> this.cache.refresh(key));
+		this.cache.asMap().keySet().stream().forEach(this.cache::refresh);
 		return true;
 	}
 
