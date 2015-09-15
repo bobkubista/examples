@@ -17,7 +17,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
@@ -34,18 +33,18 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  */
 public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V extends IdentifiableDomainObject<K>> extends CacheLoader<K, V> {
 
+	public static final int INITIAL_CAPACITY = 150;
+	private static final int ACCESS_TIMEOUT = 15;
 	private static final int CONCURRENCY_LEVEL = 255;
 	private static final int WRITE_TIMEOUT = 30;
-	private static final int ACCESS_TIMEOUT = 15;
-	public static final int INITIAL_CAPACITY = 150;
 	private final LoadingCache<K, V> cache;
 
 	/**
 	 * Constructor
 	 */
 	public AbstractIdentifiableAutoCache() {
-		this.cache = CacheBuilder.newBuilder().expireAfterAccess(ACCESS_TIMEOUT, TimeUnit.MINUTES).expireAfterWrite(WRITE_TIMEOUT, TimeUnit.MINUTES).recordStats().concurrencyLevel(CONCURRENCY_LEVEL)
-		        .initialCapacity(INITIAL_CAPACITY).ticker(Ticker.systemTicker()).build(this);
+		this.cache = CacheBuilder.newBuilder().expireAfterAccess(ACCESS_TIMEOUT, TimeUnit.MINUTES).expireAfterWrite(WRITE_TIMEOUT, TimeUnit.MINUTES).recordStats()
+		        .concurrencyLevel(CONCURRENCY_LEVEL).initialCapacity(INITIAL_CAPACITY).ticker(Ticker.systemTicker()).build(this);
 	}
 
 	/**
@@ -133,5 +132,5 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 	 *            an {@link IdentifiableService}
 	 * @return {@link IdentifiableService} for <code>V</code>.
 	 */
-	protected abstract IdentifiableService<V, K, ? extends DomainObjectCollection<V>> getIdentifiableService();
+	protected abstract IdentifiableService<V, K> getIdentifiableService();
 }

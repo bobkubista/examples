@@ -14,7 +14,7 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalI
  *
  */
 public abstract class AbstractFunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-		extends AbstractIdentifiableService<TYPE, ID, COL>implements FunctionalIdentifiableService<TYPE, ID, COL> {
+        extends AbstractIdentifiableService<TYPE, ID, COL>implements FunctionalIdentifiableService<TYPE, ID> {
 
 	@Override
 	public TYPE getByFunctionalId(final String functionalId) {

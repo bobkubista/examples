@@ -2,7 +2,6 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 
 /**
@@ -14,11 +13,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
  *            The {@link FunctionalIdentifiableDomainObject}
  * @param <ID>
  *            the identifier of the {@link FunctionalIdentifiableDomainObject}
- * @param <COL>
- *            {@link DomainObjectCollection} for <code>TYPE</code>
  */
-public interface FunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-		extends IdentifiableService<TYPE, ID, COL> {
+public interface FunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
 
 	/**
 	 *
@@ -30,7 +26,7 @@ public interface FunctionalIdentifiableService<TYPE extends FunctionalIdentifiab
 
 	/**
 	 * Map a functional id to an identifier
-	 * 
+	 *
 	 * @param fId
 	 *            the functional id
 	 * @return the identifier

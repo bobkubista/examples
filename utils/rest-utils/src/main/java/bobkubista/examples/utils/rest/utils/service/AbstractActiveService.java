@@ -20,7 +20,7 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
  *            {@link DomainObjectCollection}
  */
 public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-        extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID, COL> {
+        extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID> {
 
 	@Override
 	public Collection<TYPE> getAllActive() {

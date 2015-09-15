@@ -10,7 +10,6 @@ import java.util.concurrent.ExecutionException;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
@@ -64,10 +63,10 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
 	 *            {@link FunctionalIdentifiableService}
 	 * @return the {@link FunctionalIdentifiableService}
 	 */
-	protected abstract FunctionalIdentifiableService<V, K, ? extends DomainObjectCollection<V>> getFunctionalService();
+	protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();
 
 	@Override
-	protected IdentifiableService<V, K, ? extends DomainObjectCollection<V>> getIdentifiableService() {
+	protected IdentifiableService<V, K> getIdentifiableService() {
 		return this.getFunctionalService();
 	}
 

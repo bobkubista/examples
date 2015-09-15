@@ -16,7 +16,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
  *
  */
 public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
-		implements IdentifiableService<TYPE, ID, COL> {
+        implements IdentifiableService<TYPE, ID> {
 
 	private final Class<COL> collectionClass;
 	private final Class<TYPE> domainClass;
