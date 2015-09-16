@@ -12,21 +12,9 @@ import bobkubista.examples.services.api.todo.domain.TodoList;
  * @author Bob Kubista
  *
  */
-public class TodoServiceMock implements TodoService {
+public final class TodoServiceMock implements TodoService {
 
     private static TodoService todoService;
-
-    /**
-     * Singleton pattern
-     *
-     * @return {@link TodoService} mock
-     */
-    public static TodoService getInstance() {
-        if (todoService == null) {
-            todoService = new TodoServiceMock();
-        }
-        return todoService;
-    }
 
     private final Map<String, Long> functionalIdMap = new HashMap<>();
 
@@ -38,6 +26,18 @@ public class TodoServiceMock implements TodoService {
             this.functionalIdMap.put(todoList.getFunctionalId(), todoList.getId());
             this.list.put(todoList.getId(), todoList);
         }
+    }
+
+    /**
+     * Singleton pattern
+     *
+     * @return {@link TodoService} mock
+     */
+    public static TodoService getInstance() {
+        if (todoService == null) {
+            todoService = new TodoServiceMock();
+        }
+        return todoService;
     }
 
     @Override
