@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<todolist todolistid="1" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" todolistname="todoitem.a" />
-	<todoitem id="1" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" value="do something" todolistid="1"/>
-	<todoitem id="2" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" value="do something else" todolistid="1"/>
+	<todolist todolistid="1" inserteddate="2015-01-01"
+		updateddate="2015-01-01" active="true" todolistname="todoitem.a" />
+	<todoitem id="1" inserteddate="2015-01-01" updateddate="2015-01-01"
+		active="true" value="do something" todolistid="1" />
+	<todoitem id="2" inserteddate="2015-01-01" updateddate="2015-01-01"
+		active="true" value="do something else" todolistid="1" />
 </dataset>
 

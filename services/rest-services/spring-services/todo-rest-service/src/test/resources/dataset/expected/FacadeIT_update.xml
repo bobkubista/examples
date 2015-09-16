@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	<todolist active="true" todolistname="todo.abc" />
-	<todoitem active="true" value="do something"/>
-	<todoitem active="true" value="do something else"/>
+	<todoitem active="true" value="do something" />
+	<todoitem active="true" value="do something else" />
 </dataset>
