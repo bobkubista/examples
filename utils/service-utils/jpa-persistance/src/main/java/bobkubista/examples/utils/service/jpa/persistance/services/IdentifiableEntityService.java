@@ -13,8 +13,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *
  * @author bkubista
  *
- * @param <TYPE> the {@link AbstractIdentifiableEntity} @param <ID> the identifier of
- * the {@link AbstractIdentifiableEntity}
+ * @param <TYPE>
+ *            the {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            the identifier of the {@link AbstractIdentifiableEntity}
  */
 @Transactional
 public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
@@ -22,8 +24,9 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * Create the object of {@link AbstractIdentifiableEntity} type
 	 *
-	 * @param object the object to create @return <code>TYPE</code> that was
-	 * created
+	 * @param object
+	 *            the object to create @return <code>TYPE</code> that was
+	 *            created
 	 */
 	public default TYPE create(final TYPE object) {
 		this.getDAO().create(object);
@@ -33,7 +36,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * delete the specific object of {@link AbstractIdentifiableEntity}
 	 *
-	 * @param object the object to delete
+	 * @param object
+	 *            the object to delete
 	 */
 	public default void delete(final TYPE object) {
 		this.getDAO().delete(object);
@@ -42,8 +46,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * get all known {@link AbstractIdentifiableEntity} of that type
 	 *
-	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the same
-	 * type
+	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
+	 *         same type
 	 */
 	public default Collection<TYPE> getAll() {
 		return this.getDAO().getList();
@@ -52,7 +56,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * get the {@link AbstractIdentifiableEntity}
 	 *
-	 * @param identifier the identfier @return the {@link AbstractIdentifiableEntity}
+	 * @param identifier
+	 *            the identfier @return the {@link AbstractIdentifiableEntity}
 	 */
 	public default TYPE getById(final ID identifier) {
 		return this.getDAO().getById(identifier);
@@ -61,7 +66,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * update the object of {@link AbstractIdentifiableEntity}
 	 *
-	 * @param object the object to update @return the updated object
+	 * @param object
+	 *            the object to update @return the updated object
 	 */
 	default public TYPE update(final TYPE object) {
 		this.getDAO().update(object);
