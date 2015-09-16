@@ -15,13 +15,19 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdenti
 import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIdentifiableEntityService;
 
 /**
- * @author bkubista @param <DMO> {@link
- * FunctionalIdentifiableDomainObject} @param <TYPE> {@link
- * FunctionalIdentifiableEntity} @param <ID> Identifier @param <DMOL> {@link
- * DomainObjectCollection}
+ * @author bkubista
+ *
+ * @param <DMO>
+ *            {@link FunctionalIdentifiableDomainObject}
+ * @param <TYPE>
+ *            {@link FunctionalIdentifiableEntity}
+ * @param <ID>
+ *            Identifier
+ * @param <DMOL>
+ *            {@link DomainObjectCollection}
  */
 public abstract class GenericFunctionalIdentifiableFacade<DMO extends FunctionalIdentifiableDomainObject<ID>, TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends DomainObjectCollection<DMO>>
-		extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
+        extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
 
 	@Override
 	public Response getByFunctionalId(final String identifier) {

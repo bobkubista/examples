@@ -26,9 +26,13 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * override the methodes and implement them seperatly.
  *
  * @param <DMO>
- *            A {@link DomainObject} @param <TYPE> An
- *            {@link AbstractIdentifiableEntity} @param <ID> An {@link Serializable}
- *            identifier @param <DMOL> A {@link DomainObjectCollection}
+ *            A {@link DomainObject}
+ * @param <TYPE>
+ *            An {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            An {@link Serializable} identifier
+ * @param <DMOL>
+ *            A {@link DomainObjectCollection}
  *
  * @author bkubista
  *
