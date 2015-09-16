@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
@@ -18,9 +18,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            Identifier
  * @param <COL>
- *            {@link DomainObjectCollection} for TYPE
+ *            {@link AbstractGenericDomainObjectCollection} for TYPE
  */
-public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
+public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         implements IdentifiableService<TYPE, ID> {
 
     private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;

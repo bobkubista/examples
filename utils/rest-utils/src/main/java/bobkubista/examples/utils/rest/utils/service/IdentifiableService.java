@@ -6,7 +6,7 @@ package bobkubista.examples.utils.rest.utils.service;
 import java.io.Serializable;
 import java.util.Collection;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
@@ -43,7 +43,7 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
     void delete(ID id);
 
     /**
-     * Get a {@link DomainObjectCollection} <code>COL</code> of
+     * Get a {@link AbstractGenericDomainObjectCollection} <code>COL</code> of
      * <code>TYPE</code>
      *
      * @return all instances of that type

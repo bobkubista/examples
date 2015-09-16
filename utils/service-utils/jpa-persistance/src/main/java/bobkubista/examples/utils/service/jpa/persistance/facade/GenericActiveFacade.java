@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
 
@@ -19,9 +19,9 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  * @param <TYPE>
  *            {@link ActiveEntity}
  * @param <DMOL>
- *            {@link DomainObjectCollection}
+ *            {@link AbstractGenericDomainObjectCollection}
  */
-public abstract class GenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends DomainObjectCollection<DMO>>
+public abstract class GenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
         extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
     @Override
