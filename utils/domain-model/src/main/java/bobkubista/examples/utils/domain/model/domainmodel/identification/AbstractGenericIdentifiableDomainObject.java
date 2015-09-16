@@ -33,6 +33,9 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
 		if (obj == null) {
 			return false;
 		}
+		if (!(obj instanceof AbstractGenericActiveDomainObject<?>)) {
+			return false;
+		}
 		if (this.getClass() != obj.getClass() && !obj.getClass().isAssignableFrom(this.getClass()) && !this.getClass().isAssignableFrom(obj.getClass())) {
 			return false;
 		}
