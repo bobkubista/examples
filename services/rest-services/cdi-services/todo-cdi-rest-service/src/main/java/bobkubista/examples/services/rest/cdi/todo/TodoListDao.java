@@ -8,14 +8,14 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
 
 /**
  * @author Bob Kubista
  *
  */
 @Default
-class TodoListDao extends ActiveEntityDao<TodoListEntity, Long>implements ActiveDAO<TodoListEntity, Long> {
+class TodoListDao extends AbstractGenericActiveEntityDao<TodoListEntity, Long>implements ActiveDAO<TodoListEntity, Long> {
 
 	@Override
 	protected Path<String> getFunctionalIdField(final Root<TodoListEntity> entity) {

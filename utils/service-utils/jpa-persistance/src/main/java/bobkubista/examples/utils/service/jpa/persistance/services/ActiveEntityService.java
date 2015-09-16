@@ -3,7 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 import java.io.Serializable;
 import java.util.Collection;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 
 /**
@@ -26,5 +26,5 @@ public interface ActiveEntityService<TYPE extends ActiveEntity<ID>, ID extends S
 	}
 
 	@Override
-	public abstract ActiveEntityDao<TYPE, ID> getDAO();
+	public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
 }

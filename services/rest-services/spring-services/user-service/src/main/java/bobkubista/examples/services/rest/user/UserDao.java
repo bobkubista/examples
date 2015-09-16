@@ -8,14 +8,14 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
 
 /**
  * @author Bob Kubista
  *
  */
 @Default
-public class UserDao extends ActiveEntityDao<UserEntity, Long>implements ActiveDAO<UserEntity, Long> {
+public class UserDao extends AbstractGenericActiveEntityDao<UserEntity, Long>implements ActiveDAO<UserEntity, Long> {
 
 	@Override
 	protected Path<String> getFunctionalIdField(final Root<UserEntity> entity) {

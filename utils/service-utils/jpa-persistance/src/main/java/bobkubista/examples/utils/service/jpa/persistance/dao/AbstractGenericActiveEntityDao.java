@@ -20,7 +20,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
  * @param <ID>
  *            the identifier of the {@link ActiveEntity}
  */
-public abstract class ActiveEntityDao<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityDao<TYPE, ID>implements ActiveDAO<TYPE, ID> {
+public abstract class AbstractGenericActiveEntityDao<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityDao<TYPE, ID>implements ActiveDAO<TYPE, ID> {
 
 	@Override
 	public Collection<TYPE> findAllActive(final String sortField) {
