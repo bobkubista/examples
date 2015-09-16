@@ -28,7 +28,7 @@ public class DomainModelTest {
 	}
 
 	@Test
-	public void testEqualsOther() {
+	public void testEqualsObject() {
 		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
 		Assert.assertFalse(classToTest.equals(new Object()));
 	}
