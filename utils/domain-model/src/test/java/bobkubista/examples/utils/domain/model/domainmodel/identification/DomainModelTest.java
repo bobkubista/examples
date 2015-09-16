@@ -28,12 +28,6 @@ public class DomainModelTest {
 	}
 
 	@Test
-	public void testEqualsObject() {
-		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
-		Assert.assertFalse(classToTest.equals(new Object()));
-	}
-
-	@Test
 	public void testHashCode() {
 		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
 		Assert.assertEquals(new GenericTestActiveDomainObject().hashCode(), classToTest.hashCode());
