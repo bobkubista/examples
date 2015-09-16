@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class AbstractGenericIdentifierCollection<ID> implements DomainObject {
+public class GenericIdentifierCollection<ID> implements DomainObject {
 
     private static final long serialVersionUID = -8623470897577981147L;
 
@@ -30,7 +30,7 @@ public class AbstractGenericIdentifierCollection<ID> implements DomainObject {
     /**
      * Constructor
      */
-    public AbstractGenericIdentifierCollection() {
+    public GenericIdentifierCollection() {
         super();
     }
 
@@ -40,7 +40,7 @@ public class AbstractGenericIdentifierCollection<ID> implements DomainObject {
      * @param collection
      *            to set
      */
-    public AbstractGenericIdentifierCollection(final Collection<ID> collection) {
+    public GenericIdentifierCollection(final Collection<ID> collection) {
         this.collection = collection;
     }
 
