@@ -22,18 +22,28 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/jersey-dbunit-config.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
 public abstract class BaseJerseyDbUnitTest extends JerseyTest {
 
 	@PersistenceContext
 	private EntityManager em;
 
+	/**
+	 * Clear cache
+	 */
 	@Before
 	public void clearCache() {
 		this.em.getEntityManagerFactory().getCache().evictAll();
 	}
 
+	/**
+	 * Configure
+	 * 
+	 * @param rc
+	 *            {@link ResourceConfig}
+	 * @return {@link ResourceConfig}
+	 */
 	public abstract ResourceConfig configure(ResourceConfig rc);
 
 	@Override

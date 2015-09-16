@@ -19,12 +19,22 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
 
 /**
- * @author bkubista
  *
+ * @author Bob
+ *
+ * @param <TYPE>
+ *            {@link IdentifiableDomainObject}
+ * @param <ID>
+ *            identifier
+ * @param <COL>
+ *            {@link DomainObjectCollection}
  */
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends BaseJerseyDbUnitTest {
 
+	/**
+	 * Test if create works
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
@@ -36,6 +46,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 		Assert.assertTrue(StringUtils.isNotBlank(response.getLocation().getPath()));
 	}
 
+	/**
+	 * Test if delete works
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
@@ -43,6 +56,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 		this.target("/-1").request().delete();
 	}
 
+	/**
+	 * Test if getAll works
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetAll() {
@@ -50,6 +66,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 		this.checkResponseGetAll(response, 1);
 	}
 
+	/**
+	 * Test if getById works
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetById() {
@@ -57,6 +76,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 		this.checkSingle(response);
 	}
 
+	/**
+	 * Test if update works
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
@@ -97,6 +119,10 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	 */
 	protected abstract TYPE create();
 
+	/**
+	 *
+	 * @return COL
+	 */
 	@SuppressWarnings("unchecked")
 	protected Class<COL> getCollectionClass() {
 		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();

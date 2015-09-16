@@ -9,10 +9,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.filter.RequestContextFilter;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/jersey-config.xml" })
 public abstract class BaseJerseyTest extends JerseyTest {
 
+	/**
+	 * Configure
+	 * 
+	 * @param rc
+	 *            {@link ResourceConfig}
+	 * @return {@link ResourceConfig}
+	 */
 	public abstract ResourceConfig configure(ResourceConfig rc);
 
 	@Override
