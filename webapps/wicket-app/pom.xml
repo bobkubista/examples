@@ -1,70 +1,70 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>bobkubista.examples</groupId>
-		<artifactId>webapps</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<groupId>bobkubista.examples.webapps</groupId>
-	<artifactId>wicket-app</artifactId>
-	<packaging>war</packaging>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>bobkubista.examples</groupId>
+        <artifactId>webapps</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>bobkubista.examples.webapps</groupId>
+    <artifactId>wicket-app</artifactId>
+    <packaging>war</packaging>
 
-	<properties>
-		<wicket.version>7.0.0</wicket.version>
-	</properties>
+    <properties>
+        <wicket.version>7.0.0</wicket.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
-			<version>${wicket.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-cdi</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-cdi-1.1</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>bobkubista.examples.utils</groupId>
-			<artifactId>rest-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>bobkubista.examples.services.api</groupId>
-			<artifactId>todo-rest-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>bobkubista.examples.utils.clients</groupId> -->
-		<!-- <artifactId>todo-client</artifactId> -->
-		<!-- <version>${project.version}</version> -->
-		<!-- </dependency> -->
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+            <version>${wicket.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-cdi</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-cdi-1.1</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>bobkubista.examples.utils</groupId>
+            <artifactId>rest-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>bobkubista.examples.services.api</groupId>
+            <artifactId>todo-rest-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- <dependency> -->
+        <!-- <groupId>bobkubista.examples.utils.clients</groupId> -->
+        <!-- <artifactId>todo-client</artifactId> -->
+        <!-- <version>${project.version}</version> -->
+        <!-- </dependency> -->
+    </dependencies>
 
-	<build>
-		<finalName>WicketExamples</finalName>
+    <build>
+        <finalName>WicketExamples</finalName>
 
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<filtering>false</filtering>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>*</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
-	</build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 </project>
