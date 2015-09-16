@@ -6,7 +6,7 @@ package bobkubista.examples.utils.service.jpa.persistance.converter;
 import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 
 /**
@@ -18,15 +18,15 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
  * @param <EO>
  *            The type of {@link EntityObject}
  * @param <DMOL>
- *            {@link DomainObjectCollection}
+ *            {@link AbstractGenericDomainObjectCollection}
  * @author bkubista
  *
  */
-public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends DomainObjectCollection<DMO>, EO extends EntityObject> {
+public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends EntityObject> {
 
     /**
      * Convert a {@link Collection} of {@link EntityObject} to a
-     * {@link DomainObjectCollection}
+     * {@link AbstractGenericDomainObjectCollection}
      *
      * @param entities
      *            the {@link Collection} of {@link EntityObject}s to convert
@@ -55,12 +55,12 @@ public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends 
     EO convertToEntity(DMO domainModelObject);
 
     /**
-     * Convert a {@link DomainObjectCollection} to {@link EntityObject}s
+     * Convert a {@link AbstractGenericDomainObjectCollection} to {@link EntityObject}s
      *
      * @param domainObjects
      *            a {@link Collection} of {@link DomainObject}s
      * @return a {@link Collection} of {@link EntityObject}s. It will never
      *         return a <code>null</code>
      */
-    Collection<EO> convertToEntity(DomainObjectCollection<DMO> domainObjects);
+    Collection<EO> convertToEntity(AbstractGenericDomainObjectCollection<DMO> domainObjects);
 }

@@ -22,7 +22,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericIdentifiableFacade#create(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#create(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
      * .
      */
     @Test
@@ -39,7 +39,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericIdentifiableFacade#delete(java.io.Serializable)}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#delete(java.io.Serializable)}
      * .
      */
     @Test
@@ -57,7 +57,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericIdentifiableFacade#getAll()}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#getAll()}
      * .
      */
     @Test
@@ -81,7 +81,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericFunctionalIdentifiableFacade#getByFunctionalId(java.lang.String)}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericFunctionalIdentifiableFacade#getByFunctionalId(java.lang.String)}
      * .
      */
     @Test
@@ -99,7 +99,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericIdentifiableFacade#getByID(java.io.Serializable)}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#getByID(java.io.Serializable)}
      * .
      */
     @Test
@@ -118,7 +118,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericFunctionalIdentifiableFacade#getIdByFunctionalId(java.lang.String) }
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericFunctionalIdentifiableFacade#getIdByFunctionalId(java.lang.String) }
      * .
      */
     @Test
@@ -137,7 +137,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericFunctionalIdentifiableFacade#searchByFunctionalID(java.lang.String )}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericFunctionalIdentifiableFacade#searchByFunctionalID(java.lang.String )}
      * .
      */
     @Test
@@ -150,7 +150,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericIdentifiableFacade#update(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#update(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
      * .
      */
     @Test

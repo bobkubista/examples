@@ -5,18 +5,18 @@ import java.io.Serializable;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
 /**
  *
  * @author bkubista
  *
  * @param <TYPE>
- *            {@link FunctionalIdentifiableDomainObject}
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  * @param <ID>
  *            {@link Serializable}
  */
-public abstract class AbstractGenericRestFunctionalIdentifiableProxy<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
+public abstract class AbstractGenericRestFunctionalIdentifiableProxy<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
         extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableApi<TYPE, ID> {
 
     @Override

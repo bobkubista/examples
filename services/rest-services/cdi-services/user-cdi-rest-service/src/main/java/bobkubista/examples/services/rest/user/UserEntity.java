@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 /**
  *
@@ -16,7 +16,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
  */
 @Entity
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
-public class UserEntity extends ActiveEntity<Long> {
+public class UserEntity extends AbstractGenericActiveEntity<Long> {
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)

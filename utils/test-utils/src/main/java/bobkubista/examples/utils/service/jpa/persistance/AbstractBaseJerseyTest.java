@@ -16,7 +16,7 @@ import org.springframework.web.filter.RequestContextFilter;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/jersey-config.xml" })
-public abstract class BaseJerseyTest extends JerseyTest {
+public abstract class AbstractBaseJerseyTest extends JerseyTest {
 
     /**
      * Configure

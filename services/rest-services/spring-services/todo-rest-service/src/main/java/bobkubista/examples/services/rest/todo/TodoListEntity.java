@@ -22,7 +22,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 /**
  * @author Bob Kubista
@@ -33,7 +33,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todolist", allocationSize = 1, sequenceName = "sq_todolist", initialValue = 1)
-public class TodoListEntity extends ActiveEntity<Long> {
+public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
     private static final long serialVersionUID = 9086574784838581996L;
 
     @Basic

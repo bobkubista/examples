@@ -17,23 +17,23 @@ import javax.persistence.metamodel.EntityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
 /**
  * @author bkubista
  * @param <TYPE>
- *            The {@link FunctionalIdentifiableEntity}
+ *            The {@link AbstractGenericFunctionalIdentifiableEntity}
  * @param <ID>
- *            the identifier of the {@link FunctionalIdentifiableEntity}
+ *            the identifier of the {@link AbstractGenericFunctionalIdentifiableEntity}
  */
-public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractGenericDao<TYPE, ID>
+public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractGenericDao<TYPE, ID>
         implements GenericDao<TYPE, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FunctionalIdentifiableEntityDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableEntityDao.class);
 
     @Override
     public TYPE getByFunctionalId(final Object id) {
-        FunctionalIdentifiableEntityDao.LOGGER.debug("Get object with functional id {}", id);
+        AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("Get object with functional id {}", id);
         final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
         final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
@@ -43,7 +43,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
         try {
             return tp.getSingleResult();
         } catch (final NoResultException ex) {
-            FunctionalIdentifiableEntityDao.LOGGER.debug(String.format("object with id '%s' not found", id), ex);
+            AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug(String.format("object with id '%s' not found", id), ex);
             return null;
         }
     }
@@ -65,7 +65,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 
     @Override
     public Collection<TYPE> searchByFunctionalId(final Object id) {
-        FunctionalIdentifiableEntityDao.LOGGER.debug("Searching for object with {} in the functional id", id);
+        AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("Searching for object with {} in the functional id", id);
         final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
         final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
@@ -97,7 +97,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
             final int maxResults) {
 
         query.orderBy(builder.asc(queryRoot.get(field)));
-        FunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
+        AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
         return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
     }
 
@@ -116,7 +116,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
     protected Collection<TYPE> orderedBy(final String field, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot) {
 
         query.orderBy(builder.desc(queryRoot.get(field)));
-        FunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by {}", field);
+        AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by {}", field);
         return this.getEntityManager().createQuery(query).getResultList();
     }
 }

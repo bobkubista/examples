@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 
 /**
  * @author Bob Kubista
@@ -20,7 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  */
 @XmlRootElement(name = "UserCollection")
 @XmlAccessorType(XmlAccessType.NONE)
-public class UserCollection extends DomainObjectCollection<User> {
+public class UserCollection extends AbstractGenericDomainObjectCollection<User> {
 
 	private static final long serialVersionUID = 6132048339242151935L;
 	@XmlElementWrapper(name = "userlist")
