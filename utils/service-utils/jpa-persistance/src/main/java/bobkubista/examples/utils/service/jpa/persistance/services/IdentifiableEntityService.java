@@ -19,6 +19,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *            the identifier of the {@link AbstractIdentifiableEntity}
  */
 @Transactional
+@FunctionalInterface
 public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
 	/**
@@ -69,7 +70,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	 * @param object
 	 *            the object to update @return the updated object
 	 */
-	default public TYPE update(final TYPE object) {
+	public default TYPE update(final TYPE object) {
 		this.getDAO().update(object);
 		return this.getDAO().getById(object.getId());
 	}
