@@ -38,5 +38,9 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends FunctionalIdentifiabl
 	@Override
 	protected abstract FunctionalIdentifiableEntityDao<TYPE, ID> getDao();
 
+	/**
+	 *
+	 * @return the functional Id
+	 */
 	protected abstract String getFunctionalId();
 }

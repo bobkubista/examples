@@ -9,6 +9,17 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 
+/**
+ *
+ * @author Bob Kubista
+ *
+ * @param <TYPE>
+ *            {@link FunctionalIdentifiableDomainObject}
+ * @param <ID>
+ *            the identifier
+ * @param <COL>
+ *            {@link DomainObjectCollection}
+ */
 public abstract class AbstractFunctionalJerseyIT<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
 

@@ -25,8 +25,18 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
  */
 public interface IdentifiableService<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable> {
 
+	/**
+	 *
+	 * @param object
+	 *            {@link IdentifiableDomainObject} to create
+	 */
 	void create(TYPE object);
 
+	/**
+	 *
+	 * @param id
+	 *            identifier of the {@link IdentifiableDomainObject} to delete
+	 */
 	void delete(ID id);
 
 	/**
