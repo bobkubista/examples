@@ -27,7 +27,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdenti
  *            the identifier of the {@link FunctionalIdentifiableEntity}
  */
 public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractGenericDao<TYPE, ID>
-		implements GenericDao<TYPE, ID> {
+        implements GenericDao<TYPE, ID> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FunctionalIdentifiableEntityDao.class);
 
@@ -52,6 +52,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<ID> query = builder.createQuery(this.getIdentifierClass());
 		final Root<TYPE> root = query.from(this.getEntityClass());
+		query.where(builder.equal(this.getFunctionalIdField(root), fId));
 		query.multiselect(root.get("id"));
 		return this.getEntityManager().createQuery(query).getSingleResult();
 	}
@@ -87,7 +88,7 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 	 * @return {@link Collection} of the given <code>ID</code>
 	 */
 	protected Collection<ID> orderedBy(final String field, final CriteriaQuery<ID> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot, final int startPositon,
-			final int maxResults) {
+	        final int maxResults) {
 
 		query.orderBy(builder.asc(queryRoot.get(field)));
 		FunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
