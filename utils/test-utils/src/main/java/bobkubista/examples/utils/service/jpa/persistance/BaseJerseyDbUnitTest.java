@@ -19,6 +19,12 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
+/**
+ *
+ * @author Bob
+ *
+ *         Jersey test base
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/jersey-dbunit-config.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
@@ -39,7 +45,7 @@ public abstract class BaseJerseyDbUnitTest extends JerseyTest {
 
 	/**
 	 * Configure
-	 * 
+	 *
 	 * @param rc
 	 *            {@link ResourceConfig}
 	 * @return {@link ResourceConfig}
