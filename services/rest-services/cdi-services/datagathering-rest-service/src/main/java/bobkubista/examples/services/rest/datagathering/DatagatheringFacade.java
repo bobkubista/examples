@@ -38,13 +38,15 @@ public class DatagatheringFacade implements DatagatheringApi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatagatheringFacade.class);
 
-    private @Context Application application;
+    @Context
+    private Application application;
 
-    private final Consumer<? super String> keyLogger = (t) -> LOGGER.debug("key: {}", t);
+    private final Consumer<? super String> keyLogger = t -> LOGGER.debug("key: {}", t);
 
     private final BiConsumer<? super String, ? super List<String>> keyValueStringLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
 
-    private @Context Providers providers;
+    @Context
+    private Providers providers;
 
     @GET
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
