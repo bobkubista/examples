@@ -7,18 +7,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
- * An abstract service to get {@link IdentifiableDomainObject}s from cache
+ * An abstract service to get {@link AbstractGenericIdentifiableDomainObject}s from cache
  *
  * @author bkubista
  * @param <ID>
- *            the identifier of the {@link IdentifiableDomainObject}
+ *            the identifier of the {@link AbstractGenericIdentifiableDomainObject}
  * @param <TYPE>
- *            the type of {@link IdentifiableDomainObject}
+ *            the type of {@link AbstractGenericIdentifiableDomainObject}
  */
-public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
+public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
         implements IdentifiableApi<TYPE, ID> {
 
 	/**

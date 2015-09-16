@@ -7,35 +7,35 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
  * @author bkubista
  *
  *         This interface is intended for controller applications only. Do not
  *         use it in webservices which access the database. We want the actual
- *         implementation to to make us of {@link IdentifiableDomainObject}s and
+ *         implementation to to make us of {@link AbstractGenericIdentifiableDomainObject}s and
  *         the {@link Collection} of them as return types.
  *
  * @param <TYPE>
- *            The {@link IdentifiableDomainObject}
+ *            The {@link AbstractGenericIdentifiableDomainObject}
  * @param <ID>
- *            The identifier of the {@link IdentifiableDomainObject}
+ *            The identifier of the {@link AbstractGenericIdentifiableDomainObject}
  *
  */
-public interface IdentifiableService<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable> {
+public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> {
 
 	/**
 	 *
 	 * @param object
-	 *            {@link IdentifiableDomainObject} to create
+	 *            {@link AbstractGenericIdentifiableDomainObject} to create
 	 */
 	void create(TYPE object);
 
 	/**
 	 *
 	 * @param id
-	 *            identifier of the {@link IdentifiableDomainObject} to delete
+	 *            identifier of the {@link AbstractGenericIdentifiableDomainObject} to delete
 	 */
 	void delete(ID id);
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
@@ -19,7 +19,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  * @author bkubista
  *
  * @param <DMO>
- *            An {@link IdentifiableDomainObject}
+ *            An {@link AbstractGenericIdentifiableDomainObject}
  * @param <DMOL>
  *            A {@link DomainObjectCollection}
  * @param <EO>
@@ -27,7 +27,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  * @param <ID>
  *            the identifier
  */
-public abstract class AbstractTestEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
+public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
 	/**
 	 * Test ConvertToDomain with null id

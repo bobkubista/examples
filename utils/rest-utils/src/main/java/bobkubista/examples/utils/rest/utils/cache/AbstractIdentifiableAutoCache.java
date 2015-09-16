@@ -17,7 +17,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
 /**
@@ -26,12 +26,12 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <K>
  *            key {@link Serializable}
  * @param <V>
- *            value {@link IdentifiableDomainObject}
+ *            value {@link AbstractGenericIdentifiableDomainObject}
  *
  * @author bkubista
  *
  */
-public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V extends IdentifiableDomainObject<K>> extends CacheLoader<K, V> {
+public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>> extends CacheLoader<K, V> {
 
 	public static final int INITIAL_CAPACITY = 150;
 	private static final int ACCESS_TIMEOUT = 15;
