@@ -69,7 +69,7 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. GenericActiveFacade#getAllActive()}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericActiveFacade#getAllActive()}
      * .
      */
     @Test

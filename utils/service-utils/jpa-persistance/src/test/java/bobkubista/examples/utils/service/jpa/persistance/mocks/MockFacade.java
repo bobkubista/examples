@@ -9,14 +9,14 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
-import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFacade;
+import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
 
 /**
  * @author Bob Kubista
  *
  */
-public class MockFacade extends GenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
+public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
 
     @SuppressWarnings("unchecked")
     @Override
