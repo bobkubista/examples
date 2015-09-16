@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Bob
  *
+ *         Application config
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"), @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i where i.id = :id") })
@@ -42,7 +43,7 @@ public class Item implements Serializable {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param name
 	 *            name
 	 * @param type

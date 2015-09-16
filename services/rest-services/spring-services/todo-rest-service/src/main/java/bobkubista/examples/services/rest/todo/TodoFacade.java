@@ -14,6 +14,7 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFac
  *
  * @author Bob
  *
+ *         Implementation of {@link TodoApi}
  */
 @Service
 @Path("/")

@@ -11,7 +11,12 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalI
 
 /**
  * @author Bob Kubista
- *
+ * @param <TYPE>
+ *            {@link FunctionalIdentifiableDomainObject}
+ * @param <ID>
+ *            Identifier
+ * @param <COL>
+ *            {@link DomainObjectCollection} for TYPE
  */
 public abstract class AbstractFunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractIdentifiableService<TYPE, ID, COL>implements FunctionalIdentifiableService<TYPE, ID> {

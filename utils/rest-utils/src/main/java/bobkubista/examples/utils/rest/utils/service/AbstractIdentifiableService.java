@@ -13,21 +13,32 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
 
 /**
  * @author Bob Kubista
- *
+ * @param <TYPE>
+ *            {@link IdentifiableDomainObject}
+ * @param <ID>
+ *            Identifier
+ * @param <COL>
+ *            {@link DomainObjectCollection} for TYPE
  */
 public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         implements IdentifiableService<TYPE, ID> {
 
+	private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;
+	private static final int DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER = 0;
+	private static final int IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER = 1;
 	private final Class<COL> collectionClass;
 	private final Class<TYPE> domainClass;
 	private final Class<ID> identifierClass;
 
+	/**
+	 * Constructor
+	 */
 	@SuppressWarnings("unchecked")
 	public AbstractIdentifiableService() {
 		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-		this.domainClass = (Class<TYPE>) genericSuperclass.getActualTypeArguments()[0];
-		this.identifierClass = (Class<ID>) genericSuperclass.getActualTypeArguments()[1];
-		this.collectionClass = (Class<COL>) genericSuperclass.getActualTypeArguments()[2];
+		this.domainClass = (Class<TYPE>) genericSuperclass.getActualTypeArguments()[DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER];
+		this.identifierClass = (Class<ID>) genericSuperclass.getActualTypeArguments()[IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER];
+		this.collectionClass = (Class<COL>) genericSuperclass.getActualTypeArguments()[COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER];
 	}
 
 	@Override

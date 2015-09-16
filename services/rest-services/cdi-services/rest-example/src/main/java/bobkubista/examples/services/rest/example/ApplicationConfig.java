@@ -7,6 +7,7 @@ import javax.ws.rs.core.Application;
  *
  * @author Bob
  *
+ *         Application config
  */
 @ApplicationPath("")
 public class ApplicationConfig extends Application {
