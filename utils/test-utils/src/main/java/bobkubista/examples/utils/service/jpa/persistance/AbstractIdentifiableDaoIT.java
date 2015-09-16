@@ -24,7 +24,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
  * @param <ID>
  *            identifier
  */
-public abstract class AbstractIdentifiableDaoIT<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> extends BaseIntegrationTest {
+public abstract class AbstractIdentifiableDaoIT<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> implements BaseIntegrationTest {
 
 	@PersistenceContext
 	private EntityManager em;

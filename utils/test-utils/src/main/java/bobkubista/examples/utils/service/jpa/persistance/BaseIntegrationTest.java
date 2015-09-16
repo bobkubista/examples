@@ -17,13 +17,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/test-applicationContext.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
-public abstract class BaseIntegrationTest {
+public interface BaseIntegrationTest {
 
-	/**
-	 * Default constructor
-	 */
-	public BaseIntegrationTest() {
-	}
 }
