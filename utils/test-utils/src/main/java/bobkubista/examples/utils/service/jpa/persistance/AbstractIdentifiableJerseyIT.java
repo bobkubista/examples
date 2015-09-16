@@ -32,6 +32,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Identif
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends BaseJerseyDbUnitTest {
 
+	private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
+
 	/**
 	 * Test if create works
 	 */
@@ -126,7 +128,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDoma
 	@SuppressWarnings("unchecked")
 	protected Class<COL> getCollectionClass() {
 		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-		return (Class<COL>) genericSuperclass.getActualTypeArguments()[2];
+		return (Class<COL>) genericSuperclass.getActualTypeArguments()[COLLECTION_TYPE_ARGUMENT_NUMBER];
 	}
 
 	/**
