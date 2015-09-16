@@ -35,11 +35,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
     private final List<Todo> todos = new ArrayList<>();
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     public String getFunctionalId() {
         return this.todoListName;
     }
@@ -51,11 +46,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
 
     public List<Todo> getTodoList() {
         return this.todos;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

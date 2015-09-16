@@ -48,11 +48,6 @@ public class TodoEntity extends AbstractIdentifiableEntity<Long> {
     private String value;
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     public Long getId() {
         return this.id;
     }
@@ -63,11 +58,6 @@ public class TodoEntity extends AbstractIdentifiableEntity<Long> {
 
     public String getValue() {
         return this.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     public boolean isActive() {

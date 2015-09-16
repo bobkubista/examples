@@ -51,11 +51,6 @@ public class TodoListEntity extends ActiveEntity<Long> {
     private String todoListName;
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     public String getFunctionalId() {
         return this.todoListName;
     }
@@ -67,11 +62,6 @@ public class TodoListEntity extends ActiveEntity<Long> {
 
     public List<TodoEntity> getTodoList() {
         return this.items;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

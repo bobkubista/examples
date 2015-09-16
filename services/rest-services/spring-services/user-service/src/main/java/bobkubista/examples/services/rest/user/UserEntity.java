@@ -32,11 +32,6 @@ public class UserEntity extends ActiveEntity<Long> {
     @Column
     private String name;
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
     public String getEncryptedPassword() {
         return this.encryptedPassword;
     }
@@ -53,11 +48,6 @@ public class UserEntity extends ActiveEntity<Long> {
 
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override
