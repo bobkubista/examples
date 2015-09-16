@@ -28,6 +28,9 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends FunctionalIdentifiabl
 		super();
 	}
 
+	/**
+	 * Test getEntityByFunctionalId
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/DaoIT.xml")
 	public void shouldGetEntityByFunctionalId() {
@@ -35,6 +38,9 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends FunctionalIdentifiabl
 		this.checkAssertion(entity);
 	}
 
+	/**
+	 * Get the {@link FunctionalIdentifiableEntityDao}
+	 */
 	@Override
 	protected abstract FunctionalIdentifiableEntityDao<TYPE, ID> getDao();
 

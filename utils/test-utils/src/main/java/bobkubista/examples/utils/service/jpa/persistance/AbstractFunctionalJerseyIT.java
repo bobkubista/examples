@@ -23,6 +23,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
 public abstract class AbstractFunctionalJerseyIT<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
 
+	/**
+	 * Test getByFunctionalId
+	 */
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetByFunctionalId() {
