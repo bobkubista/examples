@@ -21,11 +21,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class IdentifiableDomainObject<ID extends Serializable> implements DomainObject {
+public abstract class AbstractGenericIdentifiableDomainObject<ID extends Serializable> implements DomainObject {
 
 	private static final long serialVersionUID = 6041983912533900961L;
 
-	public IdentifiableDomainObject() {
+	public AbstractGenericIdentifiableDomainObject() {
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public abstract class IdentifiableDomainObject<ID extends Serializable> implemen
 			return false;
 		}
 		@SuppressWarnings("unchecked")
-		final IdentifiableDomainObject<ID> other = (IdentifiableDomainObject<ID>) obj;
+		final AbstractGenericIdentifiableDomainObject<ID> other = (AbstractGenericIdentifiableDomainObject<ID>) obj;
 		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
 	}
 

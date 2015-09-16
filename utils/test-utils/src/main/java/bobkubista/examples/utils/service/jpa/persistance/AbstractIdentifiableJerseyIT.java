@@ -16,20 +16,20 @@ import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
  *
  * @author Bob
  *
  * @param <TYPE>
- *            {@link IdentifiableDomainObject}
+ *            {@link AbstractGenericIdentifiableDomainObject}
  * @param <ID>
  *            identifier
  * @param <COL>
  *            {@link DomainObjectCollection}
  */
-public abstract class AbstractIdentifiableJerseyIT<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
+public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends BaseJerseyDbUnitTest {
 
 	private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;

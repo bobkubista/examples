@@ -9,18 +9,18 @@ import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
  * @author Bob Kubista
  * @param <TYPE>
- *            {@link IdentifiableDomainObject}
+ *            {@link AbstractGenericIdentifiableDomainObject}
  * @param <ID>
  *            Identifier
  * @param <COL>
  *            {@link DomainObjectCollection} for TYPE
  */
-public abstract class AbstractIdentifiableService<TYPE extends IdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
+public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         implements IdentifiableService<TYPE, ID> {
 
 	private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;

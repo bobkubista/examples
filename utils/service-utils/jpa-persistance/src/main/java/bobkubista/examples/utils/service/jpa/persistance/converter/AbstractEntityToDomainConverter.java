@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
@@ -21,7 +21,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author bkubista
  *
  * @param <DMO>
- *            {@link IdentifiableDomainObject}
+ *            {@link AbstractGenericIdentifiableDomainObject}
  * @param <DMOL>
  *            {@link DomainObjectCollection}
  * @param <EO>
@@ -29,7 +29,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
+public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements EntityToDomainConverter<DMO, DMOL, EO> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
