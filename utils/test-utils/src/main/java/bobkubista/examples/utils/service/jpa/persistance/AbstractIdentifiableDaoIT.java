@@ -118,4 +118,5 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
      *            update some fields for updating
      */
     protected abstract void updateEntity(TYPE entity);
+
 }
