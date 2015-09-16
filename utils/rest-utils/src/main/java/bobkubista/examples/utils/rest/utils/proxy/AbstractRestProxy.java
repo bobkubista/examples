@@ -33,6 +33,16 @@ public abstract class AbstractRestProxy {
 	}
 
 	/**
+	 * close the connection before destroy
+	 */
+	@PreDestroy
+	protected void close() {
+		if (this.client != null) {
+			this.client.close();
+		}
+	}
+
+	/**
 	 *
 	 * @return get the basePath
 	 */
@@ -57,16 +67,6 @@ public abstract class AbstractRestProxy {
 			serviceWithPath = serviceWithPath.path(path);
 		}
 		return serviceWithPath.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
-	}
-
-	/**
-	 * close the connection before destroy
-	 */
-	@PreDestroy
-	private void close() {
-		if (this.client != null) {
-			this.client.close();
-		}
 	}
 
 	private WebTarget getServiceWithPaths() {
