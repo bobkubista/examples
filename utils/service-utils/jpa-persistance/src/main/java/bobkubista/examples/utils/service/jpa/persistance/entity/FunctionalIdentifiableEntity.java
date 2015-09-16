@@ -17,21 +17,21 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class FunctionalIdentifiableEntity<ID extends Serializable> extends AbstractIdentifiableEntity<ID> {
 
-	private static final long serialVersionUID = 8921787384841632428L;
+    private static final long serialVersionUID = 8921787384841632428L;
 
-	public FunctionalIdentifiableEntity() {
-	}
+    public FunctionalIdentifiableEntity() {
+    }
 
-	/**
-	 * @return the name
-	 */
-	public abstract String getFunctionalId();
+    /**
+     * @return the name
+     */
+    public abstract String getFunctionalId();
 
-	/**
-	 *
-	 * @param functionalId
-	 *            the functional id
-	 */
-	public abstract void setFunctionalId(final String functionalId);
+    /**
+     *
+     * @param functionalId
+     *            the functional id
+     */
+    public abstract void setFunctionalId(final String functionalId);
 
 }

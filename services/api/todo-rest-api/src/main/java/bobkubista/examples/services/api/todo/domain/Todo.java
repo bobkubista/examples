@@ -18,26 +18,26 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 @XmlAccessorType(XmlAccessType.NONE)
 public class Todo implements DomainObject {
 
-	private static final long serialVersionUID = 8637857516325951534L;
+    private static final long serialVersionUID = 8637857516325951534L;
 
-	@XmlElement(nillable = false, required = true)
-	private boolean active;
-	@XmlElement(nillable = false, required = true)
-	private String value;
+    @XmlElement(nillable = false, required = true)
+    private boolean active;
+    @XmlElement(nillable = false, required = true)
+    private String value;
 
-	public String getValue() {
-		return this.value;
-	}
+    public String getValue() {
+        return this.value;
+    }
 
-	public boolean isActive() {
-		return this.active;
-	}
+    public boolean isActive() {
+        return this.active;
+    }
 
-	public void setActive(final boolean active) {
-		this.active = active;
-	}
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
 
-	public void setValue(final String value) {
-		this.value = value;
-	}
+    public void setValue(final String value) {
+        this.value = value;
+    }
 }

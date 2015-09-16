@@ -15,12 +15,12 @@ import bobkubista.examples.utils.rest.utils.service.AbstractActiveService;
  */
 public class TodoService extends AbstractActiveService<TodoList, Long, TodoListCollection>implements TodoServiceInteface {
 
-	@Inject
-	private TodoProxy proxy;
+    @Inject
+    private TodoProxy proxy;
 
-	@Override
-	protected TodoProxy getProxy() {
-		return this.proxy;
-	}
+    @Override
+    protected TodoProxy getProxy() {
+        return this.proxy;
+    }
 
 }

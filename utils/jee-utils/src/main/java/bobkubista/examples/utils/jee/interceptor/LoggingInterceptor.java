@@ -24,28 +24,28 @@ import bobkubista.examples.utils.jee.annotation.Logging;
 @Logging
 public class LoggingInterceptor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
 
-	/**
-	 * Log
-	 *
-	 * @param context
-	 *            {@link InvocationContext}
-	 * @return {@link Object}
-	 * @throws Exception
-	 *             when the context cannot proceed
-	 */
-	@AroundInvoke
-	public Object log(InvocationContext context) throws Exception { // NOSONAR
-		final String name = context.getMethod().getName();
-		final String params = Arrays.toString(context.getParameters());
-		LOGGER.info("Invoking methode {} with params {}", name, params);
+    /**
+     * Log
+     *
+     * @param context
+     *            {@link InvocationContext}
+     * @return {@link Object}
+     * @throws Exception
+     *             when the context cannot proceed
+     */
+    @AroundInvoke
+    public Object log(InvocationContext context) throws Exception { // NOSONAR
+        final String name = context.getMethod().getName();
+        final String params = Arrays.toString(context.getParameters());
+        LOGGER.info("Invoking methode {} with params {}", name, params);
 
-		try {
-			return context.proceed();
-		} catch (final Exception e) {
-			LOGGER.error(e.getMessage(), e);
-			throw e; // NOSONAR
-		}
-	}
+        try {
+            return context.proceed();
+        } catch (final Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            throw e; // NOSONAR
+        }
+    }
 }

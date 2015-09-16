@@ -5,5 +5,5 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
  *
  */
 public enum QueryType {
-	COUNT, DELETE, GET, INSERT, UPDATE;
+    COUNT, DELETE, GET, INSERT, UPDATE;
 }

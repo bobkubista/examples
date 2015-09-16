@@ -22,14 +22,14 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 @XmlAccessorType(XmlAccessType.NONE)
 public class UserCollection extends DomainObjectCollection<User> {
 
-	private static final long serialVersionUID = 6132048339242151935L;
-	@XmlElementWrapper(name = "userlist")
-	@XmlElement(name = "user")
-	private final Collection<User> userList = new LinkedList<>();
+    private static final long serialVersionUID = 6132048339242151935L;
+    @XmlElementWrapper(name = "userlist")
+    @XmlElement(name = "user")
+    private final Collection<User> userList = new LinkedList<>();
 
-	@Override
-	public Collection<User> getDomainCollection() {
-		return this.userList;
-	}
+    @Override
+    public Collection<User> getDomainCollection() {
+        return this.userList;
+    }
 
 }

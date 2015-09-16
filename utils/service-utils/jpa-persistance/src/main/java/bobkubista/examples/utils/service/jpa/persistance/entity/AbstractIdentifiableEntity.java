@@ -24,55 +24,55 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @MappedSuperclass
 public abstract class AbstractIdentifiableEntity<ID extends Serializable> implements EntityObject {
 
-	private static final long serialVersionUID = 4957722166359705216L;
+    private static final long serialVersionUID = 4957722166359705216L;
 
-	@Column(name = "insertedDate", nullable = false)
-	private Timestamp insertedDate;
+    @Column(name = "insertedDate", nullable = false)
+    private Timestamp insertedDate;
 
-	@Version
-	@Column(name = "updatedDate", nullable = false)
-	private Timestamp updatedDate;
+    @Version
+    @Column(name = "updatedDate", nullable = false)
+    private Timestamp updatedDate;
 
-	public AbstractIdentifiableEntity() {
-	}
+    public AbstractIdentifiableEntity() {
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass() && !obj.getClass().isAssignableFrom(this.getClass()) && !this.getClass().isAssignableFrom(obj.getClass())) {
-			return false;
-		}
-		@SuppressWarnings("unchecked")
-		final AbstractIdentifiableEntity<ID> other = (AbstractIdentifiableEntity<ID>) obj;
-		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass() && !obj.getClass().isAssignableFrom(this.getClass()) && !this.getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        @SuppressWarnings("unchecked")
+        final AbstractIdentifiableEntity<ID> other = (AbstractIdentifiableEntity<ID>) obj;
+        return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
+    }
 
-	public abstract ID getId();
+    public abstract ID getId();
 
-	public Timestamp getInsertedDate() {
-		return this.insertedDate;
-	}
+    public Timestamp getInsertedDate() {
+        return this.insertedDate;
+    }
 
-	public Timestamp getUpdatedDate() {
-		return this.updatedDate;
-	}
+    public Timestamp getUpdatedDate() {
+        return this.updatedDate;
+    }
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(this.getId()).toHashCode();
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this.getId()).toHashCode();
+    }
 
-	public abstract void setId(ID id);
+    public abstract void setId(ID id);
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
-	}
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
+    }
 
-	@PrePersist
-	protected void setInsertedDate() {
-		this.insertedDate = new Timestamp(System.currentTimeMillis());
-	}
+    @PrePersist
+    protected void setInsertedDate() {
+        this.insertedDate = new Timestamp(System.currentTimeMillis());
+    }
 }

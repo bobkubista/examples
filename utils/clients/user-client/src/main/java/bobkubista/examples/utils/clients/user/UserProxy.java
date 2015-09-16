@@ -10,14 +10,14 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
  */
 public class UserProxy extends AbstractGenericRestActiveProxy<User, Long>implements UserApi {
 
-	@Override
-	protected String getBasePath() {
-		return ServerProperties.getString("rest.service.base.path");
-	}
+    @Override
+    protected String getBasePath() {
+        return ServerProperties.getString("rest.service.base.path");
+    }
 
-	@Override
-	protected String getBaseUri() {
-		return "";
-	}
+    @Override
+    protected String getBaseUri() {
+        return "";
+    }
 
 }

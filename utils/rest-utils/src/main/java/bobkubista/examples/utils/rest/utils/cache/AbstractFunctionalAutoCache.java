@@ -23,51 +23,51 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  */
 public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends FunctionalIdentifiableDomainObject<K>> extends AbstractIdentifiableAutoCache<K, V> {
 
-	private final Map<String, K> functionalToKeyMap;
+    private final Map<String, K> functionalToKeyMap;
 
-	/**
-	 * Constructor
-	 */
-	public AbstractFunctionalAutoCache() {
-		super();
-		this.functionalToKeyMap = new HashMap<String, K>(INITIAL_CAPACITY);
-	}
+    /**
+     * Constructor
+     */
+    public AbstractFunctionalAutoCache() {
+        super();
+        this.functionalToKeyMap = new HashMap<String, K>(INITIAL_CAPACITY);
+    }
 
-	/**
-	 * Get a value based on the functional ID
-	 *
-	 * @param functionalId
-	 *            functional Id
-	 * @return value of type <code>V</code>
-	 * @throws ExecutionException
-	 *             ExecutionException - if a checked exception was thrown while
-	 *             loading the value. (ExecutionException is thrown even if
-	 *             computation was interrupted by an InterruptedException.)
-	 *             UncheckedExecutionException - if an unchecked exception was
-	 *             thrown while loading the value ExecutionError - if an error
-	 *             was thrown while loading the value
-	 */
-	public V get(final String functionalId) throws ExecutionException {
-		return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, fId -> this.getFunctionalService().getIdByFunctionalId(fId)));
-	}
+    /**
+     * Get a value based on the functional ID
+     *
+     * @param functionalId
+     *            functional Id
+     * @return value of type <code>V</code>
+     * @throws ExecutionException
+     *             ExecutionException - if a checked exception was thrown while
+     *             loading the value. (ExecutionException is thrown even if
+     *             computation was interrupted by an InterruptedException.)
+     *             UncheckedExecutionException - if an unchecked exception was
+     *             thrown while loading the value ExecutionError - if an error
+     *             was thrown while loading the value
+     */
+    public V get(final String functionalId) throws ExecutionException {
+        return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, fId -> this.getFunctionalService().getIdByFunctionalId(fId)));
+    }
 
-	@Override
-	public ListenableFuture<V> reload(final K key, final V oldValue) throws Exception {
-		final ListenableFuture<V> reload = super.reload(key, oldValue);
-		this.functionalToKeyMap.put(reload.get().getFunctionalId(), key);
-		return reload;
-	}
+    @Override
+    public ListenableFuture<V> reload(final K key, final V oldValue) throws Exception {
+        final ListenableFuture<V> reload = super.reload(key, oldValue);
+        this.functionalToKeyMap.put(reload.get().getFunctionalId(), key);
+        return reload;
+    }
 
-	/**
-	 * @param <T>
-	 *            {@link FunctionalIdentifiableService}
-	 * @return the {@link FunctionalIdentifiableService}
-	 */
-	protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();
+    /**
+     * @param <T>
+     *            {@link FunctionalIdentifiableService}
+     * @return the {@link FunctionalIdentifiableService}
+     */
+    protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();
 
-	@Override
-	protected IdentifiableService<V, K> getIdentifiableService() {
-		return this.getFunctionalService();
-	}
+    @Override
+    protected IdentifiableService<V, K> getIdentifiableService() {
+        return this.getFunctionalService();
+    }
 
 }

@@ -10,11 +10,11 @@ import org.apache.wicket.markup.html.basic.Label;
  */
 public abstract class BasePage extends WebPage {
 
-	private static final long serialVersionUID = -1613992789574719544L;
+    private static final long serialVersionUID = -1613992789574719544L;
 
-	public BasePage() {
-		this.add(new Label("header", "This is in the header"));
-		this.add(new Label("footer", "This is in the footer"));
-	}
+    public BasePage() {
+        this.add(new Label("header", "This is in the header"));
+        this.add(new Label("footer", "This is in the footer"));
+    }
 
 }

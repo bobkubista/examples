@@ -19,18 +19,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class DomainObjectCollection<TYPE extends DomainObject> implements DomainObject {
 
-	private static final long serialVersionUID = -7020164336355743584L;
+    private static final long serialVersionUID = -7020164336355743584L;
 
-	/**
-	 * Constructor
-	 */
-	public DomainObjectCollection() {
-		super();
-	}
+    /**
+     * Constructor
+     */
+    public DomainObjectCollection() {
+        super();
+    }
 
-	/**
-	 * @return the domainCollection
-	 */
-	public abstract Collection<TYPE> getDomainCollection();
+    /**
+     * @return the domainCollection
+     */
+    public abstract Collection<TYPE> getDomainCollection();
 
 }

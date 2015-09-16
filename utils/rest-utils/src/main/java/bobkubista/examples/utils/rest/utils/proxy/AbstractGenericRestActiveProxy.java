@@ -18,12 +18,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>
-		implements ActiveApi<TYPE, ID> {
+public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable>
+        extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>implements ActiveApi<TYPE, ID> {
 
-	@Override
-	public Response getAllActive() {
-		return this.getRequest("active").get();
-	}
+    @Override
+    public Response getAllActive() {
+        return this.getRequest("active").get();
+    }
 
 }

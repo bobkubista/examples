@@ -12,11 +12,11 @@ import org.apache.wicket.markup.html.basic.Label;
  */
 public class Hello extends WebPage {
 
-	private static final long serialVersionUID = 8569314481611244857L;
+    private static final long serialVersionUID = 8569314481611244857L;
 
-	public Hello() {
+    public Hello() {
 
-		this.add(new Label("message", "Hello World, Wicket"));
+        this.add(new Label("message", "Hello World, Wicket"));
 
-	}
+    }
 }

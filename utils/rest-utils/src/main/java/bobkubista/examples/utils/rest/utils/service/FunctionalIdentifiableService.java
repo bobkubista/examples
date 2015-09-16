@@ -16,21 +16,21 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
  */
 public interface FunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
 
-	/**
-	 *
-	 * @param functionalId
-	 *            the functional identifier
-	 * @return the {@link FunctionalIdentifiableDomainObject}
-	 */
-	TYPE getByFunctionalId(String functionalId);
+    /**
+     *
+     * @param functionalId
+     *            the functional identifier
+     * @return the {@link FunctionalIdentifiableDomainObject}
+     */
+    TYPE getByFunctionalId(String functionalId);
 
-	/**
-	 * Map a functional id to an identifier
-	 *
-	 * @param fId
-	 *            the functional id
-	 * @return the identifier
-	 */
-	ID getIdByFunctionalId(String fId);
+    /**
+     * Map a functional id to an identifier
+     *
+     * @param fId
+     *            the functional id
+     * @return the identifier
+     */
+    ID getIdByFunctionalId(String fId);
 
 }

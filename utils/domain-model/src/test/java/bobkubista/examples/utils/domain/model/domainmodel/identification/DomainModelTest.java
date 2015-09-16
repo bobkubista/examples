@@ -15,28 +15,28 @@ import org.junit.Test;
  */
 public class DomainModelTest {
 
-	@Test
-	public void testEquals() {
-		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
-		Assert.assertTrue(classToTest.equals(new GenericTestActiveDomainObject()));
-	}
+    @Test
+    public void testEquals() {
+        final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
+        Assert.assertTrue(classToTest.equals(new GenericTestActiveDomainObject()));
+    }
 
-	@Test
-	public void testEqualsNull() {
-		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
-		Assert.assertFalse(classToTest.equals(null));
-	}
+    @Test
+    public void testEqualsNull() {
+        final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
+        Assert.assertFalse(classToTest.equals(null));
+    }
 
-	@Test
-	public void testHashCode() {
-		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
-		Assert.assertEquals(new GenericTestActiveDomainObject().hashCode(), classToTest.hashCode());
-	}
+    @Test
+    public void testHashCode() {
+        final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
+        Assert.assertEquals(new GenericTestActiveDomainObject().hashCode(), classToTest.hashCode());
+    }
 
-	@Test
-	public void testToString() {
-		final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
-		Assert.assertTrue(StringUtils.isNotBlank(classToTest.toString()));
-		Assert.assertEquals("GenericTestActiveDomainObject[id=1,active=true,functionalId=testObject]", classToTest.toString());
-	}
+    @Test
+    public void testToString() {
+        final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
+        Assert.assertTrue(StringUtils.isNotBlank(classToTest.toString()));
+        Assert.assertEquals("GenericTestActiveDomainObject[id=1,active=true,functionalId=testObject]", classToTest.toString());
+    }
 }

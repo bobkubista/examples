@@ -12,12 +12,12 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  */
 public class UserService implements ActiveEntityService<UserEntity, Long> {
 
-	@Inject
-	private UserDao dao;
+    @Inject
+    private UserDao dao;
 
-	@Override
-	public UserDao getDAO() {
-		return this.dao;
-	}
+    @Override
+    public UserDao getDAO() {
+        return this.dao;
+    }
 
 }

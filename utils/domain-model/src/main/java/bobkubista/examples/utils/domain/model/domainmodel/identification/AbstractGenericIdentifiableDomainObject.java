@@ -23,37 +23,37 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractGenericIdentifiableDomainObject<ID extends Serializable> implements DomainObject {
 
-	private static final long serialVersionUID = 6041983912533900961L;
+    private static final long serialVersionUID = 6041983912533900961L;
 
-	public AbstractGenericIdentifiableDomainObject() {
-	}
+    public AbstractGenericIdentifiableDomainObject() {
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj == null) {
-			return false;
-		}
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
-		if (!obj.getClass().isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass() && !this.getClass().isAssignableFrom(obj.getClass())) {
-			return false;
-		}
-		@SuppressWarnings("unchecked")
-		final AbstractGenericIdentifiableDomainObject<ID> other = (AbstractGenericIdentifiableDomainObject<ID>) obj;
-		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
-	}
+        if (!obj.getClass().isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass() && !this.getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        @SuppressWarnings("unchecked")
+        final AbstractGenericIdentifiableDomainObject<ID> other = (AbstractGenericIdentifiableDomainObject<ID>) obj;
+        return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
+    }
 
-	public abstract ID getId();
+    public abstract ID getId();
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(this.getId()).toHashCode();
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this.getId()).toHashCode();
+    }
 
-	public abstract void setId(ID id);
+    public abstract void setId(ID id);
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-	}
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }

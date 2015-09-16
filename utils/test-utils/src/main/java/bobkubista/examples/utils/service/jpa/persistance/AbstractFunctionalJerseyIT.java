@@ -23,25 +23,25 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
 public abstract class AbstractFunctionalJerseyIT<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
 
-	/**
-	 * Test getByFunctionalId
-	 */
-	@Test
-	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
-	public void shouldGetByFunctionalId() {
-		this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
-	}
+    /**
+     * Test getByFunctionalId
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetByFunctionalId() {
+        this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
+    }
 
-	/**
-	 *
-	 * @return The functionalId
-	 */
-	protected abstract String getFunctionalId();
+    /**
+     *
+     * @return The functionalId
+     */
+    protected abstract String getFunctionalId();
 
-	/**
-	 *
-	 * @return a partion ID to search for
-	 */
-	protected abstract String getPartionFunctionalId();
+    /**
+     *
+     * @return a partion ID to search for
+     */
+    protected abstract String getPartionFunctionalId();
 
 }

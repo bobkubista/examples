@@ -17,21 +17,21 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Functio
  *            {@link Serializable}
  */
 public abstract class AbstractGenericRestFunctionalIdentifiableProxy<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
-		extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableApi<TYPE, ID> {
+        extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableApi<TYPE, ID> {
 
-	@Override
-	public Response getByFunctionalId(final String functionalId) {
-		return this.getRequest("/functionId/", functionalId).get();
-	}
+    @Override
+    public Response getByFunctionalId(final String functionalId) {
+        return this.getRequest("/functionId/", functionalId).get();
+    }
 
-	@Override
-	public Response getIdByFunctionalId(final String fId) {
-		return this.getRequest("id", fId).get();
-	}
+    @Override
+    public Response getIdByFunctionalId(final String fId) {
+        return this.getRequest("id", fId).get();
+    }
 
-	@Override
-	public Response searchByFunctionalID(final String identifier) {
-		return this.getRequest("searchByFunctionalId", identifier).get();
-	}
+    @Override
+    public Response searchByFunctionalID(final String identifier) {
+        return this.getRequest("searchByFunctionalId", identifier).get();
+    }
 
 }

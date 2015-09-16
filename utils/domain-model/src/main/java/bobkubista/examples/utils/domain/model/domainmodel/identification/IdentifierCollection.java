@@ -21,34 +21,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.NONE)
 public class IdentifierCollection<ID> implements DomainObject {
 
-	private static final long serialVersionUID = -8623470897577981147L;
+    private static final long serialVersionUID = -8623470897577981147L;
 
-	@XmlElementWrapper(name = "ids")
-	@XmlElement(name = "id")
-	private Collection<ID> collection = new LinkedList<ID>();
+    @XmlElementWrapper(name = "ids")
+    @XmlElement(name = "id")
+    private Collection<ID> collection = new LinkedList<ID>();
 
-	/**
-	 * Constructor
-	 */
-	public IdentifierCollection() {
-		super();
-	}
+    /**
+     * Constructor
+     */
+    public IdentifierCollection() {
+        super();
+    }
 
-	/**
-	 * Constructor
-	 *
-	 * @param collection
-	 *            to set
-	 */
-	public IdentifierCollection(final Collection<ID> collection) {
-		this.collection = collection;
-	}
+    /**
+     * Constructor
+     *
+     * @param collection
+     *            to set
+     */
+    public IdentifierCollection(final Collection<ID> collection) {
+        this.collection = collection;
+    }
 
-	/**
-	 *
-	 * @return {@link Collection} of identifiers
-	 */
-	public Collection<ID> getIdentifiers() {
-		return this.collection;
-	}
+    /**
+     *
+     * @return {@link Collection} of identifiers
+     */
+    public Collection<ID> getIdentifiers() {
+        return this.collection;
+    }
 }

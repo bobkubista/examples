@@ -31,64 +31,64 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 @SequenceGenerator(name = "sq_todoitem", allocationSize = 1, sequenceName = "sq_todoitem", initialValue = 1)
 public class TodoEntity extends AbstractIdentifiableEntity<Long> {
 
-	private static final long serialVersionUID = 8974577038350152806L;
+    private static final long serialVersionUID = 8974577038350152806L;
 
-	@Basic
-	@Column(nullable = false)
-	private boolean active;
+    @Basic
+    @Column(nullable = false)
+    private boolean active;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
+    private Long id;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "todolistid", nullable = false)
-	private TodoListEntity listEntity;
-	@Column(nullable = false)
-	private String value;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "todolistid", nullable = false)
+    private TodoListEntity listEntity;
+    @Column(nullable = false)
+    private String value;
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
-	@Override
-	public Long getId() {
-		return this.id;
-	}
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
-	public TodoListEntity getListEntity() {
-		return this.listEntity;
-	}
+    public TodoListEntity getListEntity() {
+        return this.listEntity;
+    }
 
-	public String getValue() {
-		return this.value;
-	}
+    public String getValue() {
+        return this.value;
+    }
 
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
-	public boolean isActive() {
-		return this.active;
-	}
+    public boolean isActive() {
+        return this.active;
+    }
 
-	public void setActive(final boolean active) {
-		this.active = active;
-	}
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
 
-	@Override
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public void setListEntity(TodoListEntity listEntity) {
-		this.listEntity = listEntity;
-	}
+    public void setListEntity(TodoListEntity listEntity) {
+        this.listEntity = listEntity;
+    }
 
-	public void setValue(final String value) {
-		this.value = value;
-	}
+    public void setValue(final String value) {
+        this.value = value;
+    }
 
 }

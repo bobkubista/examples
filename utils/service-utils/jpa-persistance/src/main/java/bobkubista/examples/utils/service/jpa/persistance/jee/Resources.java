@@ -22,11 +22,11 @@ import javax.persistence.PersistenceContext;
  */
 public final class Resources {
 
-	@Produces
-	@PersistenceContext
-	private EntityManager entityManager;
+    @Produces
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	private Resources() {
-		super();
-	}
+    private Resources() {
+        super();
+    }
 }

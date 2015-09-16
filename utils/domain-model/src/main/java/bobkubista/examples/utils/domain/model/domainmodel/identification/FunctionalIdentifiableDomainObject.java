@@ -19,18 +19,18 @@ import org.hibernate.validator.constraints.NotBlank;
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class FunctionalIdentifiableDomainObject<ID extends Serializable> extends AbstractGenericIdentifiableDomainObject<ID> {
 
-	private static final long serialVersionUID = 332043130860626788L;
+    private static final long serialVersionUID = 332043130860626788L;
 
-	/**
-	 * Constructor
-	 */
-	public FunctionalIdentifiableDomainObject() {
-	}
+    /**
+     * Constructor
+     */
+    public FunctionalIdentifiableDomainObject() {
+    }
 
-	@NotBlank
-	@XmlElement(required = true)
-	public abstract String getFunctionalId();
+    @NotBlank
+    @XmlElement(required = true)
+    public abstract String getFunctionalId();
 
-	public abstract void setFunctionalId(String functionalId);
+    public abstract void setFunctionalId(String functionalId);
 
 }

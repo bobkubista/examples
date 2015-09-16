@@ -17,9 +17,9 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActi
 @Default
 class TodoListDao extends AbstractGenericActiveEntityDao<TodoListEntity, Long>implements ActiveDAO<TodoListEntity, Long> {
 
-	@Override
-	protected Path<String> getFunctionalIdField(final Root<TodoListEntity> entity) {
-		return entity.<String> get("todoListName");
-	}
+    @Override
+    protected Path<String> getFunctionalIdField(final Root<TodoListEntity> entity) {
+        return entity.<String> get("todoListName");
+    }
 
 }

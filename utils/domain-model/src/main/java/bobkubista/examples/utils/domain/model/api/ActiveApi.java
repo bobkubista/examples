@@ -20,15 +20,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
 
-	/**
-	 *
-	 * @return get all {@link AbstractGenericActiveDomainObject}s
-	 */
-	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("active/")
-	default Response getAllActive() {
-		return IdentifiableApi.buildNotImplementedResponse(null);
-	}
+    /**
+     *
+     * @return get all {@link AbstractGenericActiveDomainObject}s
+     */
+    @GET
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Path("active/")
+    default Response getAllActive() {
+        return IdentifiableApi.buildNotImplementedResponse(null);
+    }
 }

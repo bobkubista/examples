@@ -18,19 +18,19 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFac
 @Path("/")
 public class UserFacade extends GenericActiveFacade<User, Long, UserEntity, UserCollection>implements UserApi {
 
-	@Inject
-	private UserConverter converter;
-	@Inject
-	private UserService service;
+    @Inject
+    private UserConverter converter;
+    @Inject
+    private UserService service;
 
-	@Override
-	protected UserConverter getConverter() {
-		return this.converter;
-	}
+    @Override
+    protected UserConverter getConverter() {
+        return this.converter;
+    }
 
-	@Override
-	protected UserService getService() {
-		return this.service;
-	}
+    @Override
+    protected UserService getService() {
+        return this.service;
+    }
 
 }

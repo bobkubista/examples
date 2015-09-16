@@ -17,13 +17,13 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class ActiveEntity<ID extends Serializable> extends FunctionalIdentifiableEntity<ID> {
 
-	private static final long serialVersionUID = -6184924216288636653L;
+    private static final long serialVersionUID = -6184924216288636653L;
 
-	public ActiveEntity() {
-	}
+    public ActiveEntity() {
+    }
 
-	public abstract boolean isActive();
+    public abstract boolean isActive();
 
-	public abstract void setActive(boolean active);
+    public abstract void setActive(boolean active);
 
 }

@@ -14,8 +14,8 @@ import bobkubista.examples.webapps.wicket.pages.Hello;
  */
 public class MyApplication extends WebApplication {
 
-	@Override
-	public Class<? extends Page> getHomePage() {
-		return Hello.class;
-	}
+    @Override
+    public Class<? extends Page> getHomePage() {
+        return Hello.class;
+    }
 }

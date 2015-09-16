@@ -19,15 +19,15 @@ import org.hibernate.validator.constraints.NotBlank;
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractGenericActiveDomainObject<ID extends Serializable> extends FunctionalIdentifiableDomainObject<ID> {
 
-	private static final long serialVersionUID = -7516244737080941032L;
+    private static final long serialVersionUID = -7516244737080941032L;
 
-	public AbstractGenericActiveDomainObject() {
-	}
+    public AbstractGenericActiveDomainObject() {
+    }
 
-	@NotBlank
-	@XmlElement(required = true)
-	public abstract boolean isActive();
+    @NotBlank
+    @XmlElement(required = true)
+    public abstract boolean isActive();
 
-	public abstract void setActive(boolean active);
+    public abstract void setActive(boolean active);
 
 }

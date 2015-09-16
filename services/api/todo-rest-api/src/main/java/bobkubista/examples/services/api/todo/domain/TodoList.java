@@ -21,60 +21,60 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 @XmlRootElement(name = "todoList")
 @XmlAccessorType(XmlAccessType.NONE)
 public class TodoList extends AbstractGenericActiveDomainObject<Long> {
-	private static final long serialVersionUID = 435396239252623825L;
+    private static final long serialVersionUID = 435396239252623825L;
 
-	@XmlElement(required = true)
-	private boolean active;
-	@XmlElement(required = true)
-	private Long id;
-	@XmlElement(required = true)
-	private String todoListName;
+    @XmlElement(required = true)
+    private boolean active;
+    @XmlElement(required = true)
+    private Long id;
+    @XmlElement(required = true)
+    private String todoListName;
 
-	@XmlElementWrapper(name = "todos")
-	@XmlElement(name = "todo")
-	private final List<Todo> todos = new ArrayList<>();
+    @XmlElementWrapper(name = "todos")
+    @XmlElement(name = "todo")
+    private final List<Todo> todos = new ArrayList<>();
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
-	@Override
-	public String getFunctionalId() {
-		return this.todoListName;
-	}
+    @Override
+    public String getFunctionalId() {
+        return this.todoListName;
+    }
 
-	@Override
-	public Long getId() {
-		return this.id;
-	}
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
-	public List<Todo> getTodoList() {
-		return this.todos;
-	}
+    public List<Todo> getTodoList() {
+        return this.todos;
+    }
 
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
-	@Override
-	public boolean isActive() {
-		return this.active;
-	}
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
 
-	@Override
-	public void setActive(final boolean active) {
-		this.active = active;
-	}
+    @Override
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
 
-	@Override
-	public void setFunctionalId(final String functionalId) {
-		this.todoListName = functionalId;
-	}
+    @Override
+    public void setFunctionalId(final String functionalId) {
+        this.todoListName = functionalId;
+    }
 
-	@Override
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
+    }
 }

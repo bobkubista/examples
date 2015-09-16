@@ -17,14 +17,14 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
  */
 public interface ActiveEntityService<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
 
-	/**
-	 *
-	 * @return all active entities of <code>TYPE</code>
-	 */
-	default Collection<TYPE> getAllActive() {
-		return this.getDAO().findAllActive("id");
-	}
+    /**
+     *
+     * @return all active entities of <code>TYPE</code>
+     */
+    default Collection<TYPE> getAllActive() {
+        return this.getDAO().findAllActive("id");
+    }
 
-	@Override
-	public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
+    @Override
+    public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
 }

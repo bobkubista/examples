@@ -18,9 +18,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableService<TYPE, ID> {
 
-	/**
-	 *
-	 * @return Get all active {@link AbstractGenericActiveDomainObject}
-	 */
-	Collection<TYPE> getAllActive();
+    /**
+     *
+     * @return Get all active {@link AbstractGenericActiveDomainObject}
+     */
+    Collection<TYPE> getAllActive();
 }

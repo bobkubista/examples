@@ -32,32 +32,32 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
 public abstract class BaseJerseyDbUnitTest extends JerseyTest {
 
-	@PersistenceContext
-	private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-	/**
-	 * Clear cache
-	 */
-	@Before
-	public void clearCache() {
-		this.em.getEntityManagerFactory().getCache().evictAll();
-	}
+    /**
+     * Clear cache
+     */
+    @Before
+    public void clearCache() {
+        this.em.getEntityManagerFactory().getCache().evictAll();
+    }
 
-	/**
-	 * Configure
-	 *
-	 * @param rc
-	 *            {@link ResourceConfig}
-	 * @return {@link ResourceConfig}
-	 */
-	public abstract ResourceConfig configure(ResourceConfig rc);
+    /**
+     * Configure
+     *
+     * @param rc
+     *            {@link ResourceConfig}
+     * @return {@link ResourceConfig}
+     */
+    public abstract ResourceConfig configure(ResourceConfig rc);
 
-	@Override
-	protected Application configure() {
-		final ResourceConfig rc = new ResourceConfig().register(RequestContextFilter.class);
+    @Override
+    protected Application configure() {
+        final ResourceConfig rc = new ResourceConfig().register(RequestContextFilter.class);
 
-		rc.property("contextConfigLocation", "classpath:jersey-dbunit-config.xml");
-		return this.configure(rc);
-	}
+        rc.property("contextConfigLocation", "classpath:jersey-dbunit-config.xml");
+        return this.configure(rc);
+    }
 
 }

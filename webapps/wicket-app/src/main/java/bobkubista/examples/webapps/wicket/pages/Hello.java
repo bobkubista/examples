@@ -20,31 +20,31 @@ import bobkubista.examples.webapps.wicket.pages.base.BasePage;
  */
 public class Hello extends BasePage {
 
-	private static final long serialVersionUID = -3796141589395048837L;
+    private static final long serialVersionUID = -3796141589395048837L;
 
-	private final TodoService todoService;
+    private final TodoService todoService;
 
-	/**
-	 * Default constructor
-	 */
-	public Hello() {
-		this.todoService = TodoServiceMock.getInstance();
+    /**
+     * Default constructor
+     */
+    public Hello() {
+        this.todoService = TodoServiceMock.getInstance();
 
-		this.add(new Label("body", "This is in the body"));
-		final Collection<TodoList> todos = this.todoService.getAll();
-		this.add(new PropertyListView<TodoList>("todos", todos.stream().collect(Collectors.toList())) {
+        this.add(new Label("body", "This is in the body"));
+        final Collection<TodoList> todos = this.todoService.getAll();
+        this.add(new PropertyListView<TodoList>("todos", todos.stream().collect(Collectors.toList())) {
 
-			private static final long serialVersionUID = -2690991382022338625L;
+            private static final long serialVersionUID = -2690991382022338625L;
 
-			@Override
-			protected void populateItem(final ListItem<TodoList> item) {
-				item.add(new Label("todoListName"));
-			}
-		});
-		final Form form = new Form("form");
-		this.add(form);
-		final DropDownChoice<Todo> dcc = new DropDownChoice<Todo>("todo", Hello.this.todoService.getByID(1L).getTodoList());
-		form.add(dcc);
-	}
+            @Override
+            protected void populateItem(final ListItem<TodoList> item) {
+                item.add(new Label("todoListName"));
+            }
+        });
+        final Form form = new Form("form");
+        this.add(form);
+        final DropDownChoice<Todo> dcc = new DropDownChoice<Todo>("todo", Hello.this.todoService.getByID(1L).getTodoList());
+        form.add(dcc);
+    }
 
 }

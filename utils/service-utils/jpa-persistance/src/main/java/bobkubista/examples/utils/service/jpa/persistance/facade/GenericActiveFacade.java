@@ -22,14 +22,14 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *            {@link DomainObjectCollection}
  */
 public abstract class GenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends ActiveEntity<ID>, DMOL extends DomainObjectCollection<DMO>>
-		extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
+        extends GenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
-	@Override
-	public Response getAllActive() {
-		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getAllActive())).build();
-	}
+    @Override
+    public Response getAllActive() {
+        return Response.ok(this.getConverter().convertToDomainObject(this.getService().getAllActive())).build();
+    }
 
-	@Override
-	protected abstract ActiveEntityService<TYPE, ID> getService();
+    @Override
+    protected abstract ActiveEntityService<TYPE, ID> getService();
 
 }

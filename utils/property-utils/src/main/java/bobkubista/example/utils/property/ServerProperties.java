@@ -15,70 +15,70 @@ import org.slf4j.LoggerFactory;
  */
 public final class ServerProperties {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
-	private static Properties props;
+    private static Properties props;
 
-	private static final String SERVER_PROP_FILE = "server.properties";
+    private static final String SERVER_PROP_FILE = "server.properties";
 
-	static {
-		if (props == null) {
-			LOGGER.debug("Getting resource file location from classpath");
-			final InputStream serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
-			props = new Properties();
+    static {
+        if (props == null) {
+            LOGGER.debug("Getting resource file location from classpath");
+            final InputStream serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
+            props = new Properties();
 
-			if (serverPropLocation != null) {
-				try {
-					LOGGER.debug("Loading resource file location from classpath");
-					LOGGER.debug("Loading properties");
-					props.load(serverPropLocation);
-				} catch (final IOException e) {
-					LOGGER.error("Could not load file", e);
-				} finally {
-					closeProperties(serverPropLocation);
-				}
-			}
-		}
-	}
+            if (serverPropLocation != null) {
+                try {
+                    LOGGER.debug("Loading resource file location from classpath");
+                    LOGGER.debug("Loading properties");
+                    props.load(serverPropLocation);
+                } catch (final IOException e) {
+                    LOGGER.error("Could not load file", e);
+                } finally {
+                    closeProperties(serverPropLocation);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Constructor
-	 */
-	private ServerProperties() {
-		super();
-	}
+    /**
+     * Constructor
+     */
+    private ServerProperties() {
+        super();
+    }
 
-	/**
-	 * Get all properties
-	 *
-	 * @return
-	 */
-	public static Properties getProperies() {
-		return props;
-	}
+    /**
+     * Get all properties
+     *
+     * @return
+     */
+    public static Properties getProperies() {
+        return props;
+    }
 
-	/**
-	 *
-	 * @param key
-	 *            of the property
-	 * @return the property value
-	 */
-	public static String getString(final String key) {
-		String result = null;
-		LOGGER.debug("Getting property for key {}", key);
-		result = props.getProperty(key);
-		LOGGER.debug("Got property for key {} and value {}", key, result);
-		return result;
-	}
+    /**
+     *
+     * @param key
+     *            of the property
+     * @return the property value
+     */
+    public static String getString(final String key) {
+        String result = null;
+        LOGGER.debug("Getting property for key {}", key);
+        result = props.getProperty(key);
+        LOGGER.debug("Got property for key {} and value {}", key, result);
+        return result;
+    }
 
-	private static void closeProperties(final InputStream serverPropLocation) {
-		if (serverPropLocation != null) {
-			try {
-				serverPropLocation.close();
-			} catch (final IOException e) {
-				LOGGER.error(e.getMessage(), e);
-			}
-		}
-	}
+    private static void closeProperties(final InputStream serverPropLocation) {
+        if (serverPropLocation != null) {
+            try {
+                serverPropLocation.close();
+            } catch (final IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+    }
 
 }

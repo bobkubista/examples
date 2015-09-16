@@ -18,21 +18,21 @@ import org.springframework.web.filter.RequestContextFilter;
 @ContextConfiguration(locations = { "/jersey-config.xml" })
 public abstract class BaseJerseyTest extends JerseyTest {
 
-	/**
-	 * Configure
-	 * 
-	 * @param rc
-	 *            {@link ResourceConfig}
-	 * @return {@link ResourceConfig}
-	 */
-	public abstract ResourceConfig configure(ResourceConfig rc);
+    /**
+     * Configure
+     * 
+     * @param rc
+     *            {@link ResourceConfig}
+     * @return {@link ResourceConfig}
+     */
+    public abstract ResourceConfig configure(ResourceConfig rc);
 
-	@Override
-	protected Application configure() {
-		final ResourceConfig rc = new ResourceConfig().register(RequestContextFilter.class);
+    @Override
+    protected Application configure() {
+        final ResourceConfig rc = new ResourceConfig().register(RequestContextFilter.class);
 
-		rc.property("contextConfigLocation", "classpath:jersey-config.xml");
-		return this.configure(rc);
-	}
+        rc.property("contextConfigLocation", "classpath:jersey-config.xml");
+        return this.configure(rc);
+    }
 
 }

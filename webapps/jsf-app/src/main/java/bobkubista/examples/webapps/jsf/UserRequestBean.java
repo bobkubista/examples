@@ -19,11 +19,11 @@ import bobkubista.examples.utils.clients.user.UserServiceInterface;
 @RequestScoped
 @Named
 public class UserRequestBean {
-	@Inject
-	private UserServiceInterface userService;
+    @Inject
+    private UserServiceInterface userService;
 
-	public Collection<User> getAllUsers() {
-		return this.userService.getAll();
-	}
+    public Collection<User> getAllUsers() {
+        return this.userService.getAll();
+    }
 
 }

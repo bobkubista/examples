@@ -20,69 +20,69 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Item implements Serializable {
 
-	private static final long serialVersionUID = -8081979073600140467L;
+    private static final long serialVersionUID = -8081979073600140467L;
 
-	@Column(length = 100)
-	private String description;
+    @Column(length = 100)
+    private String description;
 
-	@Id
-	private int id;
+    @Id
+    private int id;
 
-	@Column(length = 60)
-	private String name;
+    @Column(length = 60)
+    private String name;
 
-	@Column
-	private int type;
+    @Column
+    private int type;
 
-	/**
-	 * Constructor
-	 */
-	public Item() {
-		super();
-	}
+    /**
+     * Constructor
+     */
+    public Item() {
+        super();
+    }
 
-	/**
-	 * Constructor
-	 *
-	 * @param name
-	 *            name
-	 * @param type
-	 *            type
-	 */
-	public Item(String name, int type) {
-		this.name = name;
-		this.type = type;
-	}
+    /**
+     * Constructor
+     *
+     * @param name
+     *            name
+     * @param type
+     *            type
+     */
+    public Item(String name, int type) {
+        this.name = name;
+        this.type = type;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public int getType() {
-		return this.type;
-	}
+    public int getType() {
+        return this.type;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 }

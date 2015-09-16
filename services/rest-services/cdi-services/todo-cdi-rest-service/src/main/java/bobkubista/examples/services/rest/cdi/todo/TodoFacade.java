@@ -18,19 +18,19 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFac
 @Logging
 public class TodoFacade extends GenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
 
-	@Inject
-	private TodoListConverter converter;
-	@Inject
-	private TodoListService service;
+    @Inject
+    private TodoListConverter converter;
+    @Inject
+    private TodoListService service;
 
-	@Override
-	protected TodoListConverter getConverter() {
-		return this.converter;
-	}
+    @Override
+    protected TodoListConverter getConverter() {
+        return this.converter;
+    }
 
-	@Override
-	protected TodoListService getService() {
-		return this.service;
-	}
+    @Override
+    protected TodoListService getService() {
+        return this.service;
+    }
 
 }

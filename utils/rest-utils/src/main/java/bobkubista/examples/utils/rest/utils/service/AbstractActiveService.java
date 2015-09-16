@@ -22,12 +22,12 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
 public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID> {
 
-	@Override
-	public Collection<TYPE> getAllActive() {
-		return this.getProxy().getAllActive().readEntity(this.getCollectionClass()).getDomainCollection();
-	}
+    @Override
+    public Collection<TYPE> getAllActive() {
+        return this.getProxy().getAllActive().readEntity(this.getCollectionClass()).getDomainCollection();
+    }
 
-	@Override
-	protected abstract AbstractGenericRestActiveProxy<TYPE, ID> getProxy();
+    @Override
+    protected abstract AbstractGenericRestActiveProxy<TYPE, ID> getProxy();
 
 }

@@ -15,12 +15,12 @@ import bobkubista.examples.utils.rest.utils.service.AbstractActiveService;
  */
 public class UserService extends AbstractActiveService<User, Long, UserCollection>implements UserServiceInterface {
 
-	@Inject
-	private UserProxy proxy;
+    @Inject
+    private UserProxy proxy;
 
-	@Override
-	protected UserProxy getProxy() {
-		return this.proxy;
-	}
+    @Override
+    protected UserProxy getProxy() {
+        return this.proxy;
+    }
 
 }

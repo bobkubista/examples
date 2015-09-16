@@ -20,22 +20,22 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class LocaleAdapter extends XmlAdapter<String, Locale> {
 
-	@Override
-	public String marshal(final Locale v) throws Exception {
-		String result = null;
-		if (v != null) {
-			result = v.getLanguage();
-		}
-		return result;
-	}
+    @Override
+    public String marshal(final Locale v) throws Exception {
+        String result = null;
+        if (v != null) {
+            result = v.getLanguage();
+        }
+        return result;
+    }
 
-	@Override
-	public Locale unmarshal(final String v) throws Exception {
-		Locale result = null;
-		if (v != null) {
-			result = new Locale(v);
-		}
-		return result;
-	}
+    @Override
+    public Locale unmarshal(final String v) throws Exception {
+        Locale result = null;
+        if (v != null) {
+            result = new Locale(v);
+        }
+        return result;
+    }
 
 }

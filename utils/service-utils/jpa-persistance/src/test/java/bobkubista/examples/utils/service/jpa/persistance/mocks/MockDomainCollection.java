@@ -7,12 +7,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 
 public class MockDomainCollection extends DomainObjectCollection<MockDomain> {
 
-	private static final long serialVersionUID = 2190490622518942077L;
-	private final Collection<MockDomain> domainCollection = new LinkedList<>();
+    private static final long serialVersionUID = 2190490622518942077L;
+    private final Collection<MockDomain> domainCollection = new LinkedList<>();
 
-	@Override
-	public Collection<MockDomain> getDomainCollection() {
-		return this.domainCollection;
-	}
+    @Override
+    public Collection<MockDomain> getDomainCollection() {
+        return this.domainCollection;
+    }
 
 }

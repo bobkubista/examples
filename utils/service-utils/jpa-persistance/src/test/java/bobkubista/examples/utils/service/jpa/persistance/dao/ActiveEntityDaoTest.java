@@ -15,26 +15,26 @@ import bobkubista.examples.utils.service.jpa.persistance.mocks.MockEntity;
  */
 public class ActiveEntityDaoTest {
 
-	MockDao dao = new MockDao();
+    MockDao dao = new MockDao();
 
-	/**
-	 * Test method for
-	 * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getEntityClass()}
-	 * .
-	 */
-	@Test
-	public void testGetEntityClass() {
-		Assert.assertEquals(MockEntity.class, this.dao.getEntityClass());
-	}
+    /**
+     * Test method for
+     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getEntityClass()}
+     * .
+     */
+    @Test
+    public void testGetEntityClass() {
+        Assert.assertEquals(MockEntity.class, this.dao.getEntityClass());
+    }
 
-	/**
-	 * Test method for
-	 * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getIdentifierClass()}
-	 * .
-	 */
-	@Test
-	public void testGetIdentifierClass() {
-		Assert.assertEquals(Long.class, this.dao.getIdentifierClass());
-	}
+    /**
+     * Test method for
+     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getIdentifierClass()}
+     * .
+     */
+    @Test
+    public void testGetIdentifierClass() {
+        Assert.assertEquals(Long.class, this.dao.getIdentifierClass());
+    }
 
 }

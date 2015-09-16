@@ -37,48 +37,48 @@ import javax.validation.Payload;
 @Constraint(validatedBy = XorFieldsValidator.class)
 @Documented
 public @interface XorFields {
-	/**
-	 * Defines several <code>@FieldMatch</code> annotations on the same element
-	 *
-	 * @see FieldMatch
-	 */
-	@Target({ TYPE, ANNOTATION_TYPE })
-	@Retention(RUNTIME)
-	@Documented
-	@interface List {
+    /**
+     * Defines several <code>@FieldMatch</code> annotations on the same element
+     *
+     * @see FieldMatch
+     */
+    @Target({ TYPE, ANNOTATION_TYPE })
+    @Retention(RUNTIME)
+    @Documented
+    @interface List {
 
-		/**
-		 *
-		 * @return value
-		 */
-		XorFields[]value();
-	}
+        /**
+         *
+         * @return value
+         */
+        XorFields[]value();
+    }
 
-	/**
-	 * @return The first field
-	 */
-	String first();
+    /**
+     * @return The first field
+     */
+    String first();
 
-	/**
-	 *
-	 * @return get groups
-	 */
-	Class<?>[]groups() default {};
+    /**
+     *
+     * @return get groups
+     */
+    Class<?>[]groups() default {};
 
-	/**
-	 *
-	 * @return get the message
-	 */
-	String message() default "{constraints.fieldmatch}";
+    /**
+     *
+     * @return get the message
+     */
+    String message() default "{constraints.fieldmatch}";
 
-	/**
-	 *
-	 * @return get the payload
-	 */
-	Class<? extends Payload>[]payload() default {};
+    /**
+     *
+     * @return get the payload
+     */
+    Class<? extends Payload>[]payload() default {};
 
-	/**
-	 * @return The second field
-	 */
-	String second();
+    /**
+     * @return The second field
+     */
+    String second();
 }

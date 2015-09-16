@@ -20,46 +20,46 @@ import bobkubista.example.utils.property.ServerProperties;
  *
  */
 public class FlywayIntegrator implements Integrator {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FlywayIntegrator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlywayIntegrator.class);
 
-	@Override
-	public void disintegrate(final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
-		// not needed
+    @Override
+    public void disintegrate(final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+        // not needed
 
-	}
+    }
 
-	@Override
-	public void integrate(final Configuration configuration, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+    @Override
+    public void integrate(final Configuration configuration, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
 
-		// Create the Flyway instance
-		final Flyway flyway = new Flyway();
+        // Create the Flyway instance
+        final Flyway flyway = new Flyway();
 
-		// Point it to the database
-		flyway.setDataSource(ServerProperties.getString("database.url"), ServerProperties.getString("database.username"), ServerProperties.getString("database.password"));
+        // Point it to the database
+        flyway.setDataSource(ServerProperties.getString("database.url"), ServerProperties.getString("database.username"), ServerProperties.getString("database.password"));
 
-		flyway.setEncoding(CharEncoding.UTF_8);
-		flyway.setOutOfOrder(true);
-		flyway.setLocations("classpath:sql");
-		final Map<String, String> placeHolders = new HashMap<>();
-		final String defaultSchema = ServerProperties.getString("database.defaultSchema");
-		placeHolders.put("schema", defaultSchema);
-		flyway.setPlaceholders(placeHolders);
-		flyway.setSchemas(defaultSchema);
-		flyway.setTable("schema_version");
+        flyway.setEncoding(CharEncoding.UTF_8);
+        flyway.setOutOfOrder(true);
+        flyway.setLocations("classpath:sql");
+        final Map<String, String> placeHolders = new HashMap<>();
+        final String defaultSchema = ServerProperties.getString("database.defaultSchema");
+        placeHolders.put("schema", defaultSchema);
+        flyway.setPlaceholders(placeHolders);
+        flyway.setSchemas(defaultSchema);
+        flyway.setTable("schema_version");
 
-		LOGGER.info("Starting database migration");
-		flyway.migrate();
-		LOGGER.info("Finished database migration");
+        LOGGER.info("Starting database migration");
+        flyway.migrate();
+        LOGGER.info("Finished database migration");
 
-		LOGGER.info("Starting database validation");
-		flyway.validate();
-		LOGGER.info("Finished database validation");
-	}
+        LOGGER.info("Starting database validation");
+        flyway.validate();
+        LOGGER.info("Finished database validation");
+    }
 
-	@Override
-	public void integrate(final MetadataImplementor metadata, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
-		// not needed
+    @Override
+    public void integrate(final MetadataImplementor metadata, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+        // not needed
 
-	}
+    }
 
 }

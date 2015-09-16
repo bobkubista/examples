@@ -7,9 +7,9 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActi
 
 public class MockDao extends AbstractGenericActiveEntityDao<MockEntity, Long> {
 
-	@Override
-	protected Path<String> getFunctionalIdField(Root<MockEntity> entity) {
-		return entity.<String> get("functionalId");
-	}
+    @Override
+    protected Path<String> getFunctionalIdField(Root<MockEntity> entity) {
+        return entity.<String> get("functionalId");
+    }
 
 }

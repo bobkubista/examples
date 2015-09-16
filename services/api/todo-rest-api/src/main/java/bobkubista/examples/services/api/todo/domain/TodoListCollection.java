@@ -22,15 +22,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 @XmlAccessorType(XmlAccessType.NONE)
 public class TodoListCollection extends DomainObjectCollection<TodoList> {
 
-	private static final long serialVersionUID = -8246993373889211905L;
+    private static final long serialVersionUID = -8246993373889211905L;
 
-	@XmlElementWrapper(name = "todolists")
-	@XmlElement(name = "todolist")
-	private final Collection<TodoList> todoList = new LinkedList<>();
+    @XmlElementWrapper(name = "todolists")
+    @XmlElement(name = "todolist")
+    private final Collection<TodoList> todoList = new LinkedList<>();
 
-	@Override
-	public Collection<TodoList> getDomainCollection() {
-		return this.todoList;
-	}
+    @Override
+    public Collection<TodoList> getDomainCollection() {
+        return this.todoList;
+    }
 
 }

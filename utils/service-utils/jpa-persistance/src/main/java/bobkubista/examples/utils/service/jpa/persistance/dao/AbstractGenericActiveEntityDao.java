@@ -20,14 +20,15 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
  * @param <ID>
  *            the identifier of the {@link ActiveEntity}
  */
-public abstract class AbstractGenericActiveEntityDao<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityDao<TYPE, ID>implements ActiveDAO<TYPE, ID> {
+public abstract class AbstractGenericActiveEntityDao<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityDao<TYPE, ID>
+        implements ActiveDAO<TYPE, ID> {
 
-	@Override
-	public Collection<TYPE> findAllActive(final String sortField) {
-		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		final CriteriaQuery<TYPE> query = builder.createQuery(this.getEntityClass());
-		final Root<TYPE> queryRoot = query.from(this.getEntityClass());
-		query.where(builder.equal(queryRoot.get("active"), true));
-		return this.orderedBy(sortField, query, builder, queryRoot);
-	}
+    @Override
+    public Collection<TYPE> findAllActive(final String sortField) {
+        final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+        final CriteriaQuery<TYPE> query = builder.createQuery(this.getEntityClass());
+        final Root<TYPE> queryRoot = query.from(this.getEntityClass());
+        query.where(builder.equal(queryRoot.get("active"), true));
+        return this.orderedBy(sortField, query, builder, queryRoot);
+    }
 }
