@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.FunctionalIdentifiableEntityDao;
-import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericFunctionalIdentifiableEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
 /**
  * Abstract IT test for Dao
@@ -15,11 +15,11 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdenti
  * @author bkubista
  *
  * @param <TYPE>
- *            {@link FunctionalIdentifiableEntity}
+ *            {@link AbstractGenericFunctionalIdentifiableEntity}
  * @param <ID>
  *            The identifier
  */
-public abstract class AbstractFunctionalDaoIT<TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractIdentifiableDaoIT<TYPE, ID> {
+public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractIdentifiableDaoIT<TYPE, ID> {
 
     /**
      * Default constructor
@@ -39,10 +39,10 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends FunctionalIdentifiabl
     }
 
     /**
-     * Get the {@link FunctionalIdentifiableEntityDao}
+     * Get the {@link AbstractGenericFunctionalIdentifiableEntityDao}
      */
     @Override
-    protected abstract FunctionalIdentifiableEntityDao<TYPE, ID> getDao();
+    protected abstract AbstractGenericFunctionalIdentifiableEntityDao<TYPE, ID> getDao();
 
     /**
      *

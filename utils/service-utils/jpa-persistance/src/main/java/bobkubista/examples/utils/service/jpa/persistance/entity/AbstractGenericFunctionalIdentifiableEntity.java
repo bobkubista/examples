@@ -15,11 +15,11 @@ import javax.persistence.MappedSuperclass;
  *            the type of {@link AbstractIdentifiableEntity}
  */
 @MappedSuperclass
-public abstract class FunctionalIdentifiableEntity<ID extends Serializable> extends AbstractIdentifiableEntity<ID> {
+public abstract class AbstractGenericFunctionalIdentifiableEntity<ID extends Serializable> extends AbstractIdentifiableEntity<ID> {
 
     private static final long serialVersionUID = 8921787384841632428L;
 
-    public FunctionalIdentifiableEntity() {
+    public AbstractGenericFunctionalIdentifiableEntity() {
     }
 
     /**

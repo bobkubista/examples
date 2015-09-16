@@ -37,10 +37,10 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author bkubista
  *
  */
-public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
+public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements IdentifiableApi<DMO, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GenericIdentifiableFacade.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
     @Override
     public Response create(final DMO object) {
