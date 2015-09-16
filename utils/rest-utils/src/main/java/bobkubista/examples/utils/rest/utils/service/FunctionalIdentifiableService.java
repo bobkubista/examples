@@ -2,7 +2,7 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 
 /**
  * A more specific interface, which builds on the {@link IdentifiableService}.
@@ -10,17 +10,17 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @author bkubista
  *
  * @param <TYPE>
- *            The {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            The {@link FunctionalIdentifiableDomainObject}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            the identifier of the {@link FunctionalIdentifiableDomainObject}
  */
-public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
+public interface FunctionalIdentifiableService<TYPE extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
 
     /**
      *
      * @param functionalId
      *            the functional identifier
-     * @return the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+     * @return the {@link FunctionalIdentifiableDomainObject}
      */
     TYPE getByFunctionalId(String functionalId);
 

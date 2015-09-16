@@ -10,17 +10,17 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 
 /**
  * @author bkubista
  *
  * @param <TYPE>
- *            The {@link AbstractGenericActiveEntity}
+ *            The {@link ActiveEntity}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericActiveEntity}
+ *            the identifier of the {@link ActiveEntity}
  */
-public abstract class AbstractGenericActiveEntityDao<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends AbstractGenericFunctionalIdentifiableEntityDao<TYPE, ID>
+public abstract class AbstractGenericActiveEntityDao<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityDao<TYPE, ID>
         implements ActiveDAO<TYPE, ID> {
 
     @Override

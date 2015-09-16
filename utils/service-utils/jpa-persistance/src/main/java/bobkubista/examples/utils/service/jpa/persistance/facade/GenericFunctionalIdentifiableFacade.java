@@ -9,25 +9,25 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
-import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIdentifiableEntityService;
 
 /**
  * @author bkubista
  *
  * @param <DMO>
- *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            {@link FunctionalIdentifiableDomainObject}
  * @param <TYPE>
- *            {@link AbstractGenericFunctionalIdentifiableEntity}
+ *            {@link FunctionalIdentifiableEntity}
  * @param <ID>
  *            Identifier
  * @param <DMOL>
- *            {@link AbstractGenericDomainObjectCollection}
+ *            {@link DomainObjectCollection}
  */
-public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
-        extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
+public abstract class GenericFunctionalIdentifiableFacade<DMO extends FunctionalIdentifiableDomainObject<ID>, TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends DomainObjectCollection<DMO>>
+        extends GenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
 
     @Override
     public Response getByFunctionalId(final String identifier) {

@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
@@ -19,9 +19,9 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <K>
  *            key, which is {@link Serializable}
  * @param <V>
- *            value, which is {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            value, which is {@link FunctionalIdentifiableDomainObject}
  */
-public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>> extends AbstractIdentifiableAutoCache<K, V> {
+public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends FunctionalIdentifiableDomainObject<K>> extends AbstractIdentifiableAutoCache<K, V> {
 
     private final Map<String, K> functionalToKeyMap;
 

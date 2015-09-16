@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
 
 /**
@@ -17,9 +17,9 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
  * @param <ID>
  *            identifier
  * @param <COL>
- *            {@link AbstractGenericDomainObjectCollection}
+ *            {@link DomainObjectCollection}
  */
-public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
+public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends DomainObjectCollection<TYPE>>
         extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID> {
 
     @Override

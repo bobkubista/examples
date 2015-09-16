@@ -11,17 +11,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.FunctionalIdentifiableDomainObject;
 
 /**
  * @author bkubista
  * @param <DMO>
- *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            {@link FunctionalIdentifiableDomainObject}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            the identifier of the {@link FunctionalIdentifiableDomainObject}
  *
  */
-public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
+public interface FunctionalIdentifiableApi<DMO extends FunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
 
     /**
      * get the <code>DMO</code>

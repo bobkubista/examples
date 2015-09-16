@@ -3,19 +3,19 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 import java.io.Serializable;
 import java.util.Collection;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericFunctionalIdentifiableEntityDao;
-import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.dao.FunctionalIdentifiableEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.entity.FunctionalIdentifiableEntity;
 
 /**
  *
  * @author bkubista
  *
  * @param <TYPE>
- *            {@link AbstractGenericFunctionalIdentifiableEntity}
+ *            {@link FunctionalIdentifiableEntity}
  * @param <ID>
- *            Identifier of {@link AbstractGenericFunctionalIdentifiableEntity}
+ *            Identifier of {@link FunctionalIdentifiableEntity}
  */
-public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends IdentifiableEntityService<TYPE, ID> {
+public interface FunctionalIdentifiableEntityService<TYPE extends FunctionalIdentifiableEntity<ID>, ID extends Serializable> extends IdentifiableEntityService<TYPE, ID> {
 
     /**
      * get the {@link IdentifiableEntity}
@@ -28,7 +28,7 @@ public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGeneri
     }
 
     @Override
-    public abstract AbstractGenericFunctionalIdentifiableEntityDao<TYPE, ID> getDAO();
+    public abstract FunctionalIdentifiableEntityDao<TYPE, ID> getDAO();
 
     /**
      *

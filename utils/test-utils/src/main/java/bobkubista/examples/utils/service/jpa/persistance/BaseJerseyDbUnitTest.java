@@ -30,7 +30,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
-public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
+public abstract class BaseJerseyDbUnitTest extends JerseyTest {
 
     @PersistenceContext
     private EntityManager em;

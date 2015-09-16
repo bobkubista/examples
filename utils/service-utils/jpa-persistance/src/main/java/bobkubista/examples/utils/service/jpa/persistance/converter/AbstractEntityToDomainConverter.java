@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
@@ -23,13 +23,13 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @param <DMO>
  *            {@link AbstractGenericIdentifiableDomainObject}
  * @param <DMOL>
- *            {@link AbstractGenericDomainObjectCollection}
+ *            {@link DomainObjectCollection}
  * @param <EO>
  *            {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
+public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements EntityToDomainConverter<DMO, DMOL, EO> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
@@ -68,7 +68,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
     }
 
     @Override
-    public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DMO> domainObjects) {
+    public Collection<EO> convertToEntity(final DomainObjectCollection<DMO> domainObjects) {
         final Collection<EO> result = new LinkedList<EO>();
         LOGGER.debug("Converting domain to entities");
         if (domainObjects != null) {
@@ -106,7 +106,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
 
     /**
      *
-     * @return {@link AbstractGenericDomainObjectCollection} <code>DMO</code>
+     * @return {@link DomainObjectCollection} <code>DMO</code>
      */
     protected abstract DMOL getNewDomainObjectCollection();
 

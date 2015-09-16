@@ -1,8 +1,8 @@
 package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 
-public class MockEntity extends AbstractGenericActiveEntity<Long> {
+public class MockEntity extends ActiveEntity<Long> {
 
     private static final long serialVersionUID = -1029339275802750276L;
     private boolean active;

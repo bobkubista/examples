@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
@@ -21,13 +21,13 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  * @param <DMO>
  *            An {@link AbstractGenericIdentifiableDomainObject}
  * @param <DMOL>
- *            A {@link AbstractGenericDomainObjectCollection}
+ *            A {@link DomainObjectCollection}
  * @param <EO>
  *            An {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            the identifier
  */
-public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
+public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
     /**
      * Test ConvertToDomain with null id
@@ -127,12 +127,12 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
     }
 
     /**
-     * Test the get new {@link AbstractGenericDomainObjectCollection}. Expect an object with an
+     * Test the get new {@link DomainObjectCollection}. Expect an object with an
      * empty list
      */
     @Test
     public void testGetNewDomainObjectCollection() {
-        final AbstractGenericDomainObjectCollection<DMO> domainObjectCollection = this.getConverter().getNewDomainObjectCollection();
+        final DomainObjectCollection<DMO> domainObjectCollection = this.getConverter().getNewDomainObjectCollection();
 
         Assert.assertNotNull(domainObjectCollection);
         Assert.assertNotNull(domainObjectCollection.getDomainCollection());

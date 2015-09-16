@@ -17,14 +17,14 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainObject> implements DomainObject {
+public abstract class DomainObjectCollection<TYPE extends DomainObject> implements DomainObject {
 
     private static final long serialVersionUID = -7020164336355743584L;
 
     /**
      * Constructor
      */
-    public AbstractGenericDomainObjectCollection() {
+    public DomainObjectCollection() {
         super();
     }
 

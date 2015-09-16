@@ -7,7 +7,7 @@ import bobkubista.examples.services.api.todo.TodoApi;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 import bobkubista.examples.utils.jee.annotation.Logging;
-import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
+import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFacade;
 
 /**
  *
@@ -16,7 +16,7 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  */
 @Path("/")
 @Logging
-public class TodoFacade extends AbstractGenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
+public class TodoFacade extends GenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
 
     @Inject
     private TodoListConverter converter;

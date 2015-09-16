@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
@@ -32,15 +32,15 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @param <ID>
  *            An {@link Serializable} identifier
  * @param <DMOL>
- *            A {@link AbstractGenericDomainObjectCollection}
+ *            A {@link DomainObjectCollection}
  *
  * @author bkubista
  *
  */
-public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
+public abstract class GenericIdentifiableFacade<DMO extends DomainObject, DMOL extends DomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements IdentifiableApi<DMO, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericIdentifiableFacade.class);
 
     @Override
     public Response create(final DMO object) {

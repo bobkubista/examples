@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
-import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.ActiveEntity;
 
 /**
  *
  * @author bkubista
  *
  * @param <TYPE>
- *            {@link AbstractGenericActiveEntity}
+ *            {@link ActiveEntity}
  * @param <ID>
  *            identifier
  */
-public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
+public interface ActiveEntityService<TYPE extends ActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
 
     /**
      *

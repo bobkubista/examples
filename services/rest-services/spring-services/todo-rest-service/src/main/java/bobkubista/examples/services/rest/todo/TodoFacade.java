@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import bobkubista.examples.services.api.todo.TodoApi;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
+import bobkubista.examples.utils.service.jpa.persistance.facade.GenericActiveFacade;
 
 /**
  *
@@ -18,7 +18,7 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  */
 @Service
 @Path("/")
-public class TodoFacade extends AbstractGenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
+public class TodoFacade extends GenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
 
     @Autowired
     private TodoListConverter converter;
