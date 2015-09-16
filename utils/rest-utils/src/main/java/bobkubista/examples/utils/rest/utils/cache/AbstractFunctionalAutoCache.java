@@ -48,7 +48,7 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      *             was thrown while loading the value
      */
     public V get(final String functionalId) throws ExecutionException {
-        return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, fId -> this.getFunctionalService().getIdByFunctionalId(fId)));
+        return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, this.getFunctionalService()::getIdByFunctionalId));
     }
 
     @Override
