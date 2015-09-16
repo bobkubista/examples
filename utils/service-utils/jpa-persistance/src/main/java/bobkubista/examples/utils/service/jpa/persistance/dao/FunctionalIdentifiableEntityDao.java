@@ -48,6 +48,12 @@ public abstract class FunctionalIdentifiableEntityDao<TYPE extends FunctionalIde
 		}
 	}
 
+	/**
+	 *
+	 * @param fId
+	 *            functional identifier
+	 * @return identifier
+	 */
 	public ID getIdByFunctionalId(final String fId) {
 		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<ID> query = builder.createQuery(this.getIdentifierClass());
