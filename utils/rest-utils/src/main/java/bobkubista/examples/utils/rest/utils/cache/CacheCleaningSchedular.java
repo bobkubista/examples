@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.utils.rest.utils.cache;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -34,13 +35,13 @@ public class CacheCleaningSchedular implements ScheduledExecutorService {
     @Override
     public <T> List<Future<T>> invokeAll(final Collection<? extends Callable<T>> tasks) throws InterruptedException {
         // TODO Auto-generated method stub
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit) throws InterruptedException {
         // TODO Auto-generated method stub
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
