@@ -14,7 +14,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
@@ -25,11 +25,11 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @param <DMOL>
  *            {@link DomainObjectCollection}
  * @param <EO>
- *            {@link IdentifiableEntity}
+ *            {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends IdentifiableEntity<ID>, ID extends Serializable>
+public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements EntityToDomainConverter<DMO, DMOL, EO> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
@@ -90,7 +90,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends IdentifiableDo
 	 * Convert a {@link DomainObject} to and {@link EntityObject}
 	 *
 	 * @param domainModelObject
-	 *            the {@link DomainObject} @return an {@link IdentifiableEntity}
+	 *            the {@link DomainObject} @return an {@link AbstractIdentifiableEntity}
 	 */
 	protected abstract EO doConvertToEntity(final DMO domainModelObject);
 

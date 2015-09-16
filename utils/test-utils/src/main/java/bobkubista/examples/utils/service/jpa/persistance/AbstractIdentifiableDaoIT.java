@@ -13,18 +13,18 @@ import org.junit.Test;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  *
  * @author Bob Kubista
  *
  * @param <TYPE>
- *            {@link IdentifiableEntity}
+ *            {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            identifier
  */
-public abstract class AbstractIdentifiableDaoIT<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> implements BaseIntegrationTest {
+public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements BaseIntegrationTest {
 
 	@PersistenceContext
 	private EntityManager em;

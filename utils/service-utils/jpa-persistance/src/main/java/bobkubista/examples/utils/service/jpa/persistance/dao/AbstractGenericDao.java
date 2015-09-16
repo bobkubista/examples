@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  * The abstract implementation for all Dao's with read only capability
@@ -16,11 +16,11 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
  * @author bkubista
  *
  * @param <TYPE>
- *            the {@link IdentifiableEntity}
+ *            the {@link AbstractIdentifiableEntity}
  * @param <ID>
- *            the id object type of the {@link IdentifiableEntity}
+ *            the id object type of the {@link AbstractIdentifiableEntity}
  */
-public abstract class AbstractGenericDao<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
+public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
 
 	private final Class<TYPE> entityClass;
 

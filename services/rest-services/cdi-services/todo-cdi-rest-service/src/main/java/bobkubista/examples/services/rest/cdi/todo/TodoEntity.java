@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  * @author Bob Kubista
@@ -29,7 +29,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todoitem", allocationSize = 1, sequenceName = "sq_todoitem", initialValue = 1)
-public class TodoEntity extends IdentifiableEntity<Long> {
+public class TodoEntity extends AbstractIdentifiableEntity<Long> {
 
 	private static final long serialVersionUID = 8974577038350152806L;
 

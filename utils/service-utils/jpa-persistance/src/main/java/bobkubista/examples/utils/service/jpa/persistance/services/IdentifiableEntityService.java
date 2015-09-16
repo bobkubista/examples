@@ -6,21 +6,21 @@ import java.util.Collection;
 import org.springframework.transaction.annotation.Transactional;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.GenericDao;
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  * The interface to describe read functions in services
  *
  * @author bkubista
  *
- * @param <TYPE> the {@link IdentifiableEntity} @param <ID> the identifier of
- * the {@link IdentifiableEntity}
+ * @param <TYPE> the {@link AbstractIdentifiableEntity} @param <ID> the identifier of
+ * the {@link AbstractIdentifiableEntity}
  */
 @Transactional
-public interface IdentifiableEntityService<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> {
+public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
 	/**
-	 * Create the object of {@link IdentifiableEntity} type
+	 * Create the object of {@link AbstractIdentifiableEntity} type
 	 *
 	 * @param object the object to create @return <code>TYPE</code> that was
 	 * created
@@ -31,7 +31,7 @@ public interface IdentifiableEntityService<TYPE extends IdentifiableEntity<ID>, 
 	}
 
 	/**
-	 * delete the specific object of {@link IdentifiableEntity}
+	 * delete the specific object of {@link AbstractIdentifiableEntity}
 	 *
 	 * @param object the object to delete
 	 */
@@ -40,9 +40,9 @@ public interface IdentifiableEntityService<TYPE extends IdentifiableEntity<ID>, 
 	}
 
 	/**
-	 * get all known {@link IdentifiableEntity} of that type
+	 * get all known {@link AbstractIdentifiableEntity} of that type
 	 *
-	 * @return a {@link Collection} of {@link IdentifiableEntity} of the same
+	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the same
 	 * type
 	 */
 	public default Collection<TYPE> getAll() {
@@ -50,16 +50,16 @@ public interface IdentifiableEntityService<TYPE extends IdentifiableEntity<ID>, 
 	}
 
 	/**
-	 * get the {@link IdentifiableEntity}
+	 * get the {@link AbstractIdentifiableEntity}
 	 *
-	 * @param identifier the identfier @return the {@link IdentifiableEntity}
+	 * @param identifier the identfier @return the {@link AbstractIdentifiableEntity}
 	 */
 	public default TYPE getById(final ID identifier) {
 		return this.getDAO().getById(identifier);
 	}
 
 	/**
-	 * update the object of {@link IdentifiableEntity}
+	 * update the object of {@link AbstractIdentifiableEntity}
 	 *
 	 * @param object the object to update @return the updated object
 	 */

@@ -3,7 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 import java.io.Serializable;
 import java.util.Collection;
 
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  * Generic dao interface
@@ -11,11 +11,11 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
  * @author bkubista
  *
  * @param <TYPE>
- *            an {@link IdentifiableEntity}
+ *            an {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            identifier which is {@link Serializable}
  */
-public interface GenericDao<TYPE extends IdentifiableEntity<ID>, ID extends Serializable> {
+public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
 	/**
 	 * insert a <code>TYPE</code> instance

@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *            {@link Serializable}
  */
 @MappedSuperclass
-public abstract class IdentifiableEntity<ID extends Serializable> implements EntityObject {
+public abstract class AbstractIdentifiableEntity<ID extends Serializable> implements EntityObject {
 
 	private static final long serialVersionUID = 4957722166359705216L;
 
@@ -33,7 +33,7 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 	@Column(name = "updatedDate", nullable = false)
 	private Timestamp updatedDate;
 
-	public IdentifiableEntity() {
+	public AbstractIdentifiableEntity() {
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 			return false;
 		}
 		@SuppressWarnings("unchecked")
-		final IdentifiableEntity<ID> other = (IdentifiableEntity<ID>) obj;
+		final AbstractIdentifiableEntity<ID> other = (AbstractIdentifiableEntity<ID>) obj;
 		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
 	}
 
@@ -72,7 +72,7 @@ public abstract class IdentifiableEntity<ID extends Serializable> implements Ent
 	}
 
 	@PrePersist
-	private void setInsertedDate() {
+	protected void setInsertedDate() {
 		this.insertedDate = new Timestamp(System.currentTimeMillis());
 	}
 }

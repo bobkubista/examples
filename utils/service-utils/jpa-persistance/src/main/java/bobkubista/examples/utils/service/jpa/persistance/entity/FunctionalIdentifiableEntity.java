@@ -8,14 +8,14 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 /**
- * An {@link IdentifiableEntity} with name, description and active flag
+ * An {@link AbstractIdentifiableEntity} with name, description and active flag
  *
  * @author bkubista
  * @param <ID>
- *            the type of {@link IdentifiableEntity}
+ *            the type of {@link AbstractIdentifiableEntity}
  */
 @MappedSuperclass
-public abstract class FunctionalIdentifiableEntity<ID extends Serializable> extends IdentifiableEntity<ID> {
+public abstract class FunctionalIdentifiableEntity<ID extends Serializable> extends AbstractIdentifiableEntity<ID> {
 
 	private static final long serialVersionUID = 8921787384841632428L;
 

@@ -9,7 +9,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.IdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
-import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
  * An abstract resources utility class to resources converters. Extend the
@@ -23,11 +23,11 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.IdentifiableEnti
  * @param <DMOL>
  *            A {@link DomainObjectCollection}
  * @param <EO>
- *            An {@link IdentifiableEntity}
+ *            An {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            the identifier
  */
-public abstract class AbstractTestEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends IdentifiableEntity<ID>, ID extends Serializable> {
+public abstract class AbstractTestEntityToDomainConverter<DMO extends IdentifiableDomainObject<ID>, DMOL extends DomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
 	/**
 	 * Test ConvertToDomain with null id
