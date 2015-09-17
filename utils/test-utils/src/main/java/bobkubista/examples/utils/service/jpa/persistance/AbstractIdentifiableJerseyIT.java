@@ -94,18 +94,18 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      *
      * @param response
      *            response collection to check
-     * @param i
+     * @param size
      *            the amount in the collection
      */
-    protected abstract void checkResponseGetAll(COL response, int i);
+    protected abstract void checkResponseGetAll(COL response, int size);
 
     /**
      * check a single instance
      *
-     * @param types
+     * @param response
      *            the type to check
      */
-    protected abstract void checkSingle(TYPE types);
+    protected abstract void checkSingle(TYPE response);
 
     /**
      * check updated

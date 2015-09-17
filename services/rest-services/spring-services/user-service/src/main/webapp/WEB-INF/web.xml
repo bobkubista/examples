@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
           http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
-    <display-name>user service</display-name>
+    <display-name>User service</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -12,9 +12,6 @@
         </param-value>
     </context-param>
 
-    <listener>
-        <listener-class>bobkubista.example.utils.property.WebappListener</listener-class>
-    </listener>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

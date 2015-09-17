@@ -3,18 +3,19 @@
  */
 package bobkubista.examples.services.rest.user;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
+import org.springframework.stereotype.Repository;
+
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
 
 /**
  * @author Bob Kubista
  *
  */
-@Default
+@Repository
 public class UserDao extends AbstractGenericActiveEntityDao<UserEntity, Long>implements ActiveDAO<UserEntity, Long> {
 
     @Override

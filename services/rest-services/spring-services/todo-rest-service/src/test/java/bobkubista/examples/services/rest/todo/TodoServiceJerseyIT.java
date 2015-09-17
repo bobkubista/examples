@@ -9,7 +9,6 @@ import org.junit.Assert;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.services.rest.todo.TodoFacade;
 import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
 
 /**
@@ -35,11 +34,11 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     }
 
     @Override
-    protected void checkSingle(final TodoList types) {
-        Assert.assertNotNull(types);
-        Assert.assertEquals(this.getFunctionalId(), types.getFunctionalId());
-        Assert.assertNotNull(types.getTodoList());
-        Assert.assertFalse(types.getTodoList().isEmpty());
+    protected void checkSingle(final TodoList response) {
+        Assert.assertNotNull(response);
+        Assert.assertEquals(this.getFunctionalId(), response.getFunctionalId());
+        Assert.assertNotNull(response.getTodoList());
+        Assert.assertFalse(response.getTodoList().isEmpty());
     }
 
     @Override

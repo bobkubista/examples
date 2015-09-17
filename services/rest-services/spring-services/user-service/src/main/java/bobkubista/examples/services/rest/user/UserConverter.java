@@ -3,9 +3,9 @@
  */
 package bobkubista.examples.services.rest.user;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
@@ -16,9 +16,10 @@ import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomai
  * @author Bob Kubista
  *
  */
+@Component
 public class UserConverter extends AbstractEntityToDomainConverter<User, UserCollection, UserEntity, Long>implements EntityToDomainConverter<User, UserCollection, UserEntity> {
 
-    @Inject
+    @Autowired
     private UserService service;
 
     @Override
