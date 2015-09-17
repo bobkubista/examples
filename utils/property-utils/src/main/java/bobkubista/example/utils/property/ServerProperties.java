@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
  * @author Bob Kubista
  *
  */
-public final class ServerProperties {
-
+public enum ServerProperties {
+    INSTANCE;
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
     private static Properties props;
@@ -64,13 +64,6 @@ public final class ServerProperties {
                 }
             }
         }
-    }
-
-    /**
-     * Constructor
-     */
-    private ServerProperties() {
-        super();
     }
 
     /**

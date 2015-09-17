@@ -22,19 +22,6 @@ public class ServerPropertiesTest {
         Assert.assertEquals(1, result.size());
     }
 
-    @Test
-    public void testGetPropertiesTwice() {
-        final Properties result = ServerProperties.getProperies();
-        Assert.assertNotNull(result);
-        Assert.assertFalse(result.isEmpty());
-        Assert.assertEquals(1, result.size());
-
-        final Properties result2 = ServerProperties.getProperies();
-        Assert.assertNotNull(result2);
-        Assert.assertFalse(result2.isEmpty());
-        Assert.assertEquals(1, result2.size());
-    }
-
     /**
      * Test method for
      * {@link bobkubista.example.utils.property.ServerProperties#getString(java.lang.String)}
@@ -45,4 +32,5 @@ public class ServerPropertiesTest {
         final String value = ServerProperties.getString("test");
         Assert.assertEquals("test1", value);
     }
+
 }
