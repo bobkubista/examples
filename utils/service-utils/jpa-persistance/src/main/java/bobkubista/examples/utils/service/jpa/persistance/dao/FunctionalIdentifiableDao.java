@@ -11,6 +11,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericF
 /**
  * @author Bob
  *
+ * @param <TYPE>
+ *            {@link AbstractGenericFunctionalIdentifiableEntity}
+ * @param <ID>
+ *            identifier
  */
 public interface FunctionalIdentifiableDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends GenericDao<TYPE, ID> {
 
