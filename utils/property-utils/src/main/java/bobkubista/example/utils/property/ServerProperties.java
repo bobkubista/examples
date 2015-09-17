@@ -53,17 +53,7 @@ public final class ServerProperties {
                     serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
                 }
 
-                props = new Properties();
-
-                if (serverPropLocation != null) {
-                    try {
-                        LOGGER.debug("Loading resource file location from classpath");
-                        LOGGER.debug("Loading properties");
-                        props.load(serverPropLocation);
-                    } catch (final IOException e) {
-                        LOGGER.error("Could not load file", e);
-                    }
-                }
+                loadProperties(serverPropLocation);
             } finally {
                 if (serverPropLocation != null) {
                     try {
@@ -104,6 +94,19 @@ public final class ServerProperties {
         result = props.getProperty(key);
         LOGGER.debug("Got property for key {} and value {}", key, result);
         return result;
+    }
+
+    private static void loadProperties(final InputStream serverPropLocation) {
+        props = new Properties();
+        if (serverPropLocation != null) {
+            try {
+                LOGGER.debug("Loading resource file location from classpath");
+                LOGGER.debug("Loading properties");
+                props.load(serverPropLocation);
+            } catch (final IOException e) {
+                LOGGER.error("Could not load file", e);
+            }
+        }
     }
 
 }
