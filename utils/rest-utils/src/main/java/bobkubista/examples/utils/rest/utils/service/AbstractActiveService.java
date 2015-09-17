@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
@@ -25,11 +28,14 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
 public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActiveService.class);
+
     @Override
     public Collection<TYPE> getAllActive() {
         try {
             return this.getAllActiveASync().get();
         } catch (InterruptedException | ExecutionException e) {
+            LOGGER.warn(e.getMessage(), e);
             return new ArrayList<>();
         }
     }
