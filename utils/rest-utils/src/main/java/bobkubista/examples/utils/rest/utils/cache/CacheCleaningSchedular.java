@@ -102,7 +102,7 @@ public class CacheCleaningSchedular implements ScheduledExecutorService {
     @Override
     public List<Runnable> shutdownNow() {
         // TODO Auto-generated method stub
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
