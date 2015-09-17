@@ -33,7 +33,7 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  */
 public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>> extends CacheLoader<K, V> {
 
-    public static final int INITIAL_CAPACITY = 150;
+    protected static final int INITIAL_CAPACITY = 150;
     private static final int ACCESS_TIMEOUT = 15;
     private static final int CONCURRENCY_LEVEL = 255;
     private static final int WRITE_TIMEOUT = 30;
