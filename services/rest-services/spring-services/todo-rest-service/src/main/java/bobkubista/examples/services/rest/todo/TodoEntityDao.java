@@ -11,6 +11,9 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
  */
 public class TodoEntityDao extends AbstractGenericDao<TodoEntity, Long> {
 
+    /**
+     * Constructor
+     */
     public TodoEntityDao() {
         super();
     }
