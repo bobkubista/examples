@@ -5,9 +5,9 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 public class MockEntity extends AbstractGenericActiveEntity<Long> {
 
     private static final long serialVersionUID = -1029339275802750276L;
-    private boolean active;
-    private String functionalId;
-    private Long id;
+    private boolean active = true;
+    private String functionalId = "foo";
+    private Long id = 1L;
 
     @Override
     public String getFunctionalId() {

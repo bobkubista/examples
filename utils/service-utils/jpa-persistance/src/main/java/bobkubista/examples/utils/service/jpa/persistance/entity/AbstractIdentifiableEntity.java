@@ -68,7 +68,7 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     @PrePersist
