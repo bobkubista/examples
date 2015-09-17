@@ -5,8 +5,8 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
@@ -43,12 +43,19 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
     void delete(ID id);
 
     /**
-     * Get a {@link AbstractGenericDomainObjectCollection} <code>COL</code> of
-     * <code>TYPE</code>
+     * Get a {@link Collection} of <code>TYPE</code>
      *
      * @return all instances of that type
      */
     Collection<TYPE> getAll();
+
+    /**
+     * Get a {@link CompletableFuture} with {@link Collection} of
+     * <code>TYPE</code>
+     *
+     * @return {@link CompletableFuture} of all instances of that type
+     */
+    CompletableFuture<Collection<TYPE>> getAllAsync();
 
     /**
      * Get a <code>TYPE</code> with <code>ID</code>

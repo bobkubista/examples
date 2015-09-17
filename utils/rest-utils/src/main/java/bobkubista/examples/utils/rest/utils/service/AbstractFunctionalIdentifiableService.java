@@ -4,6 +4,10 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
@@ -29,6 +33,22 @@ public abstract class AbstractFunctionalIdentifiableService<TYPE extends Abstrac
     @Override
     public ID getIdByFunctionalId(final String fId) {
         return this.getProxy().getIdByFunctionalId(fId).readEntity(this.getIdClass());
+    }
+
+    @Override
+    public Collection<TYPE> searchByFunctionalID(final String identifier) {
+        try {
+            return this.searchByFunctionalIdAsync(identifier).get();
+        } catch (InterruptedException | ExecutionException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public CompletableFuture<Collection<TYPE>> searchByFunctionalIdAsync(final String identifier) {
+        final CompletableFuture<Collection<TYPE>> future = CompletableFuture.supplyAsync(() -> AbstractFunctionalIdentifiableService.this.getProxy()
+                .searchByFunctionalID(identifier).readEntity(AbstractFunctionalIdentifiableService.this.getCollectionClass()).getDomainCollection());
+        return future;
     }
 
     @Override

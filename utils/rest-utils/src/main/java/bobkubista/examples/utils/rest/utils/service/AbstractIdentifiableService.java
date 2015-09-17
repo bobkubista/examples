@@ -5,7 +5,10 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -53,7 +56,18 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
 
     @Override
     public Collection<TYPE> getAll() {
-        return this.getProxy().getAll().readEntity(this.collectionClass).getDomainCollection();
+        try {
+            return this.getAllAsync().get();
+        } catch (InterruptedException | ExecutionException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public CompletableFuture<Collection<TYPE>> getAllAsync() {
+        final CompletableFuture<Collection<TYPE>> future = CompletableFuture
+                .supplyAsync(() -> AbstractIdentifiableService.this.getProxy().getAll().readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection());
+        return future;
     }
 
     @Override

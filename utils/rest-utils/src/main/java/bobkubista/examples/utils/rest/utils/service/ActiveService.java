@@ -5,6 +5,7 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
@@ -23,4 +24,10 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
      * @return Get all active {@link AbstractGenericActiveDomainObject}
      */
     Collection<TYPE> getAllActive();
+
+    /**
+     *
+     * @return Get all active {@link AbstractGenericActiveDomainObject}
+     */
+    CompletableFuture<Collection<TYPE>> getAllActiveASync();
 }

@@ -1,6 +1,8 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
@@ -12,7 +14,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <TYPE>
  *            The {@link AbstractGenericFunctionalIdentifiableDomainObject}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            the identifier of the
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  */
 public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
 
@@ -32,5 +35,23 @@ public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunct
      * @return the identifier
      */
     ID getIdByFunctionalId(String fId);
+
+    /**
+     * Search items by functional id
+     *
+     * @param identifier
+     *            identifier part to search for
+     * @return a {@link Collection} of TYPE
+     */
+    Collection<TYPE> searchByFunctionalID(String identifier);
+
+    /**
+     * Search items by functional id
+     *
+     * @param identifier
+     *            identifier part to search for
+     * @return a {@link CompletableFuture} with {@link Collection} of TYPE
+     */
+    CompletableFuture<Collection<TYPE>> searchByFunctionalIdAsync(String identifier);
 
 }

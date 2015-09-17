@@ -4,7 +4,10 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -24,10 +27,21 @@ public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDo
 
     @Override
     public Collection<TYPE> getAllActive() {
-        return this.getProxy().getAllActive().readEntity(this.getCollectionClass()).getDomainCollection();
+        try {
+            return this.getAllActiveASync().get();
+        } catch (InterruptedException | ExecutionException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public CompletableFuture<Collection<TYPE>> getAllActiveASync() {
+
+        final CompletableFuture<Collection<TYPE>> future = CompletableFuture
+                .supplyAsync(() -> AbstractActiveService.this.getProxy().getAllActive().readEntity(AbstractActiveService.this.getCollectionClass()).getDomainCollection());
+        return future;
     }
 
     @Override
     protected abstract AbstractGenericRestActiveProxy<TYPE, ID> getProxy();
-
 }
