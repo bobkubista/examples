@@ -52,9 +52,8 @@ public abstract class AbstractFunctionalIdentifiableService<TYPE extends Abstrac
 
     @Override
     public CompletableFuture<Collection<TYPE>> searchByFunctionalIdAsync(final String identifier) {
-        final CompletableFuture<Collection<TYPE>> future = CompletableFuture.supplyAsync(() -> AbstractFunctionalIdentifiableService.this.getProxy()
-                .searchByFunctionalID(identifier).readEntity(AbstractFunctionalIdentifiableService.this.getCollectionClass()).getDomainCollection());
-        return future;
+        return CompletableFuture.supplyAsync(() -> AbstractFunctionalIdentifiableService.this.getProxy().searchByFunctionalID(identifier)
+                .readEntity(AbstractFunctionalIdentifiableService.this.getCollectionClass()).getDomainCollection());
     }
 
     @Override

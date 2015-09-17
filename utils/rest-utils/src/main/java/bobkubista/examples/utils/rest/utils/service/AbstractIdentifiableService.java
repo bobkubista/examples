@@ -69,9 +69,8 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
 
     @Override
     public CompletableFuture<Collection<TYPE>> getAllAsync() {
-        final CompletableFuture<Collection<TYPE>> future = CompletableFuture
+        return CompletableFuture
                 .supplyAsync(() -> AbstractIdentifiableService.this.getProxy().getAll().readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection());
-        return future;
     }
 
     @Override

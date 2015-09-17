@@ -43,9 +43,8 @@ public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDo
     @Override
     public CompletableFuture<Collection<TYPE>> getAllActiveASync() {
 
-        final CompletableFuture<Collection<TYPE>> future = CompletableFuture
+        return CompletableFuture
                 .supplyAsync(() -> AbstractActiveService.this.getProxy().getAllActive().readEntity(AbstractActiveService.this.getCollectionClass()).getDomainCollection());
-        return future;
     }
 
     @Override
