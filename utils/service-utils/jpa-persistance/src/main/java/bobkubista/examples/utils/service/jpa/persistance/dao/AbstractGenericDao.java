@@ -53,9 +53,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     }
 
     @Override
-    public abstract TYPE getByFunctionalId(Object id);
-
-    @Override
     public TYPE getById(final ID id) {
         return this.entityManager.find(this.entityClass, id);
     }
@@ -65,9 +62,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
         final TypedQuery<TYPE> query = this.entityManager.createQuery("from " + this.getEntityClass().getName(), this.getEntityClass());
         return query.getResultList();
     }
-
-    @Override
-    public abstract Collection<TYPE> searchByFunctionalId(Object id);
 
     @Override
     public TYPE update(final TYPE object) {

@@ -41,15 +41,6 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      *            the <code>ID</code> id to search for
      * @return the <code>TYPE</code> object
      */
-    public abstract TYPE getByFunctionalId(Object id);
-
-    /**
-     * get a <code>TYPE</code> object by its <code>ID</code> id
-     *
-     * @param id
-     *            the <code>ID</code> id to search for
-     * @return the <code>TYPE</code> object
-     */
     public abstract TYPE getById(ID id);
 
     /**
@@ -59,16 +50,6 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      * @return a {@link Collection} of <code>TYPE</code>
      */
     public abstract Collection<TYPE> getList();
-
-    /**
-     * searchByFunctionalId the <code>TYPE</code> object
-     *
-     * @param id
-     *            the <code>ID</code> id to search for
-     *
-     * @return the objects matching the search id
-     */
-    public Collection<TYPE> searchByFunctionalId(Object id);
 
     /**
      * Update an object of <code>TYPE</code>

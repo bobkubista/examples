@@ -24,10 +24,11 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericF
  * @param <TYPE>
  *            The {@link AbstractGenericFunctionalIdentifiableEntity}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericFunctionalIdentifiableEntity}
+ *            the identifier of the
+ *            {@link AbstractGenericFunctionalIdentifiableEntity}
  */
-public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractGenericDao<TYPE, ID>
-        implements GenericDao<TYPE, ID> {
+public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable>
+        extends AbstractGenericDao<TYPE, ID>implements FunctionalIdentifiableDao<TYPE, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableEntityDao.class);
 
