@@ -1,11 +1,10 @@
 # examples
 This is my examples of code that I am trying out stuff with. It is for reference use.
 
+- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 Todo:
 backend:
-- implement futures
 - static methodes in interfaces
-- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 - Asynchronous calls 
 - Non blocking IO
 - Security:
@@ -14,7 +13,6 @@ backend:
 	- keyclocke
 - apache kafka
 - spring data
-- SOAP
 - Websockets
 - Message driven beans
 - EJB
@@ -24,9 +22,9 @@ backend:
 - Lambda logging
 - new Date api 
 - try with resources
-- server props with JNDI and java8 IO api
 - Vert.x
 - Webservlet: Java EE essentials
+- SOAP
 - Rest services
 	- starting up service
 	- @queryparam
