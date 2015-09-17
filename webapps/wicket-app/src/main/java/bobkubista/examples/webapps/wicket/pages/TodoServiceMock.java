@@ -3,6 +3,7 @@ package bobkubista.examples.webapps.wicket.pages;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
 import bobkubista.examples.services.api.todo.domain.Todo;
@@ -63,6 +64,18 @@ public final class TodoServiceMock implements TodoService {
     }
 
     @Override
+    public CompletableFuture<Collection<TodoList>> getAllActiveASync() {
+        final CompletableFuture<Collection<TodoList>> future = CompletableFuture.supplyAsync(() -> TodoServiceMock.this.getAllActive());
+        return future;
+    }
+
+    @Override
+    public CompletableFuture<Collection<TodoList>> getAllAsync() {
+        final CompletableFuture<Collection<TodoList>> future = CompletableFuture.supplyAsync(() -> TodoServiceMock.this.getAll());
+        return future;
+    }
+
+    @Override
     public TodoList getByFunctionalId(final String functionalId) {
         return this.list.get(this.functionalIdMap.get(functionalId));
     }
@@ -75,6 +88,17 @@ public final class TodoServiceMock implements TodoService {
     @Override
     public Long getIdByFunctionalId(final String fId) {
         return this.functionalIdMap.get(fId);
+    }
+
+    @Override
+    public Collection<TodoList> searchByFunctionalID(final String identifier) {
+        return this.list.values();
+    }
+
+    @Override
+    public CompletableFuture<Collection<TodoList>> searchByFunctionalIdAsync(final String identifier) {
+        final CompletableFuture<Collection<TodoList>> future = CompletableFuture.supplyAsync(() -> TodoServiceMock.this.searchByFunctionalID(identifier));
+        return future;
     }
 
     @Override
