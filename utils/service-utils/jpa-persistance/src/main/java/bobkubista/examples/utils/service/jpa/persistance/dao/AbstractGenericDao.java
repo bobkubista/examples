@@ -41,6 +41,11 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     }
 
     @Override
+    public boolean contains(final TYPE entity) {
+        return this.entityManager.contains(entity);
+    }
+
+    @Override
     public TYPE create(final TYPE object) {
         this.entityManager.persist(object);
         return this.entityManager.find(this.entityClass, object.getId());
@@ -66,10 +71,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     @Override
     public TYPE update(final TYPE object) {
         return this.entityManager.merge(object);
-    }
-
-    protected boolean contains(final TYPE entity) {
-        return this.entityManager.contains(entity);
     }
 
     protected void flush() {

@@ -18,6 +18,14 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
     /**
+     *
+     * @param entity
+     *            the TYPE to check for
+     * @return does the entity exist
+     */
+    public boolean contains(TYPE entity);
+
+    /**
      * insert a <code>TYPE</code> instance
      *
      * @param object

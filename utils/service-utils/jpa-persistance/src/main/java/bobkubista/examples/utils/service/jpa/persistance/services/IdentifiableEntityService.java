@@ -23,6 +23,17 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
     /**
+     * Check if object of {@link AbstractIdentifiableEntity} exists
+     * 
+     * @param object
+     *            the object to check
+     * @return true if exists
+     */
+    public default boolean contains(TYPE object) {
+        return this.getDAO().contains(object);
+    }
+
+    /**
      * Create the object of {@link AbstractIdentifiableEntity} type
      *
      * @param object
