@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.domain.model.api;
+package bobkubista.examples.utils.domain.model.domainmodel;
 
 import java.util.ArrayList;
 import java.util.Collection;
