@@ -23,7 +23,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  */
 @XmlRootElement(name = "email")
 @XmlAccessorType(XmlAccessType.NONE)
-public class EmailContext implements DomainObject {
+public final class EmailContext implements DomainObject {
 
     /**
      * Email builder
