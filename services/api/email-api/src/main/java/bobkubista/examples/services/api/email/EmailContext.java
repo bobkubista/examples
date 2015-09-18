@@ -3,8 +3,8 @@
  */
 package bobkubista.examples.services.api.email;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.registry.JAXRException;
 import javax.xml.registry.infomodel.EmailAddress;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.validator.constraints.Email;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
@@ -26,24 +27,40 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 @XmlAccessorType(XmlAccessType.NONE)
 public class EmailContext implements DomainObject {
 
+    /**
+     * Email builder
+     * 
+     * @author Bob
+     *
+     */
     public static final class EmailBuilder {
 
         private final EmailAddress recipient;
-        private final Map<String, String> replacements = new HashMap<>();
+        private final List<Pair<String, ? extends Object>> replacement = new ArrayList<>();
         private final String subject;
 
         public EmailBuilder(final EmailAddress recipient, final String subject) throws JAXRException {
             this.subject = subject;
             this.recipient = recipient;
-            this.replacements.put("email", recipient.getAddress());
+            this.replacement.add(new EmailReplacement(recipient));
         }
 
-        public EmailBuilder addReplacement(final Replacement replacement) {
-            this.replacements.put(replacement.getConstant(), replacement.getValue());
+        /**
+         *
+         * @param replacement
+         *            {@link Pair} to add
+         * @return the {@link EmailBuilder}
+         */
+        public EmailBuilder addReplacement(final Pair<String, Object> replacement) {
+            this.replacement.add(replacement);
             return this;
         }
 
-        public EmailContext build() throws JAXRException {
+        /**
+         *
+         * @return {@link EmailContext}
+         */
+        public EmailContext build() {
             return new EmailContext(this);
         }
     }
@@ -51,17 +68,13 @@ public class EmailContext implements DomainObject {
     private static final long serialVersionUID = -2560167778218837261L;
     @XmlElement(name = "recipient")
     @Email
-    private EmailAddress recipient;
+    private final EmailAddress recipient;
     @XmlElementWrapper(name = "replacements")
     @XmlElement(name = "replacement")
-    private Map<String, String> replacements = new HashMap<String, String>();
+    private List<Pair<String, ? extends Object>> replacements = new ArrayList<>();
 
     @XmlElement(name = "subject")
-    private String subject;
-
-    private EmailContext() {
-        super();
-    }
+    private final String subject;
 
     /**
      * Constructor
@@ -74,10 +87,10 @@ public class EmailContext implements DomainObject {
      *            message
      * @throws JAXRException
      */
-    private EmailContext(final EmailBuilder builder) throws JAXRException {
+    private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
         this.subject = builder.subject;
-        this.replacements = builder.replacements;
+        this.replacements = builder.replacement;
     }
 
     public EmailContext getEmail() {
@@ -88,7 +101,7 @@ public class EmailContext implements DomainObject {
         return this.recipient;
     }
 
-    public Map<String, String> getReplacements() {
+    public List<Pair<String, ? extends Object>> getReplacements() {
         return this.replacements;
     }
 

@@ -10,13 +10,12 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Source
+ * Source: <BR>
  * http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-
  * pattern-in-java-8
  *
  * <P>
- * Usage:
- * <P>
+ * Usage: <BR>
  * <code>Person value = GenericBuilder.of(Person::new).with(Person::setName,
  * "Otto").with(Person::setAge, 5).build();</code
  *
@@ -78,7 +77,7 @@ public class GenericBuilder<T> {
 
     /**
      * Set properties
-     * 
+     *
      * @param consumer
      *            {@link BiConsumer} for type T and value U
      * @param value
