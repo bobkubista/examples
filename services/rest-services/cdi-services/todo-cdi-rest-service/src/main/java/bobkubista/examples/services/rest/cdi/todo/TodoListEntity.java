@@ -45,7 +45,7 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
     private Long id;
 
     @OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private final List<TodoEntity> items = new ArrayList<>();
+    private List<TodoEntity> items = new ArrayList<>();
     @Basic
     @Column(unique = true, nullable = false)
     private String todoListName;
