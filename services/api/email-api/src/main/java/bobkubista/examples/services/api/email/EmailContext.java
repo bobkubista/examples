@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.registry.JAXRException;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.validator.constraints.Email;
@@ -91,7 +90,6 @@ public class EmailContext implements DomainObject {
      *            subject
      * @param message
      *            message
-     * @throws JAXRException
      */
     private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
