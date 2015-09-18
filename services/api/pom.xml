@@ -13,6 +13,7 @@
         <module>todo-rest-api</module>
         <module>datagathering-rest-api</module>
         <module>user-service-api</module>
+        <module>email-api</module>
     </modules>
 
 </project>
