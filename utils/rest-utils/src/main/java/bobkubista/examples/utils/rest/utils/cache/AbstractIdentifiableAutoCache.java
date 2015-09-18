@@ -74,7 +74,10 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
         return this.cache.get(key);
     }
 
-    @PostConstruct
+    /**
+     *
+     * @return get all cached objects
+     */
     public Map<K, V> getAll() {
         return this.cache.asMap();
     }
