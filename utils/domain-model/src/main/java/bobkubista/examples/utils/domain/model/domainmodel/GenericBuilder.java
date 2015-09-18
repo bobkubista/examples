@@ -32,7 +32,7 @@ public class GenericBuilder<T> {
 
     private final Supplier<T> instantiator;
 
-    private Collection<Predicate<T>> predicates;
+    private final Collection<Predicate<T>> predicates = new ArrayList<>();
 
     /**
      * Constructor
