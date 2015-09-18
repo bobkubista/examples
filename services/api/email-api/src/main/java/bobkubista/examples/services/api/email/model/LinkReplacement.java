@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.services.api.email;
+package bobkubista.examples.services.api.email.model;
 
 import java.net.URI;
 

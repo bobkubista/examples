@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.services.api.email;
+package bobkubista.examples.services.api.email.model;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,7 +10,10 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import bobkubista.examples.services.api.email.EmailContext.EmailBuilder;
+import bobkubista.examples.services.api.email.model.DateReplacement;
+import bobkubista.examples.services.api.email.model.EmailContext;
+import bobkubista.examples.services.api.email.model.LinkReplacement;
+import bobkubista.examples.services.api.email.model.EmailContext.EmailBuilder;
 
 /**
  * @author Bob
