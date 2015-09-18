@@ -11,20 +11,20 @@ import org.apache.commons.lang3.tuple.Pair;
  * @author Bob
  *
  */
-public class EmailReplacement extends Pair<String, EmailAddress> {
+public class EmailReplacement extends Pair<String, String> {
 
     private static final String EMAIL = "email";
 
     private static final long serialVersionUID = -374936343510336318L;
-    private EmailAddress value;
+    private String value;
 
     /**
      * Constructor
-     * 
+     *
      * @param recipient
      *            {@link EmailAddress}
      */
-    public EmailReplacement(final EmailAddress recipient) {
+    public EmailReplacement(final String recipient) {
         this.value = recipient;
     }
 
@@ -34,12 +34,12 @@ public class EmailReplacement extends Pair<String, EmailAddress> {
     }
 
     @Override
-    public EmailAddress getRight() {
+    public String getRight() {
         return this.value;
     }
 
     @Override
-    public EmailAddress setValue(final EmailAddress value) {
+    public String setValue(final String value) {
         this.value = value;
         return value;
     }

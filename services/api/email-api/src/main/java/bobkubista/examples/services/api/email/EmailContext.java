@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.registry.JAXRException;
-import javax.xml.registry.infomodel.EmailAddress;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.validator.constraints.Email;
@@ -29,29 +28,28 @@ public class EmailContext implements DomainObject {
 
     /**
      * Email builder
-     * 
+     *
      * @author Bob
      *
      */
     public static final class EmailBuilder {
 
-        private final EmailAddress recipient;
+        private final String recipient;
         private final List<Pair<String, ? extends Object>> replacement = new ArrayList<>();
         private final String subject;
 
-        public EmailBuilder(final EmailAddress recipient, final String subject) throws JAXRException {
+        public EmailBuilder(final String recipient, final String subject) throws JAXRException {
             this.subject = subject;
             this.recipient = recipient;
             this.replacement.add(new EmailReplacement(recipient));
         }
 
         /**
-         *
          * @param replacement
          *            {@link Pair} to add
          * @return the {@link EmailBuilder}
          */
-        public EmailBuilder addReplacement(final Pair<String, Object> replacement) {
+        public <T extends Pair<String, ? extends Object>> EmailBuilder addReplacement(final T replacement) {
             this.replacement.add(replacement);
             return this;
         }
@@ -68,7 +66,7 @@ public class EmailContext implements DomainObject {
     private static final long serialVersionUID = -2560167778218837261L;
     @XmlElement(name = "recipient")
     @Email
-    private final EmailAddress recipient;
+    private final String recipient;
     @XmlElementWrapper(name = "replacements")
     @XmlElement(name = "replacement")
     private List<Pair<String, ? extends Object>> replacements = new ArrayList<>();
@@ -97,7 +95,7 @@ public class EmailContext implements DomainObject {
         return this;
     }
 
-    public EmailAddress getRecipient() {
+    public String getRecipient() {
         return this.recipient;
     }
 
