@@ -10,18 +10,21 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- *
- * Source:@see <a href=
- * "http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-pattern-in-java-8">
- * http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-
- * pattern-in-java-8</a>
- *
- * <P>
- * Usage: <BR>
- * <code>Person value = GenericBuilder.of(Person::new).with(Person::setName,
- * "Otto").with(Person::setAge, 5).build();</code
- *
  * @author Bob
+ *
+ *
+ * @see <a href=
+ *      "http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-pattern-in-java-8">
+ *      http://stackoverflow.com/questions/31754786/how-to-implement-the-
+ *      builder- pattern-in-java-8</a>
+ *
+ *      <P>
+ *      Usage: <BR>
+ *      <code>Person value =
+ *      GenericBuilder.of(Person::new).with(Person::setName,
+ *      "Otto").with(Person::setAge, 5).build();</code
+ *
+ *
  *
  * @param <T>
  *            the object to create
