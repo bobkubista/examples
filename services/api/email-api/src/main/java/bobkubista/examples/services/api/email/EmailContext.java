@@ -38,7 +38,15 @@ public class EmailContext implements DomainObject {
         private final List<Pair<String, ? extends Object>> replacement = new ArrayList<>();
         private final String subject;
 
-        public EmailBuilder(final String recipient, final String subject) throws JAXRException {
+        /**
+         * Constructor
+         *
+         * @param recipient
+         *            email adress
+         * @param subject
+         *            subject
+         */
+        public EmailBuilder(final String recipient, final String subject) {
             this.subject = subject;
             this.recipient = recipient;
             this.replacement.add(new EmailReplacement(recipient));
