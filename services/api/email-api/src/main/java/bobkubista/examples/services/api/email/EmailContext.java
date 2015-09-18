@@ -99,10 +99,6 @@ public class EmailContext implements DomainObject {
         this.replacements = builder.replacement;
     }
 
-    public EmailContext getEmail() {
-        return this;
-    }
-
     public String getRecipient() {
         return this.recipient;
     }
