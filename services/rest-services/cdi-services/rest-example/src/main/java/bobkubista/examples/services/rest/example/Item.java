@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  *         Application config
  */
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"), @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i where i.id = :id") })
 @XmlRootElement
@@ -49,40 +50,64 @@ public class Item implements Serializable {
      * @param type
      *            type
      */
-    public Item(String name, int type) {
+    public Item(final String name, final int type) {
         this.name = name;
         this.type = type;
     }
 
+    /**
+     * @return
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * @return
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * @return
+     */
     public int getType() {
         return this.type;
     }
 
-    public void setDescription(String description) {
+    /**
+     * @param description
+     */
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-    public void setId(int id) {
+    /**
+     * @param id
+     */
+    public void setId(final int id) {
         this.id = id;
     }
 
-    public void setName(String name) {
+    /**
+     * @param name
+     */
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public void setType(int type) {
+    /**
+     * @param type
+     */
+    public void setType(final int type) {
         this.type = type;
     }
 }
