@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
+ *
  * Source:@see <a href=
  * "http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-pattern-in-java-8">
  * http://stackoverflow.com/questions/31754786/how-to-implement-the-builder-
