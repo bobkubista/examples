@@ -70,7 +70,7 @@ public class GenericBuilder<T> {
      *            {@link Predicate} that are violation constraints
      * @return {@link GenericBuilder}
      */
-    public <U> GenericBuilder<T> voilation(final Predicate<T> predicate) {
+    public GenericBuilder<T> voilation(final Predicate<T> predicate) {
         this.predicates.add(predicate);
         return this;
     }
