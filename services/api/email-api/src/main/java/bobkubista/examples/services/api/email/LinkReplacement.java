@@ -18,6 +18,12 @@ public class LinkReplacement extends Pair<String, URI> {
     private static final long serialVersionUID = -6758766835084577364L;
     private URI value;
 
+    /**
+     * Constructor
+     * 
+     * @param link
+     *            {@link URI} to replace
+     */
     public LinkReplacement(final URI link) {
         this.value = link;
     }

@@ -19,6 +19,12 @@ public class DateReplacement extends Pair<String, Date> {
 
     private Date value;
 
+    /**
+     * Constructor
+     * 
+     * @param date
+     *            {@link Date} to set
+     */
     public DateReplacement(final Date date) {
         this.value = date;
     }
