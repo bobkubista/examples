@@ -21,13 +21,22 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
 
     private static final long serialVersionUID = -7516244737080941032L;
 
+    /**
+     * Constructor
+     */
     public AbstractGenericActiveDomainObject() {
     }
 
+    /**
+     * @return
+     */
     @NotBlank
     @XmlElement(required = true)
     public abstract boolean isActive();
 
+    /**
+     * @param active
+     */
     public abstract void setActive(boolean active);
 
 }

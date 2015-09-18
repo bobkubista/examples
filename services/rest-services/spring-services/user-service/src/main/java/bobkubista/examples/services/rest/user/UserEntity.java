@@ -32,6 +32,9 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     @Column
     private String name;
 
+    /**
+     * @return
+     */
     public String getEncryptedPassword() {
         return this.encryptedPassword;
     }
@@ -46,6 +49,9 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public String getName() {
         return this.name;
     }
@@ -60,6 +66,9 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         this.active = active;
     }
 
+    /**
+     * @param encryptedPassword
+     */
     public void setEncryptedPassword(final String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
     }
@@ -74,6 +83,9 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         this.id = id;
     }
 
+    /**
+     * @param name
+     */
     public void setName(final String name) {
         this.name = name;
     }

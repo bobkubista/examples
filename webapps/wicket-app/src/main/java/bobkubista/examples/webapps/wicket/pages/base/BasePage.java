@@ -12,6 +12,9 @@ public abstract class BasePage extends WebPage {
 
     private static final long serialVersionUID = -1613992789574719544L;
 
+    /**
+     * Constructor
+     */
     public BasePage() {
         this.add(new Label("header", "This is in the header"));
         this.add(new Label("footer", "This is in the footer"));

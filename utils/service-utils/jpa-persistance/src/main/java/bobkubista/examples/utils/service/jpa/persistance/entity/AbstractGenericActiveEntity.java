@@ -19,11 +19,20 @@ public abstract class AbstractGenericActiveEntity<ID extends Serializable> exten
 
     private static final long serialVersionUID = -6184924216288636653L;
 
+    /**
+     * Constructor
+     */
     public AbstractGenericActiveEntity() {
     }
 
+    /**
+     * @return isActive
+     */
     public abstract boolean isActive();
 
+    /**
+     * @param active
+     */
     public abstract void setActive(boolean active);
 
 }

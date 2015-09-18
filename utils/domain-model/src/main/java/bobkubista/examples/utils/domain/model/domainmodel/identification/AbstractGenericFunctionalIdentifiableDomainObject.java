@@ -27,10 +27,16 @@ public abstract class AbstractGenericFunctionalIdentifiableDomainObject<ID exten
     public AbstractGenericFunctionalIdentifiableDomainObject() {
     }
 
+    /**
+     * @return
+     */
     @NotBlank
     @XmlElement(required = true)
     public abstract String getFunctionalId();
 
+    /**
+     * @param functionalId
+     */
     public abstract void setFunctionalId(String functionalId);
 
 }

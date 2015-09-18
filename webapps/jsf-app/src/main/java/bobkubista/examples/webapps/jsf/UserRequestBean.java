@@ -22,6 +22,9 @@ public class UserRequestBean {
     @Inject
     private UserServiceInterface userService;
 
+    /**
+     * @return {@link Collection} of {@link User}
+     */
     public Collection<User> getAllUsers() {
         return this.userService.getAll();
     }

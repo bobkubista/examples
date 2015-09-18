@@ -52,18 +52,30 @@ public class TodoEntity extends AbstractIdentifiableEntity<Long> {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public TodoListEntity getListEntity() {
         return this.listEntity;
     }
 
+    /**
+     * @return
+     */
     public String getValue() {
         return this.value;
     }
 
+    /**
+     * @return
+     */
     public boolean isActive() {
         return this.active;
     }
 
+    /**
+     * @param active
+     */
     public void setActive(final boolean active) {
         this.active = active;
     }
@@ -73,10 +85,16 @@ public class TodoEntity extends AbstractIdentifiableEntity<Long> {
         this.id = id;
     }
 
-    public void setListEntity(TodoListEntity listEntity) {
+    /**
+     * @param listEntity
+     */
+    public void setListEntity(final TodoListEntity listEntity) {
         this.listEntity = listEntity;
     }
 
+    /**
+     * @param value
+     */
     public void setValue(final String value) {
         this.value = value;
     }

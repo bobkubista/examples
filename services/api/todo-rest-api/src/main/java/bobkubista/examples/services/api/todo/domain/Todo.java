@@ -25,18 +25,30 @@ public class Todo implements DomainObject {
     @XmlElement(nillable = false, required = true)
     private String value;
 
+    /**
+     * @return
+     */
     public String getValue() {
         return this.value;
     }
 
+    /**
+     * @return
+     */
     public boolean isActive() {
         return this.active;
     }
 
+    /**
+     * @param active
+     */
     public void setActive(final boolean active) {
         this.active = active;
     }
 
+    /**
+     * @param value
+     */
     public void setValue(final String value) {
         this.value = value;
     }

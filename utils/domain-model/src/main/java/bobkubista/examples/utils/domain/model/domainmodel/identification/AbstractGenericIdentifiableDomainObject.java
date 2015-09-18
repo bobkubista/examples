@@ -25,6 +25,9 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
 
     private static final long serialVersionUID = 6041983912533900961L;
 
+    /**
+     * Constructor
+     */
     public AbstractGenericIdentifiableDomainObject() {
     }
 
@@ -42,6 +45,9 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
         return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
     }
 
+    /**
+     * @return ID
+     */
     public abstract ID getId();
 
     @Override
@@ -49,6 +55,10 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
         return new HashCodeBuilder().append(this.getId()).toHashCode();
     }
 
+    /**
+     * @param id
+     *            ID
+     */
     public abstract void setId(ID id);
 
     @Override

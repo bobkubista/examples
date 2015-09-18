@@ -45,7 +45,7 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
     private Long id;
 
     @OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<TodoEntity> items = new ArrayList<>();
+    private final List<TodoEntity> items = new ArrayList<>();
     @Basic
     @Column(unique = true, nullable = false)
     private String todoListName;
@@ -60,6 +60,9 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public List<TodoEntity> getTodoList() {
         return this.items;
     }

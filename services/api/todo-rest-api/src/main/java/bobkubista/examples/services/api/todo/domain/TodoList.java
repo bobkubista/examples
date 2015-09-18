@@ -44,6 +44,9 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public List<Todo> getTodoList() {
         return this.todos;
     }

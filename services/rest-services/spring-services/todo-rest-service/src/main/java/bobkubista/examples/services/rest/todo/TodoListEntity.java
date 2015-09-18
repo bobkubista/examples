@@ -60,6 +60,9 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
         return this.id;
     }
 
+    /**
+     * @return
+     */
     public List<TodoEntity> getTodoList() {
         return this.items;
     }
