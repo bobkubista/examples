@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>jsf-app</module>
-        <module>wicket-app</module>
+<!--         <module>wicket-app</module> -->
     </modules>
 
     <dependencyManagement>
