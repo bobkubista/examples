@@ -33,6 +33,9 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
     @Column(name = "updatedDate", nullable = false)
     private Timestamp updatedDate;
 
+    /**
+     * Default constructor
+     */
     public AbstractIdentifiableEntity() {
     }
 
@@ -49,12 +52,24 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
         return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
     }
 
+    /**
+     *
+     * @return ID
+     */
     public abstract ID getId();
 
+    /**
+     *
+     * @return the inserted {@link Timestamp}
+     */
     public Timestamp getInsertedDate() {
         return this.insertedDate;
     }
 
+    /**
+     *
+     * @return the updated {@link Timestamp}
+     */
     public Timestamp getUpdatedDate() {
         return this.updatedDate;
     }
@@ -64,6 +79,11 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
         return new HashCodeBuilder().append(this.getId()).toHashCode();
     }
 
+    /**
+     *
+     * @param id
+     *            to set
+     */
     public abstract void setId(ID id);
 
     @Override
@@ -71,6 +91,9 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
+    /**
+     * set the insertedDate. Saved before persist of the first time
+     */
     @PrePersist
     protected void setInsertedDate() {
         this.insertedDate = new Timestamp(System.currentTimeMillis());
