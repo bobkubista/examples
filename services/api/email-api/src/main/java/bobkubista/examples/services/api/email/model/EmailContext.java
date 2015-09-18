@@ -97,14 +97,23 @@ public class EmailContext implements DomainObject {
         this.replacements = builder.replacement;
     }
 
+    /**
+     * @return
+     */
     public String getRecipient() {
         return this.recipient;
     }
 
+    /**
+     * @return {@link List} of {@link Pair}
+     */
     public List<Pair<String, ? extends Object>> getReplacements() {
         return this.replacements;
     }
 
+    /**
+     * @return
+     */
     public String getSubject() {
         return this.subject;
     }
