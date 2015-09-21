@@ -14,6 +14,7 @@ backend:
 - apache kafka
 - spring data
 - Websockets
+- Spring boot
 - Message driven beans
 - EJB
 - JTA
