@@ -48,7 +48,7 @@ public enum ServerProperties {
                     serverPropLocation = new FileInputStream(configFile);
                 } catch (NamingException | FileNotFoundException e1) {
 
-                    LOGGER.warn("Defaulting back to classpath");
+                    LOGGER.warn("Defaulting back to classpath", e1);
                     LOGGER.debug("Getting resource file location from classpath");
                     serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
                 }
