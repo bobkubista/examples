@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 /**
  *
+ * @param <T>
+ *            the object to create
  * @author Bob
  *
  *
@@ -25,10 +27,6 @@ import java.util.stream.Collectors;
  *      GenericBuilder.of(Person::new).with(Person::setName,
  *      "Otto").with(Person::setAge, 5).build();</code
  *
- *
- *
- * @param <T>
- *            the object to create
  */
 public class GenericBuilder<T> {
 
