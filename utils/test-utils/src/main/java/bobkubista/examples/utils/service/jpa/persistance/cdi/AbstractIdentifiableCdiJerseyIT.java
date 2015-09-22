@@ -23,7 +23,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 
 /**
  * @author Bob
- *
+ * @param <TYPE>
+ *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <ID>
+ *            {@link Serializable}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractIdentifiableCdiJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractBaseCdiJerseyDbUnitTest {
