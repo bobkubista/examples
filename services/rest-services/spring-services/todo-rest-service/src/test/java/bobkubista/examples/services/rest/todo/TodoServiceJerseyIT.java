@@ -9,7 +9,7 @@ import org.junit.Assert;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
+import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
 
 /**
  * @author Bob Kubista

@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance;
+package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 

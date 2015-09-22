@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance;
+package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -30,7 +30,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
-        extends AbstractBaseJerseyDbUnitTest {
+        extends AbstractBaseSpringJerseyDbUnitTest {
 
     private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
 

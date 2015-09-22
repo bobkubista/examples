@@ -8,7 +8,7 @@ import org.junit.Assert;
 
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
-import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
+import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
 
 /**
  * @author Bob

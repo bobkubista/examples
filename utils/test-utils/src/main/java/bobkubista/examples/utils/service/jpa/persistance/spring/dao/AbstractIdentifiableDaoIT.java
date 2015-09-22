@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance;
+package bobkubista.examples.utils.service.jpa.persistance.spring.dao;
 
 import java.io.Serializable;
 
@@ -24,7 +24,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  * @param <ID>
  *            identifier
  */
-public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements BaseIntegrationTest {
+public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements BaseIntegrationDaoTest {
 
     @PersistenceContext
     private EntityManager em;

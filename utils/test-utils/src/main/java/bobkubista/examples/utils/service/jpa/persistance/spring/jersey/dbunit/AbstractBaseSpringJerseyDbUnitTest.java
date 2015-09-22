@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.service.jpa.persistance;
+package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,14 +11,26 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
+import bobkubista.examples.utils.service.jpa.persistance.AbstractBaseJerseyDbUnitTest;
+
 /**
- * Abstract layer for integration tests
+ *
+ * @author Bob
+ *
+ *         Jersey test base
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test-applicationContext.xml" })
+@ContextConfiguration(locations = { "/jersey-dbunit-config.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
-public interface BaseIntegrationTest {
+public abstract class AbstractBaseSpringJerseyDbUnitTest extends AbstractBaseJerseyDbUnitTest {
+
+    private static final String CLASSPATH_JERSEY_DBUNIT_CONFIG_XML = "classpath:jersey-dbunit-config.xml";
+
+    @Override
+    protected String getContextConfigLocation() {
+        return CLASSPATH_JERSEY_DBUNIT_CONFIG_XML;
+    }
 
 }

@@ -9,7 +9,7 @@ import org.junit.Ignore;
 
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
-import bobkubista.examples.utils.service.jpa.persistance.AbstractFunctionalJerseyIT;
+import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
 
 /**
  * @author Bob
@@ -23,12 +23,12 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     private static final String PARTIAL_FUNCTIONAL_ID = "bla@";
 
     @Override
-    public ResourceConfig configure(ResourceConfig rc) {
+    public ResourceConfig configure(final ResourceConfig rc) {
         return rc.register(UserFacade.class);
     }
 
     @Override
-    protected void checkResponseGetAll(UserCollection response, int size) {
+    protected void checkResponseGetAll(final UserCollection response, final int size) {
         Assert.assertNotNull(response);
         Assert.assertEquals(size, response.getDomainCollection().size());
         Assert.assertEquals(this.getId(), response.getDomainCollection().iterator().next().getId());
@@ -36,7 +36,7 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    protected void checkSingle(User response) {
+    protected void checkSingle(final User response) {
         Assert.assertNotNull(response);
         Assert.assertEquals(this.getFunctionalId(), response.getFunctionalId());
         Assert.assertTrue(response.isActive());
@@ -44,7 +44,7 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    protected void checkUpdated(User response) {
+    protected void checkUpdated(final User response) {
         Assert.assertNotNull(response);
         Assert.assertEquals("123", response.getEncryptedPassword());
     }
@@ -78,7 +78,7 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    protected User update(User response) {
+    protected User update(final User response) {
         response.setEncryptedPassword("123");
         return response;
     }
