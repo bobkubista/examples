@@ -83,6 +83,13 @@ public final class EmailContext implements DomainObject {
     private String subject;
 
     /**
+     * private constructor
+     */
+    private EmailContext() {
+        super();
+    }
+
+    /**
      * Constructor
      *
      * @param recipient
@@ -92,11 +99,6 @@ public final class EmailContext implements DomainObject {
      * @param message
      *            message
      */
-
-    private EmailContext() {
-        super();
-    }
-
     private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
         this.subject = builder.subject;
