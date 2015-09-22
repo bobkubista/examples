@@ -11,7 +11,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>domain-model</groupId>
+            <groupId>bobkubista.examples.utils</groupId>
             <artifactId>domain-model</artifactId>
         </dependency>
         <dependency>
