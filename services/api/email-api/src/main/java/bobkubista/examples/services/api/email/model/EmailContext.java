@@ -71,15 +71,16 @@ public final class EmailContext implements DomainObject {
     }
 
     private static final long serialVersionUID = -2560167778218837261L;
+    private String message;
     @XmlElement(name = "recipient")
     @Email
-    private final String recipient;
+    private String recipient;
+
     @XmlElementWrapper(name = "replacements")
     @XmlElement(name = "replacement")
     private List<Pair<String, ? extends Object>> replacements = new ArrayList<>();
-
     @XmlElement(name = "subject")
-    private final String subject;
+    private String subject;
 
     /**
      * Constructor
@@ -91,10 +92,26 @@ public final class EmailContext implements DomainObject {
      * @param message
      *            message
      */
+
+    private EmailContext() {
+        super();
+    }
+
     private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
         this.subject = builder.subject;
         this.replacements = builder.replacement;
+    }
+
+    public EmailContext getEmail() {
+        return this;
+    }
+
+    /**
+     * @return the message
+     */
+    public final String getMessage() {
+        return this.message;
     }
 
     /**
@@ -116,6 +133,10 @@ public final class EmailContext implements DomainObject {
      */
     public String getSubject() {
         return this.subject;
+    }
+
+    public void setMessage(final String message) {
+        this.message = message;
     }
 
     @Override
