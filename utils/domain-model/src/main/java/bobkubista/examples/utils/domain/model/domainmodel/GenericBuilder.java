@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package bobkubista.examples.utils.domain.model.domainmodel;
 
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
+ *
  * A generic builder
  *
  * @param <T>
