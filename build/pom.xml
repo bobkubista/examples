@@ -35,30 +35,41 @@
 
     <repositories>
         <repository>
-            <id>maven_central2</id>
-            <name>maven central2</name>
-            <url>http://repo1.maven.org/maven2/</url>
+            <id>localhost</id>
+            <name>localhost</name>
+            <url>http://localhost:8081/nexus/</url>
         </repository>
-        <repository>
-            <id>alternative</id>
-            <name>central.maven.org</name>
-            <url>central.maven.org/maven2</url>
-        </repository>
+        <!-- <repository> -->
+        <!-- <id>maven_central2</id> -->
+        <!-- <name>maven central2</name> -->
+        <!-- <url>http://repo1.maven.org/maven2/</url> -->
+        <!-- </repository> -->
+        <!-- <repository> -->
+        <!-- <id>alternative</id> -->
+        <!-- <name>central.maven.org</name> -->
+        <!-- <url>central.maven.org/maven2</url> -->
+        <!-- </repository> -->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>maven_central2</id>
-            <name>maven central2</name>
-            <url>http://repo1.maven.org/maven2/</url>
+            <id>localhost</id>
+            <name>localhost</name>
+            <url>http://localhost:8081/nexus/</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>alternative</id>
-            <name>central.maven.org</name>
-            <url>central.maven.org/maven2</url>
-        </pluginRepository>
+        <!-- <pluginRepository> -->
+        <!-- <id>maven_central2</id> -->
+        <!-- <name>maven central2</name> -->
+        <!-- <url>http://repo1.maven.org/maven2/</url> -->
+        <!-- </pluginRepository> -->
+        <!-- <pluginRepository> -->
+        <!-- <id>alternative</id> -->
+        <!-- <name>central.maven.org</name> -->
+        <!-- <url>central.maven.org/maven2</url> -->
+        <!-- </pluginRepository> -->
     </pluginRepositories>
 
     <ciManagement>
+        <system>Jenkins</system>
         <url>localhost:8080</url>
     </ciManagement>
 
