@@ -110,6 +110,10 @@ public final class EmailContext implements DomainObject {
         this.replacements = builder.replacement.stream().collect(Collectors.toMap(t -> t.getLeft(), t -> t.getRight()));
     }
 
+    /**
+     *
+     * @return {@link EmailContext}
+     */
     public EmailContext getEmail() {
         return this;
     }
@@ -142,6 +146,10 @@ public final class EmailContext implements DomainObject {
         return this.subject;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void setMessage(final String message) {
         this.message = message;
     }
