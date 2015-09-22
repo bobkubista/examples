@@ -4,7 +4,10 @@
 package bobkubista.examples.services.api.email.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -71,6 +74,7 @@ public final class EmailContext implements DomainObject {
     }
 
     private static final long serialVersionUID = -2560167778218837261L;
+    @XmlElement(name = "message")
     private String message;
     @XmlElement(name = "recipient")
     @Email
@@ -78,7 +82,8 @@ public final class EmailContext implements DomainObject {
 
     @XmlElementWrapper(name = "replacements")
     @XmlElement(name = "replacement")
-    private List<Pair<String, ? extends Object>> replacements = new ArrayList<>();
+    private Map<String, ? extends Object> replacements = new HashMap<>();
+
     @XmlElement(name = "subject")
     private String subject;
 
@@ -102,7 +107,7 @@ public final class EmailContext implements DomainObject {
     private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
         this.subject = builder.subject;
-        this.replacements = builder.replacement;
+        this.replacements = builder.replacement.stream().collect(Collectors.toMap(t -> t.getLeft(), t -> t.getRight()));
     }
 
     public EmailContext getEmail() {
@@ -126,7 +131,7 @@ public final class EmailContext implements DomainObject {
     /**
      * @return {@link List} of {@link Pair}
      */
-    public List<Pair<String, ? extends Object>> getReplacements() {
+    public Map<String, ? extends Object> getReplacements() {
         return this.replacements;
     }
 

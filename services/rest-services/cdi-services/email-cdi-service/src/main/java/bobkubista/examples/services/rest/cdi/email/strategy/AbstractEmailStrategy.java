@@ -62,7 +62,7 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
         try {
             final String textToProcess = Resources.toString(url, Charsets.UTF_8);
             final VelocityContext context = new VelocityContext();
-            for (final Entry<String, ? extends Object> replacement : email.getReplacements()) {
+            for (final Entry<String, ? extends Object> replacement : email.getReplacements().entrySet()) {
                 context.put(replacement.getKey(), replacement.getValue());
             }
             final Writer swOut = new StringWriter();

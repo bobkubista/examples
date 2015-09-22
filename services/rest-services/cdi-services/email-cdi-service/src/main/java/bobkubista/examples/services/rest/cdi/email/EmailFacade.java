@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.services.rest.cdi.email;
 
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import bobkubista.examples.services.rest.cdi.email.strategy.GeneralEmailStrategy
  * @author Bob
  *
  */
+@Path("/")
 public class EmailFacade implements EmailApi {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailFacade.class);
 
