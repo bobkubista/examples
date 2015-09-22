@@ -57,7 +57,7 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
         return hasBeenSent;
     }
 
-    protected void composeEmail(final EmailContext email, final String templateFile) {
+    protected final void composeEmail(final EmailContext email, final String templateFile) {
         final URL url = Resources.getResource(templateFile);
         try {
             final String textToProcess = Resources.toString(url, Charsets.UTF_8);
