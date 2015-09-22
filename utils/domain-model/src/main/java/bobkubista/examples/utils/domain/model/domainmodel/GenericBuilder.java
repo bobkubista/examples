@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
+ * A generic builder
  *
  * @param <T>
  *            the object to create
