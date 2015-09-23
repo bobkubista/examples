@@ -34,10 +34,25 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String name;
 
+    /**
+     * Default constructor
+     */
     public Developer() {
         super();
     }
 
+    /**
+     * Constructor
+     *
+     * @param id
+     *            identifier
+     * @param functionalId
+     *            seo-unique name
+     * @param active
+     *            active
+     * @param name
+     *            name
+     */
     public Developer(final Long id, final String functionalId, final boolean active, final String name) {
         this.id = id;
         this.functionalId = functionalId;
@@ -61,6 +76,10 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
         return this.id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
@@ -90,6 +109,10 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
         this.id = id;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(final String name) {
         this.name = name;
     }

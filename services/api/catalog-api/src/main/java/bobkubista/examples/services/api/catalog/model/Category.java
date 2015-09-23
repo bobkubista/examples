@@ -38,10 +38,25 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String name;
 
+    /**
+     * Default contructor
+     */
     public Category() {
         super();
     }
 
+    /**
+     * Constructor
+     *
+     * @param id
+     *            identifier
+     * @param functionalId
+     *            unique seo name
+     * @param active
+     *            isActive
+     * @param name
+     *            name
+     */
     public Category(final Long id, final String functionalId, final boolean active, final String name) {
         this.id = id;
         this.functionalId = functionalId;
@@ -64,6 +79,10 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
         return this.id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
@@ -93,6 +112,10 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
         this.id = id;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(final String name) {
         this.name = name;
     }

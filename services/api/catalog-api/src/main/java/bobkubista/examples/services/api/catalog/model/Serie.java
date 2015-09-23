@@ -27,10 +27,25 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String name;
 
+    /**
+     * Default constructor
+     */
     public Serie() {
         super();
     }
 
+    /**
+     * Constructor
+     *
+     * @param id
+     *            identifier
+     * @param functionalId
+     *            unique seo friendly name
+     * @param active
+     *            active flag
+     * @param name
+     *            name
+     */
     public Serie(final Long id, final String functionalId, final boolean active, final String name) {
         this.id = id;
         this.functionalId = functionalId;
@@ -54,6 +69,10 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
         return this.id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
@@ -83,6 +102,10 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
         this.id = id;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(final String name) {
         this.name = name;
     }
