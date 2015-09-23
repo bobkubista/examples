@@ -14,6 +14,7 @@
         <module>datagathering-rest-api</module>
         <module>user-service-api</module>
         <module>email-api</module>
+        <module>catalog-api</module>
     </modules>
 
 </project>
