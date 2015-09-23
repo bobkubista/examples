@@ -23,8 +23,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
+ *
  * @author Bob
  *
+ * @param <TYPE>
+ *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <ID>
+ *            {@link Serializable}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public interface IdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
 
