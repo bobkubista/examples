@@ -33,7 +33,6 @@ import bobkubista.examples.services.api.email.model.LinkReplacement;
  * @author bkubista
  *
  */
-// TODO fix test.
 public class EmailFacadeIT extends JerseyTest {
 
     private static final String EMAIL_SUBJECT_HEADER = "Subject";
