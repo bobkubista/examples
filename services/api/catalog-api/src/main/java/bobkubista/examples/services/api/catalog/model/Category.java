@@ -23,12 +23,12 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
 
     private static final long serialVersionUID = 3272535936657151315L;
 
-    @XmlElement
-    private Long id;
-
     @NotBlank
     @XmlElement(required = true)
     private String categoryName;
+
+    @XmlElement
+    private Long id;
 
     /**
      * Default contructor
