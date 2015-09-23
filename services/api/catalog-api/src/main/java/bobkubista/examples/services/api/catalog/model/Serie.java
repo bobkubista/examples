@@ -9,6 +9,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 
+/**
+ *
+ * @author Bob
+ *
+ */
 @XmlRootElement(name = "serie")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Serie extends AbstractGenericActiveDomainObject<Long> {

@@ -62,10 +62,21 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String title;
 
+    /**
+     * Default Constructor
+     */
     public MainGame() {
         super();
     }
 
+    /**
+     * Constructor
+     * 
+     * @param active
+     *            active flag
+     * @param seoName
+     *            seo name
+     */
     public MainGame(final boolean active, final String seoName) {
         super(active, seoName);
     }
