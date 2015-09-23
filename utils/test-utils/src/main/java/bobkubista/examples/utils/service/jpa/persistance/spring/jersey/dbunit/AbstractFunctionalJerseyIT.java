@@ -2,12 +2,9 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 
-import org.junit.Test;
-
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.service.jpa.persistance.FunctionalJerseyIT;
 
 /**
  *
@@ -21,27 +18,6 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
-        extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
-
-    /**
-     * Test getByFunctionalId
-     */
-    @Test
-    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
-    public void shouldGetByFunctionalId() {
-        this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
-    }
-
-    /**
-     *
-     * @return The functionalId
-     */
-    protected abstract String getFunctionalId();
-
-    /**
-     *
-     * @return a partion ID to search for
-     */
-    protected abstract String getPartionFunctionalId();
+        extends AbstractIdentifiableJerseyIT<TYPE, ID, COL>implements FunctionalJerseyIT<TYPE, ID, COL> {
 
 }
