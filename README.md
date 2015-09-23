@@ -8,13 +8,15 @@ backend:
 - Asynchronous calls 
 - Non blocking IO
 - Security:
-	- stateless security client side cross site request forgery tokens (CSRF tokens) in cookie and http header check in a 		filter/interceptor
+	- stateless security client side cross site request forgery tokens (CSRF tokens) in cookie and http header check in a filter/interceptor
 	- spring security
 	- keyclocke
 - apache kafka
 - spring data
 - Websockets
 - Spring boot
+- Docker
+- Jetty
 - Message driven beans
 - EJB
 - JTA
