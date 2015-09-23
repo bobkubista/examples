@@ -3,7 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import bobkubista.examples.utils.service.jpa.persistance.AbstractBaseIdentifiableJerseyDbUnitTest;
+import bobkubista.examples.utils.service.jpa.persistance.AbstractBaseJerseyDbUnitTest;
 
 /**
  *
@@ -12,7 +12,7 @@ import bobkubista.examples.utils.service.jpa.persistance.AbstractBaseIdentifiabl
  *         Jersey test base
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public abstract class AbstractBaseSpringJerseyDbUnitTest extends AbstractBaseIdentifiableJerseyDbUnitTest {
+public abstract class AbstractBaseSpringJerseyDbUnitTest extends AbstractBaseJerseyDbUnitTest {
 
     private static final String CLASSPATH_JERSEY_DBUNIT_CONFIG_XML = "classpath:jersey-dbunit-config.xml";
 
