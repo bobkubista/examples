@@ -15,7 +15,7 @@ import bobkubista.examples.services.api.catalog.model.Developer;
  */
 @XmlRootElement(name = "html5game")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Html5Game extends WebGame {
+public class Html5Game extends AbstractWebGame {
 
     private static final long serialVersionUID = 1087423146833179504L;
 

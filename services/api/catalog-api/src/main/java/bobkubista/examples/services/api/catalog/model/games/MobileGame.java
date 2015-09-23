@@ -15,7 +15,7 @@ import bobkubista.examples.services.api.catalog.model.Developer;
  */
 @XmlRootElement(name = "mobileGame")
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class MobileGame extends DownloadableGame {
+public abstract class MobileGame extends AbstractDownloadableGame {
 
     private static final long serialVersionUID = -3058136388252614976L;
 

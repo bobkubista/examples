@@ -18,7 +18,7 @@ import bobkubista.examples.services.api.catalog.model.Developer;
  */
 @XmlRootElement(name = "webgame")
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class WebGame extends AbstractGame {
+public abstract class AbstractWebGame extends AbstractGame {
 
     private static final long serialVersionUID = -1896666729789454367L;
 
@@ -30,7 +30,7 @@ public abstract class WebGame extends AbstractGame {
     /**
      * Default constructor
      */
-    public WebGame() {
+    public AbstractWebGame() {
         super();
     }
 
@@ -46,7 +46,7 @@ public abstract class WebGame extends AbstractGame {
      * @param gameDeveloper
      *            {@link Developer}
      */
-    public WebGame(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
+    public AbstractWebGame(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
         super(url, gameDeveloper, active);
         this.id = id;
     }

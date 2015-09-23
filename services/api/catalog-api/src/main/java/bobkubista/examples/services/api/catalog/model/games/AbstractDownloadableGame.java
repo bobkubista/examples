@@ -16,7 +16,7 @@ import bobkubista.examples.services.api.catalog.model.Developer;
  */
 @XmlRootElement(name = "downloadgame")
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class DownloadableGame extends AbstractGame {
+public abstract class AbstractDownloadableGame extends AbstractGame {
 
     private static final long serialVersionUID = 6473039987442163043L;
 
@@ -25,7 +25,7 @@ public abstract class DownloadableGame extends AbstractGame {
     /**
      * Default constructor
      */
-    public DownloadableGame() {
+    public AbstractDownloadableGame() {
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class DownloadableGame extends AbstractGame {
      * @param gameDeveloper
      *            {@link Developer}
      */
-    public DownloadableGame(final Long id, final boolean active, final String filePath, final Developer gameDeveloper) {
+    public AbstractDownloadableGame(final Long id, final boolean active, final String filePath, final Developer gameDeveloper) {
         super(filePath, gameDeveloper, active);
         this.id = id;
 
