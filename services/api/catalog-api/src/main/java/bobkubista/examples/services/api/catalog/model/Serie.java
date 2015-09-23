@@ -24,7 +24,7 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
 
     @NotBlank
     @XmlElement(required = true)
-    private String name;
+    private String serieName;
 
     /**
      * Default constructor
@@ -48,7 +48,7 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
     public Serie(final Long id, final String functionalId, final boolean active, final String name) {
         super(active, functionalId);
         this.id = id;
-        this.name = name;
+        this.serieName = name;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
      * @return
      */
     public String getName() {
-        return this.name;
+        return this.serieName;
     }
 
     @Override
@@ -85,6 +85,6 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
      * @param name
      */
     public void setName(final String name) {
-        this.name = name;
+        this.serieName = name;
     }
 }

@@ -26,7 +26,7 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
 
     @NotBlank
     @XmlElement(required = true)
-    private String name;
+    private String developerName;
 
     /**
      * Default constructor
@@ -50,7 +50,7 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
     public Developer(final Long id, final String functionalId, final boolean active, final String name) {
         super(active, functionalId);
         this.id = id;
-        this.name = name;
+        this.developerName = name;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
      * @return
      */
     public String getName() {
-        return this.name;
+        return this.developerName;
     }
 
     @Override
@@ -87,6 +87,6 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
      * @param name
      */
     public void setName(final String name) {
-        this.name = name;
+        this.developerName = name;
     }
 }
