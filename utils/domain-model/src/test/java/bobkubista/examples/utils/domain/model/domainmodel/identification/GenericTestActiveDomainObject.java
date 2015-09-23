@@ -10,8 +10,8 @@ public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainOb
 
     private static final long serialVersionUID = 1L;
 
-    private final String functionalId = "testObject";
     private final Integer id = 1;
+    private final String functionalId = "testObject";
 
     public GenericTestActiveDomainObject() {
         super(true);
