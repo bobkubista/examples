@@ -19,10 +19,25 @@ public class PcGame extends DownloadableGame {
 
     private static final long serialVersionUID = 149579132556095676L;
 
+    /**
+     * Default constructor
+     */
     public PcGame() {
         super();
     }
 
+    /**
+     * Constructor
+     * 
+     * @param id
+     *            identifier
+     * @param active
+     *            active flag
+     * @param url
+     *            url
+     * @param gameDeveloper
+     *            {@link Developer}
+     */
     public PcGame(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
         super(id, active, url, gameDeveloper);
     }

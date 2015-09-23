@@ -19,10 +19,25 @@ public abstract class MobileGame extends DownloadableGame {
 
     private static final long serialVersionUID = -3058136388252614976L;
 
+    /**
+     * Default constructor
+     */
     public MobileGame() {
         super();
     }
 
+    /**
+     * Constructor
+     * 
+     * @param id
+     *            identifier
+     * @param active
+     *            active flag
+     * @param filePath
+     *            filepath
+     * @param gameDeveloper
+     *            {@link Developer}
+     */
     public MobileGame(final Long id, final boolean active, final String filePath, final Developer gameDeveloper) {
         super(id, active, filePath, gameDeveloper);
     }

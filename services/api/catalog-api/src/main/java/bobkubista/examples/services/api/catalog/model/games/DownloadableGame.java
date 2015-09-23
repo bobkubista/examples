@@ -23,7 +23,7 @@ public abstract class DownloadableGame extends AbstractGame {
     private Long id;
 
     /**
-     * Constructor
+     * Default constructor
      */
     public DownloadableGame() {
     }
