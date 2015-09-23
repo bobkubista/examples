@@ -67,24 +67,24 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     }
 
     @Override
-    public String getFunctionalId() {
-        return FUNCTIONALID;
-    }
-
-    @Override
     public Long getId() {
         return ID;
-    }
-
-    @Override
-    public String getPartionFunctionalId() {
-        return PARTIAL_FUNCTIONAL_ID;
     }
 
     @Override
     public TodoList update(final TodoList response) {
         response.setFunctionalId("todo.abc");
         return response;
+    }
+
+    @Override
+    protected String getFunctionalId() {
+        return FUNCTIONALID;
+    }
+
+    @Override
+    protected String getPartionFunctionalId() {
+        return PARTIAL_FUNCTIONAL_ID;
     }
 
 }

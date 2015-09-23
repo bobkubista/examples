@@ -63,24 +63,24 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    public String getFunctionalId() {
-        return FUNCTIONALID;
-    }
-
-    @Override
     public Long getId() {
         return ID;
-    }
-
-    @Override
-    public String getPartionFunctionalId() {
-        return PARTIAL_FUNCTIONAL_ID;
     }
 
     @Override
     public User update(final User response) {
         response.setEncryptedPassword("123");
         return response;
+    }
+
+    @Override
+    protected String getFunctionalId() {
+        return FUNCTIONALID;
+    }
+
+    @Override
+    protected String getPartionFunctionalId() {
+        return PARTIAL_FUNCTIONAL_ID;
     }
 
 }
