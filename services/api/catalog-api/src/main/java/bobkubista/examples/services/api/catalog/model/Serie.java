@@ -15,6 +15,8 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
 
     private static final long serialVersionUID = -5566287246537687934L;
 
+    private Long id;
+
     @NotBlank
     @XmlElement(required = true)
     private String name;
@@ -39,13 +41,20 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
      *            name
      */
     public Serie(final Long id, final String functionalId, final boolean active, final String name) {
-        super(active, functionalId, id);
+        super(active, functionalId);
+        this.id = id;
         this.name = name;
     }
 
     @Override
     public boolean equals(final Object obj) {
         return super.equals(obj);
+    }
+
+    @Override
+    @XmlElement()
+    public Long getId() {
+        return this.id;
     }
 
     /**
@@ -59,6 +68,11 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     /**

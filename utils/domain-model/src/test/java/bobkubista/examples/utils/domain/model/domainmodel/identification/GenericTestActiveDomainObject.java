@@ -10,11 +10,22 @@ public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainOb
 
     private static final long serialVersionUID = 1L;
 
+    private final Integer id = 1;
+
     /**
      * constructor
      */
     public GenericTestActiveDomainObject() {
-        super(true, "testObject", 1);
+        super(true, "testObject");
     }
 
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(final Integer id) {
+
+    }
 }

@@ -25,22 +25,10 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
 
     private static final long serialVersionUID = 6041983912533900961L;
 
-    private ID id;
-
     /**
      * Constructor
      */
     public AbstractGenericIdentifiableDomainObject() {
-    }
-
-    /**
-     * Constructor
-     *
-     * @param id
-     *            identifier
-     */
-    public AbstractGenericIdentifiableDomainObject(final ID id) {
-        this.id = id;
     }
 
     @Override
@@ -60,9 +48,7 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
     /**
      * @return ID
      */
-    public final ID getId() {
-        return this.id;
-    }
+    public abstract ID getId();
 
     @Override
     public int hashCode() {
@@ -73,9 +59,7 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
      * @param id
      *            ID
      */
-    public final void setId(final ID id) {
-        this.id = id;
-    }
+    public abstract void setId(ID id);
 
     @Override
     public String toString() {

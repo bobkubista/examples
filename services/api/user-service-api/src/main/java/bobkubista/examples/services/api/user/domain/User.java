@@ -24,6 +24,9 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
     private String encryptedPassword;
 
     @XmlElement(required = true)
+    private Long id;
+
+    @XmlElement(required = true)
     private String name;
 
     /**
@@ -46,8 +49,9 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      *            identifier
      */
     public User(final boolean active, final String email, final String encryptedPassword, final Long id) {
-        super(active, email, id);
+        super(active, email);
         this.encryptedPassword = encryptedPassword;
+        this.id = id;
     }
 
     /**
@@ -55,6 +59,11 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      */
     public String getEncryptedPassword() {
         return this.encryptedPassword;
+    }
+
+    @Override
+    public Long getId() {
+        return this.id;
     }
 
     /**
@@ -69,6 +78,11 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      */
     public void setEncryptedPassword(final String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     /**

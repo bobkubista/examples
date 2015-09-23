@@ -23,6 +23,9 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
 
     private static final long serialVersionUID = 3272535936657151315L;
 
+    @XmlElement
+    private Long id;
+
     @NotBlank
     @XmlElement(required = true)
     private String name;
@@ -47,13 +50,19 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
      *            name
      */
     public Category(final Long id, final String functionalId, final boolean active, final String name) {
-        super(active, functionalId, id);
+        super(active, functionalId);
+        this.id = id;
         this.name = name;
     }
 
     @Override
     public boolean equals(final Object obj) {
         return super.equals(obj);
+    }
+
+    @Override
+    public Long getId() {
+        return this.id;
     }
 
     /**
@@ -67,6 +76,11 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     /**
