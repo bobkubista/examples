@@ -23,7 +23,12 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     private static final String PARTIAL_FUNCTIONAL_ID = "bla@";
 
     @Override
-    public void checkResponseGetAll(final UserCollection response, final int size) {
+    public ResourceConfig configure(final ResourceConfig rc) {
+        return rc.register(UserFacade.class);
+    }
+
+    @Override
+    protected void checkResponseGetAll(final UserCollection response, final int size) {
         Assert.assertNotNull(response);
         Assert.assertEquals(size, response.getDomainCollection().size());
         Assert.assertEquals(this.getId(), response.getDomainCollection().iterator().next().getId());
@@ -31,7 +36,7 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    public void checkSingle(final User response) {
+    protected void checkSingle(final User response) {
         Assert.assertNotNull(response);
         Assert.assertEquals(this.getFunctionalId(), response.getFunctionalId());
         Assert.assertTrue(response.isActive());
@@ -39,18 +44,13 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    public void checkUpdated(final User response) {
+    protected void checkUpdated(final User response) {
         Assert.assertNotNull(response);
         Assert.assertEquals("123", response.getEncryptedPassword());
     }
 
     @Override
-    public ResourceConfig configure(final ResourceConfig rc) {
-        return rc.register(UserFacade.class);
-    }
-
-    @Override
-    public User create() {
+    protected User create() {
         final User user = new User();
 
         user.setActive(true);
@@ -63,24 +63,24 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     }
 
     @Override
-    public Long getId() {
-        return ID;
-    }
-
-    @Override
-    public User update(final User response) {
-        response.setEncryptedPassword("123");
-        return response;
-    }
-
-    @Override
     protected String getFunctionalId() {
         return FUNCTIONALID;
     }
 
     @Override
+    protected Long getId() {
+        return ID;
+    }
+
+    @Override
     protected String getPartionFunctionalId() {
         return PARTIAL_FUNCTIONAL_ID;
+    }
+
+    @Override
+    protected User update(final User response) {
+        response.setEncryptedPassword("123");
+        return response;
     }
 
 }

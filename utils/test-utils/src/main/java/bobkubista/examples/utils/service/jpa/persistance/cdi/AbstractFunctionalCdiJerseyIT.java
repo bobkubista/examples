@@ -24,7 +24,7 @@ public abstract class AbstractFunctionalCdiJerseyIT<TYPE extends AbstractGeneric
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetByFunctionalId() {
-        this.checkSingle(this.getTarget("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
+        this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
     }
 
     /**
