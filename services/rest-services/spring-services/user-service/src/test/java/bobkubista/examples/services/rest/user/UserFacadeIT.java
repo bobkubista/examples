@@ -21,6 +21,11 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     private static final String PARTIAL_FUNCTIONAL_ID = "bla@";
 
     @Override
+    public ResourceConfig configure(final ResourceConfig rc) {
+        return rc.register(UserFacade.class);
+    }
+
+    @Override
     protected void checkResponseGetAll(final UserCollection response, final int size) {
         Assert.assertNotNull(response);
         Assert.assertEquals(size, response.getDomainCollection().size());
@@ -40,11 +45,6 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     protected void checkUpdated(final User response) {
         Assert.assertNotNull(response);
         Assert.assertEquals("123", response.getEncryptedPassword());
-    }
-
-    @Override
-    protected ResourceConfig configure(final ResourceConfig rc) {
-        return rc.register(UserFacade.class);
     }
 
     @Override
