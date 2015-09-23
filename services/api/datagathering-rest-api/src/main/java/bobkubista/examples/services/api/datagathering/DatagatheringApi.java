@@ -4,7 +4,6 @@
 package bobkubista.examples.services.api.datagathering;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Request;
@@ -16,13 +15,12 @@ import javax.ws.rs.core.UriInfo;
  * @author Bob Kubista
  *
  */
-@Path("/")
 @FunctionalInterface
 public interface DatagatheringApi {
 
     /**
      * Gather data based apon data in the context
-     * 
+     *
      * @param servletRequest
      *            {@link HttpServletRequest}
      * @param info
