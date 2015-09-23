@@ -25,8 +25,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
 
     @XmlElement(required = true)
     private Long id;
-    @XmlElement(required = true)
-    private String todoListName;
 
     @XmlElementWrapper(name = "todos")
     @XmlElement(name = "todo")
@@ -41,17 +39,14 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
 
     /**
      * Constructor
-     * 
+     *
      * @param active
      *            active flag
+     * @param todoListName
+     *            Name of the todolist
      */
-    public TodoList(final boolean active) {
-        super(active);
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.todoListName;
+    public TodoList(final boolean active, final String todoListName) {
+        super(active, todoListName);
     }
 
     @Override
@@ -64,11 +59,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
      */
     public List<Todo> getTodoList() {
         return this.todos;
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.todoListName = functionalId;
     }
 
     @Override

@@ -11,25 +11,17 @@ public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainOb
     private static final long serialVersionUID = 1L;
 
     private final Integer id = 1;
-    private final String functionalId = "testObject";
 
+    /**
+     * constructor
+     */
     public GenericTestActiveDomainObject() {
-        super(true);
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.functionalId;
+        super(true, "testObject");
     }
 
     @Override
     public Integer getId() {
         return this.id;
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-
     }
 
     @Override

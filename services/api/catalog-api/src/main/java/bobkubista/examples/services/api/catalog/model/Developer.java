@@ -22,9 +22,6 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
 
     private static final long serialVersionUID = 2251532459223464241L;
 
-    @XmlElement
-    private String functionalId;
-
     private Long id;
 
     @NotBlank
@@ -51,20 +48,14 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
      *            name
      */
     public Developer(final Long id, final String functionalId, final boolean active, final String name) {
-        super(active);
+        super(active, functionalId);
         this.id = id;
-        this.functionalId = functionalId;
         this.name = name;
     }
 
     @Override
     public boolean equals(final Object obj) {
         return super.equals(obj);
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.functionalId;
     }
 
     @Override
@@ -84,11 +75,6 @@ public class Developer extends AbstractGenericActiveDomainObject<Long> {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.functionalId = functionalId;
     }
 
     @Override

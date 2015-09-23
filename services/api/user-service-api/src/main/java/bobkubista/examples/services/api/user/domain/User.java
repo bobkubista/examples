@@ -21,8 +21,6 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
     private static final long serialVersionUID = 8804522919297114084L;
 
     @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
     private String encryptedPassword;
 
     @XmlElement(required = true)
@@ -31,12 +29,29 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String name;
 
+    /**
+     * Default constructor
+     */
     public User() {
         super();
     }
 
-    public User(final boolean active) {
-        super(active);
+    /**
+     * Constructor
+     *
+     * @param active
+     *            active flag
+     * @param email
+     *            email adres
+     * @param encryptedPassword
+     *            password
+     * @param id
+     *            identifier
+     */
+    public User(final boolean active, final String email, final String encryptedPassword, final Long id) {
+        super(active, email);
+        this.encryptedPassword = encryptedPassword;
+        this.id = id;
     }
 
     /**
@@ -44,11 +59,6 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      */
     public String getEncryptedPassword() {
         return this.encryptedPassword;
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.email;
     }
 
     @Override
@@ -68,11 +78,6 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      */
     public void setEncryptedPassword(final String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.email = functionalId;
     }
 
     @Override

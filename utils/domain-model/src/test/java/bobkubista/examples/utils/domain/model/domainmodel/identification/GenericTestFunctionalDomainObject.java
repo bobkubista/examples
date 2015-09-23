@@ -11,12 +11,13 @@ public class GenericTestFunctionalDomainObject extends AbstractGenericFunctional
 
     private static final long serialVersionUID = -5984860269385611821L;
 
-    private final String functionalId = "testObject2";
     private final Integer id = 2;
 
-    @Override
-    public String getFunctionalId() {
-        return this.functionalId;
+    /**
+     * Constructor
+     */
+    public GenericTestFunctionalDomainObject() {
+        super("testObject2");
     }
 
     @Override
@@ -25,11 +26,7 @@ public class GenericTestFunctionalDomainObject extends AbstractGenericFunctional
     }
 
     @Override
-    public void setFunctionalId(String functionalId) {
-    }
-
-    @Override
-    public void setId(Integer id) {
+    public void setId(final Integer id) {
     }
 
 }

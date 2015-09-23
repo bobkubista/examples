@@ -66,8 +66,8 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         super();
     }
 
-    public MainGame(final boolean active) {
-        super(active);
+    public MainGame(final boolean active, final String seoName) {
+        super(active, seoName);
     }
 
     @Override
@@ -88,11 +88,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
 
     public String getDescription() {
         return this.description;
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.functionalId;
     }
 
     public Html5Game getHtml5Game() {
@@ -147,11 +142,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
 
     public void setDescription(final String description) {
         this.description = description;
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.functionalId = functionalId;
     }
 
     public void setHtml5Game(final Html5Game html5Game) {

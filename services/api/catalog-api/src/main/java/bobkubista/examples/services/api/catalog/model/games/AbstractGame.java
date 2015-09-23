@@ -19,9 +19,6 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
 
     @NotBlank
     @XmlElement(required = true)
-    private String fileName;
-    @NotBlank
-    @XmlElement(required = true)
     private Developer gameDeveloper;
 
     /**
@@ -39,27 +36,13 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
      *            {@link Developer}
      */
     public AbstractGame(final String fileName, final Developer gameDeveloper, final boolean active) {
-        super(active);
-        this.fileName = fileName;
+        super(active, fileName);
         this.gameDeveloper = gameDeveloper;
     }
 
     @Override
     public boolean equals(final Object obj) {
         return super.equals(obj);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getFileName() {
-        return this.fileName;
-    }
-
-    @Override
-    public String getFunctionalId() {
-        return this.fileName;
     }
 
     /**
@@ -73,19 +56,6 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    /**
-     *
-     * @param fileName
-     */
-    public void setFileName(final String fileName) {
-        this.fileName = fileName;
-    }
-
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.fileName = functionalId;
     }
 
     /**
