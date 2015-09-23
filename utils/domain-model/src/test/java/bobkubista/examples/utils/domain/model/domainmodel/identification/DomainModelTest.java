@@ -49,6 +49,6 @@ public class DomainModelTest {
     public void testToString() {
         final GenericTestActiveDomainObject classToTest = new GenericTestActiveDomainObject();
         Assert.assertTrue(StringUtils.isNotBlank(classToTest.toString()));
-        Assert.assertEquals("GenericTestActiveDomainObject[id=1,active=true,functionalId=testObject]", classToTest.toString());
+        Assert.assertEquals("GenericTestActiveDomainObject[active=true,functionalId=testObject,id=1]", classToTest.toString());
     }
 }
