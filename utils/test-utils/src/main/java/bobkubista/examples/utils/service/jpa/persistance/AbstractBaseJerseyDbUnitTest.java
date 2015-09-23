@@ -10,23 +10,15 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.web.filter.RequestContextFilter;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 /**
  * @author Bob
  *
  */
-@ContextConfiguration(locations = { "/jersey-dbunit-config.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
 public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
     @PersistenceContext
