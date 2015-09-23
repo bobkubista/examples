@@ -10,7 +10,6 @@ import org.junit.Ignore;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.services.rest.cdi.todo.TodoFacade;
 import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
 
 /**
@@ -25,14 +24,14 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     private static final String PARTIAL_FUNCTIONAL_ID = "some";
 
     @Override
-    protected void checkResponseGetAll(final TodoListCollection response, final int size) {
+    public void checkResponseGetAll(final TodoListCollection response, final int size) {
         Assert.assertNotNull(response);
         Assert.assertEquals(size, response.getDomainCollection().size());
         Assert.assertEquals(this.getId(), response.getDomainCollection().iterator().next().getId());
     }
 
     @Override
-    protected void checkSingle(final TodoList types) {
+    public void checkSingle(final TodoList types) {
         Assert.assertNotNull(types);
         Assert.assertEquals(this.getFunctionalId(), types.getFunctionalId());
         Assert.assertNotNull(types.getTodoList());
@@ -40,7 +39,7 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     }
 
     @Override
-    protected void checkUpdated(final TodoList response) {
+    public void checkUpdated(final TodoList response) {
         Assert.assertNotNull(response);
         Assert.assertEquals("something", response.getFunctionalId());
         Assert.assertNotNull(response.getTodoList());
@@ -53,7 +52,7 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     }
 
     @Override
-    protected TodoList create() {
+    public TodoList create() {
         final TodoList todoList = new TodoList();
 
         todoList.setActive(true);
@@ -68,24 +67,24 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
     }
 
     @Override
+    public Long getId() {
+        return ID;
+    }
+
+    @Override
+    public TodoList update(final TodoList response) {
+        response.setFunctionalId("todo.abc");
+        return response;
+    }
+
+    @Override
     protected String getFunctionalId() {
         return FUNCTIONALID;
     }
 
     @Override
-    protected Long getId() {
-        return ID;
-    }
-
-    @Override
     protected String getPartionFunctionalId() {
         return PARTIAL_FUNCTIONAL_ID;
-    }
-
-    @Override
-    protected TodoList update(final TodoList response) {
-        response.setFunctionalId("todo.abc");
-        return response;
     }
 
 }
