@@ -9,14 +9,14 @@ import org.junit.Ignore;
 
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
-import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
+import bobkubista.examples.utils.service.jpa.persistance.cdi.AbstractFunctionalCdiJerseyIT;
 
 /**
  * @author Bob
  *
  */
 @Ignore // TODO fix jersey tests
-public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCollection> {
+public class UserFacadeIT extends AbstractFunctionalCdiJerseyIT<User, Long, UserCollection> {
 
     private static final String FUNCTIONALID = "bla@foo.bar";
     private static final Long ID = 1L;

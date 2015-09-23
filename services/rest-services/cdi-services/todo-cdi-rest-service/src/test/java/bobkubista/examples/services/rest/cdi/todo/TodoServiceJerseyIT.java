@@ -10,14 +10,14 @@ import org.junit.Ignore;
 import bobkubista.examples.services.api.todo.domain.Todo;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.AbstractFunctionalJerseyIT;
+import bobkubista.examples.utils.service.jpa.persistance.cdi.AbstractFunctionalCdiJerseyIT;
 
 /**
  * @author Bob Kubista
  *
  */
 @Ignore // TODO fix jersey tests
-public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Long, TodoListCollection> {
+public class TodoServiceJerseyIT extends AbstractFunctionalCdiJerseyIT<TodoList, Long, TodoListCollection> {
 
     private static final String FUNCTIONALID = "something";
     private static final Long ID = -1L;
