@@ -13,8 +13,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
 /**
+ *
  * @author Bob
  *
+ * @param <TYPE>
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ * @param <ID>
+ *            {@link Serializable}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractFunctionalCdiJerseyIT<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractIdentifiableCdiJerseyIT<TYPE, ID, COL> {
