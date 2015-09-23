@@ -5,9 +5,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 public class MockDomain extends AbstractGenericActiveDomainObject<Long> {
 
     private static final long serialVersionUID = -3472971306874956522L;
-    private boolean active;
     private String functionalId;
     private Long id;
+
+    public MockDomain() {
+        super(true);
+    }
 
     @Override
     public String getFunctionalId() {
@@ -18,16 +21,6 @@ public class MockDomain extends AbstractGenericActiveDomainObject<Long> {
 
     public Long getId() {
         return this.id;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

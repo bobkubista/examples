@@ -25,10 +25,6 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
 
     @NotBlank
     @XmlElement(required = true)
-    private boolean active;
-
-    @NotBlank
-    @XmlElement(required = true)
     private String functionalId;
 
     @XmlElement
@@ -58,9 +54,9 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
      *            name
      */
     public Category(final Long id, final String functionalId, final boolean active, final String name) {
+        super(active);
         this.id = id;
         this.functionalId = functionalId;
-        this.active = active;
         this.name = name;
     }
 
@@ -90,16 +86,6 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

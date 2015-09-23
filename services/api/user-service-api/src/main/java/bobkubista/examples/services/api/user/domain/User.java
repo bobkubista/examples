@@ -21,8 +21,6 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
     private static final long serialVersionUID = 8804522919297114084L;
 
     @XmlElement(required = true)
-    private boolean active;
-    @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
     private String encryptedPassword;
@@ -32,6 +30,14 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
 
     @XmlElement(required = true)
     private String name;
+
+    public User() {
+        super();
+    }
+
+    public User(final boolean active) {
+        super(active);
+    }
 
     /**
      * @return
@@ -55,16 +61,6 @@ public class User extends AbstractGenericActiveDomainObject<Long> {
      */
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     /**

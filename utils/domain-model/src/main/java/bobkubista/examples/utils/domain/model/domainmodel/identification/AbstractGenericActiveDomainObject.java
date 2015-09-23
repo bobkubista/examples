@@ -21,6 +21,10 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
 
     private static final long serialVersionUID = -7516244737080941032L;
 
+    @NotBlank
+    @XmlElement(required = true)
+    private boolean active;
+
     /**
      * Constructor
      */
@@ -28,15 +32,29 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
     }
 
     /**
+     * Constructor
+     *
+     * @param active
+     *            active flag
+     */
+    public AbstractGenericActiveDomainObject(final boolean active) {
+        super();
+        this.active = active;
+    }
+
+    /**
      * @return
      */
-    @NotBlank
     @XmlElement(required = true)
-    public abstract boolean isActive();
+    public final boolean isActive() {
+        return this.active;
+    }
 
     /**
      * @param active
      */
-    public abstract void setActive(boolean active);
+    public final void setActive(final boolean active) {
+        this.active = active;
+    }
 
 }

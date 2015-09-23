@@ -24,8 +24,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
     private static final long serialVersionUID = 435396239252623825L;
 
     @XmlElement(required = true)
-    private boolean active;
-    @XmlElement(required = true)
     private Long id;
     @XmlElement(required = true)
     private String todoListName;
@@ -33,6 +31,23 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
     @XmlElementWrapper(name = "todos")
     @XmlElement(name = "todo")
     private final List<Todo> todos = new ArrayList<>();
+
+    /**
+     * default constructor
+     */
+    public TodoList() {
+        super();
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param active
+     *            active flag
+     */
+    public TodoList(final boolean active) {
+        super(active);
+    }
 
     @Override
     public String getFunctionalId() {
@@ -49,16 +64,6 @@ public class TodoList extends AbstractGenericActiveDomainObject<Long> {
      */
     public List<Todo> getTodoList() {
         return this.todos;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

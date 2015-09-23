@@ -1,7 +1,5 @@
 package bobkubista.examples.utils.domain.model.domainmodel.identification;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
-
 /**
  * Abstract domain object for testing
  *
@@ -12,9 +10,12 @@ public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainOb
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer id = 1;
-    private final boolean active = true;
     private final String functionalId = "testObject";
+    private final Integer id = 1;
+
+    public GenericTestActiveDomainObject() {
+        super(true);
+    }
 
     @Override
     public String getFunctionalId() {
@@ -24,16 +25,6 @@ public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainOb
     @Override
     public Integer getId() {
         return this.id;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-
     }
 
     @Override
