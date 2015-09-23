@@ -33,7 +33,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 public abstract class AbstractIdentifiableCdiJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractBaseCdiJerseyDbUnitTest {
 
-    static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
+    private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
 
     /**
      * Test if create works
