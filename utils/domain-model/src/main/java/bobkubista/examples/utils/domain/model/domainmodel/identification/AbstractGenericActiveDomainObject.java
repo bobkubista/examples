@@ -45,7 +45,6 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
     /**
      * @return
      */
-    @XmlElement(required = true)
     public final boolean isActive() {
         return this.active;
     }
