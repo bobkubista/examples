@@ -56,11 +56,6 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     public Long getId() {
         return this.id;
     }
@@ -71,11 +66,6 @@ public class Category extends AbstractGenericActiveDomainObject<Long> {
      */
     public String getName() {
         return this.categoryName;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

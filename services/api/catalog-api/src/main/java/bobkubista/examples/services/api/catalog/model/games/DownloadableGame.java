@@ -46,10 +46,6 @@ public abstract class DownloadableGame extends AbstractGame {
 
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
 
     @Override
     @XmlElement()
@@ -57,10 +53,6 @@ public abstract class DownloadableGame extends AbstractGame {
         return this.id;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
     @Override
     public void setId(final Long id) {

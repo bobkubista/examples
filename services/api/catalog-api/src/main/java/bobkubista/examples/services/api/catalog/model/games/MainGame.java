@@ -81,10 +81,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         super(active, seoName);
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
 
     /**
      * @return the andriodGame
@@ -134,10 +130,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         return this.title;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
     /**
      * @param andriodGame

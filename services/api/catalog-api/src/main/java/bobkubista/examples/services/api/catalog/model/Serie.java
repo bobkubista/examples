@@ -52,11 +52,6 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     @XmlElement()
     public Long getId() {
         return this.id;
@@ -68,11 +63,6 @@ public class Serie extends AbstractGenericActiveDomainObject<Long> {
      */
     public String getName() {
         return this.serieName;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

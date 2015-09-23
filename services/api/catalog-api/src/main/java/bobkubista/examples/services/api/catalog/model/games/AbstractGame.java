@@ -42,10 +42,6 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
         this.gameDeveloper = gameDeveloper;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
 
     /**
      *
@@ -55,10 +51,6 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
         return this.gameDeveloper;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
     /**
      *

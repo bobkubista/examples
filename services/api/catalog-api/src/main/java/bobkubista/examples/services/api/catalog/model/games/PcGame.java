@@ -42,13 +42,4 @@ public class PcGame extends DownloadableGame {
         super(id, active, url, gameDeveloper);
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

@@ -42,13 +42,5 @@ public abstract class MobileGame extends DownloadableGame {
         super(id, active, filePath, gameDeveloper);
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return super.equals(obj);
-    }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }
