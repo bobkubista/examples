@@ -12,7 +12,6 @@ public class MockDomain extends AbstractGenericActiveDomainObject<Long> {
     }
 
     @Override
-
     public Long getId() {
         return this.id;
     }

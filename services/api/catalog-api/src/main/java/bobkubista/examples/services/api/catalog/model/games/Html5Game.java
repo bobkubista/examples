@@ -19,9 +19,25 @@ public class Html5Game extends WebGame {
 
     private static final long serialVersionUID = 1087423146833179504L;
 
+    /**
+     * Default constructor
+     */
     public Html5Game() {
+        super();
     }
 
+    /**
+     * Constructor
+     * 
+     * @param id
+     *            identifier
+     * @param active
+     *            active flag
+     * @param url
+     *            url of the game
+     * @param gameDeveloper
+     *            {@link Developer}
+     */
     public Html5Game(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
         super(id, active, url, gameDeveloper);
     }

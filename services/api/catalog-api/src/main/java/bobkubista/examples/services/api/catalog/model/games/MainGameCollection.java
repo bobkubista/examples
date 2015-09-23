@@ -28,6 +28,9 @@ public class MainGameCollection extends AbstractGenericDomainObjectCollection<Ma
     @XmlElement(name = "masterGame")
     private final Collection<MainGame> domainCollection = new LinkedList<MainGame>();
 
+    /**
+     * Default Constructor
+     */
     public MainGameCollection() {
         super();
     }
