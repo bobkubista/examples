@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import bobkubista.examples.services.api.catalog.model.Developer;
 
 /**
@@ -22,19 +20,30 @@ public abstract class DownloadableGame extends AbstractGame {
 
     private static final long serialVersionUID = 6473039987442163043L;
 
-    @NotBlank
-    @XmlElement(required = true)
-    private boolean active;
-
     private Long id;
 
+    /**
+     * Constructor
+     */
     public DownloadableGame() {
     }
 
+    /**
+     * Constructor
+     *
+     * @param id
+     *            identifier
+     * @param active
+     *            active flag
+     * @param filePath
+     *            filepath
+     * @param gameDeveloper
+     *            {@link Developer}
+     */
     public DownloadableGame(final Long id, final boolean active, final String filePath, final Developer gameDeveloper) {
-        super(filePath, gameDeveloper);
+        super(filePath, gameDeveloper, active);
         this.id = id;
-        this.active = active;
+
     }
 
     @Override
@@ -51,14 +60,6 @@ public abstract class DownloadableGame extends AbstractGame {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

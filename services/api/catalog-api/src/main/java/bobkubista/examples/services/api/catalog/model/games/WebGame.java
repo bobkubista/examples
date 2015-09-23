@@ -24,18 +24,31 @@ public abstract class WebGame extends AbstractGame {
 
     @NotBlank
     @XmlElement(required = true)
-    private boolean active;
 
     private Long id;
 
+    /**
+     * Default constructor
+     */
     public WebGame() {
         super();
     }
 
+    /**
+     * Constructor
+     * 
+     * @param id
+     *            identifier
+     * @param active
+     *            active flag
+     * @param url
+     *            url
+     * @param gameDeveloper
+     *            {@link Developer}
+     */
     public WebGame(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
-        super(url, gameDeveloper);
+        super(url, gameDeveloper, active);
         this.id = id;
-        this.active = active;
     }
 
     @Override
@@ -52,14 +65,6 @@ public abstract class WebGame extends AbstractGame {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override
