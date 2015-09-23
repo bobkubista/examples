@@ -34,9 +34,11 @@ public abstract class AbstractGame extends AbstractGenericActiveDomainObject<Lon
      *            filename of url
      * @param gameDeveloper
      *            {@link Developer}
+     * @param id
+     *            identifier
      */
-    public AbstractGame(final String fileName, final Developer gameDeveloper, final boolean active) {
-        super(active, fileName);
+    public AbstractGame(final String fileName, final Developer gameDeveloper, final boolean active, final Long id) {
+        super(active, fileName, id);
         this.gameDeveloper = gameDeveloper;
     }
 

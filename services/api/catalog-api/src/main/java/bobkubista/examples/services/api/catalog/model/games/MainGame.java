@@ -33,14 +33,9 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String description;
 
-    @XmlElement
-    private String functionalId;
-
     @NotBlank
     @XmlElement(required = false)
     private Html5Game html5Game;
-
-    private Long id;
 
     @NotBlank
     @XmlElement(required = false)
@@ -62,12 +57,25 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
     @XmlElement(required = true)
     private String title;
 
+    /**
+     * Default constructor
+     */
     public MainGame() {
         super();
     }
 
-    public MainGame(final boolean active, final String seoName) {
-        super(active, seoName);
+    /**
+     * Constructor
+     * 
+     * @param active
+     *            active flag
+     * @param seoName
+     *            unique seo name
+     * @param id
+     *            identifier
+     */
+    public MainGame(final boolean active, final String seoName, final Long id) {
+        super(active, seoName, id);
     }
 
     @Override
@@ -92,12 +100,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
 
     public Html5Game getHtml5Game() {
         return this.html5Game;
-    }
-
-    @Override
-    @XmlElement()
-    public Long getId() {
-        return this.id;
     }
 
     /**
@@ -146,11 +148,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
 
     public void setHtml5Game(final Html5Game html5Game) {
         this.html5Game = html5Game;
-    }
-
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
     }
 
     /**

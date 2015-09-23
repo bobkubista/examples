@@ -25,15 +25,17 @@ public abstract class AbstractGenericFunctionalIdentifiableDomainObject<ID exten
      * Constructor
      */
     public AbstractGenericFunctionalIdentifiableDomainObject() {
+        super();
     }
 
     /**
      * Constructor
-     * 
+     *
      * @param functionalId
      *            functionalId
      */
-    public AbstractGenericFunctionalIdentifiableDomainObject(final String functionalId) {
+    public AbstractGenericFunctionalIdentifiableDomainObject(final String functionalId, final ID id) {
+        super(id);
         this.functionalId = functionalId;
     }
 

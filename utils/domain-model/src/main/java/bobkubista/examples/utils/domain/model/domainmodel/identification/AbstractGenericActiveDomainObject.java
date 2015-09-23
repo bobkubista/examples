@@ -29,6 +29,7 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
      * Constructor
      */
     public AbstractGenericActiveDomainObject() {
+        super();
     }
 
     /**
@@ -38,8 +39,8 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
      *            active flag
      * @param functionalId
      */
-    public AbstractGenericActiveDomainObject(final boolean active, final String functionalId) {
-        super(functionalId);
+    public AbstractGenericActiveDomainObject(final boolean active, final String functionalId, final ID id) {
+        super(functionalId, id);
         this.active = active;
     }
 

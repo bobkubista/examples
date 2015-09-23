@@ -5,10 +5,7 @@ package bobkubista.examples.services.api.catalog.model.games;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import bobkubista.examples.services.api.catalog.model.Developer;
 
@@ -22,11 +19,6 @@ public abstract class WebGame extends AbstractGame {
 
     private static final long serialVersionUID = -1896666729789454367L;
 
-    @NotBlank
-    @XmlElement(required = true)
-
-    private Long id;
-
     /**
      * Default constructor
      */
@@ -36,7 +28,7 @@ public abstract class WebGame extends AbstractGame {
 
     /**
      * Constructor
-     * 
+     *
      * @param id
      *            identifier
      * @param active
@@ -47,8 +39,7 @@ public abstract class WebGame extends AbstractGame {
      *            {@link Developer}
      */
     public WebGame(final Long id, final boolean active, final String url, final Developer gameDeveloper) {
-        super(url, gameDeveloper, active);
-        this.id = id;
+        super(url, gameDeveloper, active, id);
     }
 
     @Override
@@ -57,18 +48,8 @@ public abstract class WebGame extends AbstractGame {
     }
 
     @Override
-    @XmlElement()
-    public Long getId() {
-        return this.id;
-    }
-
-    @Override
     public int hashCode() {
         return super.hashCode();
     }
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
 }
