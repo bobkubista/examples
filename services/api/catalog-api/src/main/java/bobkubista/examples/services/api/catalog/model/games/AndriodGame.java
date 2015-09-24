@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "andriodGame")
 @XmlAccessorType(XmlAccessType.NONE)
-public class AndriodGame extends MobileGame {
+public class AndriodGame extends AbstractMobileGame {
 
     private static final long serialVersionUID = 6807004618145042424L;
 
