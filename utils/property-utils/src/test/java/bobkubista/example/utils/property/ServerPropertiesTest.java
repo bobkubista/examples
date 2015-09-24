@@ -5,6 +5,8 @@ package bobkubista.example.utils.property;
 
 import java.util.Properties;
 
+import javax.naming.NamingException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,7 +17,7 @@ import org.junit.Test;
 public class ServerPropertiesTest {
 
     @Test
-    public void testGetProperies() {
+    public void testGetProperies() throws NamingException {
         final Properties result = ServerProperties.getProperies();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isEmpty());

@@ -44,7 +44,7 @@ public enum ServerProperties {
                     // and access the environment variable for this web
                     // component
                     propFolder = (String) ctx.lookup("java:comp/env/configurationPath");
-                    configFile = new File(propFolder + "yourfile.properties");
+                    configFile = new File(propFolder + ServerProperties.SERVER_PROP_FILE);
                     serverPropLocation = new FileInputStream(configFile);
                 } catch (NamingException | FileNotFoundException e1) {
 
