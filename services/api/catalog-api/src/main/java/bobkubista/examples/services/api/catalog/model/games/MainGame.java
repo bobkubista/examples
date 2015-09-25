@@ -71,7 +71,7 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
 
     /**
      * Constructor
-     * 
+     *
      * @param active
      *            active flag
      * @param seoName
@@ -81,7 +81,6 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         super(active, seoName);
     }
 
-
     /**
      * @return the andriodGame
      */
@@ -89,14 +88,23 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         return this.andriodGame;
     }
 
+    /**
+     * @return
+     */
     public Category getCategory() {
         return this.category;
     }
 
+    /**
+     * @return
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * @return
+     */
     public Html5Game getHtml5Game() {
         return this.html5Game;
     }
@@ -114,22 +122,33 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         return this.iosGame;
     }
 
+    /**
+     * @return
+     */
     public Date getLaunchDate() {
         return this.launchDate;
     }
 
+    /**
+     * @return
+     */
     public PcGame getPcGame() {
         return this.pcGame;
     }
 
+    /**
+     * @return
+     */
     public Serie getSerie() {
         return this.serie;
     }
 
+    /**
+     * @return
+     */
     public String getTitle() {
         return this.title;
     }
-
 
     /**
      * @param andriodGame
@@ -139,14 +158,23 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         this.andriodGame = andriodGame;
     }
 
+    /**
+     * @param category
+     */
     public void setCategory(final Category category) {
         this.category = category;
     }
 
+    /**
+     * @param description
+     */
     public void setDescription(final String description) {
         this.description = description;
     }
 
+    /**
+     * @param html5Game
+     */
     public void setHtml5Game(final Html5Game html5Game) {
         this.html5Game = html5Game;
     }
@@ -164,18 +192,30 @@ public class MainGame extends AbstractGenericActiveDomainObject<Long> {
         this.iosGame = iosGame;
     }
 
+    /**
+     * @param launchDate
+     */
     public void setLaunchDate(final Date launchDate) {
         this.launchDate = launchDate;
     }
 
+    /**
+     * @param pcGame
+     */
     public void setPcGame(final PcGame pcGame) {
         this.pcGame = pcGame;
     }
 
+    /**
+     * @param serie
+     */
     public void setSerie(final Serie serie) {
         this.serie = serie;
     }
 
+    /**
+     * @param title
+     */
     public void setTitle(final String title) {
         this.title = title;
     }
