@@ -12,6 +12,7 @@
     <modules>
         <module>spring-services</module>
         <module>cdi-services</module>
+        <module>webservlets</module>
     </modules>
 
     <dependencyManagement>
