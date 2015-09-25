@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>bobkubista.examples</groupId>
-    <artifactId>main</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+  <groupId>bobkubista.examples</groupId>
+  <artifactId>main</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <modules>
-        <module>build</module>
-        <module>dependencies</module>
-        <module>utils</module>
-        <module>services</module>
-        <module>webapps</module>
-    </modules>
+  <modules>
+    <module>build</module>
+    <module>dependencies</module>
+    <module>utils</module>
+    <module>services</module>
+    <module>webapps</module>
+  </modules>
 
-    <distributionManagement>
-    </distributionManagement>
+  <distributionManagement>
+  </distributionManagement>
 
-    <scm>
-        <url>https://github.com/bobkubista/examples.git</url>
-    </scm>
+  <scm>
+    <url>https://github.com/bobkubista/examples.git</url>
+  </scm>
 
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <properties>
-                <sonar.jdbc.url>jdbc:postgresql://localhost/sonar</sonar.jdbc.url>
-                <!-- <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName> -->
-                <sonar.jdbc.username>sonar</sonar.jdbc.username>
-                <sonar.jdbc.password>sonar</sonar.jdbc.password>
-                <sonar.host.url>http://localhost:9000</sonar.host.url>
-            </properties>
-        </profile>
-    </profiles>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse 
-                    m2e settings only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jacoco</groupId>
-                                        <artifactId>
-                                            jacoco-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [0.7.4.201502262128,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>prepare-agent</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+  <profiles>
+    <profile>
+      <id>sonar</id>
+      <properties>
+        <sonar.jdbc.url>jdbc:postgresql://localhost/sonar</sonar.jdbc.url>
+        <!-- <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName> -->
+        <sonar.jdbc.username>sonar</sonar.jdbc.username>
+        <sonar.jdbc.password>sonar</sonar.jdbc.password>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+      </properties>
+    </profile>
+  </profiles>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings 
+          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>
+                      jacoco-maven-plugin
+                    </artifactId>
+                    <versionRange>
+                      [0.7.4.201502262128,)
+                    </versionRange>
+                    <goals>
+                      <goal>prepare-agent</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>

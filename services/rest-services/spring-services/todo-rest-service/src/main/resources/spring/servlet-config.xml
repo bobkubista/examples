@@ -1,36 +1,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"
-    default-lazy-init="true">
+  default-lazy-init="true">
 
 
-    <mvc:annotation-driven
-        content-negotiation-manager="contentNegotiationManager">
-        <!-- do not truncate '.' in path params at the end of url f.e. /admin/my.function.id -->
-        <mvc:path-matching registered-suffixes-only="true" />
-    </mvc:annotation-driven>
+  <mvc:annotation-driven
+    content-negotiation-manager="contentNegotiationManager">
+    <!-- do not truncate '.' in path params at the end of url f.e. /admin/my.function.id -->
+    <mvc:path-matching registered-suffixes-only="true" />
+  </mvc:annotation-driven>
 
-    <bean id="localeResolver"
-        class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
-        <property name="defaultLocale" value="en_US" />
-    </bean>
+  <bean id="localeResolver"
+    class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+    <property name="defaultLocale" value="en_US" />
+  </bean>
 
-    <!-- set global content negotation strategy for spring mvc -->
-    <bean id="contentNegotiationManager"
-        class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <property name="favorPathExtension" value="false" />
-        <property name="favorParameter" value="true" />
-        <property name="defaultContentType" value="application/json" />
-        <!--<property name="ignoreAcceptHeader" value="true"/> -->
+  <!-- set global content negotation strategy for spring mvc -->
+  <bean id="contentNegotiationManager"
+    class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <property name="favorPathExtension" value="false" />
+    <property name="favorParameter" value="true" />
+    <property name="defaultContentType" value="application/json" />
+    <!--<property name="ignoreAcceptHeader" value="true"/> -->
 
-        <property name="mediaTypes">
-            <map>
-                <entry key="json" value="application/json" />
-                <entry key="xml" value="application/xml" />
-            </map>
-        </property>
-    </bean>
+    <property name="mediaTypes">
+      <map>
+        <entry key="json" value="application/json" />
+        <entry key="xml" value="application/xml" />
+      </map>
+    </property>
+  </bean>
 </beans>

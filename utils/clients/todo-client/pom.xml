@@ -1,21 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>bobkubista.examples.utils</groupId>
-        <artifactId>clients</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-    <groupId>bobkubista.examples.utils.clients</groupId>
-    <artifactId>todo-client</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>bobkubista.examples.utils</groupId>
-            <artifactId>rest-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>bobkubista.examples.services.api</groupId>
-            <artifactId>todo-rest-api</artifactId>
-        </dependency>
-    </dependencies>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>bobkubista.examples.utils</groupId>
+    <artifactId>clients</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>bobkubista.examples.utils.clients</groupId>
+  <artifactId>todo-client</artifactId>
+  <dependencies>
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>rest-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>bobkubista.examples.services.api</groupId>
+      <artifactId>todo-rest-api</artifactId>
+    </dependency>
+  </dependencies>
 </project>
