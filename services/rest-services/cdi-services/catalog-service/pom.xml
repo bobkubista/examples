@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>bobkubista.examples.services.rest</groupId>
-    <artifactId>webservlets</artifactId>
+    <artifactId>cdi-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>bobkubista.examples.services.rest.servlet</groupId>
+  <groupId>bobkubista.examples.services.rest.cdi</groupId>
   <artifactId>catalog-service</artifactId>
   <packaging>war</packaging>
 
