@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:comp="http://java.sun.com/jsf/composite">
+
+<h:body>
+	<ui:composition template="./template.xhtml">
+	<h:outputStylesheet name="menu.css" />
+		<ui:define name="content">
+			<div id="menu">
+				<ui:insert name="menu">Menu</ui:insert>
+			</div>
+			<div id="body">
+				<ui:insert name="body">Body</ui:insert>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+
+</html>
