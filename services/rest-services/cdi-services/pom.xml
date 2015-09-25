@@ -15,6 +15,7 @@
         <module>todo-cdi-rest-service</module>
         <module>user-cdi-rest-service</module>
         <module>email-cdi-service</module>
+        <module>catalog-service</module>
     </modules>
 
     <dependencyManagement>

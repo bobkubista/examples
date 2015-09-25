@@ -12,6 +12,7 @@
     <modules>
         <module>jsf-app</module>
 <!--         <module>wicket-app</module> -->
+        <module>single-sign-on</module>
     </modules>
 
     <dependencyManagement>
