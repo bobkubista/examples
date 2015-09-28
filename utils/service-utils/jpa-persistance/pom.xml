@@ -35,53 +35,6 @@
       <groupId>org.hibernate.javax.persistence</groupId>
       <artifactId>hibernate-jpa-2.0-api</artifactId>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.hibernate</groupId> -->
-<!--       <artifactId>hibernate-entitymanager</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>net.sf.ehcache</groupId> -->
-<!--       <artifactId>ehcache-core</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.hibernate</groupId> -->
-<!--       <artifactId>hibernate-ehcache</artifactId> -->
-<!--     </dependency> -->
-
-    <!-- Spring -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-beans</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-context</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-context-support</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-core</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-jdbc</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-test</artifactId> -->
-<!--       <scope>test</scope> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-orm</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-web</artifactId> -->
-<!--     </dependency> -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
@@ -98,16 +51,6 @@
       <artifactId>mockito-all</artifactId>
       <scope>test</scope>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.powermock</groupId> -->
-<!--       <artifactId>powermock-api-mockito</artifactId> -->
-<!--       <scope>test</scope> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.powermock</groupId> -->
-<!--       <artifactId>powermock-module-junit4</artifactId> -->
-<!--       <scope>test</scope> -->
-<!--     </dependency> -->
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-common</artifactId>
@@ -119,10 +62,6 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.postgresql</groupId> -->
-<!--       <artifactId>postgresql</artifactId> -->
-<!--     </dependency> -->
 
     <!-- internal dependencies -->
     <dependency>
@@ -134,10 +73,22 @@
       <artifactId>property-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>bobkubista.examples.utils</groupId> -->
-<!--       <artifactId>jee-utils</artifactId> -->
-<!--       <version>${project.version}</version> -->
-<!--     </dependency> -->
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+          <configuration>
+            <ignoredDependencies>
+              <ignoredDependency>org.glassfish.jersey.core:jersey-common</ignoredDependency>
+            </ignoredDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
