@@ -54,25 +54,35 @@
       <groupId>org.glassfish.jersey.ext</groupId>
       <artifactId>jersey-spring3</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <scope>runtime</scope>
-    </dependency>
+<!--     <dependency> -->
+<!--       <groupId>org.springframework</groupId> -->
+<!--       <artifactId>spring-web</artifactId> -->
+<!--       <scope>runtime</scope> -->
+<!--     </dependency> -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <!-- testing -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- testing -->
     <dependency>
       <groupId>bobkubista.examples.utils</groupId>
       <artifactId>test-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+      <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
