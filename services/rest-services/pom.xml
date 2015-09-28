@@ -134,10 +134,14 @@
           <version>${maven-dependency-plugin.version}</version>
           <configuration>
             <ignoredDependencies>
-            <ignoredDependency>jersey-test-framework-provider-grizzly2</ignoredDependency>
-            <ignoredDependency>spring-orm</ignoredDependency>
-            <ignoredDependency>hibernate-entitymanager</ignoredDependency>
-            <ignoredDependency>spring-test</ignoredDependency>
+              <ignoredDependency>jersey-test-framework-provider-grizzly2</ignoredDependency>
+              <ignoredDependency>spring-orm</ignoredDependency>
+              <ignoredDependency>org.hibernate:hibernate-entitymanager</ignoredDependency>
+              <ignoredDependency>org.springframework:spring-test</ignoredDependency>
+              <ignoredDependency>com.github.springtestdbunit:spring-test-dbunit</ignoredDependency>
+              <ignoredDependency>org.dbunit:dbunit</ignoredDependency>
+              <ignoredDependency>org.postgresql:postgresql</ignoredDependency>
+              <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>
             </ignoredDependencies>
           </configuration>
         </plugin>
