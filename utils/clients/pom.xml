@@ -31,6 +31,18 @@
         <artifactId>user-service-api</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.utils</groupId>
+        <artifactId>property-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>property-utils</artifactId>
+    </dependency>
+  </dependencies>
 </project>

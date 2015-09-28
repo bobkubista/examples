@@ -66,10 +66,7 @@
       <groupId>bobkubista.examples.utils</groupId>
       <artifactId>domain-model</artifactId>
     </dependency>
-    <dependency>
-      <groupId>bobkubista.examples.utils</groupId>
-      <artifactId>property-utils</artifactId>
-    </dependency>
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
