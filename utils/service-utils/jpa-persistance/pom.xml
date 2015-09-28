@@ -23,12 +23,14 @@
     <dependency>
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
