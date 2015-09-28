@@ -32,6 +32,7 @@
   <dependency>
     <groupId>org.glassfish.hk2.external</groupId>
     <artifactId>javax.inject</artifactId>
+    <scope>runtime</scope>
   </dependency>
   </dependencies>
 </project>
