@@ -30,10 +30,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.jsoup</groupId> -->
-<!--       <artifactId>jsoup</artifactId> -->
-<!--     </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.jsoup</groupId> -->
+    <!-- <artifactId>jsoup</artifactId> -->
+    <!-- </dependency> -->
     <dependency>
       <groupId>org.glassfish.jersey.test-framework</groupId>
       <artifactId>jersey-test-framework-core</artifactId>
@@ -50,19 +50,19 @@
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-server</artifactId>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-context</artifactId> -->
-<!--     </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.springframework</groupId> -->
+    <!-- <artifactId>spring-context</artifactId> -->
+    <!-- </dependency> -->
     <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
       <artifactId>hibernate-jpa-2.0-api</artifactId>
     </dependency>
 
-<!--     <dependency> -->
-<!--       <groupId>org.springframework</groupId> -->
-<!--       <artifactId>spring-tx</artifactId> -->
-<!--     </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.springframework</groupId> -->
+    <!-- <artifactId>spring-tx</artifactId> -->
+    <!-- </dependency> -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
