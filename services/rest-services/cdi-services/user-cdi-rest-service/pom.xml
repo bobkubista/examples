@@ -29,4 +29,22 @@
       <artifactId>test-utils</artifactId>
     </dependency>
   </dependencies>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+          <configuration>
+            <ignoredDependencies>
+              <ignoredDependency>org.slf4j:*</ignoredDependency>
+              <ignoredDependency>bobkubista.examples.utils:property-utils</ignoredDependency>
+            </ignoredDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
