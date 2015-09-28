@@ -119,5 +119,29 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+    </dependency>
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+          <configuration>
+            <ignoredDependencies>
+            <ignoredDependency>jersey-test-framework-provider-grizzly2</ignoredDependency>
+            <ignoredDependency>spring-orm</ignoredDependency>
+            <ignoredDependency>hibernate-entitymanager</ignoredDependency>
+            <ignoredDependency>spring-test</ignoredDependency>
+            </ignoredDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
