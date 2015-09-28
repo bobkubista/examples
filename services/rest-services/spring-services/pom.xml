@@ -31,4 +31,41 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  
+  <dependencies>
+  <dependency>
+      <groupId>bobkubista.examples.utils.services</groupId>
+      <artifactId>jpa-persistance</artifactId>
+    </dependency>
+    <!-- spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.springtestdbunit</groupId>
+      <artifactId>spring-test-dbunit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.ext</groupId>
+      <artifactId>jersey-spring3</artifactId>
+    </dependency>
+    <!-- testing -->
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>test-utils</artifactId>
+    </dependency>
+  </dependencies>
 </project>
