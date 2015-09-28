@@ -1,6 +1,5 @@
 package bobkubista.examples.webapps.jsf;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -14,7 +13,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class TestBean {
 
-    private String message;
+    private final String message = "JSF is running";
 
     /**
      *
@@ -22,11 +21,6 @@ public class TestBean {
      */
     public String getMessage() {
         return this.message;
-    }
-
-    @PostConstruct
-    private void init() {
-        this.message = "JSF is running";
     }
 
 }
