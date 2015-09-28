@@ -40,6 +40,13 @@
         <artifactId>email-api</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>persistence-dependency</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -49,12 +56,12 @@
       <artifactId>jersey-server</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.glassfish.jersey.media</groupId>
-      <artifactId>jersey-media-multipart</artifactId>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.glassfish.jersey.media</groupId>
-      <artifactId>jersey-media-json-jackson</artifactId>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.0-api</artifactId>
     </dependency>
   </dependencies>
 </project>

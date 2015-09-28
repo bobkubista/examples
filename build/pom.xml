@@ -67,16 +67,6 @@
         <enabled>true</enabled>
       </releases>
     </repository>
-    <!-- <repository> -->
-    <!-- <id>maven_central2</id> -->
-    <!-- <name>maven central2</name> -->
-    <!-- <url>http://repo1.maven.org/maven2/</url> -->
-    <!-- </repository> -->
-    <!-- <repository> -->
-    <!-- <id>alternative</id> -->
-    <!-- <name>central.maven.org</name> -->
-    <!-- <url>central.maven.org/maven2</url> -->
-    <!-- </repository> -->
   </repositories>
   <pluginRepositories>
     <pluginRepository>
@@ -84,16 +74,6 @@
       <name>localhost</name>
       <url>http://localhost:8081/nexus/</url>
     </pluginRepository>
-    <!-- <pluginRepository> -->
-    <!-- <id>maven_central2</id> -->
-    <!-- <name>maven central2</name> -->
-    <!-- <url>http://repo1.maven.org/maven2/</url> -->
-    <!-- </pluginRepository> -->
-    <!-- <pluginRepository> -->
-    <!-- <id>alternative</id> -->
-    <!-- <name>central.maven.org</name> -->
-    <!-- <url>central.maven.org/maven2</url> -->
-    <!-- </pluginRepository> -->
   </pluginRepositories>
 
   <ciManagement>
@@ -147,6 +127,8 @@
           <configuration>
             <ignoredDependencies>
               <ignoredDependency>com.mchange:c3p0</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-log4j12</ignoredDependency>
             </ignoredDependencies>
           </configuration>
         </plugin>
