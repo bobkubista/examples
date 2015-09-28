@@ -31,9 +31,9 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <dependencies>
-  <dependency>
+    <dependency>
       <groupId>bobkubista.examples.utils.services</groupId>
       <artifactId>jpa-persistance</artifactId>
     </dependency>
