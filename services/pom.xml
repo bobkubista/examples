@@ -54,6 +54,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>apache-commons</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -66,7 +73,7 @@
       <groupId>bobkubista.examples.utils</groupId>
       <artifactId>domain-model</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
