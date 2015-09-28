@@ -126,7 +126,6 @@
           <version>${maven-dependency-plugin.version}</version>
           <configuration>
             <ignoredDependencies>
-              <ignoredDependency>com.mchange:c3p0</ignoredDependency>
               <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
               <ignoredDependency>org.slf4j:slf4j-log4j12</ignoredDependency>
             </ignoredDependencies>

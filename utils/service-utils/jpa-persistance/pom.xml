@@ -84,6 +84,7 @@
           <version>${maven-dependency-plugin.version}</version>
           <configuration>
             <ignoredDependencies>
+              <ignoredDependency>com.mchange:c3p0</ignoredDependency>
               <ignoredDependency>org.glassfish.jersey.core:jersey-common</ignoredDependency>
             </ignoredDependencies>
           </configuration>
