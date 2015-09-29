@@ -121,7 +121,6 @@
               <ignoredDependency>org.postgresql:postgresql</ignoredDependency>
               <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>
             </ignoredDependencies>
-
           </configuration>
         </plugin>
       </plugins>

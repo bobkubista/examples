@@ -80,4 +80,33 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+          <configuration>
+            <ignoredDependencies>
+              <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-log4j12</ignoredDependency>
+              <ignoredDependency>bobkubista.examples.utils:property-utils</ignoredDependency>
+              <ignoredDependency>org.glassfish.jersey.ext:jersey-spring3</ignoredDependency>
+              <ignoredDependency>*:jersey-test-framework-provider-grizzly2</ignoredDependency>
+              <ignoredDependency>org.springframework:spring-orm</ignoredDependency>
+              <ignoredDependency>org.hibernate:hibernate-entitymanager</ignoredDependency>
+              <ignoredDependency>org.springframework:spring-test</ignoredDependency>
+              <ignoredDependency>com.github.springtestdbunit:spring-test-dbunit</ignoredDependency>
+              <ignoredDependency>org.dbunit:dbunit</ignoredDependency>
+              <ignoredDependency>org.postgresql:postgresql</ignoredDependency>
+              <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>
+              <ignoredDependency>javax:javaee-api</ignoredDependency>
+            </ignoredDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
