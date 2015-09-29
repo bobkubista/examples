@@ -11,11 +11,11 @@
 //
 // @Configuration
 // @EnableWebSecurity
-// public class SecurityConfig extends WebSecurityConfigurerAdapter {
+// public class SecurityConfig extends WebSecurityConfigurerAdapter
 //
 // @Autowired
 // public void configureGlobal(final AuthenticationManagerBuilder auth) throws
-// Exception {
+// Exception
 // auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
-// }
-// }
+//
+//
