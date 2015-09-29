@@ -19,6 +19,8 @@
           <configuration>
             <ignoredDependencies>
               <ignoredDependency>org.hibernate:hibernate-validator</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-log4j12</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
             </ignoredDependencies>
           </configuration>
         </plugin>

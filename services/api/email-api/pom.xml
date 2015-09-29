@@ -25,6 +25,8 @@
           <version>${maven-dependency-plugin.version}</version>
           <configuration>
             <ignoredDependencies>
+              <ignoredDependency>org.slf4j:slf4j-log4j12</ignoredDependency>
+              <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
               <ignoredDependency>org.apache.commons:commons-lang3</ignoredDependency>
               <ignoredDependency>org.hibernate:hibernate-validator</ignoredDependency>
             </ignoredDependencies>
