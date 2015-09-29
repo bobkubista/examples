@@ -8,4 +8,22 @@
   </parent>
   <groupId>bobkubista.examples.services.api</groupId>
   <artifactId>datagathering-rest-api</artifactId>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+          <configuration>
+            <ignoredDependencies>
+              <ignoredDependency>bobkubista.examples.utils:domain-model</ignoredDependency>
+            </ignoredDependencies>
+
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
