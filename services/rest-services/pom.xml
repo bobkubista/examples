@@ -109,7 +109,8 @@
           <version>${maven-dependency-plugin.version}</version>
           <configuration>
             <ignoredDependencies>
-              <ignoredDependency>jersey-test-framework-provider-grizzly2</ignoredDependency>
+            <ignoredDependency>org.slf4j:slf4j-api</ignoredDependency>
+              <ignoredDependency>*:jersey-test-framework-provider-grizzly2</ignoredDependency>
               <ignoredDependency>org.springframework:spring-orm</ignoredDependency>
               <ignoredDependency>org.hibernate:hibernate-entitymanager</ignoredDependency>
               <ignoredDependency>org.springframework:spring-test</ignoredDependency>
@@ -118,6 +119,7 @@
               <ignoredDependency>org.postgresql:postgresql</ignoredDependency>
               <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>
             </ignoredDependencies>
+            
           </configuration>
         </plugin>
       </plugins>
