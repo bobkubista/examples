@@ -8,5 +8,9 @@
 </h:head>
 <h:body>
   <h:outputText value="#{testBean.message}" />
+  <h:dataTable value="#{userBean.users}" var="user">
+  <f:facet name="header">Name</f:facet>
+  	<h:column>#{user.name}</h:column>
+  </h:dataTable>
 </h:body>
 </html>

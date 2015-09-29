@@ -19,6 +19,10 @@
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>bobkubista.examples.utils.clients</groupId>
+      <artifactId>user-client</artifactId>
+    </dependency>
   </dependencies>
 
 </project>

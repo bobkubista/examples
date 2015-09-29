@@ -13,14 +13,12 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class TestBean {
 
-    private final String message = "JSF is running";
-
     /**
      *
      * @return
      */
     public String getMessage() {
-        return this.message;
+        return "JSF is running";
     }
 
 }
