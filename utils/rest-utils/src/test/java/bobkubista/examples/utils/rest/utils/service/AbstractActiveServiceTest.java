@@ -3,21 +3,58 @@
  */
 package bobkubista.examples.utils.rest.utils.service;
 
-import static org.junit.Assert.fail;
-
-import org.junit.Ignore;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import bobkubista.examples.utils.rest.utils.mocks.MockActiveDomainObject;
+import bobkubista.examples.utils.rest.utils.mocks.MockActiveService;
 
 /**
  * @author Bob
  *
  */
-@Ignore
 public class AbstractActiveServiceTest {
 
-    @Test
-    public void test() {
-        fail("Not yet implemented");
+    private MockActiveService service;
+
+    @Before
+    public void init() {
+        this.service = new MockActiveService();
     }
 
+    @Test
+    public void testGetAll() {
+        Assert.assertEquals(2, this.service.getAll().size());
+    }
+
+    @Test
+    public void testGetAllActive() {
+        Assert.assertEquals(2, this.service.getAllActive().size());
+    }
+
+    @Test
+    public void testGetByFunctionalId() {
+        Assert.assertEquals("F1", this.service.getByFunctionalId("F1").getFunctionalId());
+    }
+
+    @Test
+    public void testGetById() {
+        Assert.assertEquals(new Integer(1), this.service.getByID(1).getId());
+    }
+
+    @Test
+    public void testGetIdByFunctionalId() {
+        Assert.assertEquals(new Integer(1), this.service.getIdByFunctionalId("F1"));
+    }
+
+    @Test
+    public void testSearchByFunctionalID() {
+        Assert.assertEquals(2, this.service.searchByFunctionalID("F").size());
+    }
+
+    @Test
+    public void testUpdate() {
+        Assert.assertEquals(new Integer(1), this.service.update(new MockActiveDomainObject(1, "F1")).getId());
+    }
 }
