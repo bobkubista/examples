@@ -64,8 +64,8 @@ public class UserFacadeIT extends AbstractFunctionalCdiJerseyIT<User, Long, User
         // Construct DataSource
         final PGPoolingDataSource ds = new PGPoolingDataSource();
         ds.setServerName("localhost");
-        ds.setDatabaseName("Examples");
-        ds.setDataSourceName("Examples");
+        ds.setDatabaseName("examples");
+        ds.setDataSourceName("examples");
         ds.setPortNumber(5432);
         ds.setUser(ServerProperties.getString("database.username"));
         ds.setPassword(ServerProperties.getString("database.password"));

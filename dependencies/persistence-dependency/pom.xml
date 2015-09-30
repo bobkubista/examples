@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <hibernate.version>4.2.19.Final</hibernate.version>
+    <hibernate.version>4.3.11.Final</hibernate.version>
     <jpa.version>1.0.2</jpa.version>
     <hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
     <javassist.version>3.19.0-GA</javassist.version>
