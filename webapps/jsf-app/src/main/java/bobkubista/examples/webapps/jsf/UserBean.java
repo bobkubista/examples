@@ -23,6 +23,10 @@ public class UserBean {
     @Inject
     private UserCache userCache;
 
+    /**
+     *
+     * @return
+     */
     public Collection<User> getUsers() {
         return this.userCache.getAll().values();
     }
