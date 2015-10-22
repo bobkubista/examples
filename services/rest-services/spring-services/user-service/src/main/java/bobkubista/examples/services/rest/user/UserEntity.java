@@ -1,5 +1,9 @@
 package bobkubista.examples.services.rest.user;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +21,8 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Entity
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
 public class UserEntity extends AbstractGenericActiveEntity<Long> {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 3230156455762101429L;
 
     @Column(nullable = false)
     private boolean active;
@@ -31,6 +36,8 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     private Long id;
     @Column
     private String name;
+
+    private final List<Roles> roles = new ArrayList<>();
 
     /**
      * @return
@@ -56,9 +63,30 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         return this.name;
     }
 
+    /**
+     * @return the roles
+     */
+    public List<Roles> getRoles() {
+        return this.roles;
+    }
+
     @Override
     public boolean isActive() {
         return this.active;
+    }
+
+    public boolean isAuthorized(final Right right) {
+        return this.isActive() && this.roles.stream().anyMatch(new Predicate<Roles>() {
+            @Override
+            public boolean test(Roles role) {
+                return role.isActive() && role.getRights().stream().anyMatch(new Predicate<Right>() {
+                    @Override
+                    public boolean test(Right t) {
+                        return t.equals(right) && right.isActive();
+                    }
+                });
+            }
+        });
     }
 
     @Override

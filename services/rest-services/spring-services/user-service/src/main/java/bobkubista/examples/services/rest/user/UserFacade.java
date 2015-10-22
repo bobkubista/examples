@@ -4,6 +4,8 @@
 package bobkubista.examples.services.rest.user;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,22 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  */
 @Service
 @Path("/")
-public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEntity, UserCollection>implements UserApi {
+public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEntity, UserCollection> implements UserApi {
 
     @Autowired
     private UserConverter converter;
+
     @Autowired
     private UserService service;
+
+    @Override
+    public Response isAuthorized(final Long userId, final String right) {
+        if (this.service.isAuthorized(userId, right)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Status.UNAUTHORIZED).build();
+        }
+    }
 
     @Override
     protected UserConverter getConverter() {
