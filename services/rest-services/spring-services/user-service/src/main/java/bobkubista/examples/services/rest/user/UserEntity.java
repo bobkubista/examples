@@ -2,7 +2,6 @@ package bobkubista.examples.services.rest.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -76,17 +75,7 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     }
 
     public boolean isAuthorized(final Right right) {
-        return this.isActive() && this.roles.stream().anyMatch(new Predicate<Roles>() {
-            @Override
-            public boolean test(Roles role) {
-                return role.isActive() && role.getRights().stream().anyMatch(new Predicate<Right>() {
-                    @Override
-                    public boolean test(Right t) {
-                        return t.equals(right) && right.isActive();
-                    }
-                });
-            }
-        });
+        return this.isActive() && this.roles.stream().anyMatch(role -> role.isActive() && role.getRights().stream().anyMatch(t -> t.equals(right) && right.isActive()));
     }
 
     @Override
