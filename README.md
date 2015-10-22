@@ -38,8 +38,12 @@ backend:
 - Error handling in clients
 - datagathering client
 
+
 frontend:
 - wicket
 - jsf
 - angular
 - jquery
+- cucumber + selenium + dbunit for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
+http://stackoverflow.com/questions/22462181/how-do-i-run-a-selenium-test-using-maven-from-the-command-line
+https://code.google.com/p/selenium/wiki/GettingStarted
