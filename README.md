@@ -6,6 +6,7 @@ Todo:
 - build VM base (http://www.vmware.com/products/vsphere-hypervisor/ http://www.pcworld.com/article/201408/how_to_build_a_virtualization_server.html)
 - build automatic VM scripts (maybe jenkins job)
 - setup build street (jenkins, sonar, nexus on 1 VM, all port 80, but different url)
+- investigate Job-dsl for jenkins
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
 - put right impl of JEE in tomcat lib (http://arjan-tijms.omnifaces.org/2014/05/implementation-components-used-by.html)
 - build SSO WebService
@@ -52,7 +53,6 @@ backend:
 
 
 frontend:
-- wicket
 - jsf
 - angular
 - jquery

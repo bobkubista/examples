@@ -12,8 +12,8 @@
   <modules>
     <module>datagathering-rest-service</module>
     <module>rest-example</module>
-    <module>todo-cdi-rest-service</module>
-    <module>user-cdi-rest-service</module>
+<!--     <module>todo-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
+<!--     <module>user-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
     <module>email-cdi-service</module>
     <module>catalog-service</module>
   </modules>
