@@ -3,13 +3,15 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 Todo:
 - buy server
-- build VM base
-- build automatic VM scripts
-- setup build street (jenkins, sonar, nexus on 1 VM)
-- setup tomcat env dev/prod
+- build VM base (http://www.vmware.com/products/vsphere-hypervisor/ http://www.pcworld.com/article/201408/how_to_build_a_virtualization_server.html)
+- build automatic VM scripts (maybe jenkins job)
+- setup build street (jenkins, sonar, nexus on 1 VM, all port 80, but different url)
+- setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
+- put right impl of JEE in tomcat lib (http://arjan-tijms.omnifaces.org/2014/05/implementation-components-used-by.html)
 - build SSO WebService
 - build SSO WebApp
 - Integrate Cucumber & selenium for frontend testing, maybe with auto spinup and spindown VM's
+- build common front end components and styling module
 
 - SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 Want Todo:
