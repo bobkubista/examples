@@ -38,9 +38,6 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     private String name;
 
     @ManyToMany
-    // @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name =
-    // "users_id", referencedColumnName = "id") }, inverseJoinColumns = {
-    // @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private final List<Roles> roles = new ArrayList<>();
 
     /**

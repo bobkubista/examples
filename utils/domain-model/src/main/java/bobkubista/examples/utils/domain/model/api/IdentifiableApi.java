@@ -44,7 +44,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      * @param entity
      * @return a response with {@link Status.NOT_IMPLEMENTED} as status
      */
-    static Response buildNotImplementedResponse(Object entity) {
+    static Response buildNotImplementedResponse(final Object... entity) {
         return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
     }
 
