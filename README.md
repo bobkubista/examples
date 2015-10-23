@@ -1,8 +1,18 @@
 # examples
 This is my examples of code that I am trying out stuff with. It is for reference use.
 
-- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 Todo:
+- buy server
+- build VM base
+- build automatic VM scripts
+- setup build street (jenkins, sonar, nexus on 1 VM)
+- setup tomcat env dev/prod
+- build SSO WebService
+- build SSO WebApp
+- Integrate Cucumber & selenium for frontend testing, maybe with auto spinup and spindown VM's
+
+- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
+Want Todo:
 backend:
 - static methodes in interfaces
 - Asynchronous calls 
