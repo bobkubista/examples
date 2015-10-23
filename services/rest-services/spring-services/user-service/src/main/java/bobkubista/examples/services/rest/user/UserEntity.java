@@ -79,8 +79,15 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         return this.active;
     }
 
+    /**
+     * Is the current user authorized The user, role and right should be active
+     *
+     * @param right
+     *            {@link Rights}
+     * @return true is autorized
+     */
     public boolean isAuthorized(final Rights right) {
-        return this.isActive() && this.roles.stream().anyMatch(role -> role.isActive() && role.getRights().stream().anyMatch(t -> t.equals(right) && right.isActive()));
+        return this.isActive() && this.roles.stream().anyMatch(role -> role.isAuthorized(right));
     }
 
     @Override

@@ -36,9 +36,6 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
     private String name;
 
     @ManyToMany
-    // @JoinTable(name = "rights_roles", joinColumns = { @JoinColumn(name =
-    // "rights_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
-    // @JoinColumn(name = "roles_ID", referencedColumnName = "ID") })
     private final List<Rights> rights = new ArrayList<>();
 
     @Override
@@ -63,6 +60,18 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
         return this.active;
     }
 
+    /**
+     * Check that the {@link Roles} has an active {@link Rights} assigned to it
+     * and is active
+     *
+     * @param right
+     *            {@link Rights} to check
+     * @return true if authorized
+     */
+    public boolean isAuthorized(final Rights right) {
+        return this.isActive() && this.rights.stream().anyMatch(t -> t.isAuthorized(right));
+    }
+
     @Override
     public void setActive(final boolean active) {
         this.active = active;
@@ -77,5 +86,4 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
     public void setId(final Long id) {
         this.id = id;
     }
-
 }

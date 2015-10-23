@@ -45,6 +45,17 @@ public class Rights extends AbstractGenericActiveEntity<Long> {
         return this.active;
     }
 
+    /**
+     * Check that the right is active and equal to the asked right
+     * 
+     * @param right
+     *            {@link Rights} to check against
+     * @return true if equal and active
+     */
+    public boolean isAuthorized(final Rights right) {
+        return this.equals(right) && right.isActive();
+    }
+
     @Override
     public void setActive(final boolean active) {
         this.active = active;
