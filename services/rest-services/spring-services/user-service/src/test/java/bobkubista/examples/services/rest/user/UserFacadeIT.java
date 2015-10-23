@@ -5,6 +5,9 @@ package bobkubista.examples.services.rest.user;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
+import org.junit.Test;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
@@ -23,6 +26,17 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
     @Override
     public ResourceConfig configure(final ResourceConfig rc) {
         return rc.register(UserFacade.class);
+    }
+
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void isAuthenticatedTest() {
+        Assert.assertEquals(200, this.target("1/admin").request().get().getStatus());
+    }
+
+    @Test
+    public void isNotAuthenticatedTest() {
+        Assert.assertEquals(401, this.target("1/user").request().get().getStatus());
     }
 
     @Override
