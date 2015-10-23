@@ -14,7 +14,7 @@ public class UserEntityTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.services.rest.user.UserEntity#isAuthorized(bobkubista.examples.services.rest.user.Right)}
+     * {@link bobkubista.examples.services.rest.user.UserEntity#isAuthorized(bobkubista.examples.services.rest.user.Rights)}
      * .
      */
     @Test
@@ -28,7 +28,7 @@ public class UserEntityTest {
     public void testIsUnAuthorizedDifferentRight() {
         final UserEntity user = this.mockUser(true, true, true);
 
-        final Right right = new Right();
+        final Rights right = new Rights();
         right.setId(2L);
         Assert.assertFalse(user.isAuthorized(right));
     }
@@ -54,8 +54,8 @@ public class UserEntityTest {
         Assert.assertFalse(user.isAuthorized(this.mockRight(false)));
     }
 
-    private Right mockRight(final boolean active) {
-        final Right right = new Right();
+    private Rights mockRight(final boolean active) {
+        final Rights right = new Rights();
         right.setFunctionalId("right1");
         right.setActive(active);
         return right;

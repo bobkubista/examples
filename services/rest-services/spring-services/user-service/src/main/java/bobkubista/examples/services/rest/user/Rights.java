@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
@@ -16,13 +17,14 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  *
  */
 @Entity
-public class Right extends AbstractGenericActiveEntity<Long> {
+@SequenceGenerator(name = "sq_rights", allocationSize = 1, sequenceName = "sq_rights", initialValue = 1)
+public class Rights extends AbstractGenericActiveEntity<Long> {
     private static final long serialVersionUID = 2359290515125351928L;
 
     @Column(nullable = false)
     private boolean active;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
     @Column(nullable = false)
     private Long id;
     @Column(unique = true, nullable = false)

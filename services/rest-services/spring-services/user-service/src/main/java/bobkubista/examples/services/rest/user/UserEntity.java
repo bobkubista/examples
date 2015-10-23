@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
@@ -36,6 +37,10 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     @Column
     private String name;
 
+    @ManyToMany
+    // @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name =
+    // "users_id", referencedColumnName = "id") }, inverseJoinColumns = {
+    // @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private final List<Roles> roles = new ArrayList<>();
 
     /**
@@ -74,7 +79,7 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
         return this.active;
     }
 
-    public boolean isAuthorized(final Right right) {
+    public boolean isAuthorized(final Rights right) {
         return this.isActive() && this.roles.stream().anyMatch(role -> role.isActive() && role.getRights().stream().anyMatch(t -> t.equals(right) && right.isActive()));
     }
 

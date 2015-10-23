@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
@@ -34,7 +35,11 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
     @Column(unique = true, nullable = false)
     private String name;
 
-    private final List<Right> rights = new ArrayList<>();
+    @ManyToMany
+    // @JoinTable(name = "rights_roles", joinColumns = { @JoinColumn(name =
+    // "rights_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+    // @JoinColumn(name = "roles_ID", referencedColumnName = "ID") })
+    private final List<Rights> rights = new ArrayList<>();
 
     @Override
     public String getFunctionalId() {
@@ -44,6 +49,13 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
     @Override
     public Long getId() {
         return this.id;
+    }
+
+    /**
+     * @return the rights
+     */
+    public List<Rights> getRights() {
+        return this.rights;
     }
 
     @Override
@@ -64,13 +76,6 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
     @Override
     public void setId(final Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return the rights
-     */
-    public List<Right> getRights() {
-        return rights;
     }
 
 }
