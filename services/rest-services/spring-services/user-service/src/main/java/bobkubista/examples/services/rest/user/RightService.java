@@ -5,6 +5,7 @@ package bobkubista.examples.services.rest.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
 
@@ -13,14 +14,15 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *
  */
 @Service
+@Transactional
 public class RightService implements ActiveEntityService<Rights, Long> {
 
-    @Autowired
-    private RightDao dao;
+	@Autowired
+	private RightDao dao;
 
-    @Override
-    public RightDao getDAO() {
-        return this.dao;
-    }
+	@Override
+	public RightDao getDAO() {
+		return this.dao;
+	}
 
 }

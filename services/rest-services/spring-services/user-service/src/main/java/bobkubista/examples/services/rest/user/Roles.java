@@ -25,66 +25,64 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @SequenceGenerator(name = "sq_role", allocationSize = 1, sequenceName = "sq_role", initialValue = 1)
 public class Roles extends AbstractGenericActiveEntity<Long> {
 
-    private static final long serialVersionUID = -7212732541628102691L;
+	private static final long serialVersionUID = -7212732541628102691L;
 
-    @Column(nullable = false)
-    private boolean active;
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
-    @Column(nullable = false)
-    private Long id;
-    @Column(unique = true, nullable = false)
-    private String name;
+	@Column(nullable = false)
+	private boolean active;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
+	@Column(nullable = false)
+	private Long id;
+	@Column(unique = true, nullable = false)
+	private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private final List<Rights> rights = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	private final List<Rights> rights = new ArrayList<>();
 
-    @Override
-    public String getFunctionalId() {
-        return this.name;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.name;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return the rights
-     */
-    public List<Rights> getRights() {
-        return this.rights;
-    }
+	/**
+	 * @return the rights
+	 */
+	public List<Rights> getRights() {
+		return this.rights;
+	}
 
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
+	@Override
+	public boolean isActive() {
+		return this.active;
+	}
 
-    /**
-     * Check that the {@link Roles} has an active {@link Rights} assigned to it
-     * and is active
-     *
-     * @param right
-     *            {@link Rights} to check
-     * @return true if authorized
-     */
-    public boolean isAuthorized(final Rights right) {
-        return this.isActive() && this.rights.stream().anyMatch(t -> t.isAuthorized(right));
-    }
+	/**
+	 * Check that the {@link Roles} has an active {@link Rights} assigned to it
+	 * and is active
+	 *
+	 * @param right {@link Rights} to check @return true if authorized
+	 */
+	public boolean isAuthorized(final Rights right) {
+		return this.isActive() && this.rights.stream().anyMatch(t -> t.isAuthorized(right));
+	}
 
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
-    }
+	@Override
+	public void setActive(final boolean active) {
+		this.active = active;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.name = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.name = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 }

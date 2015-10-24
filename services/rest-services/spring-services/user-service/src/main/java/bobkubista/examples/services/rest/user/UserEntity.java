@@ -23,97 +23,95 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
 public class UserEntity extends AbstractGenericActiveEntity<Long> {
 
-    private static final long serialVersionUID = 3230156455762101429L;
+	private static final long serialVersionUID = 3230156455762101429L;
 
-    @Column(nullable = false)
-    private boolean active;
+	@Column(nullable = false)
+	private boolean active;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-    private String encryptedPassword;
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user")
-    @Column(nullable = false)
-    private Long id;
-    @Column
-    private String name;
+	@Column(nullable = false, unique = true)
+	private String email;
+	private String encryptedPassword;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user")
+	@Column(nullable = false)
+	private Long id;
+	@Column
+	private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private final List<Roles> roles = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	private final List<Roles> roles = new ArrayList<>();
 
-    /**
-     * @return
-     */
-    public String getEncryptedPassword() {
-        return this.encryptedPassword;
-    }
+	/**
+	 * @return
+	 */
+	public String getEncryptedPassword() {
+		return this.encryptedPassword;
+	}
 
-    @Override
-    public String getFunctionalId() {
-        return this.email;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.email;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * @return the roles
-     */
-    public List<Roles> getRoles() {
-        return this.roles;
-    }
+	/**
+	 * @return the roles
+	 */
+	public List<Roles> getRoles() {
+		return this.roles;
+	}
 
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
+	@Override
+	public boolean isActive() {
+		return this.active;
+	}
 
-    /**
-     * Is the current user authorized The user, role and right should be active
-     *
-     * @param right
-     *            {@link Rights}
-     * @return true is autorized
-     */
-    public boolean isAuthorized(final Rights right) {
-        return this.isActive() && this.roles.stream().anyMatch(role -> role.isAuthorized(right));
-    }
+	/**
+	 * Is the current user authorized The user, role and right should be active
+	 *
+	 * @param right {@link Rights} @return true is autorized
+	 */
+	public boolean isAuthorized(final Rights right) {
+		return this.isActive() && this.roles.stream().anyMatch(role -> role.isAuthorized(right));
+	}
 
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
-    }
+	@Override
+	public void setActive(final boolean active) {
+		this.active = active;
+	}
 
-    /**
-     * @param encryptedPassword
-     */
-    public void setEncryptedPassword(final String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
-    }
+	/**
+	 * @param encryptedPassword
+	 */
+	public void setEncryptedPassword(final String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.email = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.email = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @param name
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name
+	 */
+	public void setName(final String name) {
+		this.name = name;
+	}
 }
