@@ -10,6 +10,6 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
  * @author Bob Kubista
  *
  */
-public interface UserServiceInterface extends ActiveService<User, Long> {
+public interface UserService extends ActiveService<User, Long> {
 
 }

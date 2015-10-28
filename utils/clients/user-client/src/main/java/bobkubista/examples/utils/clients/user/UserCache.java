@@ -15,10 +15,10 @@ import bobkubista.examples.utils.rest.utils.cache.AbstractFunctionalAutoCache;
 public class UserCache extends AbstractFunctionalAutoCache<Long, User> {
 
     @Inject
-    private UserServiceInterface userService;
+    private UserService userService;
 
     @Override
-    protected UserServiceInterface getFunctionalService() {
+    protected UserService getFunctionalService() {
         return this.userService;
     }
 
