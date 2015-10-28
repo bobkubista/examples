@@ -13,7 +13,7 @@ import bobkubista.examples.utils.rest.utils.service.AbstractActiveService;
  * @author Bob Kubista
  *
  */
-public class UserService extends AbstractActiveService<User, Long, UserCollection>implements UserServiceInterface {
+public class UserServiceImpl extends AbstractActiveService<User, Long, UserCollection>implements UserServiceInterface {
 
     @Inject
     private UserProxy proxy;
