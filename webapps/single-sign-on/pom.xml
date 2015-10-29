@@ -6,6 +6,7 @@
     <artifactId>webapps</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  <groupId>bobkubista.examples.webapps</groupId>
   <artifactId>single-sign-on</artifactId>
   <packaging>war</packaging>
   <dependencies>
