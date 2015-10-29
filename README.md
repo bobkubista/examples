@@ -1,6 +1,25 @@
 # examples
 This is my examples of code that I am trying out stuff with. It is for reference use.
 
+principals:
+- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
+- Code quality and test coverage 
+- Agility over speed
+- Design patterns
+- Minimal code duplication
+
+- Test definition http://stackoverflow.com/questions/520064/what-is-unit-test-integration-test-smoke-test-regression-test
+- Unit tests on 1 class only, the rest is stubbed/mocked
+- Rest IT with jersey on the rest interface
+- Front end tests with cucumber and selinium
+- Always regression test
+- On proxies, only smoke test
+- Pre-flight test is does it deploy and do you get rest definition or index page
+
+- If no state, then default methodes in interfaces
+- JPA for ORM
+
+
 Todo:
 - buy server
 - build VM base (http://www.vmware.com/products/vsphere-hypervisor/ http://www.pcworld.com/article/201408/how_to_build_a_virtualization_server.html)
@@ -14,7 +33,7 @@ Todo:
 - Integrate Cucumber & selenium for frontend testing, maybe with auto spinup and spindown VM's
 - build common front end components and styling module
 
-- SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
+
 Want Todo:
 backend:
 - static methodes in interfaces
