@@ -24,6 +24,13 @@ Todo:
 - DONE buy server
 - DONE build VM base (http://www.vmware.com/products/vsphere-hypervisor/ http://www.pcworld.com/article/201408/how_to_build_a_virtualization_server.html)
 - setup build street (jenkins, sonar, nexus on 1 VM, all port 80, but different url)
+	- setup nexus
+	- install jenkins plugins
+	- config jenkins
+	- import jenkins views and jobs
+	- install sonar plugins
+	- config sonar
+	- import sonar profiles
 - build automatic VM scripts (maybe jenkins job)
 - investigate Job-dsl for jenkins
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
