@@ -13,7 +13,7 @@ principals:
 - Rest IT with jersey on the rest interface
 - Front end tests with cucumber and selinium
 - Always regression test
-- On proxies, only smoke test
+- On proxies, only smoke test, maybe use https://github.com/mkotsur/restito
 - Pre-flight test is does it deploy and do you get rest definition or index page
 
 - If no state, then default methodes in interfaces
@@ -24,13 +24,15 @@ Todo:
 - DONE buy server
 - DONE build VM base (http://www.vmware.com/products/vsphere-hypervisor/ http://www.pcworld.com/article/201408/how_to_build_a_virtualization_server.html)
 - setup build street (jenkins, sonar, nexus on 1 VM, all port 80, but different url)
-	- setup nexus
-	- install jenkins plugins
-	- config jenkins
+	- DONE setup nexus
+	- DONE install jenkins plugins
+	- DONE config jenkins
+	- fix reverse proxy problem
 	- import jenkins views and jobs
-	- install sonar plugins
-	- config sonar
-	- import sonar profiles
+	- create deploy builds
+	- DONE install sonar plugins
+	- DONE config sonar
+	- DONE import sonar profiles
 - build automatic VM scripts (maybe jenkins job)
 - investigate Job-dsl for jenkins
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
@@ -38,6 +40,7 @@ Todo:
 - build SSO WebService
 - build SSO WebApp
 - Integrate Cucumber & selenium for frontend testing, maybe with auto spinup and spindown VM's
+- proxy tests with https://github.com/mkotsur/restito
 - build common front end components and styling module
 
 
@@ -82,6 +85,6 @@ frontend:
 - jsf
 - angular
 - jquery
-- cucumber + selenium + dbunit for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
+- cucumber + selenium + dbunit/restito for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
 http://stackoverflow.com/questions/22462181/how-do-i-run-a-selenium-test-using-maven-from-the-command-line
 https://code.google.com/p/selenium/wiki/GettingStarted
