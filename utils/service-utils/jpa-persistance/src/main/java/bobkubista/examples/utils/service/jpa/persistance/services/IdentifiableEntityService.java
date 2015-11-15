@@ -24,12 +24,12 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 
     /**
      * Check if object of {@link AbstractIdentifiableEntity} exists
-     * 
+     *
      * @param object
      *            the object to check
      * @return true if exists
      */
-    public default boolean contains(TYPE object) {
+    public default boolean contains(final TYPE object) {
         return this.getDAO().contains(object);
     }
 
@@ -37,8 +37,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * Create the object of {@link AbstractIdentifiableEntity} type
      *
      * @param object
-     *            the object to create @return <code>TYPE</code> that was
-     *            created
+     *            the object to create
+     * @return <code>TYPE</code> that was created
      */
     public default TYPE create(final TYPE object) {
         this.getDAO().create(object);
@@ -69,7 +69,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * get the {@link AbstractIdentifiableEntity}
      *
      * @param identifier
-     *            the identfier @return the {@link AbstractIdentifiableEntity}
+     *            the identfier
+     * @return the {@link AbstractIdentifiableEntity}
      */
     public default TYPE getById(final ID identifier) {
         return this.getDAO().getById(identifier);
@@ -79,7 +80,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * update the object of {@link AbstractIdentifiableEntity}
      *
      * @param object
-     *            the object to update @return the updated object
+     *            the object to update
+     * @return the updated object
      */
     public default TYPE update(final TYPE object) {
         this.getDAO().update(object);
@@ -89,7 +91,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
     /**
      * Get the {@link GenericDao}
      *
-     * @return
+     * @return A subtype of {@link GenericDao}
      */
     GenericDao<TYPE, ID> getDAO();
 

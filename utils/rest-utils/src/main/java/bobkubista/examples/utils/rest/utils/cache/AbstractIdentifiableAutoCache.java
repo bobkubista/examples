@@ -132,7 +132,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
 
     /**
      * Get all apropriate objects
-     * 
+     *
      * @return a {@link Collection} of V
      */
     protected Collection<V> getAllObjects() {
@@ -140,8 +140,6 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
     }
 
     /**
-     * @param <T>
-     *            an {@link IdentifiableService}
      * @return {@link IdentifiableService} for <code>V</code>.
      */
     protected abstract IdentifiableService<V, K> getIdentifiableService();

@@ -69,7 +69,7 @@ public enum ServerProperties {
     /**
      * Get all properties
      *
-     * @return
+     * @return {@link Properties}
      */
     public static Properties getProperies() {
         return props;

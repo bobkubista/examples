@@ -12,19 +12,22 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  *
  * @author bkubista
  *
- * @param <TYPE> {@link AbstractGenericActiveEntity} @param <ID> identifier
+ * @param <TYPE>
+ *            {@link AbstractGenericActiveEntity}
+ * @param <ID>
+ *            identifier
  */
 @Transactional
 public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
 
-	@Override
-	public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
+    @Override
+    public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
 
-	/**
-	 *
-	 * @return all active entities of <code>TYPE</code>
-	 */
-	default Collection<TYPE> getAllActive() {
-		return this.getDAO().findAllActive("id");
-	}
+    /**
+     *
+     * @return all active entities of <code>TYPE</code>
+     */
+    default Collection<TYPE> getAllActive() {
+        return this.getDAO().findAllActive("id");
+    }
 }

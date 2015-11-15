@@ -26,12 +26,13 @@ public abstract class AbstractGenericActiveEntity<ID extends Serializable> exten
     }
 
     /**
-     * @return isActive
+     * @return isActive active flag
      */
     public abstract boolean isActive();
 
     /**
      * @param active
+     *            flag value
      */
     public abstract void setActive(boolean active);
 
