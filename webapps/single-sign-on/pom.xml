@@ -22,19 +22,32 @@
     <!-- <groupId>org.springframework.security</groupId> -->
     <!-- <artifactId>spring-security-web</artifactId> -->
     <!-- </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>bobkubista.examples.webapps</groupId> -->
+<!--       <artifactId>common-resources</artifactId> -->
+<!--       <version>${project.version}</version> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>bobkubista.examples.services</groupId> -->
+<!--       <artifactId>user-service-api</artifactId> -->
+<!--       <version>${project.version}</version> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>bobkubista.examples.utils.clients</groupId> -->
+<!--       <artifactId>user-client</artifactId> -->
+<!--     </dependency> -->
+    
+    <!-- JSF -->
     <dependency>
-      <groupId>bobkubista.examples.webapps</groupId>
-      <artifactId>common-resources</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>bobkubista.examples.services</groupId>
-      <artifactId>user-service-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>bobkubista.examples.utils.clients</groupId>
-      <artifactId>user-client</artifactId>
-    </dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-api</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-impl</artifactId>
+        <scope>runtime</scope>
+      </dependency>
+      
+      
   </dependencies>
 </project>
