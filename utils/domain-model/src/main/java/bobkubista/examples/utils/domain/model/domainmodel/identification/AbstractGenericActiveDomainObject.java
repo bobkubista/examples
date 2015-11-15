@@ -37,6 +37,7 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
      * @param active
      *            active flag
      * @param functionalId
+     *            the functional identifier
      */
     public AbstractGenericActiveDomainObject(final boolean active, final String functionalId) {
         super(functionalId);
@@ -44,7 +45,7 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
     }
 
     /**
-     * @return
+     * @return true if the object is active
      */
     public final boolean isActive() {
         return this.active;
@@ -52,6 +53,7 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
 
     /**
      * @param active
+     *            is the object active
      */
     public final void setActive(final boolean active) {
         this.active = active;

@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  *      Usage: <BR>
  *      <code>Person value =
  *      GenericBuilder.of(Person::new).with(Person::setName,
- *      "Otto").with(Person::setAge, 5).build();</code
+ *      "Otto").with(Person::setAge, 5).build();</code>
  *
  */
 public class GenericBuilder<T> {
@@ -55,6 +55,8 @@ public class GenericBuilder<T> {
      *
      * @param instantiator
      *            {@link Supplier} of T
+     * @param <T>
+     *            type for the builder
      * @return {@link GenericBuilder}
      */
     public static <T> GenericBuilder<T> of(final Supplier<T> instantiator) {
@@ -91,6 +93,8 @@ public class GenericBuilder<T> {
      *            {@link BiConsumer} for type T and value U
      * @param value
      *            the value U to set
+     * @param <U>
+     *            return type
      * @return {@link GenericBuilder}
      */
     public <U> GenericBuilder<T> with(final BiConsumer<T, U> consumer, final U value) {

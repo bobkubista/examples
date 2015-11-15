@@ -10,15 +10,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 
 /**
  * @author bkubista
  * @param <DMO>
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  * @param <ID>
- *            the identifier of the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            the identifier of the
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  *
  */
 public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
@@ -28,6 +29,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
      *
      * @param identifier
      *            the identfier @return the <code>DMO</code>
+     * @return {@link Response}
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -42,6 +44,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
      *
      * @param fId
      *            functional id @return the <code>ID</code>
+     * @return {@link Response}
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -56,6 +59,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
      *
      * @param identifier
      *            the identfier @return the {@link DomainObject}
+     * @return {@link Response}
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
