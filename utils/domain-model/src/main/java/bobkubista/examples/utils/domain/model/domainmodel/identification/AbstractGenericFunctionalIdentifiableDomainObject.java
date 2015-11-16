@@ -29,7 +29,7 @@ public abstract class AbstractGenericFunctionalIdentifiableDomainObject<ID exten
 
     /**
      * Constructor
-     * 
+     *
      * @param functionalId
      *            functionalId
      */
@@ -38,7 +38,7 @@ public abstract class AbstractGenericFunctionalIdentifiableDomainObject<ID exten
     }
 
     /**
-     * @return
+     * @return the functional identifier
      */
     public final String getFunctionalId() {
         return this.functionalId;
@@ -46,6 +46,7 @@ public abstract class AbstractGenericFunctionalIdentifiableDomainObject<ID exten
 
     /**
      * @param functionalId
+     *            functional identifier
      */
     public final void setFunctionalId(final String functionalId) {
         this.functionalId = functionalId;

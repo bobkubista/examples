@@ -19,9 +19,11 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <K>
  *            key, which is {@link Serializable}
  * @param <V>
- *            value, which is {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ *            value, which is
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  */
-public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>> extends AbstractIdentifiableAutoCache<K, V> {
+public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>>
+        extends AbstractIdentifiableAutoCache<K, V> {
 
     private final Map<String, K> functionalToKeyMap;
 
@@ -59,8 +61,6 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
     }
 
     /**
-     * @param <T>
-     *            {@link FunctionalIdentifiableService}
      * @return the {@link FunctionalIdentifiableService}
      */
     protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();

@@ -42,7 +42,8 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 
     /**
      * @param entity
-     * @return a response with {@link Status.NOT_IMPLEMENTED} as status
+     *            array of entities
+     * @return a response with Status.NOT_IMPLEMENTED as status
      */
     static Response buildNotImplementedResponse(final Object... entity) {
         return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
@@ -54,6 +55,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      * @param object
      *            the object to create @return the <code>DMO</code> that was
      *            created
+     * @return {@link Response}
      */
     @POST
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -68,6 +70,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      * @param identifier
      *            the identfier @return Response. Default is
      *            {@link NotImplementedException}
+     * @return {@link Response}
      */
     @DELETE
     @Path("{id}")
@@ -93,6 +96,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      *
      * @param identifier
      *            the identfier @return the {@link DomainObject}
+     * @return {@link Response}
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -107,6 +111,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      *
      * @param object
      *            the object to update @return the updated object
+     * @return {@link Response}
      */
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

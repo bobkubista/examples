@@ -19,7 +19,6 @@
     <dependency>
       <groupId>bobkubista.examples.utils.services</groupId>
       <artifactId>jpa-persistance</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>

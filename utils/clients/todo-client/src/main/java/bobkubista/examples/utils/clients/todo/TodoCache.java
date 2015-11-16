@@ -6,19 +6,19 @@ package bobkubista.examples.utils.clients.todo;
 import javax.inject.Inject;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
-import bobkubista.examples.utils.rest.utils.cache.AbstractFunctionalAutoCache;
+import bobkubista.examples.utils.rest.utils.cache.AbstractActiveAutoCache;
 
 /**
  * @author Bob
  *
  */
-public class TodoCache extends AbstractFunctionalAutoCache<Long, TodoList> {
+public class TodoCache extends AbstractActiveAutoCache<Long, TodoList> {
 
     @Inject
     private TodoServiceInteface todoService;
 
     @Override
-    protected TodoServiceInteface getFunctionalService() {
+    protected TodoServiceInteface getActiveService() {
         return this.todoService;
     }
 

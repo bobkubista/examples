@@ -21,16 +21,16 @@ import javax.validation.Payload;
  *         An array of fields and their matching confirmation fields can be
  *         supplied.
  *
- *         Example, compare 1 pair of fields:
- * @XorFields(first = "password", second = "confirmPassword", message =
- *                  "The password fields must match")
+ *         Example, compare 1 pair of fields:<BR>
+ *         <code>
+ * &#64;XorFields(first = "password", second = "confirmPassword", message = The password fields must match")</code>
+ *         <BR>
  *
- *                  Example, compare more than 1 pair of
- *                  fields: @XorFields.List({
- * @XorFields(first = "password", second = "confirmPassword", message =
- *                  "The password fields must match"),
- * @XorFields(first = "email", second = "confirmEmail", message =
- *                  "The email fields must match")})
+ *         Example, compare more than 1 pair of fields:<BR>
+ *         <code>@XorFields.List({ &#64;XorFields(first =
+ *         "password", second = "confirmPassword", message = The password fields
+ *         must match"), &#64;XorFields(first = "email", second =
+ *         "confirmEmail", message = The email fields must match")}) </code>
  */
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
@@ -38,9 +38,8 @@ import javax.validation.Payload;
 @Documented
 public @interface XorFields {
     /**
-     * Defines several <code>@FieldMatch</code> annotations on the same element
-     *
-     * @see FieldMatch
+     * Defines several <code>@FieldMatch</code> annotations on the same
+     * element @see FieldMatch
      */
     @Target({ TYPE, ANNOTATION_TYPE })
     @Retention(RUNTIME)
@@ -51,7 +50,7 @@ public @interface XorFields {
          *
          * @return value
          */
-        XorFields[]value();
+        XorFields[] value();
     }
 
     /**
@@ -63,7 +62,7 @@ public @interface XorFields {
      *
      * @return get groups
      */
-    Class<?>[]groups() default {};
+    Class<?>[] groups() default {};
 
     /**
      *
@@ -75,7 +74,7 @@ public @interface XorFields {
      *
      * @return get the payload
      */
-    Class<? extends Payload>[]payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
     /**
      * @return The second field

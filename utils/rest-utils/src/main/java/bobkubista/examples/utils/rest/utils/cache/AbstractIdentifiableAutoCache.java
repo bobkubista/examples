@@ -110,13 +110,13 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
      */
     @PostConstruct
     public void loadAll() {
-        final Map<K, V> map = this.getIdentifiableService().getAll().stream().collect(Collectors.toMap(t -> t.getId(), t -> t));
+        final Map<K, V> map = this.getAllObjects().stream().collect(Collectors.toMap(t -> t.getId(), t -> t));
         this.cache.putAll(map);
     }
 
     @Override
     public Map<K, V> loadAll(final Iterable<? extends K> keys) throws Exception {
-        final Collection<V> all = this.getIdentifiableService().getAll();
+        final Collection<V> all = this.getAllObjects();
         return all.parallelStream().collect(Collectors.toMap(value -> value.getId(), value -> value));
     }
 
@@ -131,8 +131,15 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
     }
 
     /**
-     * @param <T>
-     *            an {@link IdentifiableService}
+     * Get all apropriate objects
+     *
+     * @return a {@link Collection} of V
+     */
+    protected Collection<V> getAllObjects() {
+        return this.getIdentifiableService().getAll();
+    }
+
+    /**
      * @return {@link IdentifiableService} for <code>V</code>.
      */
     protected abstract IdentifiableService<V, K> getIdentifiableService();
