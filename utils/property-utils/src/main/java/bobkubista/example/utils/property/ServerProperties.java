@@ -66,7 +66,6 @@ public enum ServerProperties {
 		}
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Get all properties
 	 *
@@ -75,16 +74,6 @@ public enum ServerProperties {
 	public static Properties getProperies() {
 		return props;
 	}
-=======
-    /**
-     * Get all properties
-     *
-     * @return {@link Properties}
-     */
-    public static Properties getProperies() {
-        return props;
-    }
->>>>>>> branch 'master' of https://github.com/bobkubista/examples.git
 
 	/**
 	 *
