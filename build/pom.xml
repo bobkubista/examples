@@ -409,6 +409,10 @@
         </sonar.exclusions>
       </properties>
     </profile>
-
+  <!-- TODO Add smoke tests -->
+  <!-- TODO Add system/web tests -->
+  <!-- TODO Add load tests -->
+  <!-- TODO Add performance tests -->
+  
   </profiles>
 </project>
