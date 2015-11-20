@@ -28,12 +28,22 @@ Todo:
 	- DONE install jenkins plugins
 	- DONE config jenkins
 	- fix reverse proxy problem
-	- import jenkins views and jobs
+	- DONE import jenkins views and jobs
 	- create deploy builds
 	- DONE install sonar plugins
 	- DONE config sonar
 	- DONE import sonar profiles
-- build automatic VM scripts (maybe jenkins job)
+	- DONE git symlink config
+	- build step javadoc
+	- build step code coverage
+	- build automatic VM scripts (maybe jenkins job)
+- refactor emails to make better use of lambda's
+- take another look at future
+- optionals
+- http 2
+- JDeps -JDKinternals app.jar
+- smoke & system tests in maven build (http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/)
+- refactor converters to lambda's
 - investigate Job-dsl for jenkins
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
 - put right impl of JEE in tomcat lib (http://arjan-tijms.omnifaces.org/2014/05/implementation-components-used-by.html)
@@ -46,6 +56,7 @@ Todo:
 
 Want Todo:
 backend:
+- refactor generic code to make better use of lambda's
 - static methodes in interfaces
 - Asynchronous calls 
 - Non blocking IO
