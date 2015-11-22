@@ -6,5 +6,6 @@
     <artifactId>api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  <groupId>bobkubista.examples.services.api</groupId>
   <artifactId>user-service-api</artifactId>
 </project>
