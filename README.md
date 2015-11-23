@@ -37,6 +37,7 @@ Todo:
 	- build step javadoc
 	- build step code coverage
 	- build automatic VM scripts (maybe jenkins job)
+	- configure ssh (http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/)
 - refactor emails to make better use of lambda's
 - take another look at future
 - optionals
