@@ -27,17 +27,20 @@ Todo:
 	- DONE setup nexus
 	- DONE install jenkins plugins
 	- DONE config jenkins
-	- fix reverse proxy problem
 	- DONE import jenkins views and jobs
-	- create deploy builds
 	- DONE install sonar plugins
 	- DONE config sonar
 	- DONE import sonar profiles
 	- DONE git symlink config
+	- DONE create deploy builds
+	- DONE parameterize deploy build to deploy webservices
+	- add other webservices to deploy
+	- fix reverse proxy problem
 	- build step javadoc
 	- build step code coverage
 	- build automatic VM scripts (maybe jenkins job)
 	- configure ssh (http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/)
+	- set up wiki (https://www.mediawiki.org/wiki/Manual:Running_MediaWiki_on_Ubuntu)
 - refactor emails to make better use of lambda's
 - take another look at future
 - optionals
