@@ -27,36 +27,39 @@ Todo:
 	- DONE setup nexus
 	- DONE install jenkins plugins
 	- DONE config jenkins
-	- fix reverse proxy problem
 	- DONE import jenkins views and jobs
-	- create deploy builds
 	- DONE install sonar plugins
 	- DONE config sonar
 	- DONE import sonar profiles
 	- DONE git symlink config
+	- DONE create deploy builds
+	- DONE parameterize deploy build to deploy webservices
+	- add other webservices to deploy
+	- fix reverse proxy problem (http://httpd.apache.org/docs/2.2/mod/mod_proxy.html)
 	- build step javadoc
 	- build step code coverage
 	- build automatic VM scripts (maybe jenkins job)
-- refactor emails to make better use of lambda's
-- take another look at future
-- optionals
-- http 2
-- JDeps -JDKinternals app.jar
-- smoke & system tests in maven build (http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/)
-- refactor converters to lambda's
-- investigate Job-dsl for jenkins
+- configure tomcat (http://www.jsf2.com/using-cdi-and-jsf-2.2-faces-flow-in-tomcat/#steps)
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
+- smoke & system tests in maven build (http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/)
 - put right impl of JEE in tomcat lib (http://arjan-tijms.omnifaces.org/2014/05/implementation-components-used-by.html)
 - build SSO WebService
 - build SSO WebApp
 - Integrate Cucumber & selenium for frontend testing, maybe with auto spinup and spindown VM's
+- cucumber + selenium + dbunit/restito for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
+http://stackoverflow.com/questions/22462181/how-do-i-run-a-selenium-test-using-maven-from-the-command-line
+https://code.google.com/p/selenium/wiki/GettingStarted
 - proxy tests with https://github.com/mkotsur/restito
-- build common front end components and styling module
-
-
-Want Todo:
-backend:
+- refactor emails to make better use of lambda's
 - refactor generic code to make better use of lambda's
+- take another look at future
+- service circuit breakers on too many timeouts of webservices.
+- optionals
+- http 2
+- JDeps -JDKinternals app.jar
+- refactor converters to lambda's
+- investigate Job-dsl for jenkins
+- build common front end components and styling module
 - static methodes in interfaces
 - Asynchronous calls 
 - Non blocking IO
@@ -90,12 +93,6 @@ backend:
 	- JSESSIONID
 - Error handling in clients
 - datagathering client
-
-
-frontend:
 - jsf
 - angular
 - jquery
-- cucumber + selenium + dbunit/restito for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
-http://stackoverflow.com/questions/22462181/how-do-i-run-a-selenium-test-using-maven-from-the-command-line
-https://code.google.com/p/selenium/wiki/GettingStarted
