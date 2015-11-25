@@ -35,11 +35,28 @@ Todo:
 	- DONE create deploy builds
 	- DONE parameterize deploy build to deploy webservices
 	- add other webservices to deploy
+<<<<<<< HEAD
 	- fix reverse proxy problem (http://httpd.apache.org/docs/2.2/mod/mod_proxy.html)
+=======
+	- fix reverse proxy problem
+>>>>>>> branch 'master' of https://github.com/bobkubista/examples.git
 	- build step javadoc
 	- build step code coverage
 	- build automatic VM scripts (maybe jenkins job)
+<<<<<<< HEAD
 - configure tomcat (http://www.jsf2.com/using-cdi-and-jsf-2.2-faces-flow-in-tomcat/#steps)
+=======
+	- configure ssh (http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/)
+	- set up wiki (https://www.mediawiki.org/wiki/Manual:Running_MediaWiki_on_Ubuntu)
+- refactor emails to make better use of lambda's
+- take another look at future
+- optionals
+- http 2
+- JDeps -JDKinternals app.jar
+- smoke & system tests in maven build (http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/)
+- refactor converters to lambda's
+- investigate Job-dsl for jenkins
+>>>>>>> branch 'master' of https://github.com/bobkubista/examples.git
 - setup tomcat env dev/test/prod (https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
 - smoke & system tests in maven build (http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/)
 - put right impl of JEE in tomcat lib (http://arjan-tijms.omnifaces.org/2014/05/implementation-components-used-by.html)
