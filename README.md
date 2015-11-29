@@ -1,5 +1,7 @@
 # examples
+This is my examples of code that I am trying out stuff with. It is for reference use.
 
+##tools:
 wiki : http://192.168.1.105/mediawiki
 jenkins: http://192.168.1.108:8080
 sonar: http://192.168.1.108:9000
@@ -7,15 +9,13 @@ nexus: http://192.168.1.108:8081
 webservices: http://192.168.1.110
 database:"http://192.168.1.109
 
-This is my examples of code that I am trying out stuff with. It is for reference use.
 
-principals:
+##principals:
 - SOLID -> Single responsibility, open/closed, liskov substitution, interface segregation, dependency inversion
 - Code quality and test coverage 
 - Agility over speed
 - Design patterns
 - Minimal code duplication
-
 - Test definition http://stackoverflow.com/questions/520064/what-is-unit-test-integration-test-smoke-test-regression-test
 - Unit tests on 1 class only, the rest is stubbed/mocked
 - Rest IT with jersey on the rest interface
@@ -27,8 +27,7 @@ principals:
 - If no state, then default methodes in interfaces
 - JPA for ORM
 
-
-Todo:
+##Todo:
 add other webservices to deploy
 replace deploy job with multi configurable job, which doesn't run parallel
 make builds use branches
