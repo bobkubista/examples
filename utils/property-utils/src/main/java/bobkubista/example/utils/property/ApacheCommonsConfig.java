@@ -13,6 +13,10 @@ import org.apache.commons.configuration.JNDIConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Config adapter. @author Bob Kubista
+ *
+ */
 public enum ApacheCommonsConfig implements ServerConfig {
 	INSTANCE;
 
@@ -26,6 +30,7 @@ public enum ApacheCommonsConfig implements ServerConfig {
 				config = jndiBuilder.interpolatedConfiguration();
 				LOGGER.info("Loaded JNDI config");
 			} catch (final NamingException e) {
+				LOGGER.info("could not load form jndi", e);
 				// SystemConfiguration systemBuilder = new SystemConfiguration()
 				// config = systemBuilder.interpolatedConfiguration()
 				try {
@@ -36,11 +41,11 @@ public enum ApacheCommonsConfig implements ServerConfig {
 					try {
 						final DefaultConfigurationBuilder xmlBuilder = new DefaultConfigurationBuilder("server.xml");
 						config = xmlBuilder.getConfiguration(true);
-						LOGGER.info("Loaded server.xml config");
+						LOGGER.info("Loaded server.xml config", e1);
 					} catch (final ConfigurationException e2) {
 						final BaseConfiguration builder = new BaseConfiguration();
 						config = builder.interpolatedConfiguration();
-						LOGGER.info("Loaded in memory config");
+						LOGGER.info("Loaded in memory config", e2);
 					}
 				}
 			}

@@ -27,7 +27,7 @@ public class UserProxyTest {
         final Response response = this.proxy.getAll();
         Assert.assertNotNull(response);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        final UserCollection textItems = response.readEntity(UserCollection.class);
+        final UserCollection textItems = (UserCollection) response.getEntity();
         Assert.assertNotNull(textItems);
         Assert.assertNotNull(textItems.getDomainCollection());
     }

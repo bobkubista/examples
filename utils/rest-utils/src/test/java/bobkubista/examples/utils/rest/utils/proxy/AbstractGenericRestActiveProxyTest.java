@@ -3,10 +3,25 @@
  */
 package bobkubista.examples.utils.rest.utils.proxy;
 
-import static org.junit.Assert.fail;
+import static com.xebialabs.restito.builder.stub.StubHttp.whenHttp;
+import static com.xebialabs.restito.semantics.Condition.delete;
+import static com.xebialabs.restito.semantics.Condition.get;
+import static com.xebialabs.restito.semantics.Condition.post;
+import static com.xebialabs.restito.semantics.Condition.put;
 
-import org.junit.Ignore;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.grizzly.http.util.HttpStatus;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.xebialabs.restito.semantics.Action;
+import com.xebialabs.restito.server.StubServer;
+
+import bobkubista.examples.utils.rest.utils.mocks.MockActiveDomainObject;
+import bobkubista.examples.utils.rest.utils.mocks.MockActiveProxy;
 
 /**
  * @see <a href=
@@ -15,8 +30,21 @@ import org.junit.Test;
  * @author Bob
  *
  */
-@Ignore
 public class AbstractGenericRestActiveProxyTest {
+
+    private final AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> proxy = new MockActiveProxy();
+    private StubServer server;
+
+    @Before
+    public void start() {
+        this.server = new StubServer().run();
+        this.proxy.base();
+    }
+
+    @After
+    public void stop() {
+        this.server.stop();
+    }
 
     /**
      * Test method for
@@ -25,7 +53,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testCreate() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(post("http://localhost/")).then(Action.status(HttpStatus.CREATED_201));
+        final Response result = this.proxy.create(new MockActiveDomainObject());
+        Assert.assertEquals(201, result.getStatus());
     }
 
     /**
@@ -35,7 +65,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testDelete() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(delete("/")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.delete(1);
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -45,7 +77,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetAll() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.getAll();
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -55,7 +89,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetAllActive() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.getAllActive();
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -65,7 +101,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetByFunctionalId() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/functionId/blaat")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.getByFunctionalId("blaat");
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -75,7 +113,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetByID() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/functionId/1")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.getByID(1);
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -85,7 +125,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetIdByFunctionalId() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/functionId/blaat")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.getIdByFunctionalId("blaat");
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -95,7 +137,9 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testSearchByFunctionalID() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(get("/searchByFunctionalId/bla")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.searchByFunctionalID("bla");
+        Assert.assertEquals(200, result.getStatus());
     }
 
     /**
@@ -105,7 +149,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testUpdate() {
-        fail("Not yet implemented");
+        whenHttp(this.server).match(put("/")).then(Action.status(HttpStatus.OK_200));
+        final Response result = this.proxy.update(new MockActiveDomainObject());
+        Assert.assertEquals(200, result.getStatus());
     }
-
 }
