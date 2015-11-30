@@ -28,12 +28,20 @@ database:"http://192.168.1.109
 - JPA for ORM
 
 ##Todo:
+### Done:
+DONE Use dependency graphs
+
+### New:
+NEW buildname plugin
+NEW add pagination
+NEW add search
+
+### Existing:
 add other webservices to deploy
 replace deploy job with multi configurable job, which doesn't run parallel
 make builds use branches
 make the builds smaller by only building the correct modules and the modules that depend on them. Maybe with the generate maven build job automatically.
 Use job inheritence with the maven jenkins plugin
-Use dependency graphs
 Make use of joins
 fix reverse proxy problem (http://httpd.apache.org/docs/2.2/mod/mod_proxy.html)
 build step javadoc
