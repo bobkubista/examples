@@ -63,7 +63,7 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     }
 
     @Override
-    public Collection<TYPE> getList() {
+    public Collection<TYPE> getAll() {
         final TypedQuery<TYPE> query = this.entityManager.createQuery("from " + this.getEntityClass().getName(), this.getEntityClass());
         return query.getResultList();
     }

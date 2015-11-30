@@ -57,7 +57,7 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      *
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public abstract Collection<TYPE> getList();
+    public abstract Collection<TYPE> getAll();
 
     /**
      * Update an object of <code>TYPE</code>
