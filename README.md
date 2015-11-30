@@ -34,15 +34,14 @@ database: http://192.168.1.109
 
 ##Todo:
 ### Done:
-* DONE Use dependency graphs
 
 ### New:
+
+### Existing:
+* add other webservices to deploy (https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
 * NEW buildname plugin
 * NEW add pagination
 * NEW add search
-
-### Existing:
-* UPDATED add other webservices to deploy (https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
 * replace deploy job with multi configurable job, which doesn't run parallel
 * make builds use branches
 * make the builds smaller by only building the correct modules and the modules that depend on them. Maybe with * the generate maven build job automatically.
