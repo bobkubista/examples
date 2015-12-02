@@ -36,6 +36,7 @@ database: http://192.168.1.109
 Document https://github.com/cko/predefined_maven_properties/blob/master/README.md
 
 ### Done:
+* DONE proxy tests with https://github.com/mkotsur/restito
 
 ### New:
 * NEW buildname plugin
@@ -73,7 +74,6 @@ Document https://github.com/cko/predefined_maven_properties/blob/master/README.m
 * cucumber + selenium + dbunit/restito for frontend acceptence tests: http://stackoverflow.com/questions/18164579/how-do-i-specify-a-separate-maven-goal-for-running-cucumber-acceptance-tests
 http://stackoverflow.com/questions/22462181/how-do-i-run-a-selenium-test-using-maven-from-the-command-line
 https://code.google.com/p/selenium/wiki/GettingStarted
-* proxy tests with https://github.com/mkotsur/restito
 * refactor emails to make better use of lambda's
 * refactor generic code to make better use of lambda's
 * take another look at future
