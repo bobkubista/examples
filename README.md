@@ -33,24 +33,28 @@ database: http://192.168.1.109
 * JPA for ORM
 
 ##Todo:
+Document https://github.com/cko/predefined_maven_properties/blob/master/README.md
+
 ### Done:
 
 ### New:
-
-### Existing:
-* add other webservices to deploy (https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
 * NEW buildname plugin
 * NEW add pagination
 * NEW add search
+
+### Existing:
+* add other webservices to deploy (https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
 * replace deploy job with multi configurable job, which doesn't run parallel
 * make builds use branches
 * make the builds smaller by only building the correct modules and the modules that depend on them. Maybe with * the generate maven build job automatically.
 * Use job inheritence with the maven jenkins plugin
 * Make use of joins
 * fix reverse proxy problem (http://httpd.apache.org/docs/2.2/mod/mod_proxy.html)
+(https://groups.google.com/forum/#!searchin/jenkinsci-users/proxy/jenkinsci-users/jcllTOoD684/fDQQZ6WpwNwJ)
+(http://jenkins-ci.361315.n4.nabble.com/Apache-reverse-proxy-to-Jenkins-servlet-on-port-8080-td3444546.html)
 * build step javadoc
 * build step code coverage
-* build automatic VM scripts (maybe jenkins job)
+* build automatic VM scripts (maybe jenkins job) May need to buy stuff, so no
 * configure tomcat (http://www.jsf2.com/using-cdi-and-jsf-2.2-faces-flow-in-tomcat/#steps)
 * refactor emails to make better use of lambda's
 * take another look at future
