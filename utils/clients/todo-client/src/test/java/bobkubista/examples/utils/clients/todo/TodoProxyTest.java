@@ -29,7 +29,7 @@ public class TodoProxyTest {
         final Response response = this.proxy.getAll();
         Assert.assertNotNull(response);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        final TodoListCollection textItems = response.readEntity(TodoListCollection.class);
+        final TodoListCollection textItems = (TodoListCollection) response.getEntity();
         Assert.assertNotNull(textItems);
         Assert.assertNotNull(textItems.getDomainCollection());
     }

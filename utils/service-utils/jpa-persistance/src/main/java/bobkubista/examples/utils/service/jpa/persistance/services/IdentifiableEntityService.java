@@ -62,7 +62,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      *         same type
      */
     public default Collection<TYPE> getAll() {
-        return this.getDAO().getList();
+        return this.getDAO().getAll();
     }
 
     /**

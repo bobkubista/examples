@@ -11,13 +11,14 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
+
 /**
  * Abstract class to help with Rest proxies
  *
  * @author bkubista
  *
  */
-// TODO status code handling
 public abstract class AbstractRestProxy {
 
     private Client client;
@@ -29,6 +30,7 @@ public abstract class AbstractRestProxy {
     @PostConstruct
     public void base() {
         this.client = ClientBuilder.newClient();
+        this.client.register(new CircuitBreakerFilter());
         this.service = this.client.target(this.getBaseUri());
     }
 
