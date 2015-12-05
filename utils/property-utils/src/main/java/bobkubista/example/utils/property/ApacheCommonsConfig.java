@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Config adapter. @author Bob Kubista
+ * Config wrapper.
+ *
+ * @author Bob Kubista
  *
  */
 public enum ApacheCommonsConfig implements ServerConfig {
