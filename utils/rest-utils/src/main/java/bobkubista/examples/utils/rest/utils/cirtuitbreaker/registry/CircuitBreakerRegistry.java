@@ -13,7 +13,7 @@ public class CircuitBreakerRegistry {
 
     private final HealthPolicy healthPolicy;
 
-    private final int maxEntries = 100;
+    private final int maxEntries = 5;
 
     public CircuitBreakerRegistry(final HealthPolicy healthPolicy) {
         this.healthPolicy = healthPolicy;

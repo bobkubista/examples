@@ -6,35 +6,45 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public class TransactionTest {
+public class TransactionsImplTest {
 
     @Test
-    public void testCloseBoolean() {
+    public void testFailed() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testCloseObjectBoolean() {
+    public void testOfLast() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testGetConsumedMillis() {
+    public void testPercentile() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testGetStarttime() {
+    public void testRunning() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testIsFailed() {
+    public void testSince() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testIsRunning() {
+    public void testSize() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testToString() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testTransactionsImpl() {
         fail("Not yet implemented");
     }
 

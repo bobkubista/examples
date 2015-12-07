@@ -1,9 +1,11 @@
 package bobkubista.examples.utils.rest.utils.cirtuitbreaker.state;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class ClosedStateTest {
 
     @Test
