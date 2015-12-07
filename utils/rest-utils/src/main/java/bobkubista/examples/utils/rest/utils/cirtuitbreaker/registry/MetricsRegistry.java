@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.rest.utils.cirtuitbreaker;
+package bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry;
 
 import java.util.Map;
 

@@ -5,7 +5,7 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy;
 
 import java.time.Duration;
 
-import bobkubista.examples.utils.rest.utils.cirtuitbreaker.MetricsRegistry;
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry.MetricsRegistry;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transactions;
 
 /**
