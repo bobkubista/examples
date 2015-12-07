@@ -48,7 +48,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
   * Make use of joins
   * build step javadoc
   * build step code coverage
-  * investigate Job-dsl for jenkins
+  * investigate Job-dsl for jenkins (https://blog.codecentric.de/en/2015/01/continuous-delivery-microservices-jenkins-job-dsl-plugin/) (https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial---Using-the-Jenkins-Job-DSL)
+  (https://wiki.jenkins-ci.org/display/JENKINS/Job+Generator+Plugin)
   * smoke & system tests in maven build 
 
 * Servers:
