@@ -4,8 +4,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 
+import com.google.common.collect.Maps;
+
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.TransactionMetrics;
-import jersey.repackaged.com.google.common.collect.Maps;
 
 /**
  *

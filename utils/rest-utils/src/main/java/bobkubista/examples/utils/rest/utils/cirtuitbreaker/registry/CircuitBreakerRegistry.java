@@ -3,9 +3,10 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry;
 import java.time.Duration;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreaker;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
-import jersey.repackaged.com.google.common.collect.Maps;
 
 public class CircuitBreakerRegistry {
 
