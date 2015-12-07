@@ -33,17 +33,10 @@ This is my examples of code that I am trying out stuff with. It is for reference
 * JPA for ORM
 
 ##Todo:
-[Document](https://github.com/cko/predefined_maven_properties/blob/master/README.md)
 
 ### Done:
-* DONE [proxy tests with](https://github.com/mkotsur/restito)
 
 ### New:
-* NEW buildname plugin
-* NEW add pagination
-* NEW add search
-* NEW add jmeter performance tests
-* NEW add jmeter load test
 
 ### Existing:
 * Buildstreet:
@@ -69,6 +62,11 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 * Java:
 
+* add pagination
+* add search
+* add jmeter performance tests
+* add jmeter load test
+* add circuit breaker to clients (http://www.javaworld.com/article/2824163/application-performance/stability-patterns-applied-in-a-restful-architecture.html?page=2)
  * refactor emails to make better use of lambda's
  * take another look at future
  * optionals
