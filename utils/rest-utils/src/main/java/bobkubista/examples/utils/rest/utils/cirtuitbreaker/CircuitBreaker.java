@@ -28,12 +28,12 @@ public class CircuitBreaker {
 
     private final String scope;
 
-    private final AtomicReference<CircuitBreakerState> state = new AtomicReference<>(new ClosedState(this));
+    private final AtomicReference<CircuitBreakerState> state = new AtomicReference<>(new ClosedState());
 
     /**
      *
      * Constructor
-     * 
+     *
      * @param scope
      *            the host the register
      * @param healthPolicy
@@ -95,6 +95,6 @@ public class CircuitBreaker {
      * @return true if the request can pass, otherwise false.
      */
     public boolean isRequestAllowed() {
-        return this.state.get().isRequestAllowed();
+        return this.state.get().isRequestAllowed(this);
     }
 }

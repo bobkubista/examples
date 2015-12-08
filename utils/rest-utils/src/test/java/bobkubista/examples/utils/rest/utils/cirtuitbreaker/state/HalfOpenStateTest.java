@@ -26,6 +26,6 @@ public class HalfOpenStateTest {
 
         final CircuitBreakerState state = new HalfOpenState(circuitBreaker);
 
-        assertFalse(state.isRequestAllowed());
+        assertFalse(state.isRequestAllowed(circuitBreaker));
     }
 }
