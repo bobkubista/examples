@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <log4j.version>1.7.12</log4j.version>
+    <log4j.version>1.7.13</log4j.version>
   </properties>
 
   <dependencyManagement>
