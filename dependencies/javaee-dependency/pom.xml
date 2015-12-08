@@ -1,94 +1,94 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>bobkubista.examples</groupId>
-		<artifactId>dependencies</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<groupId>bobkubista.examples.dependencies</groupId>
-	<artifactId>javaee-dependency</artifactId>
-	<packaging>pom</packaging>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>bobkubista.examples</groupId>
+    <artifactId>dependencies</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>bobkubista.examples.dependencies</groupId>
+  <artifactId>javaee-dependency</artifactId>
+  <packaging>pom</packaging>
 
-	<properties>
-		<myfaces.version>2.2.9</myfaces.version>
-		<hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
-		<javax.validator.version>1.1.0.Final</javax.validator.version>
-	</properties>
+  <properties>
+    <myfaces.version>2.2.9</myfaces.version>
+    <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
+    <javax.validator.version>1.1.0.Final</javax.validator.version>
+  </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>javax</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>7.0</version>
-			</dependency>
-			<!-- servlets -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>4.0.0-b01</version>
-			</dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>7.0</version>
+      </dependency>
+      <!-- servlets -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.0-b01</version>
+      </dependency>
 
-			<!-- JSF impl -->
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-api</artifactId>
-				<version>${myfaces.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-impl</artifactId>
-				<version>${myfaces.version}</version>
-			</dependency>
+      <!-- JSF impl -->
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-api</artifactId>
+        <version>${myfaces.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-impl</artifactId>
+        <version>${myfaces.version}</version>
+      </dependency>
 
-			<!-- bean validation -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate-validator.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>${javax.validator.version}</version>
-			</dependency>
+      <!-- bean validation -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate-validator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${javax.validator.version}</version>
+      </dependency>
 
-			<!-- CDI -->
-			<dependency>
-				<groupId>org.jboss.weld</groupId>
-				<artifactId>weld-core</artifactId>
-				<version>3.0.0.Alpha6</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.enterprise</groupId>
-				<artifactId>cdi-api</artifactId>
-				<version>2.0-EDR1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.hk2.external</groupId>
-				<artifactId>javax.inject</artifactId>
-				<version>2.4.0-b34</version>
-			</dependency>
+      <!-- CDI -->
+      <dependency>
+        <groupId>org.jboss.weld</groupId>
+        <artifactId>weld-core</artifactId>
+        <version>3.0.0.Alpha6</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.enterprise</groupId>
+        <artifactId>cdi-api</artifactId>
+        <version>2.0-EDR1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.hk2.external</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>2.4.0-b34</version>
+      </dependency>
 
-			<!-- JCA Java EE Connector Architecture -->
+      <!-- JCA Java EE Connector Architecture -->
 
-			<!-- EJB -->
+      <!-- EJB -->
 
-			<!-- JMS -->
-			<dependency>
-				<groupId>org.apache.activemq</groupId>
-				<artifactId>activemq-all</artifactId>
-				<version>5.13.0</version>
-			</dependency>
+      <!-- JMS -->
+      <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-all</artifactId>
+        <version>5.13.0</version>
+      </dependency>
 
-			<!-- EL -->
+      <!-- EL -->
 
-			<!-- JTA -->
+      <!-- JTA -->
 
-			<!-- JASPIC Java Authentication Service Provider Interface for Containers -->
+      <!-- JASPIC Java Authentication Service Provider Interface for Containers -->
 
 
-		</dependencies>
-	</dependencyManagement>
+    </dependencies>
+  </dependencyManagement>
 </project>
