@@ -3,10 +3,23 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * Metrics for {@link Transactions}
+ *
+ * @author Bob
+ *
+ */
 public class TransactionMetrics implements Transactions {
 
     private final FixedSizeBuffer ringbuffer;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param bufferSize
+     *            buffer size
+     */
     public TransactionMetrics(final int bufferSize) {
         this.ringbuffer = new FixedSizeBuffer(bufferSize);
     }
@@ -21,6 +34,10 @@ public class TransactionMetrics implements Transactions {
         return this.all().ofLast(duration);
     }
 
+    /**
+     *
+     * @return an open transaction
+     */
     public Transaction openTransaction() {
         final Transaction transaction = new Transaction();
         this.ringbuffer.addEntry(transaction);
