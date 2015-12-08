@@ -23,7 +23,7 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
     /**
      *
      * Constructor
-     * 
+     *
      * @param metricsRegistry
      *            {@link MetricsRegistry}
      */
@@ -31,6 +31,15 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
         this(metricsRegistry, 30);
     }
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param metricsRegistry
+     *            {@link MetricsRegistry}
+     * @param thresholdMinRatePerMin
+     *            the minimum amount of requests per minute
+     */
     public ErrorRateBasedHealthPolicy(final MetricsRegistry metricsRegistry, final int thresholdMinRatePerMin) {
         this.metricsRegistry = metricsRegistry;
         this.thresholdMinReqPerMin = thresholdMinRatePerMin;
