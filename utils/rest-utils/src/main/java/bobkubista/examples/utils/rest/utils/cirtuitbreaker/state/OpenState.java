@@ -20,7 +20,7 @@ final class OpenState implements CircuitBreakerState {
     @Override
     public boolean isRequestAllowed(final CircuitBreaker circuitBreaker) {
         if (Instant.now().isAfter(this.exitDate)) {
-            return circuitBreaker.changeState(new HalfOpenState(circuitBreaker)).isRequestAllowed(circuitBreaker);
+            return circuitBreaker.changeState(new HalfOpenState()).isRequestAllowed(circuitBreaker);
         } else {
             return false;
         }

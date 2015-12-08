@@ -33,7 +33,7 @@ public class CircuitBreaker {
     /**
      *
      * Constructor
-     *
+     * 
      * @param scope
      *            the host the register
      * @param healthPolicy

@@ -24,7 +24,7 @@ public class HalfOpenStateTest {
         when(mockRandom.nextDouble()).thenReturn(0.5D);
         when(circuitBreaker.getRandom()).thenReturn(mockRandom);
 
-        final CircuitBreakerState state = new HalfOpenState(circuitBreaker);
+        final CircuitBreakerState state = new HalfOpenState();
 
         assertFalse(state.isRequestAllowed(circuitBreaker));
     }

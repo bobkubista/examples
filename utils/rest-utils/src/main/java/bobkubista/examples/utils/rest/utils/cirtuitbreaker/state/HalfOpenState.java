@@ -10,7 +10,7 @@ final class HalfOpenState implements CircuitBreakerState {
      *
      * @param circuitBreaker
      */
-    HalfOpenState(final CircuitBreaker circuitBreaker) {
+    HalfOpenState() {
         super();
     }
 
