@@ -2,6 +2,7 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -9,13 +10,20 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.generic.Immutables;
 
 /**
  * end implementation of transactions
- * 
+ *
  * @author Bob
  *
  */
 class TransactionsImpl implements Transactions {
     private final ImmutableSet<Transaction> transactions;
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param transactions
+     *            a {@link Set} of {@link Transaction}
+     */
     public TransactionsImpl(final ImmutableSet<Transaction> transactions) {
         this.transactions = transactions;
     }
