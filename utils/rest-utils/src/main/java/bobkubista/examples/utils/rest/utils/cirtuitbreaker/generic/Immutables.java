@@ -22,6 +22,14 @@ public class Immutables {
 
     /**
      *
+     * Constructor
+     */
+    private Immutables() {
+        super();
+    }
+
+    /**
+     *
      * @return immutable {@link Collector} to {@link List}
      */
     public static <T> Collector<T, ?, ImmutableList<T>> toList() {
@@ -30,7 +38,10 @@ public class Immutables {
     }
 
     /**
-     *
+     * @param keyMapper
+     *            a {@link Function} to map the keys
+     * @param valueMapper
+     *            a {@link Function} to map the values
      * @return immutable {@link Collector} to {@link Map}
      */
     public static <T, K, U> Collector<T, ?, ImmutableMap<K, U>> toMap(final Function<? super T, ? extends K> keyMapper, final Function<? super T, ? extends U> valueMapper) {
