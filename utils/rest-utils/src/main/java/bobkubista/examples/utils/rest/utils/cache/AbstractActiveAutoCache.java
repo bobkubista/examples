@@ -11,11 +11,21 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
 
 /**
+ * An auto refreshing cache for {@link AbstractGenericActiveDomainObject}
+ *
+ * @param <K>
+ *            the identifier
+ * @param <V>
+ *            the {@link AbstractGenericActiveDomainObject}
+ *
  * @author Bob
  *
  */
 public abstract class AbstractActiveAutoCache<K extends Serializable, V extends AbstractGenericActiveDomainObject<K>> extends AbstractFunctionalAutoCache<K, V> {
 
+    /**
+     * @return get an {@link ActiveService}
+     */
     protected abstract ActiveService<V, K> getActiveService();
 
     @Override
