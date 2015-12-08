@@ -7,11 +7,15 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.CachedCircuitBreakerPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.CircuitBreakerState;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.ClosedState;
 
 /**
+ * the entrance for holding states for hosts and the {@link HealthPolicy}
+ * applied
+ *
  * @author Bob
  *
  */
@@ -26,12 +30,31 @@ public class CircuitBreaker {
 
     private final AtomicReference<CircuitBreakerState> state = new AtomicReference<>(new ClosedState(this));
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param scope
+     *            the host the register
+     * @param healthPolicy
+     *            the {@link HealthPolicy} used
+     * @param openStateTimeout
+     *            the {@link Duration} of how long the {@link CircuitBreaker}
+     *            has to wait before trying the service again
+     */
     public CircuitBreaker(final String scope, final HealthPolicy healthPolicy, final Duration openStateTimeout) {
         this.scope = scope;
         this.policy = new CachedCircuitBreakerPolicy(healthPolicy, Duration.ofSeconds(3));
         this.openStateTimeout = openStateTimeout;
     }
 
+    /**
+     * Change the state
+     *
+     * @param newState
+     *            the new {@link CircuitBreakerState} to set
+     * @return the new state
+     */
     public CircuitBreakerState changeState(final CircuitBreakerState newState) {
         this.state.set(newState);
         return newState;
@@ -65,6 +88,12 @@ public class CircuitBreaker {
         return this.scope;
     }
 
+    /**
+     * Is the request allowed, depending on the current
+     * {@link CircuitBreakerState} and {@link HealthPolicy} used
+     *
+     * @return true if the request can pass, otherwise false.
+     */
     public boolean isRequestAllowed() {
         return this.state.get().isRequestAllowed();
     }

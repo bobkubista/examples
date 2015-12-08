@@ -23,6 +23,12 @@ public class MetricsRegistry {
      */
     private final Map<String, TransactionMetrics> metricsMap = Maps.newConcurrentMap();
 
+    /**
+     *
+     * @param scope
+     *            the host
+     * @return {@link TransactionMetrics} for a host
+     */
     public TransactionMetrics transactions(final String scope) {
         Validate.notNull(scope);
 
