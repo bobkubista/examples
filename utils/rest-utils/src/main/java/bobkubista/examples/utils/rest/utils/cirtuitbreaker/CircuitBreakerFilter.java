@@ -11,11 +11,14 @@ import javax.ws.rs.client.ClientResponseContext;
 import javax.ws.rs.client.ClientResponseFilter;
 
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.ErrorRateBasedHealthPolicy;
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry.CircuitBreakerRegistry;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry.MetricsRegistry;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transaction;
 
 /**
+ * Client filter for circuitbreakers
+ *
  * @author Bob
  *
  */
@@ -24,6 +27,11 @@ public class CircuitBreakerFilter implements ClientRequestFilter, ClientResponse
     private final CircuitBreakerRegistry circuitBreakerRegistry;
     private final MetricsRegistry metricsRegistry;
 
+    /**
+     * Default Constructor.
+     *
+     * Uses {@link ErrorRateBasedHealthPolicy} as a {@link HealthPolicy}
+     */
     public CircuitBreakerFilter() {
         this.metricsRegistry = new MetricsRegistry();
         this.circuitBreakerRegistry = new CircuitBreakerRegistry(new ErrorRateBasedHealthPolicy(this.metricsRegistry));

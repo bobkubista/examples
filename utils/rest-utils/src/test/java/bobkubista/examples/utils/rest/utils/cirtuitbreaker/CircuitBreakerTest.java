@@ -10,6 +10,7 @@ import java.time.Duration;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.CachedCircuitBreakerPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
 
 public class CircuitBreakerTest {

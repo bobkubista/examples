@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.rest.utils.cirtuitbreaker;
+package bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -6,9 +6,7 @@ import java.time.Instant;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
-
-class CachedCircuitBreakerPolicy implements HealthPolicy {
+public class CachedCircuitBreakerPolicy implements HealthPolicy {
 
     private class CachedResult {
         private final boolean isHealthy;

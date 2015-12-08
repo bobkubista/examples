@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
+import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.CachedCircuitBreakerPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.CircuitBreakerState;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.ClosedState;

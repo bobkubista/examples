@@ -9,6 +9,10 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry.MetricsRegis
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transactions;
 
 /**
+ * Implementation of {@link HealthPolicy}, that uses error rate to determain the
+ * health of a service. Default threshold minimum requests per minute is 30.
+ *
+ *
  * @author Bob
  *
  */
@@ -16,6 +20,13 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
     private final MetricsRegistry metricsRegistry;
     private final int thresholdMinReqPerMin;
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param metricsRegistry
+     *            {@link MetricsRegistry}
+     */
     public ErrorRateBasedHealthPolicy(final MetricsRegistry metricsRegistry) {
         this(metricsRegistry, 30);
     }
