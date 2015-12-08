@@ -13,6 +13,12 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy;
 @FunctionalInterface
 public interface HealthPolicy {
 
+    /**
+     *
+     * @param scope
+     *            the host
+     * @return is the transaction healthy
+     */
     boolean isHealthy(String scope);
 
 }
