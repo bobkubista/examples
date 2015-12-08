@@ -18,6 +18,7 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
  */
 public class CircuitBreakerRegistry {
 
+    // host, CircuitBreaker
     private final Map<String, CircuitBreaker> circuitBreakerMap = Maps.newConcurrentMap();
 
     private final HealthPolicy healthPolicy;
