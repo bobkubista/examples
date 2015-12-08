@@ -29,6 +29,6 @@ public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("active/")
     default Response getAllActive() {
-        return IdentifiableApi.buildNotImplementedResponse(null);
+        return IdentifiableApi.buildNotImplementedResponse();
     }
 }

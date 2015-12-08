@@ -88,7 +88,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response getAll() {
-        return IdentifiableApi.buildNotImplementedResponse(null);
+        return IdentifiableApi.buildNotImplementedResponse();
     }
 
     /**
