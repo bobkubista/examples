@@ -17,6 +17,13 @@ final class FixedSizeBuffer {
     // this should be an array, for the fixed size
     private final Transaction[] transactions;
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param numSlots
+     *            buffer size
+     */
     public FixedSizeBuffer(final int numSlots) {
         this.numSlots = numSlots;
         this.transactions = new Transaction[numSlots];
