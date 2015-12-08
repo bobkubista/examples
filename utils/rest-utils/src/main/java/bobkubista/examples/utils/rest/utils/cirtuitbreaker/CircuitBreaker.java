@@ -30,6 +30,18 @@ public class CircuitBreaker {
 
     private final AtomicReference<CircuitBreakerState> state = new AtomicReference<>(new ClosedState(this));
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param scope
+     *            the host the register
+     * @param healthPolicy
+     *            the {@link HealthPolicy} used
+     * @param openStateTimeout
+     *            the {@link Duration} of how long the {@link CircuitBreaker}
+     *            has to wait before trying the service again
+     */
     public CircuitBreaker(final String scope, final HealthPolicy healthPolicy, final Duration openStateTimeout) {
         this.scope = scope;
         this.policy = new CachedCircuitBreakerPolicy(healthPolicy, Duration.ofSeconds(3));
@@ -79,7 +91,7 @@ public class CircuitBreaker {
     /**
      * Is the request allowed, depending on the current
      * {@link CircuitBreakerState} and {@link HealthPolicy} used
-     * 
+     *
      * @return true if the request can pass, otherwise false.
      */
     public boolean isRequestAllowed() {
