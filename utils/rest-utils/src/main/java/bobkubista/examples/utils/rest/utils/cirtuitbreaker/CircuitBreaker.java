@@ -13,6 +13,9 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.CircuitBreakerS
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.ClosedState;
 
 /**
+ * the entrance for holding states for hosts and the {@link HealthPolicy}
+ * applied
+ *
  * @author Bob
  *
  */
@@ -33,6 +36,13 @@ public class CircuitBreaker {
         this.openStateTimeout = openStateTimeout;
     }
 
+    /**
+     * Change the state
+     *
+     * @param newState
+     *            the new {@link CircuitBreakerState} to set
+     * @return the new state
+     */
     public CircuitBreakerState changeState(final CircuitBreakerState newState) {
         this.state.set(newState);
         return newState;
@@ -66,6 +76,12 @@ public class CircuitBreaker {
         return this.scope;
     }
 
+    /**
+     * Is the request allowed, depending on the current
+     * {@link CircuitBreakerState} and {@link HealthPolicy} used
+     * 
+     * @return true if the request can pass, otherwise false.
+     */
     public boolean isRequestAllowed() {
         return this.state.get().isRequestAllowed();
     }
