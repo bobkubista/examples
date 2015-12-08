@@ -7,6 +7,12 @@ import com.google.common.collect.ImmutableSet;
 
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.generic.Immutables;
 
+/**
+ * end implementation of transactions
+ * 
+ * @author Bob
+ *
+ */
 class TransactionsImpl implements Transactions {
     private final ImmutableSet<Transaction> transactions;
 

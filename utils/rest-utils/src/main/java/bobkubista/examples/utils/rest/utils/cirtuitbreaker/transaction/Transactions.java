@@ -9,6 +9,10 @@ import java.time.Instant;
  */
 public interface Transactions {
 
+    /**
+     *
+     * @return did the transaction fail?
+     */
     Transactions failed();
 
     /**
