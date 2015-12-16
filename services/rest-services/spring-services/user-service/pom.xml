@@ -45,6 +45,9 @@
                 <properties>
                   <cargo.remote.username>deployer</cargo.remote.username>
                   <cargo.remote.password>deployer</cargo.remote.password>
+                  <cargo.hostname>192.168.1.110</cargo.hostname>
+                  <cargo.servlet.port>8080</cargo.servlet.port>
+                  <cargo.protocol>http</cargo.protocol>
                 </properties>
               </configuration>
               <deployables>
@@ -52,8 +55,11 @@
                   <artifactId>${project.artifactId}</artifactId>
                   <groupId>${project.groupId}</groupId>
                   <type>war</type>
+                  <properties>
+                    <context>user-service</context>
+                  </properties>
                   <location>${project.build.directory}/${project.build.finalName}.${project.packaging}</location>
-                  <pingURL>http://192.168.1.110/${project.artifactId}/application.wadl</pingURL>
+                  <pingURL>http://192.168.1.110:8080/${project.artifactId}/application.wadl</pingURL>
                 </deployable>
               </deployables>
             </configuration>
