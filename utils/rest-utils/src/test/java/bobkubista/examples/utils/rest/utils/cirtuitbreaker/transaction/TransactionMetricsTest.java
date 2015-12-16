@@ -1,28 +1,13 @@
 package bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TransactionMetricsTest {
 
     TransactionMetrics transactions = new TransactionMetrics(2);
-
-    @Ignore
-    @Test
-    public void testFailed() {
-        // Transactions result = this.transactions.failed();
-        fail("Not yet implemented");
-    }
-
-    @Ignore
-    @Test
-    public void testOfLast() {
-        fail("Not yet implemented");
-    }
 
     @Test
     public void testOpenTransaction() {
