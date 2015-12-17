@@ -22,12 +22,20 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+  <profiles>
+    <profile>
+      <id>deploy</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven2-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
