@@ -28,6 +28,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  * @author Bob Kubista
  *
  */
+@Table(name = "todolist")
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
