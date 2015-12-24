@@ -1,4 +1,4 @@
-CREATE TABLE ${schema}.todolistentity
+CREATE TABLE ${schema}.todolist
 (
   todolistid bigint NOT NULL,
   inserteddate timestamp without time zone NOT NULL,
@@ -9,17 +9,17 @@ CREATE TABLE ${schema}.todolistentity
   CONSTRAINT uk_todolistname_unique UNIQUE (todolistname)
 );
 
-CREATE TABLE ${schema}.todoentity
+CREATE TABLE ${schema}.todoitem
 (
   id bigint NOT NULL,
   inserteddate timestamp without time zone NOT NULL,
   updateddate timestamp without time zone NOT NULL,
   active boolean NOT NULL,
   value character varying(255) NOT NULL,
-  listEntity_todolistid bigint NOT NULL,
+  todolistid bigint NOT NULL,
   CONSTRAINT todoitem_pkey PRIMARY KEY (id),
-  CONSTRAINT fk_todoitem_todolist FOREIGN KEY (listEntity_todolistid)
-      REFERENCES ${schema}.todolistentity (todolistid) MATCH SIMPLE
+  CONSTRAINT fk_todoitem_todolist FOREIGN KEY (todolistid)
+      REFERENCES ${schema}.todolist (todolistid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
