@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
@@ -19,6 +20,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  * @author Bob
  *
  */
+@Table(name = "user")
 @Entity
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
 public class UserEntity extends AbstractGenericActiveEntity<Long> {
