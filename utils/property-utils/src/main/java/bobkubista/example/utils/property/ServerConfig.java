@@ -3,6 +3,8 @@ package bobkubista.example.utils.property;
 import java.math.BigDecimal;
 import java.util.Iterator;
 
+import org.apache.commons.configuration.ConversionException;
+
 /**
  * Interface for defining my config needs. This can have multiple
  * implementations as different frameworks are used. @author Bob Kubista
@@ -15,65 +17,83 @@ public interface ServerConfig {
 	 * stated here will be added to the configuration entry. For example, if the
 	 * property:
 	 *
-	 * <pre> resource.loader = file </pre>
+	 * <pre>
+	 * resource.loader = file
+	 * </pre>
 	 *
 	 * is already present in the configuration and you call
 	 *
-	 * <pre> addProperty("resource.loader", "classpath") </pre>
+	 * <pre>
+	 * addProperty("resource.loader", "classpath")
+	 * </pre>
 	 *
 	 * Then you will end up with a List like the following:
 	 *
-	 * <pre> ["file", "classpath"] </pre>
+	 * <pre>
+	 *  ["file", "classpath"]
+	 * </pre>
 	 *
-	 * @param key The key to add the property to. @param value The value to add.
+	 * @param key
+	 *            The key to add the property to.
+	 * @param value
+	 *            The value to add.
 	 */
 	void addProperty(String key, Object value);
 
 	/**
 	 * Check if the configuration contains the specified key.
 	 *
-	 * @param key the key whose presence in this configuration is to be tested
+	 * @param key
+	 *            the key whose presence in this configuration is to be tested
 	 *
 	 * @return {@code true} if the configuration contains a value for this key,
-	 * {@code false} otherwise
+	 *         {@code false} otherwise
 	 */
 	boolean contains(String key);
 
 	/**
 	 * Get a {@link BigDecimal} associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated BigDecimal if
-	 * key is found and has valid format
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated BigDecimal if key is found and has valid format
 	 */
 	BigDecimal getBigDecimal(String key);
 
 	/**
 	 * Get a boolean associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated boolean.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated boolean.
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a Boolean.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a Boolean.
 	 */
 	boolean getBoolean(String key);
 
 	/**
 	 * Get a double associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated double.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated double.
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a Double.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a Double.
 	 */
 	double getDouble(String key);
 
 	/**
 	 * Get a int associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated int.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated int.
+	 * @return
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a Integer.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a Integer.
 	 */
 	int getInt(String key);
 
@@ -94,25 +114,32 @@ public interface ServerConfig {
 	/**
 	 * Get the list of the keys contained in the configuration that match the
 	 * specified prefix. For instance, if the configuration contains the
-	 * following keys:<br> {@code db.user, db.pwd, db.url, window.xpos,
-	 * window.ypos},<br> an invocation of {@code getKeys("db");}<br> will return
-	 * the keys below:<br> {@code db.user, db.pwd, db.url}.<br> Note that the
-	 * prefix itself is included in the result set if there is a matching key.
-	 * The exact behavior - how the prefix is actually interpreted - depends on
-	 * a concrete implementation.
+	 * following keys:<br>
+	 * {@code db.user, db.pwd, db.url, window.xpos,
+	 * window.ypos},<br>
+	 * an invocation of {@code getKeys("db");}<br>
+	 * will return the keys below:<br>
+	 * {@code db.user, db.pwd, db.url}.<br>
+	 * Note that the prefix itself is included in the result set if there is a
+	 * matching key. The exact behavior - how the prefix is actually interpreted
+	 * - depends on a concrete implementation.
 	 *
-	 * @param prefix The prefix to test against. @return An Iterator of keys
-	 * that match the prefix. @see #getKeys()
+	 * @param prefix
+	 *            The prefix to test against.
+	 * @return An Iterator of keys that match the prefix.
+	 * @see #getKeys()
 	 */
 	Iterator<String> getKeys(String prefix);
 
 	/**
 	 * Get a long associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated long.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated long.
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a Long.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a Long.
 	 */
 	long getLong(String key);
 
@@ -128,19 +155,22 @@ public interface ServerConfig {
 	 * constant over time (i.e. further update operations on the configuration
 	 * may change its internal state).
 	 *
-	 * @param key property to retrieve @return the value to which this
-	 * configuration maps the specified key, or null if the configuration
-	 * contains no mapping for this key.
+	 * @param key
+	 *            property to retrieve
+	 * @return the value to which this configuration maps the specified key, or
+	 *         null if the configuration contains no mapping for this key.
 	 */
 	Object getProperty(String key);
 
 	/**
 	 * Get a string associated with the given configuration key.
 	 *
-	 * @param key The configuration key. @return The associated string.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated string.
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a String.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a String.
 	 */
 	String getString(String key);
 
@@ -148,11 +178,13 @@ public interface ServerConfig {
 	 * Get an array of strings associated with the given configuration key. If
 	 * the key doesn't map to an existing object an empty array is returned
 	 *
-	 * @param key The configuration key. @return The associated string array if
-	 * key is found.
+	 * @param key
+	 *            The configuration key.
+	 * @return The associated string array if key is found.
 	 *
-	 * @throws ConversionException is thrown if the key maps to an object that
-	 * is not a String/List of Strings.
+	 * @throws ConversionException
+	 *             is thrown if the key maps to an object that is not a
+	 *             String/List of Strings.
 	 */
 	String[] getStringArray(String key);
 
@@ -160,7 +192,10 @@ public interface ServerConfig {
 	 * Set a property, this will replace any previously set values. Set values
 	 * is implicitly a call to clearProperty(key), addProperty(key, value).
 	 *
-	 * @param key The key of the property to change @param value The new value
+	 * @param key
+	 *            The key of the property to change
+	 * @param value
+	 *            The new value
 	 */
 	void setProperty(String key, Object value);
 

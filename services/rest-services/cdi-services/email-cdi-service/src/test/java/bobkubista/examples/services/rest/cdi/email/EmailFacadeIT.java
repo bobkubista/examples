@@ -35,46 +35,39 @@ import bobkubista.examples.services.api.email.model.LinkReplacement;
  */
 public class EmailFacadeIT extends JerseyTest {
 
-    private static final String EMAIL_SUBJECT_HEADER = "Subject";
+	private static final String EMAIL_SUBJECT_HEADER = "Subject";
 
-    private static SimpleSmtpServer server;
+	private static SimpleSmtpServer server;
 
-    @After
-    public void afterClass() {
-        server.stop();
-    }
+	@After
+	public void afterClass() {
+		server.stop();
+	}
 
-    @Before
-    public void beforeClass() {
-        server = SimpleSmtpServer.start(Integer.valueOf(ServerProperties.getString("email.smtp.port")));
-    }
+	@Before
+	public void beforeClass() {
+		server = SimpleSmtpServer.start(Integer.valueOf(ServerProperties.getString("email.smtp.port")));
+	}
 
-    /**
-     * Test method for
-     * {@link com.gamehouse.gameflix.services.webservices.emailservice.EmailFacade#sendEmail(com.gamehouse.gameflix.services.webservices.emailservice.api.domain.Email)}
-     * .
-     *
-     * @throws URISyntaxException
-     */
-    @Test
-    public void testSendEmail() throws URISyntaxException {
-        final EmailContext email = new EmailBuilder("bla@foo.bar", "foobar").addReplacement(new DateReplacement(new Date()))
-                .addReplacement(new LinkReplacement(new URI("http://bla.bla"))).build();
-        System.out.println(email.toString());
-        final Response response = this.target("/").request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON).put(Entity.entity(email.getEmail(), MediaType.APPLICATION_XML),
-                Response.class);
+	@Test
+	public void testSendEmail() throws URISyntaxException {
+		final EmailContext email = new EmailBuilder("bla@foo.bar", "foobar").addReplacement(new DateReplacement(new Date()))
+				.addReplacement(new LinkReplacement(new URI("http://bla.bla"))).build();
+		System.out.println(email.toString());
+		final Response response = this.target("/").request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON).put(Entity.entity(email.getEmail(), MediaType.APPLICATION_XML),
+				Response.class);
 
-        Assert.assertNotNull(response);
-        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
-        Assert.assertEquals(1, server.getReceivedEmailSize());
-        final SmtpMessage recievedEmail = (SmtpMessage) server.getReceivedEmail().next();
-        Assert.assertEquals("foobar", recievedEmail.getHeaderValue(EMAIL_SUBJECT_HEADER));
-    }
+		Assert.assertNotNull(response);
+		Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		Assert.assertEquals(1, server.getReceivedEmailSize());
+		final SmtpMessage recievedEmail = (SmtpMessage) server.getReceivedEmail().next();
+		Assert.assertEquals("foobar", recievedEmail.getHeaderValue(EMAIL_SUBJECT_HEADER));
+	}
 
-    @Override
-    protected Application configure() {
+	@Override
+	protected Application configure() {
 
-        return new ResourceConfig(EmailFacade.class);
-    }
+		return new ResourceConfig(EmailFacade.class);
+	}
 
 }

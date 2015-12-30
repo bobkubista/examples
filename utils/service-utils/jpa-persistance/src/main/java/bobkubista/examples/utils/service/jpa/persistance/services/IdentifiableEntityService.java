@@ -13,8 +13,9 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *
  * @author bkubista
  *
- * @param <TYPE> the {@link AbstractIdentifiableEntity} @param <ID> the
- * identifier of the {@link AbstractIdentifiableEntity}
+ * @param <TYPE>
+ *            the {@link AbstractIdentifiableEntity} @param <ID> the identifier
+ *            of the {@link AbstractIdentifiableEntity}
  */
 @Transactional
 @FunctionalInterface
@@ -23,7 +24,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * Check if object of {@link AbstractIdentifiableEntity} exists
 	 *
-	 * @param object the object to check @return true if exists
+	 * @param object
+	 *            the object to check @return true if exists
 	 */
 	public default boolean contains(final TYPE object) {
 		return this.getDAO().contains(object);
@@ -32,8 +34,9 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * Create the object of {@link AbstractIdentifiableEntity} type
 	 *
-	 * @param object the object to create @return <code>TYPE</code> that was
-	 * created
+	 * @param object
+	 *            the object to create @return <code>TYPE</code> that was
+	 *            created
 	 */
 	public default TYPE create(final TYPE object) {
 		this.getDAO().create(object);
@@ -43,7 +46,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * delete the specific object of {@link AbstractIdentifiableEntity}
 	 *
-	 * @param object the object to delete
+	 * @param object
+	 *            the object to delete
 	 */
 	public default void delete(final TYPE object) {
 		this.getDAO().delete(object);
@@ -52,21 +56,25 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * get all known {@link AbstractIdentifiableEntity} of that type
 	 *
-	 * @param sort which field to sort
-	 * @param page the page
-	 * @param the max amount of results per page
+	 * @param sort
+	 *            which field to sort
+	 * @param page
+	 *            the page
+	 * @param maxResults
+	 *            the max amount of results per page
 	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
-	 * same type
+	 *         same type
 	 */
-	public default Collection<TYPE> getAll(final String sort, int page, int maxResults) {
+	public default Collection<TYPE> getAll(final String sort, final int page, final int maxResults) {
 		return this.getDAO().getAll(sort, page, maxResults);
 	}
 
 	/**
 	 * get the {@link AbstractIdentifiableEntity}
 	 *
-	 * @param identifier the identfier @return the {@link
-	 * AbstractIdentifiableEntity}
+	 * @param identifier
+	 *            the identfier
+	 * @return the {@link AbstractIdentifiableEntity}
 	 */
 	public default TYPE getById(final ID identifier) {
 		return this.getDAO().getById(identifier);
@@ -75,7 +83,9 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	/**
 	 * update the object of {@link AbstractIdentifiableEntity}
 	 *
-	 * @param object the object to update @return the updated object
+	 * @param object
+	 *            the object to update
+	 * @return the updated object
 	 */
 	public default TYPE update(final TYPE object) {
 		this.getDAO().update(object);

@@ -1,5 +1,7 @@
 package bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction;
 
+import java.util.Set;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 
@@ -18,8 +20,9 @@ final class FixedSizeBuffer {
 	/**
 	 *
 	 * Constructor
-	 * 
-	 * @param numSlots buffer size
+	 *
+	 * @param numSlots
+	 *            buffer size
 	 */
 	public FixedSizeBuffer(final int numSlots) {
 		this.numSlots = numSlots;
@@ -31,7 +34,8 @@ final class FixedSizeBuffer {
 	 * Add an entry to the buffer, if the buffer is full, replace the first
 	 * entry
 	 *
-	 * @param transaction the {@link Transaction} to store
+	 * @param transaction
+	 *            the {@link Transaction} to store
 	 */
 	public void addEntry(final Transaction transaction) {
 		this.transactions[this.incPos()] = transaction;

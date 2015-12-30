@@ -4,6 +4,7 @@
 package bobkubista.examples.utils.domain.model.api;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 
 /**
@@ -25,19 +28,23 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * admin applications.
  *
  * The interface extends the {@link IdentifiableApi} which describes the input
- * and return types possible. For Rest services, we need to return only {@link
- * Response} types as the single objects and collection of objects. The
+ * and return types possible. For Rest services, we need to return only
+ * {@link Response} types as the single objects and collection of objects. The
  * identifier stays the same.
  *
- * @param <DMO> The {@link DomainObject} @param <ID> The {@link Serializable}
- * identifier @author bkubista
+ * @param <DMO>
+ *            The {@link DomainObject}
+ * @param <ID>
+ *            The {@link Serializable} identifier
+ * @author bkubista
  *
  */
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
 
 	/**
-	 * @param entity array of entities @return a response with
-	 * Status.NOT_IMPLEMENTED as status
+	 * @param entity
+	 *            array of entities
+	 * @return a response with Status.NOT_IMPLEMENTED as status
 	 */
 	static Response buildNotImplementedResponse(final Object... entity) {
 		return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
@@ -46,8 +53,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	/**
 	 * Create the object of {@link DomainObject} type
 	 *
-	 * @param object the object to create @return the <code>DMO</code> that was
-	 * created @return {@link Response}
+	 * @param object
+	 *            the object to create
+	 * @return {@link Response}
 	 */
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -59,8 +67,10 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	/**
 	 * delete the specific object of {@link DomainObject}
 	 *
-	 * @param identifier the identfier @return Response. Default is {@link
-	 * NotImplementedException} @return {@link Response}
+	 * @param identifier
+	 *            the identfier
+	 * @return Response. Default is {@link NotImplementedException} @return
+	 *         {@link Response}
 	 */
 	@DELETE
 	@Path("{id}")
@@ -84,8 +94,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	/**
 	 * get the {@link DomainObject}
 	 *
-	 * @param identifier the identfier @return the {@link DomainObject} @return
-	 * {@link Response}
+	 * @param identifier
+	 *            the identfier @return the {@link DomainObject} @return
+	 *            {@link Response}
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -98,8 +109,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	/**
 	 * update the object of {@link DomainObject}
 	 *
-	 * @param object the object to update @return the updated object @return
-	 * {@link Response}
+	 * @param object
+	 *            the object to update @return the updated object @return
+	 *            {@link Response}
 	 */
 	@PUT
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
