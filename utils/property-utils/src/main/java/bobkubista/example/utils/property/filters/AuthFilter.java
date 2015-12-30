@@ -51,20 +51,16 @@ public class AuthFilter implements ContainerRequestFilter {
             throw new NotAuthorizedException("Bearer error=\"invalid_token\"");
         }
         // requestContext.setSecurityContext(new TimSecurityContext(user,
-        // servletRequest));
+        // servletRequest))
 
     }
 
     private Principal getUserByToken(final String token) {
         final String casUrl = ServerProperties.getString("cas.url");
-        try {
-            ClientBuilder.newClient().target(casUrl).queryParam("access_token", token).request(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML).get();
+        ClientBuilder.newClient().target(casUrl).queryParam("access_token", token).request(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML).get();
 
-            // Principal principal = response.readEntity(CasUser.class);
-            return null;
-        } catch (final Exception e) {
-            return null;
-        }
+        // Principal principal = response.readEntity(CasUser.class)
+        return null;
     }
 
     private String parseToken(final String authenticationHeader) {
