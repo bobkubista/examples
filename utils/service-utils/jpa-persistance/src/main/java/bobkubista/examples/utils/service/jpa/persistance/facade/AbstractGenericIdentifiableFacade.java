@@ -65,7 +65,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 	@Override
 	public Response getAll() {
 		// TODO fix search
-		final Collection<TYPE> allEntities = this.getService().getAll("id", 0, 100);
+		final Collection<TYPE> allEntities = this.getService().getAll("", 0, 100);
 		return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
 	}
 
