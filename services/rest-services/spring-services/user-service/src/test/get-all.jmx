@@ -15,10 +15,10 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
         <longProp name="ThreadGroup.start_time">1451481474000</longProp>
         <longProp name="ThreadGroup.end_time">1451481474000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -31,7 +31,7 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain">192.168.1.110</stringProp>
-          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
