@@ -25,6 +25,7 @@ public class GeneralEmailStrategyTest {
     private static final String GENERAL_EMAIL = "Hello bla@foo.bar,Please click link below to activate your account, http://bla.blaThank you,";
     private static final String SUBJECT = "foobar";
 
+    @SuppressWarnings("el-syntax")
     @Test
     public void testGeneralEmailStrategy() throws URISyntaxException {
         final String recipient = "bla@foo.bar";
