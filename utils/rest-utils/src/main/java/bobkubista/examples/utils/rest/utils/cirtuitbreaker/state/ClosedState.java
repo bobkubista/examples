@@ -10,21 +10,20 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreaker;
  */
 public final class ClosedState implements CircuitBreakerState {
 
-    /**
-     * Constructor
-     *
-     * @param circuitBreaker
-     */
-    public ClosedState() {
-        super();
-    }
+	/**
+	 * Constructor
+	 *
+	 */
+	public ClosedState() {
+		super();
+	}
 
-    @Override
-    public boolean isRequestAllowed(final CircuitBreaker circuitBreaker) {
-        if (circuitBreaker.getPolicy().isHealthy(circuitBreaker.getScope())) {
-            return true;
-        } else {
-            return circuitBreaker.changeState(new OpenState(circuitBreaker.getOpenStateTimeout())).isRequestAllowed(circuitBreaker);
-        }
-    }
+	@Override
+	public boolean isRequestAllowed(final CircuitBreaker circuitBreaker) {
+		if (circuitBreaker.getPolicy().isHealthy(circuitBreaker.getScope())) {
+			return true;
+		} else {
+			return circuitBreaker.changeState(new OpenState(circuitBreaker.getOpenStateTimeout())).isRequestAllowed(circuitBreaker);
+		}
+	}
 }

@@ -1,7 +1,5 @@
 package bobkubista.examples.services.rest.cdi.email.strategy;
 
-import org.hibernate.validator.constraints.Email;
-
 import bobkubista.examples.services.api.email.model.EmailContext;
 
 /**
@@ -12,29 +10,28 @@ import bobkubista.examples.services.api.email.model.EmailContext;
  */
 public class GeneralEmailStrategy extends AbstractEmailStrategy {
 
-    private final EmailContext email;
+	private final EmailContext email;
 
-    /**
-     * Constructor
-     *
-     * @param email
-     *            {@link Email}
-     */
-    public GeneralEmailStrategy(final EmailContext email) {
-        this.email = email;
-        final String templateFile = "template/generalTemplate.tmpl";
+	/**
+	 * Constructor
+	 *
+	 * @param email {@link Email}
+	 */
+	public GeneralEmailStrategy(final EmailContext email) {
+		this.email = email;
+		final String templateFile = "template/generalTemplate.tmpl";
 
-        this.composeEmail(this.email, templateFile);
-    }
+		this.composeEmail(this.email, templateFile);
+	}
 
-    @Override
-    public String toString() {
-        return "GeneralEmailStrategy";
-    }
+	@Override
+	public String toString() {
+		return "GeneralEmailStrategy";
+	}
 
-    @Override
-    EmailContext getEmail() {
-        return this.email;
-    }
+	@Override
+	EmailContext getEmail() {
+		return this.email;
+	}
 
 }
