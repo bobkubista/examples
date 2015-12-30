@@ -90,8 +90,6 @@ public interface ServerConfig {
 	 * @param key
 	 *            The configuration key.
 	 * @return The associated int.
-	 * @return
-	 *
 	 * @throws ConversionException
 	 *             is thrown if the key maps to an object that is not a Integer.
 	 */

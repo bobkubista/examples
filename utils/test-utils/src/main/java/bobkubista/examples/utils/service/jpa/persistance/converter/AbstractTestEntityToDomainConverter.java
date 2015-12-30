@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 
 /**
  * An abstract resources utility class to resources converters. Extend the
@@ -16,9 +18,14 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *
  * @author bkubista
  *
- * @param <DMO> An {@link AbstractGenericIdentifiableDomainObject} @param <DMOL>
- * A {@link AbstractGenericDomainObjectCollection} @param <EO> An {@link
- * AbstractIdentifiableEntity} @param <ID> the identifier
+ * @param <DMO>
+ *            An {@link AbstractGenericIdentifiableDomainObject}
+ * @param <DMOL>
+ *            A {@link AbstractGenericDomainObjectCollection}
+ * @param <EO>
+ *            An {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            the identifier
  */
 public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
@@ -36,8 +43,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test when you want to convert a {@link EntityObject} into an {@link
-	 * DomainObject}, you get valid output.
+	 * Test when you want to convert a {@link EntityObject} into an
+	 * {@link DomainObject}, you get valid output.
 	 */
 	@Test
 	public void testConvertToDomainObject() {
@@ -47,8 +54,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test that there is a nullpointer when you want to convert a {@link
-	 * EntityObject} into an {@link DomainObject} and the input is null
+	 * Test that there is a nullpointer when you want to convert a
+	 * {@link EntityObject} into an {@link DomainObject} and the input is null
 	 */
 	@Test
 	public void testDoConvertToDomainObjectNullEntity() {
@@ -60,8 +67,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test when you want to convert a {@link DomainObject} into an {@link
-	 * EntityObject}, you get valid output.
+	 * Test when you want to convert a {@link DomainObject} into an
+	 * {@link EntityObject}, you get valid output.
 	 */
 	@Test
 	public void testDoConvertToEntity() {
@@ -71,8 +78,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test that there is a nullpointer when you want to convert a {@link
-	 * DomainObject} into an {@link EntityObject} and the input is null
+	 * Test that there is a nullpointer when you want to convert a
+	 * {@link DomainObject} into an {@link EntityObject} and the input is null
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testDoConvertToEntityNullDomainObject() {
@@ -82,8 +89,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test that there is a nullpointer when you want to convert a {@link
-	 * DomainObject} into an {@link EntityObject} and the input is null
+	 * Test that there is a nullpointer when you want to convert a
+	 * {@link DomainObject} into an {@link EntityObject} and the input is null
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testDoConvertToEntityNullDomainObjectAndEntity() {
@@ -94,8 +101,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test that there is a nullpointer when you want to convert a {@link
-	 * DomainObject} into an {@link EntityObject} and the input is null
+	 * Test that there is a nullpointer when you want to convert a
+	 * {@link DomainObject} into an {@link EntityObject} and the input is null
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testDoConvertToEntityNullEntity() {
@@ -106,8 +113,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	}
 
 	/**
-	 * Test when you want to convert a {@link DomainObject} into an {@link
-	 * EntityObject}, you get valid output.
+	 * Test when you want to convert a {@link DomainObject} into an
+	 * {@link EntityObject}, you get valid output.
 	 */
 	@Test
 	public void testDoConvertToEntityWithEntity() {
@@ -135,16 +142,18 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	/**
 	 * assert a {@link DomainObject}
 	 *
-	 * @param domainModelObject the {@link DomainObject} to check @param entity
-	 * the {@link EntityObject} to check with
+	 * @param domainModelObject
+	 *            the {@link DomainObject} to check @param entity the
+	 *            {@link EntityObject} to check with
 	 */
 	protected abstract void assertDomainObject(DMO domainModelObject, EO entity);
 
 	/**
 	 * assert an {@link EntityObject}
 	 *
-	 * @param domainModelObject the {@link DomainObject} to check with @param
-	 * entity the {@link EntityObject} to check
+	 * @param domainModelObject
+	 *            the {@link DomainObject} to check with @param entity the
+	 *            {@link EntityObject} to check
 	 */
 	protected abstract void assertEntity(DMO domainModelObject, EO entity);
 
