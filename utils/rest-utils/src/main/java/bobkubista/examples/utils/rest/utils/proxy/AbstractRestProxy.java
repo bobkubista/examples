@@ -22,6 +22,7 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
  * @author bkubista
  *
  */
+// TODO refactor to be a builder
 public abstract class AbstractRestProxy {
 
 	private Client client;
@@ -59,6 +60,10 @@ public abstract class AbstractRestProxy {
 	 */
 	protected abstract String getBaseUri();
 
+	protected Builder getRequest(final WebTarget target) {
+		return target.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
+	}
+
 	/**
 	 *
 	 * @param paths
@@ -73,10 +78,6 @@ public abstract class AbstractRestProxy {
 			serviceWithPath = serviceWithPath.path(path);
 		}
 		return serviceWithPath;
-	}
-
-	protected Builder getRequest(final WebTarget target) {
-		return target.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
 	}
 
 	protected WebTarget getServiceWithQueryParams(final WebTarget target, final Map<String, String> params) {
