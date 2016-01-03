@@ -1,6 +1,8 @@
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -44,7 +46,8 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
 
 	@Override
 	public Response getAll() {
-		return this.getRequest(this.getServiceWithPaths()).get();
+		final Map<String, String> params = new HashMap<>();
+		return this.getRequest(this.getServiceWithQueryParams(this.getServiceWithPaths(), params)).get();
 	}
 
 	@Override

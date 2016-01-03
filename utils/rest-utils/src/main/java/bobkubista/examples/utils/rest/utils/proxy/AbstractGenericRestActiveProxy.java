@@ -4,6 +4,8 @@
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
@@ -23,7 +25,8 @@ public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGeneri
 
 	@Override
 	public Response getAllActive() {
-		return this.getRequest(this.getServiceWithPaths("active")).get();
+		final Map<String, String> params = new HashMap<>();
+		return this.getRequest(this.getServiceWithQueryParams(this.getServiceWithPaths("active"), params)).get();
 	}
 
 }
