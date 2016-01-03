@@ -13,9 +13,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * An abstract service to get {@link AbstractGenericIdentifiableDomainObject}s
  * from cache
  *
- * @author bkubista @param <ID> the identifier of the {@link
- * AbstractGenericIdentifiableDomainObject} @param <TYPE> the type of {@link
- * AbstractGenericIdentifiableDomainObject}
+ * @author bkubista @param <ID> the identifier of the
+ *         {@link AbstractGenericIdentifiableDomainObject} @param <TYPE> the
+ *         type of {@link AbstractGenericIdentifiableDomainObject}
  */
 public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
 		implements IdentifiableApi<TYPE, ID> {
@@ -23,41 +23,44 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
 	/**
 	 * Create the object of <code>TYPE</code>
 	 *
-	 * @param object the object to be created @return the created object
+	 * @param object
+	 *            the object to be created @return the created object
 	 */
 	@Override
 	public Response create(final TYPE object) {
-		return this.getRequest().post(Entity.entity(object, MediaType.APPLICATION_JSON));
+		return this.getRequest(this.getServiceWithPaths()).post(Entity.entity(object, MediaType.APPLICATION_JSON));
 	}
 
 	/**
 	 * Deleting is not possible, override this methode
 	 *
-	 * @param identifier the <code>ID</code> to delete
+	 * @param identifier
+	 *            the <code>ID</code> to delete
 	 */
 	@Override
 	public Response delete(final ID identifier) {
-		return this.getRequest(identifier.toString()).delete();
+		return this.getRequest(this.getServiceWithPaths(identifier.toString())).delete();
 	}
 
 	@Override
 	public Response getAll() {
-		return this.getRequest().get();
+		return this.getRequest(this.getServiceWithPaths()).get();
 	}
 
 	@Override
 	public Response getByID(final ID identifier) {
-		return this.getRequest(identifier.toString()).get();
+		return this.getRequest(this.getServiceWithPaths(identifier.toString())).get();
 	}
 
 	/**
 	 * Updating is not possible, override this methode
 	 *
-	 * @param object the <code>TYPE</code> to update @return the updated object
+	 * @param object
+	 *            the <code>TYPE</code> to update @return the updated object
 	 */
 	@Override
 	public Response update(final TYPE object) {
-		return this.getRequest().put(Entity.entity(object, MediaType.APPLICATION_JSON));
+		return this.getRequest(this.getServiceWithPaths()).put(Entity.entity(object, MediaType.APPLICATION_JSON));
 	}
 
 }

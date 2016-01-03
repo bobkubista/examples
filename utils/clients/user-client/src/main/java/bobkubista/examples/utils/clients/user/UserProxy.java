@@ -12,19 +12,19 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy
  */
 public class UserProxy extends AbstractGenericRestActiveProxy<User, Long> implements UserApi {
 
-    @Override
-    public Response isAuthorized(final Long userId, final String right) {
-        return this.getRequest(userId.toString(), right).get();
-    }
+	@Override
+	public Response isAuthorized(final Long userId, final String right) {
+		return this.getRequest(this.getServiceWithPaths(userId.toString(), right)).get();
+	}
 
-    @Override
-    protected String getBasePath() {
-        return ServerProperties.getString("rest.service.base.path");
-    }
+	@Override
+	protected String getBasePath() {
+		return ServerProperties.getString("rest.service.base.path");
+	}
 
-    @Override
-    protected String getBaseUri() {
-        return "";
-    }
+	@Override
+	protected String getBaseUri() {
+		return "";
+	}
 
 }

@@ -3,6 +3,9 @@
  */
 package bobkubista.examples.utils.rest.utils.proxy;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ws.rs.client.Client;
@@ -58,17 +61,30 @@ public abstract class AbstractRestProxy {
 
 	/**
 	 *
-	 * @param paths the paths to get for the rest service
+	 * @param paths
+	 *            the paths to get for the rest service
 	 *
 	 * @return {@link javax.ws.rs.client.Invocation.Builder}
 	 */
 	// TODO refactor to make use of template see page 84 JEE essentials
-	protected Builder getRequest(final String... paths) {
+	protected WebTarget getServiceWithPaths(final String... paths) {
 		WebTarget serviceWithPath = this.getServiceWithPaths();
 		for (final String path : paths) {
 			serviceWithPath = serviceWithPath.path(path);
 		}
-		return serviceWithPath.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
+		return serviceWithPath;
+	}
+
+	protected Builder getRequest(final WebTarget target) {
+		return target.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
+	}
+
+	protected WebTarget getServiceWithQueryParams(final WebTarget target, final Map<String, String> params) {
+		WebTarget serviceWithQuery = target;
+		for (final Entry<String, String> queryParam : params.entrySet()) {
+			serviceWithQuery = serviceWithQuery.queryParam(queryParam.getKey(), queryParam.getValue());
+		}
+		return serviceWithQuery;
 	}
 
 	private WebTarget getServiceWithPaths() {
