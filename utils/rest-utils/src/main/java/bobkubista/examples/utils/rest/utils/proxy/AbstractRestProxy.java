@@ -81,7 +81,7 @@ public abstract class AbstractRestProxy {
 	}
 
 	protected WebTarget getServiceWithQueryParams(final Map<String, Object> params, final String... paths) {
-		WebTarget serviceWithQuery = this.getServiceWithPaths();
+		WebTarget serviceWithQuery = this.getServiceWithPaths(paths);
 		for (final Entry<String, Object> queryParam : params.entrySet()) {
 			serviceWithQuery = serviceWithQuery.queryParam(queryParam.getKey(), queryParam.getValue());
 		}
