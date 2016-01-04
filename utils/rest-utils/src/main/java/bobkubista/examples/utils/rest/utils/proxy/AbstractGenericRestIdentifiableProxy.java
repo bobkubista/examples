@@ -47,7 +47,7 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
 	@Override
 	public Response getAll() {
 		final Map<String, String> params = new HashMap<>();
-		return this.getRequest(this.getServiceWithQueryParams(this.getServiceWithPaths(), params)).get();
+		return this.getRequest(this.getServiceWithQueryParams(params)).get();
 	}
 
 	@Override
