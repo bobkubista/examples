@@ -25,7 +25,7 @@ public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGeneri
 
 	@Override
 	public Response getAllActive() {
-		final Map<String, String> params = new HashMap<>();
+		final Map<String, Object> params = new HashMap<>();
 		return this.getRequest(this.getServiceWithQueryParams(params, "active")).get();
 	}
 

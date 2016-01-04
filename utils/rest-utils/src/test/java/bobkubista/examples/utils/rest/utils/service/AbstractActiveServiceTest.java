@@ -25,7 +25,7 @@ public class AbstractActiveServiceTest {
 
 	@Test
 	public void testGetAll() {
-		Assert.assertEquals(2, this.service.getAll().size());
+		Assert.assertEquals(2, this.service.getAll(null, 0, 2).size());
 	}
 
 	@Test

@@ -27,51 +27,51 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> {
 
-    /**
-     *
-     * @param object
-     *            {@link AbstractGenericIdentifiableDomainObject} to create
-     */
-    void create(TYPE object);
+	/**
+	 *
+	 * @param object
+	 *            {@link AbstractGenericIdentifiableDomainObject} to create
+	 */
+	void create(TYPE object);
 
-    /**
-     *
-     * @param id
-     *            identifier of the
-     *            {@link AbstractGenericIdentifiableDomainObject} to delete
-     */
-    void delete(ID id);
+	/**
+	 *
+	 * @param id
+	 *            identifier of the
+	 *            {@link AbstractGenericIdentifiableDomainObject} to delete
+	 */
+	void delete(ID id);
 
-    /**
-     * Get a {@link Collection} of <code>TYPE</code>
-     *
-     * @return all instances of that type
-     */
-    Collection<TYPE> getAll();
+	/**
+	 * Get a {@link Collection} of <code>TYPE</code>
+	 *
+	 * @return all instances of that type
+	 */
+	Collection<TYPE> getAll(String sort, Integer page, Integer maxResults);
 
-    /**
-     * Get a {@link CompletableFuture} with {@link Collection} of
-     * <code>TYPE</code>
-     *
-     * @return {@link CompletableFuture} of all instances of that type
-     */
-    CompletableFuture<Collection<TYPE>> getAllAsync();
+	/**
+	 * Get a {@link CompletableFuture} with {@link Collection} of
+	 * <code>TYPE</code>
+	 *
+	 * @return {@link CompletableFuture} of all instances of that type
+	 */
+	CompletableFuture<Collection<TYPE>> getAllAsync(String sort, Integer page, Integer maxResults);
 
-    /**
-     * Get a <code>TYPE</code> with <code>ID</code>
-     *
-     * @param id
-     *            the identifier
-     * @return the single instance of the <code>TYPE</code>
-     */
-    TYPE getByID(ID id);
+	/**
+	 * Get a <code>TYPE</code> with <code>ID</code>
+	 *
+	 * @param id
+	 *            the identifier
+	 * @return the single instance of the <code>TYPE</code>
+	 */
+	TYPE getByID(ID id);
 
-    /**
-     *
-     * @param object
-     *            the TYPE to update
-     * @return the updated TYPE
-     */
-    TYPE update(TYPE object);
+	/**
+	 *
+	 * @param object
+	 *            the TYPE to update
+	 * @return the updated TYPE
+	 */
+	TYPE update(TYPE object);
 
 }

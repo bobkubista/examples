@@ -8,12 +8,14 @@ import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -40,6 +42,10 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  *
  */
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
+
+	public static final String MAX = "max";
+	public static final String PAGE = "page";
+	public static final String SORT = "sort";
 
 	/**
 	 * @param entity
@@ -82,12 +88,20 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	/**
 	 * get all known {@link DomainObject} of that type
 	 *
+	 * @param sort
+	 *            sort field
+	 * @param page
+	 *            the page
+	 * @param maxResults
+	 *            amount of results
+	 *
 	 * @return a {@link Collection} of {@link DomainObject} of the same type
 	 */
 	@GET
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	default Response getAll() {
+	default Response getAll(@QueryParam(SORT) final String sort, @QueryParam(PAGE) @DefaultValue("0") final Integer page,
+			@QueryParam(MAX) @DefaultValue("20") final Integer maxResults) {
 		return IdentifiableApi.buildNotImplementedResponse();
 	}
 

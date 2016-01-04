@@ -15,9 +15,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * An abstract service to get {@link AbstractGenericIdentifiableDomainObject}s
  * from cache
  *
- * @author bkubista @param <ID> the identifier of the
- *         {@link AbstractGenericIdentifiableDomainObject} @param <TYPE> the
- *         type of {@link AbstractGenericIdentifiableDomainObject}
+ * @author bkubista
+ * @param <ID>
+ *            the identifier of the
+ *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <TYPE>
+ *            the type of {@link AbstractGenericIdentifiableDomainObject}
  */
 public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
 		implements IdentifiableApi<TYPE, ID> {
@@ -45,8 +48,17 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
 	}
 
 	@Override
-	public Response getAll() {
-		final Map<String, String> params = new HashMap<>();
+	public Response getAll(final String sort, final Integer page, final Integer maxResults) {
+		final Map<String, Object> params = new HashMap<>();
+		if (sort != null) {
+			params.put(SORT, sort);
+		}
+		if (page != null) {
+			params.put(PAGE, page);
+		}
+		if (maxResults != null) {
+			params.put(MAX, maxResults);
+		}
 		return this.getRequest(this.getServiceWithQueryParams(params)).get();
 	}
 

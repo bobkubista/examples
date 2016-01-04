@@ -21,22 +21,22 @@ import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 @Ignore // TODO
 public class TodoProxyTest {
 
-    @Inject
-    private TodoProxy proxy;
+	@Inject
+	private TodoProxy proxy;
 
-    @Test
-    public void testGetAll() {
-        final Response response = this.proxy.getAll();
-        Assert.assertNotNull(response);
-        Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        final TodoListCollection textItems = (TodoListCollection) response.getEntity();
-        Assert.assertNotNull(textItems);
-        Assert.assertNotNull(textItems.getDomainCollection());
-    }
+	@Test
+	public void testGetAll() {
+		final Response response = this.proxy.getAll(null, null, null);
+		Assert.assertNotNull(response);
+		Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+		final TodoListCollection textItems = (TodoListCollection) response.getEntity();
+		Assert.assertNotNull(textItems);
+		Assert.assertNotNull(textItems.getDomainCollection());
+	}
 
-    @Test
-    public void testGetBasePath() {
-        Assert.assertEquals("textitems", this.proxy.getBasePath());
-    }
+	@Test
+	public void testGetBasePath() {
+		Assert.assertEquals("textitems", this.proxy.getBasePath());
+	}
 
 }
