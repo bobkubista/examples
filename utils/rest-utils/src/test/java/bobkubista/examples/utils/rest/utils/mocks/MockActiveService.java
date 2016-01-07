@@ -28,6 +28,7 @@ public class MockActiveService extends AbstractActiveService<MockActiveDomainObj
 		mockDomainCollection.getDomainCollection().add(new MockActiveDomainObject(1, "F1"));
 		mockDomainCollection.getDomainCollection().add(new MockActiveDomainObject(2, "F2"));
 		Mockito.when(getAllResponse.readEntity(MockDomainCollection.class)).thenReturn(mockDomainCollection);
+		Mockito.when(getAllResponse.getStatus()).thenReturn(200);
 		Mockito.when(mockProxy.getAllActive()).thenReturn(getAllResponse);
 
 		final Response mockSingleResponse = Mockito.mock(Response.class);
