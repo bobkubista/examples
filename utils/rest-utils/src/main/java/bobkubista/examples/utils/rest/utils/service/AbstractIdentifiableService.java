@@ -7,8 +7,11 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +61,9 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     }
 
     @Override
-    public Collection<TYPE> getAll() {
+	public Collection<TYPE> getAll(final String sort, final Integer page, final Integer maxResults) {
         try {
-            return this.getAllAsync().get();
+			return this.getAllAsync(sort, page, maxResults).get();
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.warn(e.getMessage(), e);
             return new ArrayList<>();
@@ -68,9 +71,15 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     }
 
     @Override
-    public CompletableFuture<Collection<TYPE>> getAllAsync() {
-        return CompletableFuture
-                .supplyAsync(() -> AbstractIdentifiableService.this.getProxy().getAll().readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection());
+    public CompletableFuture<Collection<TYPE>> getAllAsync(final String sort, final Integer page, final Integer maxResults) {
+        return CompletableFuture.supplyAsync(() -> {
+            final Response response = AbstractIdentifiableService.this.getProxy().getAll(sort, page, maxResults);
+            if (response.getStatus() == 200) {
+                return response.readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection();
+            } else {
+                return Collections.emptyList();
+            }
+        });
     }
 
     @Override

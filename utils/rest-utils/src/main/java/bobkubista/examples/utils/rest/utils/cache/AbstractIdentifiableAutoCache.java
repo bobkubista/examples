@@ -37,6 +37,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
     private static final int ACCESS_TIMEOUT = 15;
     private static final int CONCURRENCY_LEVEL = 255;
     private static final int WRITE_TIMEOUT = 30;
+    // TODO replace with Caffeine cache
     private final LoadingCache<K, V> cache;
 
     /**
@@ -136,7 +137,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
      * @return a {@link Collection} of V
      */
     protected Collection<V> getAllObjects() {
-        return this.getIdentifiableService().getAll();
+		return this.getIdentifiableService().getAll(null, null, null);
     }
 
     /**
