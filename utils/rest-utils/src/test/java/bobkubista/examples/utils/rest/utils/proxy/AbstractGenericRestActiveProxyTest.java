@@ -35,151 +35,151 @@ import bobkubista.examples.utils.rest.utils.mocks.MockActiveProxy;
 @PrepareForTest(ClientBuilder.class)
 public class AbstractGenericRestActiveProxyTest {
 
-    final Client mockClient = Mockito.mock(Client.class);
-    final Response mockResponse = Mockito.mock(Response.class);
+	final Client mockClient = Mockito.mock(Client.class);
+	final Response mockResponse = Mockito.mock(Response.class);
 
-    private final AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> proxy = new MockActiveProxy();
+	private final AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> proxy = new MockActiveProxy();
 
-    @Before
-    public void start() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	@Before
+	public void start() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Builder mockBuilder = Mockito.mock(Builder.class);
-        Mockito.when(mockBuilder.get()).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.post(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.put(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.delete()).thenReturn(this.mockResponse);
+		final Builder mockBuilder = Mockito.mock(Builder.class);
+		Mockito.when(mockBuilder.get()).thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.post(Matchers.any())).thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.put(Matchers.any())).thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.delete()).thenReturn(this.mockResponse);
 
-        final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
-        Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
+		final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
+		Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
+		Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
 
-        Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
+		Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
 
-        PowerMockito.mockStatic(ClientBuilder.class);
-        PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
-        this.proxy.base();
-    }
+		PowerMockito.mockStatic(ClientBuilder.class);
+		PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
+		this.proxy.base();
+	}
 
-    @After
-    public void stop() {
-        this.proxy.close();
-    }
+	@After
+	public void stop() {
+		this.proxy.close();
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#create(bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject)}
-     * .
-     */
-    @Test
-    public void testCreate() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(201);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#create(bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject)}
+	 * .
+	 */
+	@Test
+	public void testCreate() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(201);
 
-        final Response result = this.proxy.create(new MockActiveDomainObject());
-        Assert.assertEquals(201, result.getStatus());
-    }
+		final Response result = this.proxy.create(new MockActiveDomainObject());
+		Assert.assertEquals(201, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#delete(java.io.Serializable)}
-     * .
-     */
-    @Test
-    public void testDelete() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#delete(java.io.Serializable)}
+	 * .
+	 */
+	@Test
+	public void testDelete() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.delete(1);
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.delete(1);
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#getAll()}
-     * .
-     */
-    @Test
-    public void testGetAll() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#getAll()}
+	 * .
+	 */
+	@Test
+	public void testGetAll() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.getAll();
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.getAll(null, null, null);
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy#getAllActive()}
-     * .
-     */
-    @Test
-    public void testGetAllActive() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy#getAllActive()}
+	 * .
+	 */
+	@Test
+	public void testGetAllActive() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.getAllActive();
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.getAllActive();
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#getByFunctionalId(java.lang.String)}
-     * .
-     */
-    @Test
-    public void testGetByFunctionalId() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#getByFunctionalId(java.lang.String)}
+	 * .
+	 */
+	@Test
+	public void testGetByFunctionalId() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.getByFunctionalId("blaat");
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.getByFunctionalId("blaat");
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#getByID(java.io.Serializable)}
-     * .
-     */
-    @Test
-    public void testGetByID() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#getByID(java.io.Serializable)}
+	 * .
+	 */
+	@Test
+	public void testGetByID() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.getByID(1);
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.getByID(1);
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#getIdByFunctionalId(java.lang.String)}
-     * .
-     */
-    @Test
-    public void testGetIdByFunctionalId() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#getIdByFunctionalId(java.lang.String)}
+	 * .
+	 */
+	@Test
+	public void testGetIdByFunctionalId() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.getIdByFunctionalId("blaat");
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.getIdByFunctionalId("blaat");
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#searchByFunctionalID(java.lang.String)}
-     * .
-     */
-    @Test
-    public void testSearchByFunctionalID() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#searchByFunctionalID(java.lang.String)}
+	 * .
+	 */
+	@Test
+	public void testSearchByFunctionalID() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.searchByFunctionalID("bla");
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.searchByFunctionalID("bla");
+		Assert.assertEquals(200, result.getStatus());
+	}
 
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#update(bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject)}
-     * .
-     */
-    @Test
-    public void testUpdate() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+	/**
+	 * Test method for
+	 * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestIdentifiableProxy#update(bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject)}
+	 * .
+	 */
+	@Test
+	public void testUpdate() {
+		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-        final Response result = this.proxy.update(new MockActiveDomainObject());
-        Assert.assertEquals(200, result.getStatus());
-    }
+		final Response result = this.proxy.update(new MockActiveDomainObject());
+		Assert.assertEquals(200, result.getStatus());
+	}
 }

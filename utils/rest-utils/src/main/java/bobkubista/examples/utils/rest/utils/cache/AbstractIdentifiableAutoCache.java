@@ -137,7 +137,7 @@ public abstract class AbstractIdentifiableAutoCache<K extends Serializable, V ex
      * @return a {@link Collection} of V
      */
     protected Collection<V> getAllObjects() {
-		return this.getIdentifiableService().getAll(null, null, null);
+        return this.getIdentifiableService().getAll(null, null, null);
     }
 
     /**

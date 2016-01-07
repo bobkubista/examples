@@ -4,6 +4,8 @@
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
@@ -19,11 +21,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            Identifier
  */
 public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable>
-        extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>implements ActiveApi<TYPE, ID> {
+		extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID> implements ActiveApi<TYPE, ID> {
 
-    @Override
-    public Response getAllActive() {
-        return this.getRequest("active").get();
-    }
+	@Override
+	public Response getAllActive() {
+		final Map<String, Object> params = new HashMap<>();
+		return this.getRequest(this.getServiceWithQueryParams(params, "active")).get();
+	}
 
 }

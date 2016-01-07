@@ -25,9 +25,11 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * admin applications. If you want to create, update or delete from a webapp,
  * override the methodes and implement them seperatly.
  *
- * @param <DMO> A {@link DomainObject} @param <TYPE> An {@link
- * AbstractIdentifiableEntity} @param <ID> An {@link Serializable}
- * identifier @param <DMOL> A {@link AbstractGenericDomainObjectCollection}
+ * @param <DMO>
+ *            A {@link DomainObject} @param <TYPE> An
+ *            {@link AbstractIdentifiableEntity} @param <ID> An
+ *            {@link Serializable} identifier @param <DMOL> A
+ *            {@link AbstractGenericDomainObjectCollection}
  *
  * @author bkubista
  *
@@ -63,9 +65,9 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 	}
 
 	@Override
-	public Response getAll() {
+	public Response getAll(final String sort, final Integer page, final Integer maxResults) {
 		// TODO fix search
-		final Collection<TYPE> allEntities = this.getService().getAll("", 0, 100);
+		final Collection<TYPE> allEntities = this.getService().getAll(sort, page, maxResults);
 		return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
 	}
 

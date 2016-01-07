@@ -132,6 +132,9 @@
               <goals>
                 <goal>jmeter</goal>
               </goals>
+              <configuration>
+              <testResultsTimestamp>false</testResultsTimestamp>
+              </configuration>
             </execution>
           </executions>
         </plugin>
