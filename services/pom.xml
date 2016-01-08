@@ -14,6 +14,10 @@
     <module>rest-services</module>
   </modules>
 
+  <properties>
+    <skipPerformanceTests>true</skipPerformanceTests>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -133,7 +137,8 @@
                 <goal>jmeter</goal>
               </goals>
               <configuration>
-              <testResultsTimestamp>false</testResultsTimestamp>
+                <testResultsTimestamp>false</testResultsTimestamp>
+                <skipTests>${skipPerformanceTests}</skipTests>
               </configuration>
             </execution>
           </executions>
@@ -141,4 +146,20 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>performance-test</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <skipUnitTests>true</skipUnitTests>
+        <skipITTests>true</skipITTests>
+        <maven.test.failure.ignore>false</maven.test.failure.ignore>
+        <skipPerformanceTests>false</skipPerformanceTests>
+      </properties>
+    </profile>
+  </profiles>
 </project>
