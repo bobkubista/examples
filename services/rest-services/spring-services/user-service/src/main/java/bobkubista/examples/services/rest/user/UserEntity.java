@@ -85,7 +85,7 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
 	 * @return true is autorized
 	 */
 	public boolean isAuthorized(final String right) {
-		return this.isActive() && this.roles.stream().anyMatch(role -> role.getFunctionalId().equals(right) || role.isAuthorized(right));
+		return this.isActive() && this.roles.stream().anyMatch(role -> role.isAuthorized(right));
 	}
 
 	@Override

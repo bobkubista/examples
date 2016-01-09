@@ -65,11 +65,12 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
 	 * Check that the {@link Roles} has an active {@link Rights} assigned to it
 	 * and is active
 	 *
-	 * @param right
-	 *            {@link Rights} to check @return true if authorized
+	 * @param name
+	 *            {@link Rights} to check
+	 * @return true if authorized
 	 */
-	public boolean isAuthorized(final String right) {
-		return this.isActive() && this.rights.stream().anyMatch(t -> t.isAuthorized(right));
+	public boolean isAuthorized(final String name) {
+		return this.isActive() && (this.getFunctionalId().equals(name) || this.rights.stream().anyMatch(t -> t.isAuthorized(name)));
 	}
 
 	@Override
