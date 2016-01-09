@@ -29,9 +29,12 @@ public class UserService implements ActiveEntityService<UserEntity, Long> {
 
 	/**
 	 * Authorize a user
-	 * 
-	 * @param userId the user id @param right the name of the right @return true
-	 * if autorized
+	 *
+	 * @param userId
+	 *            the user id
+	 * @param right
+	 *            the name of the right
+	 * @return true if autorized
 	 */
 	public boolean isAuthorized(final Long userId, final String right) {
 		return this.getById(userId).isAuthorized(this.rightService.getByFunctionalId(right));
