@@ -44,6 +44,13 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
 
 	/**
 	 * Get a {@link Collection} of <code>TYPE</code>
+	 * 
+	 * @param sort
+	 *            field to sort
+	 * @param page
+	 *            the page of the results. page * maxResults will be skipped
+	 * @param maxResults
+	 *            the amount of results to return
 	 *
 	 * @return all instances of that type
 	 */
@@ -52,6 +59,13 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
 	/**
 	 * Get a {@link CompletableFuture} with {@link Collection} of
 	 * <code>TYPE</code>
+	 * 
+	 * @param sort
+	 *            field to sort
+	 * @param page
+	 *            the page of the results. page * maxResults will be skipped
+	 * @param maxResults
+	 *            the amount of results to return
 	 *
 	 * @return {@link CompletableFuture} of all instances of that type
 	 */
