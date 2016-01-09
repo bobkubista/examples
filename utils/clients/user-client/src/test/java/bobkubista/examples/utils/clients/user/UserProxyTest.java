@@ -50,6 +50,7 @@ public class UserProxyTest {
 		Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
 
 		Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
+		Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any())).thenReturn(mockWebTarget);
 
 		PowerMockito.mockStatic(ClientBuilder.class);
 		PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
@@ -66,6 +67,19 @@ public class UserProxyTest {
 		Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
 
 		final Response response = this.proxy.getAll(null, null, null);
+		Assert.assertNotNull(response);
+		Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+		final UserCollection users = (UserCollection) response.getEntity();
+		Assert.assertNotNull(users);
+		Assert.assertNotNull(users.getDomainCollection());
+	}
+
+	@Test
+	public void testGetAllLimited() {
+		final UserCollection userCollection = new UserCollection();
+		Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
+
+		final Response response = this.proxy.getAll("id", 0, 1);
 		Assert.assertNotNull(response);
 		Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		final UserCollection users = (UserCollection) response.getEntity();
