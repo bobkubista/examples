@@ -102,7 +102,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response getAll(@QueryParam(SORT) final String sort, @QueryParam(PAGE) @DefaultValue("0") final Integer page,
 			@QueryParam(MAX) @DefaultValue("20") final Integer maxResults) {
-		return IdentifiableApi.buildNotImplementedResponse();
+		return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
 	}
 
 	/**
