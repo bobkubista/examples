@@ -17,8 +17,9 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *
  * @author bkubista
  *
- * @param <TYPE> the {@link AbstractIdentifiableEntity} @param <ID> the id
- * object type of the {@link AbstractIdentifiableEntity}
+ * @param <TYPE>
+ *            the {@link AbstractIdentifiableEntity} @param <ID> the id object
+ *            type of the {@link AbstractIdentifiableEntity}
  */
 public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
 
@@ -61,7 +62,7 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 	public Collection<TYPE> getAll(final String sort, final int page, final int maxResult) {
 		String select = "from " + this.getEntityClass().getName();
 		if (StringUtils.isNotBlank(sort)) {
-			select = select + "order by " + sort;
+			select = select + " order by " + sort;
 		}
 		final TypedQuery<TYPE> query = this.entityManager.createQuery(select, this.getEntityClass());
 		// page
