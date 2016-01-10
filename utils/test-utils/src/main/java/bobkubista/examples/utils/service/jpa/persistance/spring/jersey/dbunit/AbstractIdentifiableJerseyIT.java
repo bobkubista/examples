@@ -56,7 +56,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	@ExpectedDatabase(value = "/dataset/expected/FacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void shouldDelete() {
-		this.target("/-1").request().delete();
+		this.target("/1").request().delete();
 	}
 
 	/**
@@ -66,7 +66,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetAll() {
 		final COL response = this.target("/").request().get(this.getCollectionClass());
-		this.checkResponseGetAll(response, 1);
+		this.checkResponseGetAll(response, this.expectedSize());
 	}
 
 	/**
@@ -77,7 +77,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	public void shouldGetAllWithSortAndLimit() {
 		final COL response = this.target("/").queryParam(IdentifiableApi.SORT, this.getIdField()).queryParam(IdentifiableApi.PAGE, 0).queryParam(IdentifiableApi.MAX, 2).request()
 		        .get(this.getCollectionClass());
-		this.checkResponseGetAll(response, 1);
+		this.checkResponseGetAll(response, this.expectedSize());
 		this.checkSorting(response);
 	}
 
@@ -141,6 +141,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	 * @return create update object
 	 */
 	protected abstract TYPE create();
+
+	protected abstract int expectedSize();
 
 	/**
 	 *

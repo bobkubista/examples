@@ -72,6 +72,11 @@ public class TodoServiceJerseyIT extends AbstractFunctionalJerseyIT<TodoList, Lo
 	}
 
 	@Override
+	protected int expectedSize() {
+		return 1;
+	}
+
+	@Override
 	protected String getFunctionalId() {
 		return FUNCTIONALID;
 	}

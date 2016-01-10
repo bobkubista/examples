@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
   <userentity id="1" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" email="bla@foo.bar" encryptedpassword="134" name="Foo Bar" />
+  <userentity id="2" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" email="bla3@foo.bar" encryptedpassword="134" name="Foo Bar3" />
   <rights id="1" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" name="admin" />
   <roles id="1" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" name="admin" />
   <roles id="2" inserteddate="2015-01-01" updateddate="2015-01-01" active="true" name="user" />
   <roles_rights roles_id="1" rights_id="1" />
   <userentity_roles roles_id="1" userentity_id="1" />
+  <userentity_roles roles_id="1" userentity_id="2" />
 </dataset>
 

@@ -74,10 +74,15 @@ public class UserFacadeIT extends AbstractFunctionalJerseyIT<User, Long, UserCol
 		user.setActive(true);
 		user.setEncryptedPassword("123");
 		user.setFunctionalId("bla2@foo.bar");
-		user.setId(2L);
+		user.setId(3L);
 		user.setName("Foo Bar2");
 
 		return user;
+	}
+
+	@Override
+	protected int expectedSize() {
+		return 2;
 	}
 
 	@Override
