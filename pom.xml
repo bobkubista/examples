@@ -23,7 +23,7 @@
     <module>dependencies</module>
     <module>utils</module>
     <module>services</module>
-    <module>webapps</module>
+<!--     <module>webapps</module> -->
   </modules>
 
   <distributionManagement>
