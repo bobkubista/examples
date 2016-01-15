@@ -66,7 +66,7 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
     protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();
 
     @Override
-    protected IdentifiableService<V, K> getIdentifiableService() {
+    protected final IdentifiableService<V, K> getIdentifiableService() {
         return this.getFunctionalService();
     }
 
