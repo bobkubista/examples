@@ -22,14 +22,14 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 @XmlAccessorType(XmlAccessType.NONE)
 public class UserCollection extends AbstractGenericDomainObjectCollection<User> {
 
-	private static final long serialVersionUID = 6132048339242151935L;
-	@XmlElementWrapper(name = "userlist")
-	@XmlElement(name = "user")
-	private final Collection<User> userList = new LinkedList<>();
+    private static final long serialVersionUID = 6132048339242151935L;
 
-	@Override
-	public Collection<User> getDomainCollection() {
-		return this.userList;
-	}
+    @XmlElementWrapper(name = "userlist")
+    @XmlElement(name = "user")
+    private final Collection<User> userList = new LinkedList<>();
 
+    @Override
+    public Collection<User> getDomainCollection() {
+        return this.userList;
+    }
 }
