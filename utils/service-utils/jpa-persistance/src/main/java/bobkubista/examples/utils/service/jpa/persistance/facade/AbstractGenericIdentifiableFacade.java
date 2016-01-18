@@ -3,6 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -74,9 +75,14 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @Override
     public Response getAll(List<String> sortFields, final Integer page, final Integer maxResults) {
         // TODO fix search
-        final MultivaluedMap<String, String> queryparameters = this.info.getQueryParameters();
-        sortFields = queryparameters.get("sort");
-
+        // TODO remove this nullcheck and inject the info field in the tests
+        if (this.info != null) {
+            final MultivaluedMap<String, String> queryparameters = this.info.getQueryParameters();
+            sortFields = queryparameters.get("sort");
+        }
+        if (sortFields == null) {
+            sortFields = new ArrayList<>();
+        }
         final Collection<TYPE> allEntities = this.getService().getAll(sortFields, page, maxResults);
         return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
     }
