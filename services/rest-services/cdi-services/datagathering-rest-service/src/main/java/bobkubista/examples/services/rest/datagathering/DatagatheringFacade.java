@@ -37,43 +37,46 @@ import bobkubista.examples.services.api.datagathering.DatagatheringApi;
 @Path("/")
 public class DatagatheringFacade implements DatagatheringApi {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DatagatheringFacade.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatagatheringFacade.class);
 
-	@Context
-	private Application application;
+    @Context
+    private Application application;
 
-	private final Consumer<? super String> keyLogger = t -> LOGGER.debug("key: {}", t);
+    @Context
+    private UriInfo info;
 
-	private final BiConsumer<? super String, ? super List<String>> keyValueStringLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
+    private final Consumer<? super String> keyLogger = t -> LOGGER.debug("key: {}", t);
 
-	@Context
-	private Providers providers;
+    private final BiConsumer<? super String, ? super List<String>> keyValueStringLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
 
-	@GET
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Override
-	@Asynchronous
-	public Response gatherData(@Context final HttpServletRequest servletRequest, @Context final UriInfo info, @Context final HttpHeaders httpHeaders,
-			@Context final Request request, @Context final SecurityContext securityContext) {
-		LOGGER.debug("remote adress: {}", servletRequest.getRemoteAddr());
-		final MultivaluedMap<String, String> queryParams = info.getQueryParameters();
-		LOGGER.debug("Logging query params");
-		queryParams.forEach(this.keyValueStringLogger);
-		final MultivaluedMap<String, String> pathParams = info.getPathParameters();
-		LOGGER.debug("Logging path params");
-		pathParams.forEach(this.keyValueStringLogger);
-		final URI path = info.getAbsolutePath();
-		LOGGER.debug("path: {}", path.toString());
-		LOGGER.debug("Logging application properties");
-		this.application.getProperties().keySet().forEach(this.keyLogger);
-		LOGGER.debug("Logging http request headers");
-		httpHeaders.getRequestHeaders().forEach(this.keyValueStringLogger);
-		LOGGER.debug("Request methode: {}", request.getMethod());
-		LOGGER.debug("is secure: {}", securityContext.isSecure());
-		LOGGER.debug("auth schema used: {}", securityContext.getAuthenticationScheme());
+    @Context
+    private Providers providers;
 
-		return Response.ok().build();
-	}
+    @GET
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Override
+    @Asynchronous
+    public Response gatherData(@Context final HttpServletRequest servletRequest, @Context final HttpHeaders httpHeaders, @Context final Request request,
+            @Context final SecurityContext securityContext) {
+        LOGGER.debug("remote adress: {}", servletRequest.getRemoteAddr());
+        final MultivaluedMap<String, String> queryParams = this.info.getQueryParameters();
+        LOGGER.debug("Logging query params");
+        queryParams.forEach(this.keyValueStringLogger);
+        final MultivaluedMap<String, String> pathParams = this.info.getPathParameters();
+        LOGGER.debug("Logging path params");
+        pathParams.forEach(this.keyValueStringLogger);
+        final URI path = this.info.getAbsolutePath();
+        LOGGER.debug("path: {}", path.toString());
+        LOGGER.debug("Logging application properties");
+        this.application.getProperties().keySet().forEach(this.keyLogger);
+        LOGGER.debug("Logging http request headers");
+        httpHeaders.getRequestHeaders().forEach(this.keyValueStringLogger);
+        LOGGER.debug("Request methode: {}", request.getMethod());
+        LOGGER.debug("is secure: {}", securityContext.isSecure());
+        LOGGER.debug("auth schema used: {}", securityContext.getAuthenticationScheme());
+
+        return Response.ok().build();
+    }
 
 }

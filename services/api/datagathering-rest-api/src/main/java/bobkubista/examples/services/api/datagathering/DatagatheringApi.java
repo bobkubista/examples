@@ -33,7 +33,6 @@ public interface DatagatheringApi {
      *            {@link SecurityContext}
      * @return {@link Response} when done processing
      */
-    public Response gatherData(@Context HttpServletRequest servletRequest, @Context UriInfo info, @Context HttpHeaders httpHeaders, @Context Request request,
-            @Context SecurityContext securityContext);
+    public Response gatherData(@Context HttpServletRequest servletRequest, @Context HttpHeaders httpHeaders, @Context Request request, @Context SecurityContext securityContext);
 
 }
