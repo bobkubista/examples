@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -32,11 +31,16 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  */
 public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>> implements CacheLoader<K, V> {
 
-    AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
-            .initialCapacity(150)
-            .expireAfterAccess(5, TimeUnit.MINUTES)
-            .expireAfterWrite(10, TimeUnit.MINUTES)
-            .refreshAfterWrite(1, TimeUnit.MILLISECONDS)
+    private static final int EXPIRE_AFTER_ACCESS = 5;
+    private static final int EXPIRE_AFTER_WRITE = 10;
+    private static final int INITIAL_CAPACITY = 150;
+    private static final int REFRESH_AFTER_WRITE = 1;
+
+    private final AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
+            .initialCapacity(INITIAL_CAPACITY)
+            .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
+            .expireAfterWrite(EXPIRE_AFTER_WRITE, TimeUnit.MINUTES)
+            .refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
             .ticker(Ticker.systemTicker())
             .recordStats()
             .buildAsync(this);
@@ -56,16 +60,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      *            the <code>k</code> key to use
      * @return <code>V</code> value, that is associated with that <code>K</code>
      *         key
-     * @throws ExecutionException
-     *             ExecutionException - if a checked exception was thrown while
-     *             loading the value. (ExecutionException is thrown even if
-     *             computation was interrupted by an InterruptedException.)
-     *             UncheckedExecutionException - if an unchecked exception was
-     *             thrown while loading the value ExecutionError - if an error
-     *             was thrown while loading the value
-     * @throws InterruptedException
      */
-    public CompletableFuture<V> get(final K key) throws ExecutionException, InterruptedException {
+    public CompletableFuture<V> get(final K key) {
         return this.cache.get(key);
     }
 
@@ -83,16 +79,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      *            keys to return
      * @return a {@link Map} of <code>K</code>, <code>V</code> pair of all the
      *         keys
-     * @throws ExecutionException
-     *             ExecutionException - if a checked exception was thrown while
-     *             loading the value. (ExecutionException is thrown even if
-     *             computation was interrupted by an InterruptedException.)
-     *             UncheckedExecutionException - if an unchecked exception was
-     *             thrown while loading the value ExecutionError - if an error
-     *             was thrown while loading the value
-     * @throws InterruptedException
      */
-    public CompletableFuture<Map<K, V>> getAll(final Iterable<? extends K> keys) throws ExecutionException, InterruptedException {
+    public CompletableFuture<Map<K, V>> getAll(final Iterable<? extends K> keys) {
         return this.cache.getAll(keys);
     }
 
