@@ -32,6 +32,10 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
         super();
     }
 
+    /**
+     *
+     * @return count
+     */
     public int getAmount() {
         return this.count;
     }
@@ -41,6 +45,11 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
      */
     public abstract Collection<TYPE> getDomainCollection();
 
+    /**
+     *
+     * @param amount
+     *            count
+     */
     public void setAmount(final int amount) {
         this.count = amount;
     }
