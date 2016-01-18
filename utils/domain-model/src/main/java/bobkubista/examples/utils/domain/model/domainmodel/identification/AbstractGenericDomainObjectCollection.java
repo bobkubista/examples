@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -21,6 +22,9 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
 
     private static final long serialVersionUID = -7020164336355743584L;
 
+    @XmlElement
+    private int count;
+
     /**
      * Constructor
      */
@@ -28,9 +32,17 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
         super();
     }
 
+    public int getAmount() {
+        return this.count;
+    }
+
     /**
      * @return the domainCollection
      */
     public abstract Collection<TYPE> getDomainCollection();
+
+    public void setAmount(final int amount) {
+        this.count = amount;
+    }
 
 }
