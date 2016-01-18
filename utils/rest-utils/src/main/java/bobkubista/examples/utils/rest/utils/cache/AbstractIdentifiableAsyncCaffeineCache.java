@@ -19,6 +19,17 @@ import com.github.benmanes.caffeine.cache.Ticker;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
+/**
+ * Class which wraps the caffeine cache
+ *
+ *
+ * @author Bob
+ *
+ * @param <K>
+ *            {@link Serializable} identifier
+ * @param <V>
+ *            {@link AbstractGenericIdentifiableDomainObject} value
+ */
 public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>> implements CacheLoader<K, V> {
 
     AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
