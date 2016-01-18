@@ -3,40 +3,75 @@
  */
 package bobkubista.examples.utils.clients.todo;
 
-import javax.inject.Inject;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"/applicationContext.xml"})
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 
 /**
  * @author Bob Kubista
  *
  */
-@Ignore // TODO
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(ClientBuilder.class)
 public class TodoProxyTest {
 
-	@Inject
-	private TodoProxy proxy;
+    final Client mockClient = Mockito.mock(Client.class);
+    final Response mockResponse = Mockito.mock(Response.class);
+    private final TodoProxy proxy = new TodoProxy();
 
-	@Test
-	public void testGetAll() {
-		final Response response = this.proxy.getAll(null, null, null);
-		Assert.assertNotNull(response);
-		Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		final TodoListCollection textItems = (TodoListCollection) response.getEntity();
-		Assert.assertNotNull(textItems);
-		Assert.assertNotNull(textItems.getDomainCollection());
-	}
+    @Before
+    public void start() {
+        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-	@Test
-	public void testGetBasePath() {
-		Assert.assertEquals("textitems", this.proxy.getBasePath());
-	}
+        final Builder mockBuilder = Mockito.mock(Builder.class);
+        Mockito.when(mockBuilder.get()).thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.post(Matchers.any())).thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.put(Matchers.any())).thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.delete()).thenReturn(this.mockResponse);
+
+        final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
+        Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
+
+        Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any())).thenReturn(mockWebTarget);
+
+        PowerMockito.mockStatic(ClientBuilder.class);
+        PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
+        this.proxy.base();
+    }
+
+    @Test
+    public void testGetAll() {
+        final TodoListCollection userCollection = new TodoListCollection();
+        Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
+
+        final Response response = this.proxy.getAll(null, null, null);
+        Assert.assertNotNull(response);
+        Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        final TodoListCollection users = (TodoListCollection) response.getEntity();
+        Assert.assertNotNull(users);
+        Assert.assertNotNull(users.getDomainCollection());
+    }
+
+    @Test
+    public void testGetBasePath() {
+        Assert.assertEquals("", this.proxy.getBasePath());
+    }
 
 }
