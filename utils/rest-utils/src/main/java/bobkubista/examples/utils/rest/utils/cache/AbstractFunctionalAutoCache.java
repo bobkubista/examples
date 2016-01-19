@@ -4,9 +4,7 @@
 package bobkubista.examples.utils.rest.utils.cache;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -41,14 +39,11 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
             .recordStats()
             .buildAsync(key -> AbstractFunctionalAutoCache.this.getFunctionalService().getIdByFunctionalId(key));
 
-    private final Map<String, K> functionalToKeyMap;
-
     /**
      * Constructor
      */
     public AbstractFunctionalAutoCache() {
         super();
-        this.functionalToKeyMap = new ConcurrentHashMap<String, K>(INITIAL_CAPACITY);
     }
 
     /**
@@ -64,15 +59,16 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      *             UncheckedExecutionException - if an unchecked exception was
      *             thrown while loading the value ExecutionError - if an error
      *             was thrown while loading the value
+     * @throws InterruptedException
      */
-    public CompletableFuture<V> get(final String functionalId) throws ExecutionException {
-        return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, this.getFunctionalService()::getIdByFunctionalId));
+    public CompletableFuture<V> get(final String functionalId) throws ExecutionException, InterruptedException {
+        return this.get(this.functionalToIdentifiercache.get(functionalId, this.getFunctionalService()::getIdByFunctionalId).get());
     }
 
     @Override
     public V reload(final K key, final V oldValue) throws Exception {
         final V reload = super.reload(key, oldValue);
-        this.functionalToKeyMap.put(reload.getFunctionalId(), key);
+        this.functionalToIdentifiercache.put(reload.getFunctionalId(), CompletableFuture.completedFuture(key));
         return reload;
     }
 
