@@ -36,6 +36,7 @@ public abstract class AbstractRestProxy {
     public void base() {
         this.client = ClientBuilder.newClient();
         this.client.register(new CircuitBreakerFilter());
+        // TODO refactor for service discovery
         this.service = this.client.target(this.getBaseUri());
     }
 
