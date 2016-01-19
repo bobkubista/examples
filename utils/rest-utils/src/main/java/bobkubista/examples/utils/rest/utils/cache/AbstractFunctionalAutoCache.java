@@ -4,11 +4,15 @@
 package bobkubista.examples.utils.rest.utils.cache;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.Ticker;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
@@ -23,7 +27,19 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  */
 public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>>
-        extends AbstractIdentifiableAutoCache<K, V> {
+        extends AbstractIdentifiableAsyncCaffeineCache<K, V> {
+    private static final int EXPIRE_AFTER_ACCESS = 5;
+    private static final int EXPIRE_AFTER_WRITE = 10;
+    private static final int INITIAL_CAPACITY = 150;
+    private static final int REFRESH_AFTER_WRITE = 1;
+    private final AsyncLoadingCache<String, K> functionalToIdentifiercache = Caffeine.newBuilder()
+            .initialCapacity(INITIAL_CAPACITY)
+            .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
+            .expireAfterWrite(EXPIRE_AFTER_WRITE, TimeUnit.MINUTES)
+            .refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
+            .ticker(Ticker.systemTicker())
+            .recordStats()
+            .buildAsync(key -> AbstractFunctionalAutoCache.this.getFunctionalService().getIdByFunctionalId(key));
 
     private final Map<String, K> functionalToKeyMap;
 
@@ -32,7 +48,7 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      */
     public AbstractFunctionalAutoCache() {
         super();
-        this.functionalToKeyMap = new HashMap<String, K>(INITIAL_CAPACITY);
+        this.functionalToKeyMap = new ConcurrentHashMap<String, K>(INITIAL_CAPACITY);
     }
 
     /**
@@ -49,14 +65,14 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      *             thrown while loading the value ExecutionError - if an error
      *             was thrown while loading the value
      */
-    public V get(final String functionalId) throws ExecutionException {
+    public CompletableFuture<V> get(final String functionalId) throws ExecutionException {
         return this.get(this.functionalToKeyMap.computeIfAbsent(functionalId, this.getFunctionalService()::getIdByFunctionalId));
     }
 
     @Override
-    public ListenableFuture<V> reload(final K key, final V oldValue) throws Exception {
-        final ListenableFuture<V> reload = super.reload(key, oldValue);
-        this.functionalToKeyMap.put(reload.get().getFunctionalId(), key);
+    public V reload(final K key, final V oldValue) throws Exception {
+        final V reload = super.reload(key, oldValue);
+        this.functionalToKeyMap.put(reload.getFunctionalId(), key);
         return reload;
     }
 

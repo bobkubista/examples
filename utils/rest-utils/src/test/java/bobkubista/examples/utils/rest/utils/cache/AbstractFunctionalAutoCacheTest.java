@@ -5,6 +5,7 @@ package bobkubista.examples.utils.rest.utils.cache;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Assert;
@@ -49,31 +50,26 @@ public class AbstractFunctionalAutoCacheTest {
     }
 
     @Test
-    public void testGetAllKeys() throws ExecutionException {
-        final Map<Integer, MockActiveDomainObject> result = this.getMock().getAll(Collections.singletonList(new Integer(1)));
-        Assert.assertEquals(1, result.size());
+    public void testGetAllKeys() throws ExecutionException, InterruptedException {
+        final CompletableFuture<Map<Integer, MockActiveDomainObject>> result = this.getMock().getAll(Collections.singletonList(new Integer(1)));
+        Assert.assertEquals(1, result.get().size());
     }
 
     @Test
-    public void testGetWithFunctionalId() throws ExecutionException {
-        final MockActiveDomainObject result = this.getMock().get("F1");
-        Assert.assertEquals("F1", result.getFunctionalId());
+    public void testGetWithFunctionalId() throws ExecutionException, InterruptedException {
+        final CompletableFuture<MockActiveDomainObject> result = this.getMock().get("F1");
+        Assert.assertEquals("F1", result.get().getFunctionalId());
     }
 
     @Test
-    public void testGetWithId() throws ExecutionException {
-        final MockActiveDomainObject result = this.getMock().get(1);
-        Assert.assertEquals(new Integer(1), result.getId());
+    public void testGetWithId() throws ExecutionException, InterruptedException {
+        final CompletableFuture<MockActiveDomainObject> result = this.getMock().get(1);
+        Assert.assertEquals(new Integer(1), result.get().getId());
     }
 
     @Test
     public void testLoadAll() throws Exception {
         final Map<Integer, MockActiveDomainObject> result = this.getMock().loadAll(Collections.singletonList(new Integer(2)));
         Assert.assertEquals(2, result.size());
-    }
-
-    @Test
-    public void testRefresh() {
-        Assert.assertTrue(this.getMock().refresh());
     }
 }
