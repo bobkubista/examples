@@ -17,7 +17,7 @@ public class CircuitBreakerRegistryTest {
         final CircuitBreakerRegistry registry = new CircuitBreakerRegistry(mockPolicy);
 
         final CircuitBreaker breaker = registry.get(null);
-        assertEquals("__<NULL>__", breaker.getScope());
+        assertEquals("none", breaker.getScope());
         assertNotNull(breaker.getPolicy());
     }
 

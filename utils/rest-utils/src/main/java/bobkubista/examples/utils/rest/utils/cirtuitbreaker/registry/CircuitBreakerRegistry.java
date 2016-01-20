@@ -17,9 +17,9 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
  */
 public class CircuitBreakerRegistry {
 
-    private static final Duration TIMEOUT = Duration.ofSeconds(3);
-
     private static final int MAX_ENTRIES = 5;
+
+    private static final Duration TIMEOUT = Duration.ofSeconds(3);
 
     // host, CircuitBreaker
     private final Map<String, CircuitBreaker> circuitBreakerMap = new ConcurrentHashMap<String, CircuitBreaker>();
@@ -44,10 +44,14 @@ public class CircuitBreakerRegistry {
      * @return the {@link CircuitBreaker} for that host
      */
     public CircuitBreaker get(final String scope) {
-        CircuitBreaker circuitBreaker = this.circuitBreakerMap.get(scope);
+        String host = scope;
+        if (host == null) {
+            host = "none";
+        }
+        CircuitBreaker circuitBreaker = this.circuitBreakerMap.get(host);
         if (circuitBreaker == null && this.circuitBreakerMap.size() < CircuitBreakerRegistry.MAX_ENTRIES) {
-            circuitBreaker = new CircuitBreaker(scope, this.healthPolicy, TIMEOUT);
-            this.circuitBreakerMap.put(scope, circuitBreaker);
+            circuitBreaker = new CircuitBreaker(host, this.healthPolicy, TIMEOUT);
+            this.circuitBreakerMap.put(host, circuitBreaker);
         }
         return circuitBreaker;
     }
