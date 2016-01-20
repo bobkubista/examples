@@ -2,8 +2,7 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry;
 
 import java.time.Duration;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
+import java.util.concurrent.ConcurrentHashMap;
 
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreaker;
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
@@ -18,12 +17,14 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy.HealthPolicy;
  */
 public class CircuitBreakerRegistry {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(3);
+
+    private static final int MAX_ENTRIES = 5;
+
     // host, CircuitBreaker
-    private final Map<String, CircuitBreaker> circuitBreakerMap = Maps.newConcurrentMap();
+    private final Map<String, CircuitBreaker> circuitBreakerMap = new ConcurrentHashMap<String, CircuitBreaker>();
 
     private final HealthPolicy healthPolicy;
-
-    private final int maxEntries = 5;
 
     /**
      *
@@ -42,17 +43,12 @@ public class CircuitBreakerRegistry {
      *            host name
      * @return the {@link CircuitBreaker} for that host
      */
-    public CircuitBreaker get(String scope) {
-        if (scope == null) {
-            scope = "__<NULL>__";
-        }
-
+    public CircuitBreaker get(final String scope) {
         CircuitBreaker circuitBreaker = this.circuitBreakerMap.get(scope);
-        if (circuitBreaker == null && this.circuitBreakerMap.size() < this.maxEntries) {
-            circuitBreaker = new CircuitBreaker(scope, this.healthPolicy, Duration.ofSeconds(3));
+        if (circuitBreaker == null && this.circuitBreakerMap.size() < CircuitBreakerRegistry.MAX_ENTRIES) {
+            circuitBreaker = new CircuitBreaker(scope, this.healthPolicy, TIMEOUT);
             this.circuitBreakerMap.put(scope, circuitBreaker);
         }
-
         return circuitBreaker;
     }
 }
