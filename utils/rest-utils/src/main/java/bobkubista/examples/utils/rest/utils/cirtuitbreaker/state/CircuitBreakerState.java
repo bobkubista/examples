@@ -11,9 +11,11 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreaker;
 @FunctionalInterface
 public interface CircuitBreakerState {
 
-    /**
-     *
-     * @return is a request allowed?
-     */
-    boolean isRequestAllowed(CircuitBreaker circuitBreaker);
+	/**
+	 *
+	 * @param circuitBreaker
+	 *            the {@link CircuitBreaker}
+	 * @return is a request allowed?
+	 */
+	boolean isRequestAllowed(CircuitBreaker circuitBreaker);
 }

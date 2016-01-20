@@ -31,10 +31,13 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * override the methodes and implement them seperatly.
  *
  * @param <DMO>
- *            A {@link DomainObject} @param <TYPE> An
- *            {@link AbstractIdentifiableEntity} @param <ID> An
- *            {@link Serializable} identifier @param <DMOL> A
- *            {@link AbstractGenericDomainObjectCollection}
+ *            A {@link DomainObject}
+ * @param <TYPE>
+ *            An {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            An {@link Serializable} identifier
+ * @param <DMOL>
+ *            A {@link AbstractGenericDomainObjectCollection}
  *
  * @author bkubista
  *
@@ -42,80 +45,81 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
 public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements IdentifiableApi<DMO, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
-    @Context
-    private UriInfo info;
+	@Context
+	private UriInfo info;
 
-    @Override
-    public Response create(final DMO object) {
-        Validate.notNull(object);
-        final TYPE entity = this.getConverter().convertToEntity(object);
-        final TYPE result = this.getService().create(entity);
-        try {
-            return Response.created(new URI(result.getId().toString())).build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError().build();
-        }
-    }
+	@Override
+	public Response create(final DMO object) {
+		Validate.notNull(object);
+		final TYPE entity = this.getConverter().convertToEntity(object);
+		final TYPE result = this.getService().create(entity);
+		try {
+			return Response.created(new URI(result.getId().toString())).build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError().build();
+		}
+	}
 
-    @Override
-    public Response delete(final ID identifier) {
-        final TYPE entity = this.getService().getById(identifier);
-        if (entity != null) {
-            this.getService().delete(entity);
-            return Response.ok().build();
-        } else {
-            LOGGER.debug("resource {} not found", identifier);
-            throw new NotFoundException();
-        }
-    }
+	@Override
+	public Response delete(final ID identifier) {
+		final TYPE entity = this.getService().getById(identifier);
+		if (entity != null) {
+			this.getService().delete(entity);
+			return Response.ok().build();
+		} else {
+			LOGGER.debug("resource {} not found", identifier);
+			throw new NotFoundException();
+		}
+	}
 
-    @Override
-    public Response getAll(List<String> sortFields, final Integer page, final Integer maxResults) {
-        // TODO fix search
-        // TODO remove this nullcheck and inject the info field in the tests
-        if (this.info != null) {
-            final MultivaluedMap<String, String> queryparameters = this.info.getQueryParameters();
-            sortFields = queryparameters.get("sort");
-        }
-        if (sortFields == null) {
-            sortFields = new ArrayList<>();
-        }
-        final Collection<TYPE> allEntities = this.getService().getAll(sortFields, page, maxResults);
-        return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
-    }
+	@Override
+	public Response getAll(final List<String> sortFields, final Integer page, final Integer maxResults) {
+		// TODO fix search
+		// TODO remove this nullcheck and inject the info field in the tests
+		List<String> sort = sortFields;
+		if (this.info != null) {
+			final MultivaluedMap<String, String> queryparameters = this.info.getQueryParameters();
+			sort = queryparameters.get("sort");
+		}
+		if (sort == null) {
+			sort = new ArrayList<>();
+		}
+		final Collection<TYPE> allEntities = this.getService().getAll(sortFields, page, maxResults);
+		return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
+	}
 
-    @Override
-    public Response getByID(final ID identifier) {
-        final TYPE result = this.getService().getById(identifier);
-        if (result == null) {
-            LOGGER.debug("resource {} not found", identifier);
-            throw new NotFoundException();
-        } else {
-            return Response.ok(this.getConverter().convertToDomainObject(result)).build();
-        }
-    }
+	@Override
+	public Response getByID(final ID identifier) {
+		final TYPE result = this.getService().getById(identifier);
+		if (result == null) {
+			LOGGER.debug("resource {} not found", identifier);
+			throw new NotFoundException();
+		} else {
+			return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+		}
+	}
 
-    @Override
-    public Response update(final DMO object) {
-        final TYPE entity = this.getConverter().convertToEntity(object);
-        this.getService().update(entity);
-        return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
-    }
+	@Override
+	public Response update(final DMO object) {
+		final TYPE entity = this.getConverter().convertToEntity(object);
+		this.getService().update(entity);
+		return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
+	}
 
-    /**
-     * Get the {@link EntityToDomainConverter}
-     *
-     * @return {@link EntityToDomainConverter}
-     */
-    protected abstract EntityToDomainConverter<DMO, DMOL, TYPE> getConverter();
+	/**
+	 * Get the {@link EntityToDomainConverter}
+	 *
+	 * @return {@link EntityToDomainConverter}
+	 */
+	protected abstract EntityToDomainConverter<DMO, DMOL, TYPE> getConverter();
 
-    /**
-     * Get the {@link IdentifiableEntityService}
-     *
-     * @return {@link IdentifiableEntityService}
-     */
-    protected abstract IdentifiableEntityService<TYPE, ID> getService();
+	/**
+	 * Get the {@link IdentifiableEntityService}
+	 *
+	 * @return {@link IdentifiableEntityService}
+	 */
+	protected abstract IdentifiableEntityService<TYPE, ID> getService();
 }

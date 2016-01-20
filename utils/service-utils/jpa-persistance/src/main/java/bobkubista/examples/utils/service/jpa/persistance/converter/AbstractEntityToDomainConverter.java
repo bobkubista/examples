@@ -12,18 +12,25 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
  * @author bkubista
  *
- * @param <DMO> {@link AbstractGenericIdentifiableDomainObject} @param <DMOL>
- * {@link AbstractGenericDomainObjectCollection} @param <EO> {@link
- * AbstractIdentifiableEntity} @param <ID> Identifier
+ * @param <DMO>
+ *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <DMOL>
+ *            {@link AbstractGenericDomainObjectCollection}
+ * @param <EO>
+ *            {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            Identifier
  */
 public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
-		implements EntityToDomainConverter<DMO, DMOL, EO> {
+        implements EntityToDomainConverter<DMO, DMOL, EO> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
 	@Override
@@ -73,24 +80,28 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
 	/**
 	 * Convert an {@link EntityObject} to a {@link DomainObject}
 	 *
-	 * @param entity the {@link EntityObject} to convert @return the converted
-	 * {@link DomainObject}
+	 * @param entity
+	 *            the {@link EntityObject} to convert
+	 * @return the converted {@link DomainObject}
 	 */
 	protected abstract DMO doConvertToDomainObject(final EO entity);
 
 	/**
 	 * Convert a {@link DomainObject} to and {@link EntityObject}
 	 *
-	 * @param domainModelObject the {@link DomainObject} @return an {@link
-	 * AbstractIdentifiableEntity}
+	 * @param domainModelObject
+	 *            the {@link DomainObject}
+	 * @return an {@link AbstractIdentifiableEntity}
 	 */
 	protected abstract EO doConvertToEntity(final DMO domainModelObject);
 
 	/**
 	 * Convert a {@link DomainObject} to an {@link EntityObject}
 	 *
-	 * @param domainModelObject the {@link DomainObject} to convert @param
-	 * entityObject the {@link EntityObject} to convert to
+	 * @param domainModelObject
+	 *            the {@link DomainObject} to convert
+	 * @param entityObject
+	 *            the {@link EntityObject} to convert to
 	 */
 	protected abstract void doConvertToEntity(final DMO domainModelObject, final EO entityObject);
 

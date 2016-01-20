@@ -17,8 +17,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * @author bkubista
  *
  * @param <DMO>
- *            {@link AbstractGenericFunctionalIdentifiableDomainObject} @param
- *            <ID> the identifier of the
+ *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ * @param <ID>
+ *            the identifier of the
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  *
  */
@@ -28,8 +29,8 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
 	 * get the <code>DMO</code>
 	 *
 	 * @param identifier
-	 *            the identfier @return the <code>DMO</code> @return
-	 *            {@link Response}
+	 *            the identfier
+	 * @return{@link Response}
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -58,7 +59,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
 	 * get the {@link DomainObject}
 	 *
 	 * @param identifier
-	 *            the identfier @return the {@link DomainObject}
+	 *            the identfier
 	 * @return {@link Response}
 	 */
 	@GET
