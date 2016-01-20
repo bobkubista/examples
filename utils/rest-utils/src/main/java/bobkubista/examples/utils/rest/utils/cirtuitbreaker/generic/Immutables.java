@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableSet;
  * @author Bob
  *
  */
-public class Immutables {
+public final class Immutables {
 
     /**
      *
