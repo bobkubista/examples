@@ -87,7 +87,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 		if (sort == null) {
 			sort = new ArrayList<>();
 		}
-		final Collection<TYPE> allEntities = this.getService().getAll(sortFields, page, maxResults);
+		final Collection<TYPE> allEntities = this.getService().getAll(sort, page, maxResults);
 		return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
 	}
 
