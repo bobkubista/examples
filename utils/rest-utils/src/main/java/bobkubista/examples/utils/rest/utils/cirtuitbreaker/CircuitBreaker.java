@@ -20,6 +20,8 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.state.ClosedState;
  *
  */
 public class CircuitBreaker {
+    private static final int POLICY_DURATION = 3;
+
     private final Duration openStateTimeout;
 
     private final HealthPolicy policy;
@@ -44,7 +46,7 @@ public class CircuitBreaker {
      */
     public CircuitBreaker(final String scope, final HealthPolicy healthPolicy, final Duration openStateTimeout) {
         this.scope = scope;
-        this.policy = new CachedCircuitBreakerPolicy(healthPolicy, Duration.ofSeconds(3));
+        this.policy = new CachedCircuitBreakerPolicy(healthPolicy, Duration.ofSeconds(POLICY_DURATION));
         this.openStateTimeout = openStateTimeout;
     }
 
