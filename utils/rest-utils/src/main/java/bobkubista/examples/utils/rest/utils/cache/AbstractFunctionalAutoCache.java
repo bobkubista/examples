@@ -68,8 +68,12 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
     @Override
     public V reload(final K key, final V oldValue) throws Exception {
         final V reload = super.reload(key, oldValue);
-        this.functionalToIdentifiercache.put(reload.getFunctionalId(), CompletableFuture.completedFuture(key));
-        return reload;
+        if (reload == null) {
+            throw new Exception("Could not load value for key: " + key);
+        } else {
+            this.functionalToIdentifiercache.put(reload.getFunctionalId(), CompletableFuture.completedFuture(key));
+            return reload;
+        }
     }
 
     /**
