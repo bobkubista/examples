@@ -24,7 +24,7 @@ public class Transaction {
      *            note if the transaction should be marked as failed
      */
     public static void close(final Object transaction, final boolean isFailed) {
-        if (transaction != null && transaction instanceof Transaction) {
+        if (transaction instanceof Transaction) {
             ((Transaction) transaction).close(isFailed);
         }
     }
