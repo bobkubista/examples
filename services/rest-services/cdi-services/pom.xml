@@ -15,7 +15,7 @@
 <!--     <module>todo-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
 <!--     <module>user-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
     <module>email-cdi-service</module>
-    <module>catalog-service</module>
+<!--     <module>catalog-service</module> -->
   </modules>
 
   <dependencyManagement>
