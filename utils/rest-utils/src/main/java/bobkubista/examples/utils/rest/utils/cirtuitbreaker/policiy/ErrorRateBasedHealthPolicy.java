@@ -17,6 +17,7 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transacti
  *
  */
 public class ErrorRateBasedHealthPolicy implements HealthPolicy {
+    private static final int THRESHOLD = 30;
     private final MetricsRegistry metricsRegistry;
     private final int thresholdMinReqPerMin;
 
@@ -28,7 +29,7 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
      *            {@link MetricsRegistry}
      */
     public ErrorRateBasedHealthPolicy(final MetricsRegistry metricsRegistry) {
-        this(metricsRegistry, 30);
+        this(metricsRegistry, THRESHOLD);
     }
 
     /**
