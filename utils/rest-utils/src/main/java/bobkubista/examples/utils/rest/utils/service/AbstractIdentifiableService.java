@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,7 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         return CompletableFuture.supplyAsync(() ->
             {
                 final Response response = AbstractIdentifiableService.this.getProxy().getAll(sort, page, maxResults);
-                if (response.getStatus() == 200) {
+                if (response.getStatus() == Status.OK.getStatusCode()) {
                     return response.readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection();
                 } else {
                     return Collections.emptyList();
