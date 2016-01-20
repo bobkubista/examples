@@ -15,7 +15,8 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.generic.Immutables;
  *
  */
 class TransactionsImpl implements Transactions {
-	private final ImmutableSet<Transaction> transactions;
+	private static final int PERCENT = 100;
+    private final ImmutableSet<Transaction> transactions;
 
 	/**
 	 *
@@ -48,7 +49,7 @@ class TransactionsImpl implements Transactions {
 			if (percent == 0) {
 				return Duration.ofMillis(sortedValues[0]);
 			} else {
-				return Duration.ofMillis(sortedValues[percent * sortedValues.length / 100]);
+				return Duration.ofMillis(sortedValues[percent * sortedValues.length / PERCENT]);
 			}
 		}
 	}
