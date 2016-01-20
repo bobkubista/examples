@@ -30,6 +30,7 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
     private static final int EXPIRE_AFTER_WRITE = 10;
     private static final int INITIAL_CAPACITY = 150;
     private static final int REFRESH_AFTER_WRITE = 1;
+
     private final AsyncLoadingCache<String, K> functionalToIdentifiercache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)
             .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
@@ -37,7 +38,7 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
             .refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
             .ticker(Ticker.systemTicker())
             .recordStats()
-            .buildAsync(key -> AbstractFunctionalAutoCache.this.getFunctionalService().getIdByFunctionalId(key));
+            .buildAsync(key -> this.getFunctionalService().getIdByFunctionalId(key));
 
     /**
      * Constructor
@@ -60,20 +61,20 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      *             thrown while loading the value ExecutionError - if an error
      *             was thrown while loading the value
      * @throws InterruptedException
+     *             Thrown if the asynchronous methode is interrupted
      */
-    public CompletableFuture<V> get(final String functionalId) throws ExecutionException, InterruptedException {
+    public CompletableFuture<V> get(final String functionalId) throws InterruptedException, ExecutionException {
         return this.get(this.functionalToIdentifiercache.get(functionalId, this.getFunctionalService()::getIdByFunctionalId).get());
     }
 
     @Override
     public V reload(final K key, final V oldValue) throws Exception {
-        final V reload = super.reload(key, oldValue);
+        V reload = super.reload(key, oldValue);
         if (reload == null) {
-            throw new Exception("Could not load value for key: " + key);
-        } else {
-            this.functionalToIdentifiercache.put(reload.getFunctionalId(), CompletableFuture.completedFuture(key));
-            return reload;
+            reload = this.load(key);
         }
+        this.functionalToIdentifiercache.put(reload.getFunctionalId(), CompletableFuture.completedFuture(key));
+        return reload;
     }
 
     /**
