@@ -1,7 +1,6 @@
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,11 +48,6 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
     @Override
     public Response delete(final ID identifier) {
         return this.getRequest(this.getServiceWithPaths(identifier.toString())).delete();
-    }
-
-    @Override
-    public Response getAll(final Integer page, final Integer maxResults) {
-        return this.getAll(new ArrayList<>(), page, maxResults);
     }
 
     @Override
