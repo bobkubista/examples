@@ -17,22 +17,18 @@ import bobkubista.examples.utils.rest.utils.service.AbstractActiveService;
  */
 public class UserServiceImpl extends AbstractActiveService<User, Long, UserCollection> implements UserService {
 
-    @Inject
-    private UserProxy proxy;
+	@Inject
+	private UserProxy proxy;
 
-    @Override
-    public boolean isAuthorized(final Long userId, final String right) throws IllegalStateException {
-        final int status = this.getProxy().isAuthorized(userId, right).getStatus();
-        if (status == Status.OK.getStatusCode()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean isAuthorized(final Long userId, final String right) throws IllegalStateException {
+		final int status = this.getProxy().isAuthorized(userId, right).getStatus();
+		return status == Status.OK.getStatusCode();
+	}
 
-    @Override
-    protected UserProxy getProxy() {
-        return this.proxy;
-    }
+	@Override
+	protected UserProxy getProxy() {
+		return this.proxy;
+	}
 
 }
