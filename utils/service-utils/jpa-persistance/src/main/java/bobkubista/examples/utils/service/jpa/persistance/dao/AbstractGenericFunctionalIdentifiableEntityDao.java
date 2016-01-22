@@ -5,7 +5,6 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -35,7 +34,8 @@ public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extend
 
 	@Override
 	public TYPE getByFunctionalId(final Object id) {
-		AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("Get object with functional id {}", id);
+		LOGGER.debug("Get object with functional id {}", id);
+
 		final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
@@ -45,7 +45,7 @@ public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extend
 		try {
 			return tp.getSingleResult();
 		} catch (final NoResultException ex) {
-			AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug(String.format("object with id '%s' not found", id), ex);
+			LOGGER.debug(String.format("object with id '%s' not found", id), ex);
 			return null;
 		}
 	}
@@ -79,51 +79,4 @@ public abstract class AbstractGenericFunctionalIdentifiableEntityDao<TYPE extend
 
 	protected abstract Path<String> getFunctionalIdField(Root<TYPE> entity);
 
-	/**
-	 *
-	 * @param field
-	 *            field to order by
-	 * @param query
-	 *            the {@link CriteriaQuery}
-	 * @param builder
-	 *            the {@link CriteriaBuilder}
-	 * @param queryRoot
-	 *            {@link Root}
-	 * @param startPositon
-	 *            amount of results to skip, for pagination for example
-	 * @param maxResults
-	 *            the amount of results returned
-	 * @return {@link Collection} of the given <code>ID</code>
-	 */
-	protected Collection<ID> orderedBy(final List<String> fields, final CriteriaQuery<ID> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot, final int startPositon,
-	        final int maxResults) {
-
-		for (final String field : fields) {
-			query.orderBy(builder.asc(queryRoot.get(field)));
-			AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
-		}
-		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
-	}
-
-	/**
-	 *
-	 * @param field
-	 *            field to order by
-	 * @param query
-	 *            the {@link CriteriaQuery}
-	 * @param builder
-	 *            the {@link CriteriaBuilder}
-	 * @param queryRoot
-	 *            {@link Root}
-	 * @return {@link Collection} of the given <code>TYPE</code>
-	 */
-	protected Collection<TYPE> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder,
-	        final Root<TYPE> queryRoot) {
-
-		for (final String field : fields) {
-			query.orderBy(builder.desc(queryRoot.get(field)));
-			AbstractGenericFunctionalIdentifiableEntityDao.LOGGER.debug("ordering query by {}", field);
-		}
-		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
-	}
 }
