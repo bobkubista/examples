@@ -73,7 +73,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
 		final Root<TYPE> entity = cq.from(entityType);
 		return this.orderedBy(sortFields, page, maxResult, cq, criteriaBuilder, entity);
-
 	}
 
 	@Override
@@ -104,8 +103,9 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
 	/**
 	 *
-	 * @param field
-	 *            field to order by
+	 * @param fields
+	 *            fields to order by. Fields with prefix "-" are ordered
+	 *            descending
 	 * @param query
 	 *            the {@link CriteriaQuery}
 	 * @param builder
@@ -122,7 +122,11 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 	        final int maxResults) {
 
 		for (final String field : fields) {
-			query.orderBy(builder.asc(queryRoot.get(field)));
+			if (field.startsWith("-")) {
+				query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
+			} else {
+				query.orderBy(builder.asc(queryRoot.get(field)));
+			}
 			LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
 		}
 		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
@@ -130,8 +134,9 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
 	/**
 	 *
-	 * @param field
-	 *            field to order by
+	 * @param fields
+	 *            fields to order by. Fields with prefix "-" are ordered
+	 *            descending
 	 * @param query
 	 *            the {@link CriteriaQuery}
 	 * @param builder
@@ -144,7 +149,11 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 	        final Root<TYPE> queryRoot) {
 
 		for (final String field : fields) {
-			query.orderBy(builder.asc(queryRoot.get(field)));
+			if (field.startsWith("-")) {
+				query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
+			} else {
+				query.orderBy(builder.asc(queryRoot.get(field)));
+			}
 			LOGGER.debug("ordering query by {}", field);
 		}
 		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
