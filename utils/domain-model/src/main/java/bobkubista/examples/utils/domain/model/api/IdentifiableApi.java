@@ -44,91 +44,91 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  */
 public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
 
-    /**
-     * @param entity
-     *            array of entities
-     * @return a response with Status.NOT_IMPLEMENTED as status
-     */
-    static Response buildNotImplementedResponse(final Object... entity) {
-        return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
-    }
+	/**
+	 * @param entity
+	 *            array of entities
+	 * @return a response with Status.NOT_IMPLEMENTED as status
+	 */
+	static Response buildNotImplementedResponse(final Object... entity) {
+		return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
+	}
 
-    /**
-     * Create the object of {@link DomainObject} type
-     *
-     * @param object
-     *            the object to create
-     * @return {@link Response}
-     */
-    @POST
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response create(final DMO object) {
-        return IdentifiableApi.buildNotImplementedResponse(object);
-    }
+	/**
+	 * Create the object of {@link DomainObject} type
+	 *
+	 * @param object
+	 *            the object to create
+	 * @return {@link Response}
+	 */
+	@POST
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	default Response create(final DMO object) {
+		return IdentifiableApi.buildNotImplementedResponse(object);
+	}
 
-    /**
-     * delete the specific object of {@link DomainObject}
-     *
-     * @param identifier
-     *            the identfier
-     * @return Response. Default is {@link NotImplementedException} @return
-     *         {@link Response}
-     */
-    @DELETE
-    @Path("{id}")
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response delete(@PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildNotImplementedResponse(identifier);
-    }
+	/**
+	 * delete the specific object of {@link DomainObject}
+	 *
+	 * @param identifier
+	 *            the identfier
+	 * @return Response. Default is {@link NotImplementedException} @return
+	 *         {@link Response}
+	 */
+	@DELETE
+	@Path("{id}")
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	default Response delete(@PathParam("id") final ID identifier) {
+		return IdentifiableApi.buildNotImplementedResponse(identifier);
+	}
 
-    /**
-     * get all known {@link DomainObject} of that type
-     *
-     * @param sort
-     *            sort field
-     * @param page
-     *            the page
-     * @param maxResults
-     *            amount of results
-     *
-     * @return a {@link Collection} of {@link DomainObject} of the same type
-     */
-    @GET
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response getAll(@DefaultValue("id") final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
-            @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
-        return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
-    }
+	/**
+	 * get all known {@link DomainObject} of that type
+	 *
+	 * @param sort
+	 *            sort field
+	 * @param page
+	 *            the page
+	 * @param maxResults
+	 *            amount of results
+	 *
+	 * @return a {@link Collection} of {@link DomainObject} of the same type
+	 */
+	@GET
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	default Response getAll(@DefaultValue("id") final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
+	        @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
+		return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
+	}
 
-    /**
-     * get the {@link DomainObject}
-     *
-     * @param identifier
-     *            the identfier @return the {@link DomainObject} @return
-     *            {@link Response}
-     */
-    @GET
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Path("{id}")
-    default Response getByID(@PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildNotImplementedResponse(identifier);
-    }
+	/**
+	 * get the {@link DomainObject}
+	 *
+	 * @param identifier
+	 *            the identfier
+	 * @return {@link Response}
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("{id}")
+	default Response getByID(@PathParam("id") final ID identifier) {
+		return IdentifiableApi.buildNotImplementedResponse(identifier);
+	}
 
-    /**
-     * update the object of {@link DomainObject}
-     *
-     * @param object
-     *            the object to update @return the updated object @return
-     *            {@link Response}
-     */
-    @PUT
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response update(final DMO object) {
-        return IdentifiableApi.buildNotImplementedResponse(object);
-    }
+	/**
+	 * update the object of {@link DomainObject}
+	 *
+	 * @param object
+	 *            the object to update
+	 * @return {@link Response}
+	 */
+	@PUT
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	default Response update(final DMO object) {
+		return IdentifiableApi.buildNotImplementedResponse(object);
+	}
 
 }
