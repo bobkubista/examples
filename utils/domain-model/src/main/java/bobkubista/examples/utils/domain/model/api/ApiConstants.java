@@ -1,6 +1,15 @@
 package bobkubista.examples.utils.domain.model.api;
 
-public class ApiConstants {
+/**
+ * @author Bob Kubista
+ *
+ */
+public enum ApiConstants {
+
+	/**
+	 * Instance
+	 */
+	INSTANCE;
 
 	/**
 	 * the query param name for the max amount of results to return
