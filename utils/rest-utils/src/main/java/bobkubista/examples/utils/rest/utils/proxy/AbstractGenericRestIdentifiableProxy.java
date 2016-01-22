@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
@@ -54,13 +55,13 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
     public Response getAll(final List<String> sort, final Integer page, final Integer maxResults) {
         final Map<String, Object> params = new HashMap<>();
         if (CollectionUtils.isNotEmpty(sort)) {
-            params.put(SORT, sort);
+            params.put(ApiConstants.SORT, sort);
         }
         if (page != null) {
-            params.put(PAGE, page);
+            params.put(ApiConstants.PAGE, page);
         }
         if (maxResults != null) {
-            params.put(MAX, maxResults);
+            params.put(ApiConstants.MAX, maxResults);
         }
         return this.getRequest(this.getServiceWithQueryParams(params)).get();
     }

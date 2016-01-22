@@ -15,7 +15,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
@@ -75,7 +75,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetAllWithSortAndLimit() {
-		final COL response = this.target("/").queryParam(IdentifiableApi.SORT, this.getIdField()).queryParam(IdentifiableApi.PAGE, 0).queryParam(IdentifiableApi.MAX, 2).request()
+		final COL response = this.target("/").queryParam(ApiConstants.SORT, this.getIdField()).queryParam(ApiConstants.PAGE, 0).queryParam(ApiConstants.MAX, 2).request()
 		        .get(this.getCollectionClass());
 		this.checkResponseGetAll(response, this.expectedSize());
 		this.checkSorting(response);
