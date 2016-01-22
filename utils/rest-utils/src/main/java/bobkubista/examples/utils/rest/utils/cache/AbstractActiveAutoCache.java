@@ -23,18 +23,18 @@ import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableServic
  */
 public abstract class AbstractActiveAutoCache<K extends Serializable, V extends AbstractGenericActiveDomainObject<K>> extends AbstractFunctionalAutoCache<K, V> {
 
-    /**
-     * @return get an {@link ActiveService}
-     */
-    protected abstract ActiveService<V, K> getActiveService();
+	/**
+	 * @return get an {@link ActiveService}
+	 */
+	protected abstract ActiveService<V, K> getActiveService();
 
-    @Override
-    protected Collection<V> getAllObjects() {
-        return this.getActiveService().getAllActive();
-    }
+	@Override
+	protected Collection<V> getAllObjects() {
+		return this.getActiveService().getAllActive(null, null, null);
+	}
 
-    @Override
-    protected final FunctionalIdentifiableService<V, K> getFunctionalService() {
-        return this.getActiveService();
-    }
+	@Override
+	protected final FunctionalIdentifiableService<V, K> getFunctionalService() {
+		return this.getActiveService();
+	}
 }

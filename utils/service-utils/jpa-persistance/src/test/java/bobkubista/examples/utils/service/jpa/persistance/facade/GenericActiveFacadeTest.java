@@ -57,8 +57,9 @@ public class GenericActiveFacadeTest {
 
 	/**
 	 * Test method for
-	 * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#getAll()}
-	 * .
+	 * {@link bobkubista.examples.utils.service.jpa.persistance.facade.
+	 * AbstractGenericIdentifiableFacade#getAll(java.util.List, Integer,
+	 * Integer))} .
 	 */
 	@Test
 	public void testGetAll() {
@@ -69,12 +70,13 @@ public class GenericActiveFacadeTest {
 
 	/**
 	 * Test method for
-	 * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericActiveFacade#getAllActive()}
-	 * .
+	 * {@link bobkubista.examples.utils.service.jpa.persistance.facade.
+	 * AbstractGenericActiveFacade#getAllActive(java.util.List, Integer,
+	 * Integer))} .
 	 */
 	@Test
 	public void testGetAllActive() {
-		final Response result = this.facade.getAllActive();
+		final Response result = this.facade.getAllActive(null, null, null);
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getEntity());
 	}
@@ -92,6 +94,9 @@ public class GenericActiveFacadeTest {
 		Assert.assertNotNull(result.getEntity());
 	}
 
+	/**
+	 *
+	 */
 	@Test(expected = NotFoundException.class)
 	public void testGetByFunctionalIdNull() {
 		this.facade.getByFunctionalId("");
@@ -110,6 +115,9 @@ public class GenericActiveFacadeTest {
 		Assert.assertNotNull(result.getEntity());
 	}
 
+	/**
+	 *
+	 */
 	@Test(expected = NotFoundException.class)
 	public void testGetByIDNull() {
 		this.facade.getByID(2L);
