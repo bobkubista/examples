@@ -5,7 +5,18 @@ import java.util.List;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 
-public class SearchBean {
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
+
+/**
+ * {@link DomainObject} that defines search parameters like amounts to skip,
+ * amount of results to return and sorts. It is written with fluent api.
+ *
+ * @author Bob
+ *
+ */
+public class SearchBean implements DomainObject {
+
+    private static final long serialVersionUID = 292585102377195854L;
 
     @QueryParam(ApiConstants.MAX)
     @DefaultValue("20")
@@ -42,6 +53,7 @@ public class SearchBean {
     /**
      * @param maxResults
      *            the maxResults to set
+     * @return the {@link SearchBean}
      */
     public final SearchBean setMaxResults(final Integer maxResults) {
         this.maxResults = maxResults;
@@ -51,6 +63,7 @@ public class SearchBean {
     /**
      * @param page
      *            the page to set
+     * @return the {@link SearchBean}
      */
     public final SearchBean setPage(final Integer page) {
         this.page = page;
@@ -60,6 +73,7 @@ public class SearchBean {
     /**
      * @param sort
      *            the sort to set
+     * @return the {@link SearchBean}
      */
     public final SearchBean setSort(final List<String> sort) {
         this.sort = sort;
