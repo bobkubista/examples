@@ -20,6 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection}
  */
+// TODO build test for getIdForFunctionalId, searchByFunctionalId, getAllActive
 public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
     /**
