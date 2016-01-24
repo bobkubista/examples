@@ -96,23 +96,6 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     }
 
     /**
-     * get all known {@link DomainObject} of that type
-     *
-     * @param page
-     *            the page
-     * @param maxResults
-     *            amount of results
-     *
-     * @return a {@link Collection} of {@link DomainObject} of the same type
-     */
-    @GET
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response getAll(@QueryParam(PAGE) @DefaultValue("0") final Integer page, @QueryParam(MAX) @DefaultValue("20") final Integer maxResults) {
-        return this.getAll(null, page, maxResults);
-    }
-
-    /**
      * get all known {@link DomainObject} of that type. Delegate this methode to
      * {@link IdentifiableApi#getAll(Integer, Integer)} and use set the sort
      * field as queryparameters. This methode is used to construct the
@@ -127,7 +110,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      *
      * @return a {@link Collection} of {@link DomainObject} of the same type
      */
-    default Response getAll(@DefaultValue("id") final List<String> sort, @QueryParam(PAGE) @DefaultValue("0") final Integer page,
+    default Response getAll(@DefaultValue("id") @QueryParam(SORT) final List<String> sort, @QueryParam(PAGE) @DefaultValue("0") final Integer page,
             @QueryParam(MAX) @DefaultValue("20") final Integer maxResults) {
         return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
     }

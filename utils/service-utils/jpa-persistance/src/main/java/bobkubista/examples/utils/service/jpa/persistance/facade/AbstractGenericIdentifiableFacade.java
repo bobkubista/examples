@@ -3,17 +3,11 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -49,9 +43,6 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
-    @Context
-    private UriInfo info;
-
     @Override
     public Response create(final DMO object) {
         Validate.notNull(object);
@@ -75,19 +66,6 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             LOGGER.debug("resource {} not found", identifier);
             throw new NotFoundException();
         }
-    }
-
-    @Override
-    public Response getAll(@QueryParam(PAGE) @DefaultValue("0") final Integer page, @QueryParam(MAX) @DefaultValue("20") final Integer maxResults) {
-        List<String> sort = null;
-        if (this.info != null) {
-            final MultivaluedMap<String, String> queryparameters = this.info.getQueryParameters();
-            sort = queryparameters.get("sort");
-        }
-        if (sort == null) {
-            sort = new ArrayList<>();
-        }
-        return this.getAll(sort, page, maxResults);
     }
 
     @Override
