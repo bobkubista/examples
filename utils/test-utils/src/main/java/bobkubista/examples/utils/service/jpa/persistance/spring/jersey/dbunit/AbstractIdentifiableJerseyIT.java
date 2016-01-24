@@ -166,6 +166,16 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     protected abstract ID getId();
 
     /**
+     *
+     * @return the ID
+     */
+    @SuppressWarnings("unchecked")
+    protected Class<ID> getIdentifierClass() {
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        return (Class<ID>) genericSuperclass.getActualTypeArguments()[1];
+    }
+
+    /**
      * @return the identifier field name
      */
     protected abstract String getIdField();

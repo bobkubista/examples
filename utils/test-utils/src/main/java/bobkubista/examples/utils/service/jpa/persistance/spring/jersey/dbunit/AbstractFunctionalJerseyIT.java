@@ -2,6 +2,8 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -30,6 +32,14 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetByFunctionalId() {
         this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
+    }
+
+    @Ignore
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetIdByFunctionalId() {
+        final ID actual = this.target("/id/" + this.getFunctionalId()).request().get(this.getIdentifierClass());
+        Assert.assertEquals(this.getId(), actual);
     }
 
     /**
