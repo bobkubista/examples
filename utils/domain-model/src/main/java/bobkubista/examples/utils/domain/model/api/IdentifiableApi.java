@@ -97,7 +97,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      *
      * @return a {@link Collection} of {@link DomainObject} of the same type
      */
-    default Response getAll(@DefaultValue("id") @QueryParam(ApiConstants.SORT) final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
+    @GET
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    default Response getAll(@QueryParam(ApiConstants.SORT) final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
             @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
         return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
     }
