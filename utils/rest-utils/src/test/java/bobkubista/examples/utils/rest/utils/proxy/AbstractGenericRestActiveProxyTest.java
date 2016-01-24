@@ -52,6 +52,7 @@ public class AbstractGenericRestActiveProxyTest {
 
 		final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
 		Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
+		Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any())).thenReturn(mockWebTarget);
 		Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
 
 		Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
@@ -114,7 +115,7 @@ public class AbstractGenericRestActiveProxyTest {
 	public void testGetAllActive() {
 		Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
 
-		final Response result = this.proxy.getAllActive();
+		final Response result = this.proxy.getAllActive(null, 0, 100);
 		Assert.assertEquals(200, result.getStatus());
 	}
 

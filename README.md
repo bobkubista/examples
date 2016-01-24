@@ -37,6 +37,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
 ### Done:
 
 ### New:
+* Simian Monkey
+* Chef vs Puppet vs Ansible
 
 ### Existing:
 * Buildstreet:

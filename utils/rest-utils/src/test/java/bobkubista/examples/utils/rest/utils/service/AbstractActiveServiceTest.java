@@ -30,7 +30,7 @@ public class AbstractActiveServiceTest {
 
 	@Test
 	public void testGetAllActive() {
-		Assert.assertEquals(2, this.service.getAllActive().size());
+		Assert.assertEquals(2, this.service.getAllActive(null, 0, 100).size());
 	}
 
 	@Test

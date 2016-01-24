@@ -7,9 +7,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 
-import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
@@ -24,6 +28,8 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  *            the id object type of the {@link AbstractIdentifiableEntity}
  */
 public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericDao.class);
 
 	private final Class<TYPE> entityClass;
 
@@ -62,19 +68,11 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
 	@Override
 	public Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResult) {
-		StringBuilder select = new StringBuilder("from " + this.getEntityClass().getName());
-		for (final String field : sortFields) {
-			if (StringUtils.isNotBlank(field)) {
-				select = select.append(" order by " + field);
-			}
-		}
-
-		final TypedQuery<TYPE> query = this.entityManager.createQuery(select.toString(), this.getEntityClass());
-		// page
-		query.setFirstResult(page * maxResult);
-		// max results for page
-		query.setMaxResults(maxResult);
-		return query.getResultList();
+		final EntityType<TYPE> entityType = this.getEntityManager().getMetamodel().entity(this.getEntityClass());
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
+		final Root<TYPE> entity = cq.from(entityType);
+		return this.orderedBy(sortFields, page, maxResult, cq, criteriaBuilder, entity);
 	}
 
 	@Override
@@ -101,5 +99,63 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
 	protected Class<ID> getIdentifierClass() {
 		return this.identifierClass;
+	}
+
+	/**
+	 *
+	 * @param fields
+	 *            fields to order by. Fields with prefix "-" are ordered
+	 *            descending
+	 * @param query
+	 *            the {@link CriteriaQuery}
+	 * @param builder
+	 *            the {@link CriteriaBuilder}
+	 * @param queryRoot
+	 *            {@link Root}
+	 * @param startPositon
+	 *            amount of results to skip, for pagination for example
+	 * @param maxResults
+	 *            the amount of results returned
+	 * @return {@link Collection} of the given <code>ID</code>
+	 */
+	protected Collection<ID> orderedBy(final List<String> fields, final CriteriaQuery<ID> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot, final int startPositon,
+	        final int maxResults) {
+
+		for (final String field : fields) {
+			if (field.startsWith("-")) {
+				query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
+			} else {
+				query.orderBy(builder.asc(queryRoot.get(field)));
+			}
+			LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
+		}
+		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
+	}
+
+	/**
+	 *
+	 * @param fields
+	 *            fields to order by. Fields with prefix "-" are ordered
+	 *            descending
+	 * @param query
+	 *            the {@link CriteriaQuery}
+	 * @param builder
+	 *            the {@link CriteriaBuilder}
+	 * @param queryRoot
+	 *            {@link Root}
+	 * @return {@link Collection} of the given <code>TYPE</code>
+	 */
+	protected Collection<TYPE> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder,
+	        final Root<TYPE> queryRoot) {
+
+		for (final String field : fields) {
+			if (field.startsWith("-")) {
+				query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
+			} else {
+				query.orderBy(builder.asc(queryRoot.get(field)));
+			}
+			LOGGER.debug("ordering query by {}", field);
+		}
+		return this.getEntityManager().createQuery(query).setFirstResult(startPositon).setMaxResults(maxResults).getResultList();
 	}
 }

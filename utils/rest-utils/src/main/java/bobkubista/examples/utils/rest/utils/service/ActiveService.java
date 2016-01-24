@@ -5,6 +5,7 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
@@ -19,15 +20,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableService<TYPE, ID> {
 
-    /**
-     *
-     * @return Get all active {@link AbstractGenericActiveDomainObject}
-     */
-    Collection<TYPE> getAllActive();
+	/**
+	 *
+	 * @return Get all active {@link AbstractGenericActiveDomainObject}
+	 */
+	Collection<TYPE> getAllActive(final List<String> sort, final Integer page, final Integer maxResults);
 
-    /**
-     *
-     * @return Get all active {@link AbstractGenericActiveDomainObject}
-     */
-    CompletableFuture<Collection<TYPE>> getAllActiveASync();
+	/**
+	 *
+	 * @return Get all active {@link AbstractGenericActiveDomainObject}
+	 */
+	CompletableFuture<Collection<TYPE>> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults);
 }

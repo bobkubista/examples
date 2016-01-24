@@ -2,6 +2,7 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +21,20 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Transactional
 public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
 
-    @Override
-    public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
+	@Override
+	public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
 
-    /**
-     *
-     * @return all active entities of <code>TYPE</code>
-     */
-    default Collection<TYPE> getAllActive() {
-        return this.getDAO().findAllActive("id");
-    }
+	/**
+	 *
+	 * @param maxResults
+	 *            amount of results to return
+	 * @param page
+	 *            the page to skip too. page * maxResults will be skipped
+	 * @param sortFields
+	 *            the field to sort by
+	 * @return all active entities of <code>TYPE</code>
+	 */
+	default Collection<TYPE> getAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
+		return this.getDAO().findAllActive(sortFields, page, maxResults);
+	}
 }
