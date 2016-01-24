@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
@@ -76,7 +77,11 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     public CompletableFuture<Collection<TYPE>> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
         return CompletableFuture.supplyAsync(() ->
             {
-                final Response response = AbstractIdentifiableService.this.getProxy().getAll(sort, page, maxResults);
+                final SearchBean searchBean = new SearchBean()
+                        .setMaxResults(maxResults)
+                        .setPage(page)
+                        .setSort(sort);
+                final Response response = AbstractIdentifiableService.this.getProxy().getAll(searchBean);
                 if (response.getStatus() == Status.OK.getStatusCode()) {
                     return response.readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection();
                 } else {

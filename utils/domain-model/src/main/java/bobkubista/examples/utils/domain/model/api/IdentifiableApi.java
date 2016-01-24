@@ -5,18 +5,16 @@ package bobkubista.examples.utils.domain.model.api;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -88,20 +86,15 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      * field as queryparameters. This methode is used to construct the
      * {@link GET}.
      *
-     * @param sort
-     *            sort field
-     * @param page
-     *            the page
-     * @param maxResults
-     *            amount of results
+     * @param search
+     *            {@link SearchBean} filled with criteria, sorts and limits
      *
      * @return a {@link Collection} of {@link DomainObject} of the same type
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response getAll(@QueryParam(ApiConstants.SORT) final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
-            @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
-        return IdentifiableApi.buildNotImplementedResponse(sort, page, maxResults);
+    default Response getAll(@BeanParam final SearchBean search) {
+        return IdentifiableApi.buildNotImplementedResponse(search);
     }
 
     /**

@@ -21,6 +21,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 
 /**
  * @author Bob Kubista
@@ -61,7 +62,7 @@ public class TodoProxyTest {
         final TodoListCollection userCollection = new TodoListCollection();
         Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
 
-        final Response response = this.proxy.getAll(null, null, null);
+        final Response response = this.proxy.getAll(new SearchBean());
         Assert.assertNotNull(response);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final TodoListCollection users = (TodoListCollection) response.getEntity();

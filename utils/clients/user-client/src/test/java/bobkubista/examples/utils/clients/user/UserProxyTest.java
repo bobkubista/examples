@@ -3,8 +3,6 @@
  */
 package bobkubista.examples.utils.clients.user;
 
-import java.util.Collections;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation.Builder;
@@ -24,6 +22,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bobkubista.examples.services.api.user.domain.UserCollection;
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 
 /**
  * @author Bob
@@ -68,7 +67,7 @@ public class UserProxyTest {
         final UserCollection userCollection = new UserCollection();
         Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
 
-        final Response response = this.proxy.getAll(null, null, null);
+        final Response response = this.proxy.getAll(new SearchBean());
         Assert.assertNotNull(response);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final UserCollection users = (UserCollection) response.getEntity();
@@ -81,7 +80,7 @@ public class UserProxyTest {
         final UserCollection userCollection = new UserCollection();
         Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
 
-        final Response response = this.proxy.getAll(Collections.singletonList("id"), 0, 1);
+        final Response response = this.proxy.getAll(new SearchBean());
         Assert.assertNotNull(response);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final UserCollection users = (UserCollection) response.getEntity();

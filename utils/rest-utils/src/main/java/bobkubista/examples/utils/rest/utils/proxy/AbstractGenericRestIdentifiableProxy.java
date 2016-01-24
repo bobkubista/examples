@@ -2,7 +2,6 @@ package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.client.Entity;
@@ -13,6 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
@@ -52,16 +52,16 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
     }
 
     @Override
-    public Response getAll(final List<String> sort, final Integer page, final Integer maxResults) {
+    public Response getAll(final SearchBean search) {
         final Map<String, Object> params = new HashMap<>();
-        if (CollectionUtils.isNotEmpty(sort)) {
-            params.put(ApiConstants.SORT, sort);
+        if (CollectionUtils.isNotEmpty(search.getSort())) {
+            params.put(ApiConstants.SORT, search.getSort());
         }
-        if (page != null) {
-            params.put(ApiConstants.PAGE, page);
+        if (search.getPage() != null) {
+            params.put(ApiConstants.PAGE, search.getPage());
         }
-        if (maxResults != null) {
-            params.put(ApiConstants.MAX, maxResults);
+        if (search.getMaxResults() != null) {
+            params.put(ApiConstants.MAX, search.getMaxResults());
         }
         return this.getRequest(this.getServiceWithQueryParams(params)).get();
     }
