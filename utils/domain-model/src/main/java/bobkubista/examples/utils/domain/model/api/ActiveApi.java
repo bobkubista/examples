@@ -23,16 +23,16 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
 
-	/**
-	 *
-	 * @return get all {@link AbstractGenericActiveDomainObject}s
-	 */
-	@GET
-	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("active/")
-	default Response getAllActive(@DefaultValue("id") final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
-	        @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
-		return IdentifiableApi.buildNotImplementedResponse();
-	}
+    /**
+     *
+     * @return get all {@link AbstractGenericActiveDomainObject}s
+     */
+    @GET
+    @Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Path("active/")
+    default Response getAllActive(@DefaultValue("id") @QueryParam(ApiConstants.SORT) final List<String> sort, @QueryParam(ApiConstants.PAGE) @DefaultValue("0") final Integer page,
+            @QueryParam(ApiConstants.MAX) @DefaultValue("20") final Integer maxResults) {
+        return IdentifiableApi.buildNotImplementedResponse();
+    }
 }
