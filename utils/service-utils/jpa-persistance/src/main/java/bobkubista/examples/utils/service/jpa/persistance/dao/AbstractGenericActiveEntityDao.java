@@ -28,7 +28,8 @@ public abstract class AbstractGenericActiveEntityDao<TYPE extends AbstractGeneri
 
     @Override
     public Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
-        final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> optionalWhere = Optional.of((root, build) -> build.equal(root.get("active"), true));
+        final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> where = (root, build) -> build.equal(root.get("active"), true);
+        final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> optionalWhere = Optional.of(where);
         return this.getAll(sortFields, page, maxResults, optionalWhere);
     }
 }
