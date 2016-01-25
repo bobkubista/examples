@@ -50,23 +50,6 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     }
 
     /**
-     * Test search by functionalId
-     */
-    @Test
-    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
-    public void shouldSearchByFunctionalId() {
-        final COL actual = this.target("/searchByFunctionalId/" + this.getFunctionalId()
-                .substring(0, 2))
-                .request()
-                .get(this.getCollectionClass());
-
-        Assert.assertNotNull(actual);
-        Assert.assertNotNull(actual.getDomainCollection());
-        Assert.assertFalse(actual.getDomainCollection()
-                .isEmpty());
-    }
-
-    /**
      *
      * @return The functionalId
      */

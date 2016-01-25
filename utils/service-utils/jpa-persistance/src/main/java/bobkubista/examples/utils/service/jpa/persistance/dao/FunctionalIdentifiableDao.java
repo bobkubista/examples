@@ -4,7 +4,6 @@
 package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
@@ -27,13 +26,4 @@ public interface FunctionalIdentifiableDao<TYPE extends AbstractGenericFunctiona
      */
     public abstract TYPE getByFunctionalId(Object id);
 
-    /**
-     * searchByFunctionalId the <code>TYPE</code> object
-     *
-     * @param id
-     *            the <code>ID</code> id to search for
-     *
-     * @return the objects matching the search id
-     */
-    public Collection<TYPE> searchByFunctionalId(Object id);
 }

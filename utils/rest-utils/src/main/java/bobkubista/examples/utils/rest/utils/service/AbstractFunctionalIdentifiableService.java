@@ -4,10 +4,6 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,28 +28,16 @@ public abstract class AbstractFunctionalIdentifiableService<TYPE extends Abstrac
 
     @Override
     public TYPE getByFunctionalId(final String functionalId) {
-        return this.getProxy().getByFunctionalId(functionalId).readEntity(this.getDomainClass());
+        return this.getProxy()
+                .getByFunctionalId(functionalId)
+                .readEntity(this.getDomainClass());
     }
 
     @Override
     public ID getIdByFunctionalId(final String fId) {
-        return this.getProxy().getIdByFunctionalId(fId).readEntity(this.getIdClass());
-    }
-
-    @Override
-    public Collection<TYPE> searchByFunctionalID(final String identifier) {
-        try {
-            return this.searchByFunctionalIdAsync(identifier).get();
-        } catch (InterruptedException | ExecutionException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
-    public CompletableFuture<Collection<TYPE>> searchByFunctionalIdAsync(final String identifier) {
-        return CompletableFuture.supplyAsync(() -> AbstractFunctionalIdentifiableService.this.getProxy().searchByFunctionalID(identifier)
-                .readEntity(AbstractFunctionalIdentifiableService.this.getCollectionClass()).getDomainCollection());
+        return this.getProxy()
+                .getIdByFunctionalId(fId)
+                .readEntity(this.getIdClass());
     }
 
     @Override

@@ -43,23 +43,33 @@ public class AbstractGenericRestActiveProxyTest {
 
     @Before
     public void start() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Builder mockBuilder = Mockito.mock(Builder.class);
-        Mockito.when(mockBuilder.get()).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.post(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.put(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.delete()).thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.get())
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.post(Matchers.any()))
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.put(Matchers.any()))
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.delete())
+                .thenReturn(this.mockResponse);
 
         final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
-        Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any())).thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
+        Mockito.when(mockWebTarget.path(Matchers.anyString()))
+                .thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any()))
+                .thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
+                .thenReturn(mockBuilder);
 
-        Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
+        Mockito.when(this.mockClient.target(Matchers.anyString()))
+                .thenReturn(mockWebTarget);
 
         PowerMockito.mockStatic(ClientBuilder.class);
-        PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
+        PowerMockito.when(ClientBuilder.newClient())
+                .thenReturn(this.mockClient);
         this.proxy.base();
     }
 
@@ -75,7 +85,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testCreate() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(201);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(201);
 
         final Response result = this.proxy.create(new MockActiveDomainObject());
         Assert.assertEquals(201, result.getStatus());
@@ -88,7 +99,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testDelete() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.delete(1);
         Assert.assertEquals(200, result.getStatus());
@@ -101,7 +113,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetAll() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.getAll(new SearchBean());
         Assert.assertEquals(200, result.getStatus());
@@ -114,7 +127,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetAllActive() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.getAllActive(null, 0, 100);
         Assert.assertEquals(200, result.getStatus());
@@ -127,7 +141,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetByFunctionalId() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.getByFunctionalId("blaat");
         Assert.assertEquals(200, result.getStatus());
@@ -140,7 +155,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetByID() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.getByID(1);
         Assert.assertEquals(200, result.getStatus());
@@ -153,22 +169,10 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testGetIdByFunctionalId() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.getIdByFunctionalId("blaat");
-        Assert.assertEquals(200, result.getStatus());
-    }
-
-    /**
-     * Test method for
-     * {@link bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy#searchByFunctionalID(java.lang.String)}
-     * .
-     */
-    @Test
-    public void testSearchByFunctionalID() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
-
-        final Response result = this.proxy.searchByFunctionalID("bla");
         Assert.assertEquals(200, result.getStatus());
     }
 
@@ -179,7 +183,8 @@ public class AbstractGenericRestActiveProxyTest {
      */
     @Test
     public void testUpdate() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Response result = this.proxy.update(new MockActiveDomainObject());
         Assert.assertEquals(200, result.getStatus());

@@ -1,7 +1,6 @@
 package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,8 @@ public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGeneri
      * @return {@link AbstractGenericFunctionalIdentifiableEntity}
      */
     public default TYPE getByFunctionalId(final Object identifier) {
-        return this.getDAO().getByFunctionalId(identifier);
+        return this.getDAO()
+                .getByFunctionalId(identifier);
     }
 
     @Override
@@ -43,17 +43,8 @@ public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGeneri
      * @return the identifier <code>ID</code> for the given functional id
      */
     public default ID getIdByFunctionalId(final String fId) {
-        return this.getDAO().getIdByFunctionalId(fId);
+        return this.getDAO()
+                .getIdByFunctionalId(fId);
     }
 
-    /**
-     *
-     * @param identifier
-     *            the functioanl identifier to use
-     * @return search for <code>TYPE</code> which has the identifier as part of
-     *         the functional id
-     */
-    public default Collection<TYPE> searchByFunctionalID(final String identifier) {
-        return this.getDAO().searchByFunctionalId(identifier);
-    }
 }

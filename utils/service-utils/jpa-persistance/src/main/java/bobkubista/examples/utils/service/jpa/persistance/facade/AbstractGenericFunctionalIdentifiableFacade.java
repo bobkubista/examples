@@ -31,29 +31,29 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
 
     @Override
     public Response getByFunctionalId(final String identifier) {
-        final TYPE result = this.getService().getByFunctionalId(identifier);
+        final TYPE result = this.getService()
+                .getByFunctionalId(identifier);
         if (result == null) {
             throw new NotFoundException();
         } else {
-            return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+            return Response.ok(this.getConverter()
+                    .convertToDomainObject(result))
+                    .build();
         }
     }
 
     @Override
     public Response getIdByFunctionalId(final String fId) {
-        final ID result = this.getService().getIdByFunctionalId(fId);
+        final ID result = this.getService()
+                .getIdByFunctionalId(fId);
 
         if (result == null) {
             throw new NotFoundException();
         } else {
             // TODO remove .toString(). Add functionality to converters
-            return Response.ok(result.toString()).build();
+            return Response.ok(result.toString())
+                    .build();
         }
-    }
-
-    @Override
-    public Response searchByFunctionalID(final String identifier) {
-        return Response.ok(this.getConverter().convertToDomainObject(this.getService().searchByFunctionalID(identifier))).build();
     }
 
     @Override

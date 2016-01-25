@@ -148,19 +148,6 @@ public class GenericActiveFacadeTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericFunctionalIdentifiableFacade#searchByFunctionalID(java.lang.String )}
-     * .
-     */
-    @Test
-    public void testSearchByFunctionalID() {
-        final Response result = this.facade.searchByFunctionalID("B");
-        Assert.assertNotNull(result);
-        Assert.assertEquals(200, result.getStatus());
-        Assert.assertNotNull(result.getEntity());
-    }
-
-    /**
-     * Test method for
      * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#update(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
      * .
      */
