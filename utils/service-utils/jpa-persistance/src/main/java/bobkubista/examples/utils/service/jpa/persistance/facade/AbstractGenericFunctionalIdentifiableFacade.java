@@ -46,7 +46,8 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
         if (result == null) {
             throw new NotFoundException();
         } else {
-            return Response.ok(result).build();
+            // TODO remove .toString() somehow
+            return Response.ok(result.toString()).build();
         }
     }
 

@@ -34,14 +34,19 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
         this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
     }
 
-    @Ignore
+    /**
+     * Test getIdByFunctionalId
+     */
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetIdByFunctionalId() {
-        final ID actual = this.target("/id/" + this.getFunctionalId()).request().get(this.getIdentifierClass());
-        Assert.assertEquals(this.getId(), actual);
+        final String actual = this.target("/id/" + this.getFunctionalId()).request().get(String.class);
+        Assert.assertEquals(this.getId().toString(), actual);
     }
 
+    /**
+     * Test search by functionalId
+     */
     @Ignore
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
