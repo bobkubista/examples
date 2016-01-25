@@ -34,7 +34,7 @@ public class MockActiveService extends AbstractActiveService<MockActiveDomainObj
                 .thenReturn(mockDomainCollection);
         Mockito.when(getAllResponse.getStatus())
                 .thenReturn(200);
-        Mockito.when(mockProxy.getAllActive(Matchers.anyListOf(String.class), Matchers.anyInt(), Matchers.anyInt()))
+        Mockito.when(mockProxy.getAllActive(new SearchBean()))
                 .thenReturn(getAllResponse);
 
         final Response mockSingleResponse = Mockito.mock(Response.class);

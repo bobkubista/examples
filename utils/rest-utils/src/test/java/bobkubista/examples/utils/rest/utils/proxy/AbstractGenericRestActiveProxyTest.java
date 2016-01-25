@@ -130,7 +130,7 @@ public class AbstractGenericRestActiveProxyTest {
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(200);
 
-        final Response result = this.proxy.getAllActive(null, 0, 100);
+        final Response result = this.proxy.getAllActive(new SearchBean());
         Assert.assertEquals(200, result.getStatus());
     }
 

@@ -79,7 +79,7 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetAllActive() {
-        final Response result = this.facade.getAllActive(null, null, null);
+        final Response result = this.facade.getAllActive(new SearchBean());
         Assert.assertNotNull(result);
         Assert.assertNotNull(result.getEntity());
     }

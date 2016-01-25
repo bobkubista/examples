@@ -1,11 +1,11 @@
 package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
@@ -26,8 +26,11 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
         extends AbstractGenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
     @Override
-    public Response getAllActive(final List<String> sort, final Integer page, final Integer maxResults) {
-        return Response.ok(this.getConverter().convertToDomainObject(this.getService().getAllActive(sort, page, maxResults))).build();
+    public Response getAllActive(final SearchBean searchBean) {
+        return Response.ok(this.getConverter()
+                .convertToDomainObject(this.getService()
+                        .getAllActive(searchBean.getSort(), searchBean.getPage(), searchBean.getMaxResults())))
+                .build();
     }
 
     @Override
