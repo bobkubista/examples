@@ -3,6 +3,12 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
@@ -52,9 +58,11 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      *            which page
      * @param maxResult
      *            the amount of result per page
+     * @param whereClause
+     *            TODO
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public abstract Collection<TYPE> getAll(List<String> sortFields, int page, int maxResult);
+    public abstract Collection<TYPE> getAll(List<String> sortFields, int page, int maxResult, Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause);
 
     /**
      * get a <code>TYPE</code> object by its <code>ID</code> id

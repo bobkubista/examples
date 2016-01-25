@@ -69,7 +69,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	 *         same type
 	 */
 	public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResults) {
-		return this.getDAO().getAll(sortFields, page, maxResults);
+		return this.getDAO().getAll(sortFields, page, maxResults, null);
 	}
 
 	/**
