@@ -2,6 +2,7 @@ package bobkubista.examples.utils.domain.model.api;
 
 import java.io.Serializable;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,14 +23,15 @@ public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID
 
     /**
      *
-     * @param searchBean TODO
+     * @param searchBean
+     *            TODO
      * @return get all {@link AbstractGenericActiveDomainObject}s
      */
     @GET
     @Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("active/")
-    default Response getAllActive(SearchBean searchBean) {
+    default Response getAllActive(@BeanParam final SearchBean searchBean) {
         return IdentifiableApi.buildNotImplementedResponse();
     }
 }
