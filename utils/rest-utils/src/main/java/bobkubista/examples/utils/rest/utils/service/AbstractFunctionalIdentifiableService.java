@@ -5,9 +5,6 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy;
@@ -23,8 +20,6 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalI
  */
 public abstract class AbstractFunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractIdentifiableService<TYPE, ID, COL>implements FunctionalIdentifiableService<TYPE, ID> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFunctionalIdentifiableService.class);
 
     @Override
     public TYPE getByFunctionalId(final String functionalId) {
