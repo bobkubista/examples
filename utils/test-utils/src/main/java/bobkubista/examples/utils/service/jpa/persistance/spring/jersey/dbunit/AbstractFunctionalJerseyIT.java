@@ -3,7 +3,6 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 import java.io.Serializable;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -31,7 +30,9 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetByFunctionalId() {
-        this.checkSingle(this.target("/functionId/" + this.getFunctionalId()).request().get(this.getSingleClass()));
+        this.checkSingle(this.target("/functionId/" + this.getFunctionalId())
+                .request()
+                .get(this.getSingleClass()));
     }
 
     /**
@@ -40,19 +41,29 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetIdByFunctionalId() {
-        final String actual = this.target("/id/" + this.getFunctionalId()).request().get(String.class);
-        Assert.assertEquals(this.getId().toString(), actual);
+        final String actual = this.target("/id/" + this.getFunctionalId())
+                .request()
+                .get(String.class);
+
+        Assert.assertEquals(this.getId()
+                .toString(), actual);
     }
 
     /**
      * Test search by functionalId
      */
-    @Ignore
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldSearchByFunctionalId() {
-        final ID actual = this.target("/id/" + this.getFunctionalId()).request().get(this.getIdentifierClass());
-        Assert.assertEquals(this.getId(), actual);
+        final COL actual = this.target("/searchByFunctionalId/" + this.getFunctionalId()
+                .substring(0, 2))
+                .request()
+                .get(this.getCollectionClass());
+
+        Assert.assertNotNull(actual);
+        Assert.assertNotNull(actual.getDomainCollection());
+        Assert.assertFalse(actual.getDomainCollection()
+                .isEmpty());
     }
 
     /**
