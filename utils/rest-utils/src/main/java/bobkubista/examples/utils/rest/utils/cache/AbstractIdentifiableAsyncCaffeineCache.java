@@ -35,7 +35,6 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
     private static final int EXPIRE_AFTER_WRITE = 10;
     private static final int INITIAL_CAPACITY = 150;
     private static final int REFRESH_AFTER_WRITE = 1;
-
     private final AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)
             .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
@@ -51,7 +50,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      * keep running
      */
     public void cleanUp() {
-        this.cache.synchronous().cleanUp();
+        this.cache.synchronous()
+                .cleanUp();
     }
 
     /**
@@ -70,7 +70,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      * @return get all cached objects
      */
     public Map<K, V> getAll() {
-        return this.cache.synchronous().asMap();
+        return this.cache.synchronous()
+                .asMap();
     }
 
     /**
@@ -86,7 +87,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
 
     @Override
     public V load(final K key) throws Exception {
-        return this.getIdentifiableService().getByID(key);
+        return this.getIdentifiableService()
+                .getByID(key);
     }
 
     /**
@@ -94,14 +96,18 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      */
     @PostConstruct
     public void loadAll() {
-        final Map<K, V> map = this.getAllObjects().stream().collect(Collectors.toMap(t -> t.getId(), Function.identity()));
-        this.cache.synchronous().putAll(map);
+        final Map<K, V> map = this.getAllObjects()
+                .stream()
+                .collect(Collectors.toMap(t -> t.getId(), Function.identity()));
+        this.cache.synchronous()
+                .putAll(map);
     }
 
     @Override
     public Map<K, V> loadAll(final Iterable<? extends K> keys) throws Exception {
         final Collection<V> all = this.getAllObjects();
-        return all.parallelStream().collect(Collectors.toMap(value -> value.getId(), Function.identity()));
+        return all.parallelStream()
+                .collect(Collectors.toMap(value -> value.getId(), Function.identity()));
     }
 
     /**
@@ -110,7 +116,8 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      * @return a {@link Collection} of V
      */
     protected Collection<V> getAllObjects() {
-        return this.getIdentifiableService().getAll(null, null, null);
+        return this.getIdentifiableService()
+                .getAll(null, null, null);
     }
 
     /**
