@@ -14,7 +14,12 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 
 /**
  * @author Bob
- *
+ * @param <TYPE>
+ *            {@link AbstractGenericActiveDomainObject}
+ * @param <ID>
+ *            identifier
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractActiveJerseyIT<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractFunctionalJerseyIT<TYPE, ID, COL> {
