@@ -25,8 +25,8 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
      *            which fields to sort
      * @param page
      *            how many to skip: page * maxResults
-     * @param how
-     *            many results to give back
+     * @param maxResults
+     *            how many results to give back
      * @return Get all active {@link AbstractGenericActiveDomainObject}
      */
     Collection<TYPE> getAllActive(final List<String> sort, final Integer page, final Integer maxResults);
@@ -36,8 +36,8 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
      *            which fields to sort
      * @param page
      *            how many to skip: page * maxResults
-     * @param how
-     *            many results to give back
+     * @param maxResults
+     *            how many results to give back
      * @return Get all active {@link AbstractGenericActiveDomainObject}
      */
     CompletableFuture<Collection<TYPE>> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults);
