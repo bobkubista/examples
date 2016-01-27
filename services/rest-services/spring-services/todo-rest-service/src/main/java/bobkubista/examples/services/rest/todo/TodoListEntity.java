@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import bobkubista.examples.utils.service.jpa.persistance.annotation.SearchField;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 /**
@@ -38,16 +39,19 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
 
     @Basic
     @Column(nullable = false)
+    @SearchField(fieldName = "active")
     private boolean active;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todolist")
     @Column(name = "todolistid")
+    @SearchField(fieldName = "id")
     private Long id;
 
     @OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private final List<TodoEntity> items = new ArrayList<>();
     @Basic
     @Column(unique = true, nullable = false)
+    @SearchField(fieldName = "functionalId")
     private String todoListName;
 
     @Override

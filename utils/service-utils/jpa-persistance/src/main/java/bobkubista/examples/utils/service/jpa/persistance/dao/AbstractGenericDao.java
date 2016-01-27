@@ -122,41 +122,13 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
      *            the {@link CriteriaBuilder}
      * @param queryRoot
      *            {@link Root}
-     * @param startPositon
-     *            amount of results to skip, for pagination for example
-     * @param maxResults
-     *            the amount of results returned
-     * @return {@link Collection} of the given <code>ID</code>
-     */
-    protected Collection<ID> orderedBy(final List<String> fields, final CriteriaQuery<ID> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot, final int startPositon,
-            final int maxResults) {
-        return this.orderedBy(startPositon, maxResults, fields, query, builder, queryRoot);
-    }
-
-    /**
-     *
-     * @param fields
-     *            fields to order by. Fields with prefix "-" are ordered
-     *            descending
-     * @param query
-     *            the {@link CriteriaQuery}
-     * @param builder
-     *            the {@link CriteriaBuilder}
-     * @param queryRoot
-     *            {@link Root}
      * @return {@link Collection} of the given <code>TYPE</code>
      */
-    protected Collection<TYPE> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder,
-            final Root<TYPE> queryRoot) {
-        return this.orderedBy(startPositon, maxResults, fields, query, builder, queryRoot);
-    }
-
-    private <T, U> Collection<T> orderedBy(final int startPositon, final int maxResults, final List<String> fields, final CriteriaQuery<T> query, final CriteriaBuilder builder,
+    private <T, U> Collection<T> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<T> query, final CriteriaBuilder builder,
             final Root<U> queryRoot) {
 
         // TODO refactor to make use of http://use-the-index-luke.com/no-offset
         // TODO Refactor to Streams
-        // TODO the getFields() method doesn't return anything
         for (final Field annotatedField : this.getEntityClass()
                 .getDeclaredFields()) {
             for (final String field : fields) {
