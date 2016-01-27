@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.utils.service.jpa.persistance.annotation.SearchField;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
@@ -160,13 +162,22 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     protected Collection<TYPE> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder,
             final Root<TYPE> queryRoot) {
 
-        for (final String field : fields) {
-            if (field.startsWith("-")) {
-                query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
-            } else {
-                query.orderBy(builder.asc(queryRoot.get(field)));
+        // TODO refactor to make use of http://use-the-index-luke.com/no-offset
+        // TODO Refactor to Streams
+        for (final Field annotatedField : this.getEntityClass()
+                .getFields()) {
+            for (final String field : fields) {
+                final SearchField annotation = annotatedField.getAnnotation(SearchField.class);
+                if (annotation.fieldName()
+                        .endsWith(field)) {
+                    if (field.startsWith("-")) {
+                        query.orderBy(builder.desc(queryRoot.get(annotatedField.getName())));
+                    } else {
+                        query.orderBy(builder.asc(queryRoot.get(annotatedField.getName())));
+                    }
+                    LOGGER.debug("ordering query by {}", field);
+                }
             }
-            LOGGER.debug("ordering query by {}", field);
         }
         return this.getEntityManager()
                 .createQuery(query)
