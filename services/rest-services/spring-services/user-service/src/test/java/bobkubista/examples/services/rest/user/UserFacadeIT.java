@@ -51,11 +51,6 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
         Assert.assertNotNull(response);
         Assert.assertEquals(size, response.getDomainCollection()
                 .size());
-        Assert.assertEquals(this.getId(), response.getDomainCollection()
-                .iterator()
-                .next()
-                .getId());
-
     }
 
     @Override
@@ -67,9 +62,14 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
     }
 
     @Override
-    protected void checkSorting(final UserCollection response) {
-        Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((User) o1).getId() - ((User) o2).getId()))
-                .isOrdered(response.getDomainCollection()));
+    protected void checkSorting(final UserCollection response, final boolean reverse) {
+        if (reverse) {
+            Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((User) o2).getId() - ((User) o1).getId()))
+                    .isOrdered(response.getDomainCollection()));
+        } else {
+            Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((User) o1).getId() - ((User) o2).getId()))
+                    .isOrdered(response.getDomainCollection()));
+        }
     }
 
     @Override

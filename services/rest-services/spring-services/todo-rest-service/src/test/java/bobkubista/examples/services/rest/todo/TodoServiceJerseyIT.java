@@ -49,9 +49,14 @@ public class TodoServiceJerseyIT extends AbstractActiveJerseyIT<TodoList, Long, 
     }
 
     @Override
-    protected void checkSorting(final TodoListCollection response) {
-        Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((TodoList) o1).getId() - ((TodoList) o2).getId()))
-                .isOrdered(response.getDomainCollection()));
+    protected void checkSorting(final TodoListCollection response, final boolean reverse) {
+        if (reverse) {
+            Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((TodoList) o2).getId() - ((TodoList) o1).getId()))
+                    .isOrdered(response.getDomainCollection()));
+        } else {
+            Assert.assertTrue(Ordering.from((o1, o2) -> (int) (((TodoList) o1).getId() - ((TodoList) o2).getId()))
+                    .isOrdered(response.getDomainCollection()));
+        }
     }
 
     @Override

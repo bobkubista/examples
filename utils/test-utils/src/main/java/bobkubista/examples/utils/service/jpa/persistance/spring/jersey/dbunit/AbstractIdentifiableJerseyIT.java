@@ -9,7 +9,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -81,7 +80,6 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     /**
      * Test if getAll with query params works
      */
-    @Ignore
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAllWithReverseSortAndLimit() {
@@ -92,7 +90,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get(this.getCollectionClass());
         this.checkResponseGetAll(response, this.expectedSize());
-        this.checkSorting(response);
+        this.checkSorting(response, true);
     }
 
     /**
@@ -108,7 +106,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get(this.getCollectionClass());
         this.checkResponseGetAll(response, this.expectedSize());
-        this.checkSorting(response);
+        this.checkSorting(response, false);
     }
 
     /**
@@ -162,7 +160,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      * @param response
      *            the collection
      */
-    protected abstract void checkSorting(COL response);
+    protected abstract void checkSorting(COL response, boolean reverse);
 
     /**
      * check updated
