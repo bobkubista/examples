@@ -130,20 +130,7 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
      */
     protected Collection<ID> orderedBy(final List<String> fields, final CriteriaQuery<ID> query, final CriteriaBuilder builder, final Root<TYPE> queryRoot, final int startPositon,
             final int maxResults) {
-
-        for (final String field : fields) {
-            if (field.startsWith("-")) {
-                query.orderBy(builder.desc(queryRoot.get(field.substring(1))));
-            } else {
-                query.orderBy(builder.asc(queryRoot.get(field)));
-            }
-            LOGGER.debug("ordering query by field {} with {} results", field, maxResults);
-        }
-        return this.getEntityManager()
-                .createQuery(query)
-                .setFirstResult(startPositon)
-                .setMaxResults(maxResults)
-                .getResultList();
+        return this.orderedBy(startPositon, maxResults, fields, query, builder, queryRoot);
     }
 
     /**
@@ -161,14 +148,20 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
      */
     protected Collection<TYPE> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<TYPE> query, final CriteriaBuilder builder,
             final Root<TYPE> queryRoot) {
+        return this.orderedBy(startPositon, maxResults, fields, query, builder, queryRoot);
+    }
+
+    private <T, U> Collection<T> orderedBy(final int startPositon, final int maxResults, final List<String> fields, final CriteriaQuery<T> query, final CriteriaBuilder builder,
+            final Root<U> queryRoot) {
 
         // TODO refactor to make use of http://use-the-index-luke.com/no-offset
         // TODO Refactor to Streams
+        // TODO the getFields() method doesn't return anything
         for (final Field annotatedField : this.getEntityClass()
-                .getFields()) {
+                .getDeclaredFields()) {
             for (final String field : fields) {
-                final SearchField annotation = annotatedField.getAnnotation(SearchField.class);
-                if (annotation.fieldName()
+                if (annotatedField.isAnnotationPresent(SearchField.class) && annotatedField.getAnnotation(SearchField.class)
+                        .fieldName()
                         .endsWith(field)) {
                     if (field.startsWith("-")) {
                         query.orderBy(builder.desc(queryRoot.get(annotatedField.getName())));

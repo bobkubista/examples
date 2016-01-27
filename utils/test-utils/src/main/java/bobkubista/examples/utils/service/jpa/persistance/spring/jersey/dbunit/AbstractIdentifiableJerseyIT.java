@@ -44,10 +44,13 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @ExpectedDatabase(value = "/dataset/expected/FacadeIT_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void shouldCreate() {
         final TYPE domainObject = this.create();
-        final Response response = this.target("/").request().post(Entity.xml(domainObject));
+        final Response response = this.target("/")
+                .request()
+                .post(Entity.xml(domainObject));
         Assert.assertNotNull(response);
         Assert.assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
-        Assert.assertTrue(StringUtils.isNotBlank(response.getLocation().getPath()));
+        Assert.assertTrue(StringUtils.isNotBlank(response.getLocation()
+                .getPath()));
     }
 
     /**
@@ -57,7 +60,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     @ExpectedDatabase(value = "/dataset/expected/FacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void shouldDelete() {
-        this.target("/1").request().delete();
+        this.target("/1")
+                .request()
+                .delete();
     }
 
     /**
@@ -66,8 +71,26 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAll() {
-        final COL response = this.target("/").request().get(this.getCollectionClass());
+        final COL response = this.target("/")
+                .request()
+                .get(this.getCollectionClass());
         this.checkResponseGetAll(response, this.expectedSize());
+    }
+
+    /**
+     * Test if getAll with query params works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetAllWithReverseSortAndLimit() {
+        final COL response = this.target("/")
+                .queryParam(ApiConstants.SORT, "-" + this.getIdField())
+                .queryParam(ApiConstants.PAGE, 0)
+                .queryParam(ApiConstants.MAX, 2)
+                .request()
+                .get(this.getCollectionClass());
+        this.checkResponseGetAll(response, this.expectedSize());
+        this.checkSorting(response);
     }
 
     /**
@@ -92,7 +115,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetById() {
-        final TYPE response = this.target("/" + this.getId()).request().get(this.getSingleClass());
+        final TYPE response = this.target("/" + this.getId())
+                .request()
+                .get(this.getSingleClass());
         this.checkSingle(response);
     }
 
@@ -103,9 +128,13 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     @ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void shouldUpdate() {
-        TYPE response = this.target("/1").request().get(this.getSingleClass());
+        TYPE response = this.target("/1")
+                .request()
+                .get(this.getSingleClass());
         response = this.update(response);
-        this.target("/").request().put(Entity.xml(response));
+        this.target("/")
+                .request()
+                .put(Entity.xml(response));
     }
 
     /**
@@ -155,7 +184,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      */
     @SuppressWarnings("unchecked")
     protected Class<COL> getCollectionClass() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
+                .getGenericSuperclass();
         return (Class<COL>) genericSuperclass.getActualTypeArguments()[COLLECTION_TYPE_ARGUMENT_NUMBER];
     }
 
@@ -171,7 +201,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      */
     @SuppressWarnings("unchecked")
     protected Class<ID> getIdentifierClass() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
+                .getGenericSuperclass();
         return (Class<ID>) genericSuperclass.getActualTypeArguments()[1];
     }
 
@@ -186,7 +217,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      */
     @SuppressWarnings("unchecked")
     protected Class<TYPE> getSingleClass() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
+                .getGenericSuperclass();
         return (Class<TYPE>) genericSuperclass.getActualTypeArguments()[0];
     }
 
