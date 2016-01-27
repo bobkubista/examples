@@ -160,9 +160,8 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
         for (final Field annotatedField : this.getEntityClass()
                 .getDeclaredFields()) {
             for (final String field : fields) {
-                if (annotatedField.isAnnotationPresent(SearchField.class) && annotatedField.getAnnotation(SearchField.class)
-                        .fieldName()
-                        .endsWith(field)) {
+                if (annotatedField.isAnnotationPresent(SearchField.class) && field.endsWith(annotatedField.getAnnotation(SearchField.class)
+                        .fieldName())) {
                     if (field.startsWith("-")) {
                         query.orderBy(builder.desc(queryRoot.get(annotatedField.getName())));
                     } else {

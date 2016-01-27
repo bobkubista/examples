@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -80,6 +81,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     /**
      * Test if getAll with query params works
      */
+    @Ignore
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAllWithReverseSortAndLimit() {
