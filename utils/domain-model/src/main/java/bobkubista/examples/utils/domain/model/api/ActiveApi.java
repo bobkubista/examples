@@ -24,7 +24,7 @@ public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID
     /**
      *
      * @param searchBean
-     *            TODO
+     *            {@link SearchBean} filled with criteria, sorts and limits
      * @return get all {@link AbstractGenericActiveDomainObject}s
      */
     @GET
