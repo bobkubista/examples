@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.services.rest.user;
 
+import javax.validation.Valid;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -21,7 +22,7 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  */
 @Service
 @Path("/")
-public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEntity, UserCollection> implements UserApi {
+public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEntity, UserCollection>implements UserApi {
 
     @Autowired
     private UserConverter converter;
@@ -30,11 +31,13 @@ public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEnti
     private UserService service;
 
     @Override
-    public Response isAuthorized(final Long userId, final String right) {
+    public @Valid Response isAuthorized(final Long userId, final String right) {
         if (this.service.isAuthorized(userId, right)) {
-            return Response.ok().build();
+            return Response.ok()
+                    .build();
         } else {
-            return Response.status(Status.UNAUTHORIZED).build();
+            return Response.status(Status.UNAUTHORIZED)
+                    .build();
         }
     }
 

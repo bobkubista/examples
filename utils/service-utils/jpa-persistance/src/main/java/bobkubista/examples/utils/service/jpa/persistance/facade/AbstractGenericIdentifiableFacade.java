@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 
+import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
@@ -44,24 +45,32 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
     @Override
-    public Response create(final DMO object) {
+    public Response create(@Valid final DMO object) {
         Validate.notNull(object);
-        final TYPE entity = this.getConverter().convertToEntity(object);
-        final TYPE result = this.getService().create(entity);
+        final TYPE entity = this.getConverter()
+                .convertToEntity(object);
+        final TYPE result = this.getService()
+                .create(entity);
         try {
-            return Response.created(new URI(result.getId().toString())).build();
+            return Response.created(new URI(result.getId()
+                    .toString()))
+                    .build();
         } catch (final URISyntaxException e) {
             LOGGER.warn(e.getMessage(), e);
-            return Response.serverError().build();
+            return Response.serverError()
+                    .build();
         }
     }
 
     @Override
-    public Response delete(final ID identifier) {
-        final TYPE entity = this.getService().getById(identifier);
+    public Response delete(@Valid final ID identifier) {
+        final TYPE entity = this.getService()
+                .getById(identifier);
         if (entity != null) {
-            this.getService().delete(entity);
-            return Response.ok().build();
+            this.getService()
+                    .delete(entity);
+            return Response.ok()
+                    .build();
         } else {
             LOGGER.debug("resource {} not found", identifier);
             throw new NotFoundException();
@@ -69,28 +78,39 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public Response getAll(final SearchBean search) {
+    public Response getAll(@Valid final SearchBean search) {
         // TODO fix search
-        final Collection<TYPE> allEntities = this.getService().getAll(search.getSort(), search.getPage(), search.getMaxResults());
-        return Response.ok(this.getConverter().convertToDomainObject(allEntities)).build();
+        final Collection<TYPE> allEntities = this.getService()
+                .getAll(search.getSort(), search.getPage(), search.getMaxResults());
+        return Response.ok(this.getConverter()
+                .convertToDomainObject(allEntities))
+                .build();
     }
 
     @Override
-    public Response getByID(final ID identifier) {
-        final TYPE result = this.getService().getById(identifier);
+    public @Valid Response getByID(final ID identifier) {
+        final TYPE result = this.getService()
+                .getById(identifier);
         if (result == null) {
             LOGGER.debug("resource {} not found", identifier);
             throw new NotFoundException();
         } else {
-            return Response.ok(this.getConverter().convertToDomainObject(result)).build();
+            return Response.ok(this.getConverter()
+                    .convertToDomainObject(result))
+                    .build();
         }
     }
 
     @Override
-    public Response update(final DMO object) {
-        final TYPE entity = this.getConverter().convertToEntity(object);
-        this.getService().update(entity);
-        return Response.ok(this.getConverter().convertToDomainObject(this.getService().getById(entity.getId()))).build();
+    public @Valid Response update(@Valid final DMO object) {
+        final TYPE entity = this.getConverter()
+                .convertToEntity(object);
+        this.getService()
+                .update(entity);
+        return Response.ok(this.getConverter()
+                .convertToDomainObject(this.getService()
+                        .getById(entity.getId())))
+                .build();
     }
 
     /**
