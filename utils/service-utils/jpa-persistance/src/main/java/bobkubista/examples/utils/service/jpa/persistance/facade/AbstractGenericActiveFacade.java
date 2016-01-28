@@ -2,7 +2,6 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.core.Response;
 
@@ -28,7 +27,7 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
         extends AbstractGenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
     @Override
-    public @Valid Response getAllActive(@Valid @BeanParam final SearchBean searchBean) {
+    public Response getAllActive(@BeanParam final SearchBean searchBean) {
         return Response.ok(this.getConverter()
                 .convertToDomainObject(this.getService()
                         .getAllActive(searchBean.getSort(), searchBean.getPage(), searchBean.getMaxResults())))

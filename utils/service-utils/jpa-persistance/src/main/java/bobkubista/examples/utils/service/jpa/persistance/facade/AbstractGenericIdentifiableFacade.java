@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 
-import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
@@ -45,7 +44,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
     @Override
-    public Response create(@Valid final DMO object) {
+    public Response create(final DMO object) {
         Validate.notNull(object);
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
@@ -63,7 +62,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public Response delete(@Valid final ID identifier) {
+    public Response delete(final ID identifier) {
         final TYPE entity = this.getService()
                 .getById(identifier);
         if (entity != null) {
@@ -78,7 +77,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public Response getAll(@Valid final SearchBean search) {
+    public Response getAll(final SearchBean search) {
         // TODO fix search
         final Collection<TYPE> allEntities = this.getService()
                 .getAll(search.getSort(), search.getPage(), search.getMaxResults());
@@ -88,7 +87,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public @Valid Response getByID(final ID identifier) {
+    public Response getByID(final ID identifier) {
         final TYPE result = this.getService()
                 .getById(identifier);
         if (result == null) {
@@ -102,7 +101,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public @Valid Response update(@Valid final DMO object) {
+    public Response update(final DMO object) {
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
         this.getService()

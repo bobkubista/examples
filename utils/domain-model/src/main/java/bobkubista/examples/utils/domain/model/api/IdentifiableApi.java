@@ -6,6 +6,7 @@ package bobkubista.examples.utils.domain.model.api;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -48,7 +49,9 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      * @return a response with Status.NOT_IMPLEMENTED as status
      */
     static Response buildNotImplementedResponse(final Object... entity) {
-        return Response.status(Status.NOT_IMPLEMENTED).entity(entity).build();
+        return Response.status(Status.NOT_IMPLEMENTED)
+                .entity(entity)
+                .build();
     }
 
     /**
@@ -61,7 +64,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @POST
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response create(final DMO object) {
+    default Response create(@Valid final DMO object) {
         return IdentifiableApi.buildNotImplementedResponse(object);
     }
 
@@ -76,7 +79,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @DELETE
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response delete(@PathParam("id") final ID identifier) {
+    default Response delete(@Valid @PathParam("id") final ID identifier) {
         return IdentifiableApi.buildNotImplementedResponse(identifier);
     }
 
@@ -93,7 +96,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response getAll(@BeanParam final SearchBean search) {
+    default Response getAll(@Valid @BeanParam final SearchBean search) {
         return IdentifiableApi.buildNotImplementedResponse(search);
     }
 
@@ -108,7 +111,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{id}")
-    default Response getByID(@PathParam("id") final ID identifier) {
+    default Response getByID(@Valid @PathParam("id") final ID identifier) {
         return IdentifiableApi.buildNotImplementedResponse(identifier);
     }
 
@@ -122,7 +125,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response update(final DMO object) {
+    default Response update(@Valid final DMO object) {
         return IdentifiableApi.buildNotImplementedResponse(object);
     }
 }

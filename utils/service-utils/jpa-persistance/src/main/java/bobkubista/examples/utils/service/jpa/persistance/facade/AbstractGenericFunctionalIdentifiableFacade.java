@@ -5,7 +5,6 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 
@@ -31,7 +30,7 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
         extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
 
     @Override
-    public @Valid Response getByFunctionalId(final String identifier) {
+    public Response getByFunctionalId(final String identifier) {
         final TYPE result = this.getService()
                 .getByFunctionalId(identifier);
         if (result == null) {
@@ -44,7 +43,7 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
     }
 
     @Override
-    public @Valid Response getIdByFunctionalId(final String fId) {
+    public Response getIdByFunctionalId(final String fId) {
         final ID result = this.getService()
                 .getIdByFunctionalId(fId);
 
