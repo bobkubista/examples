@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
@@ -129,20 +130,21 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
         // TODO refactor to make use of http://use-the-index-luke.com/no-offset
         // There must be a better way to do this
-        Stream.of(this.getEntityClass()
-                .getDeclaredFields())
-                .filter(field -> field.isAnnotationPresent(SearchField.class))
-                .forEach(searchableField -> fields.stream()
-                        .filter(field -> field.endsWith(searchableField.getAnnotation(SearchField.class)
-                                .fieldName()))
-                        .forEachOrdered(field -> {
-                            if (field.startsWith("-")) {
-                                query.orderBy(builder.desc(queryRoot.get(searchableField.getName())));
-                            } else {
-                                query.orderBy(builder.asc(queryRoot.get(searchableField.getName())));
-                            }
-                            LOGGER.debug("ordering query by {}", field);
-                        }));
+        try (final Stream<Field> declaredFields = Stream.of(this.getEntityClass()
+                .getDeclaredFields())) {
+            declaredFields.filter(field -> field.isAnnotationPresent(SearchField.class))
+                    .forEach(searchableField -> fields.stream()
+                            .filter(field -> field.endsWith(searchableField.getAnnotation(SearchField.class)
+                                    .fieldName()))
+                            .forEachOrdered(field -> {
+                                if (field.startsWith("-")) {
+                                    query.orderBy(builder.desc(queryRoot.get(searchableField.getName())));
+                                } else {
+                                    query.orderBy(builder.asc(queryRoot.get(searchableField.getName())));
+                                }
+                                LOGGER.debug("ordering query by {}", field);
+                            }));
+        }
         return this.getEntityManager()
                 .createQuery(query)
                 .setFirstResult(startPositon)
