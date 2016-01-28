@@ -131,14 +131,15 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
         // There must be a better way to do this
         Stream.of(this.getEntityClass()
                 .getDeclaredFields())
-                .forEach(annotatedField -> fields.stream()
-                        .filter(field -> annotatedField.isAnnotationPresent(SearchField.class) && field.endsWith(annotatedField.getAnnotation(SearchField.class)
+                .filter(field -> field.isAnnotationPresent(SearchField.class))
+                .forEach(searchableField -> fields.stream()
+                        .filter(field -> field.endsWith(searchableField.getAnnotation(SearchField.class)
                                 .fieldName()))
                         .forEachOrdered(field -> {
                             if (field.startsWith("-")) {
-                                query.orderBy(builder.desc(queryRoot.get(annotatedField.getName())));
+                                query.orderBy(builder.desc(queryRoot.get(searchableField.getName())));
                             } else {
-                                query.orderBy(builder.asc(queryRoot.get(annotatedField.getName())));
+                                query.orderBy(builder.asc(queryRoot.get(searchableField.getName())));
                             }
                             LOGGER.debug("ordering query by {}", field);
                         }));
