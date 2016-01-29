@@ -21,8 +21,6 @@ public class BeanValidationConstrainViolationExceptionMapper implements Exceptio
 
     @Override
     public Response toResponse(final ConstraintViolationException e) {
-        System.out.println("BeanValConstrainViolationExceptionMapper in action");
-
         final ConstraintViolation<?> cv = (ConstraintViolation<?>) e.getConstraintViolations()
                 .toArray()[0];
         return Response.status(Response.Status.PRECONDITION_FAILED)
