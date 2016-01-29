@@ -5,11 +5,10 @@ package bobkubista.examples.utils.domain.model.domainmodel.identification;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author bkubista
@@ -21,7 +20,7 @@ public abstract class AbstractGenericActiveDomainObject<ID extends Serializable>
 
     private static final long serialVersionUID = -7516244737080941032L;
 
-    @NotBlank
+    @NotNull
     @XmlElement(required = true)
     private boolean active;
 
