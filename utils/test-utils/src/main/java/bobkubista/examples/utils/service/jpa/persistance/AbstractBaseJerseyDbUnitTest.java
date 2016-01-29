@@ -19,7 +19,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
  * @author Bob
  *
  */
-
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
 public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
     @PersistenceContext
