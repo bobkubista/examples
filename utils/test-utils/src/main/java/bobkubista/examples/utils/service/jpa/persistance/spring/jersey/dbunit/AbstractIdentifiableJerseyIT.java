@@ -125,6 +125,19 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     }
 
     /**
+     * Test if delete works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldNotDelete() {
+        final Response response = this.target("/100")
+                .request()
+                .delete();
+        Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        response.close();
+    }
+
+    /**
      * Test if update works
      */
     @Test

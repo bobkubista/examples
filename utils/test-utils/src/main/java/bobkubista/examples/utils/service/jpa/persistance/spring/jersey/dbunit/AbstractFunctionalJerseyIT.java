@@ -2,7 +2,12 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -46,6 +51,35 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 
         Assert.assertEquals(this.getId()
                 .toString(), actual);
+    }
+
+    /**
+     * Test if create works
+     */
+    @Ignore
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldNotCreate() {
+        final TYPE domainObject = this.create();
+        domainObject.setFunctionalId(this.getFunctionalId());
+        final Response response = this.target("/")
+                .request()
+                .post(Entity.xml(domainObject));
+        Assert.assertNotNull(response);
+        Assert.assertEquals(Status.PRECONDITION_FAILED.getStatusCode(), response.getStatus());
+        response.close();
+    }
+
+    /**
+     * Test getByFunctionalId
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldNotGetByFunctionalId() {
+        final Response response = this.target("/functionId/notthere")
+                .request()
+                .get(Response.class);
+        Assert.assertEquals(404, response.getStatus());
     }
 
     /**

@@ -6,6 +6,8 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.ws.rs.NotFoundException;
+
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -52,7 +54,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.getById(1L))
                 .thenReturn(this.buildMockEntity());
         Mockito.when(mock.getById(2L))
-                .thenReturn(null);
+                .thenThrow(new NotFoundException());
 
         Mockito.when(mock.getAll(Collections.singletonList("id"), 0, 100))
                 .thenReturn(Collections.singletonList(this.buildMockEntity()));
