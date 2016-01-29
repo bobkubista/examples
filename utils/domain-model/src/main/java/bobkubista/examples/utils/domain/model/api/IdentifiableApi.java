@@ -48,8 +48,8 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
      *            array of entities
      * @return a response with Status.NOT_IMPLEMENTED as status
      */
-    static Response buildNotImplementedResponse(final Object... entity) {
-        return Response.status(Status.NOT_IMPLEMENTED)
+    static Response buildMethodNotAllowedResponse(final Object... entity) {
+        return Response.status(Status.METHOD_NOT_ALLOWED)
                 .entity(entity)
                 .build();
     }
@@ -65,7 +65,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response create(@Valid final DMO object) {
-        return IdentifiableApi.buildNotImplementedResponse(object);
+        return IdentifiableApi.buildMethodNotAllowedResponse(object);
     }
 
     /**
@@ -80,7 +80,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response delete(@Valid @PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildNotImplementedResponse(identifier);
+        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
@@ -97,7 +97,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response getAll(@Valid @BeanParam final SearchBean search) {
-        return IdentifiableApi.buildNotImplementedResponse(search);
+        return IdentifiableApi.buildMethodNotAllowedResponse(search);
     }
 
     /**
@@ -112,7 +112,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{id}")
     default Response getByID(@Valid @PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildNotImplementedResponse(identifier);
+        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
@@ -126,6 +126,6 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response update(@Valid final DMO object) {
-        return IdentifiableApi.buildNotImplementedResponse(object);
+        return IdentifiableApi.buildMethodNotAllowedResponse(object);
     }
 }

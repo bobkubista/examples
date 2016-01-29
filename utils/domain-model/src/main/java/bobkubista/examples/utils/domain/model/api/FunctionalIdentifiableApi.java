@@ -36,7 +36,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("functionId/{id}")
     default Response getByFunctionalId(@PathParam("id") final String identifier) {
-        return IdentifiableApi.buildNotImplementedResponse(identifier);
+        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
@@ -51,7 +51,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("id/{functionalId}")
     default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
-        return IdentifiableApi.buildNotImplementedResponse(fId);
+        return IdentifiableApi.buildMethodNotAllowedResponse(fId);
     }
 
 }

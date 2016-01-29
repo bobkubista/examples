@@ -27,6 +27,6 @@ public interface UserApi extends ActiveApi<User, Long> {
     @GET
     @Path("{userId}/{right}")
     default Response isAuthorized(@PathParam("userId") final Long userId, @PathParam("right") final String right) {
-        return IdentifiableApi.buildNotImplementedResponse(userId, right);
+        return IdentifiableApi.buildMethodNotAllowedResponse(userId, right);
     }
 }
