@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * <a href
  * ="https://github.com/abhirockzz/JAX-RS-and-Bean-Validation/blob/master/src/main/java/abhirockzz/wordpress/com/payara611/ConstraintViolationEntity.java">
  * source</a>
- * 
+ *
  * @author Bob
  *
  */
@@ -18,9 +18,21 @@ public class ConstraintViolationEntity {
 
     private String errorMsg;
 
+    /**
+     * Default Constructor
+     */
     public ConstraintViolationEntity() {
+        super();
     }
 
+    /**
+     *
+     * Constructor
+     * 
+     * @param errorMsg
+     *            the error message
+     *
+     */
     public ConstraintViolationEntity(final String errorMsg) {
         this.errorMsg = errorMsg;
     }
