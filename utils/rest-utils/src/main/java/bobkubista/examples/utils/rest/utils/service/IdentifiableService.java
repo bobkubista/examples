@@ -32,16 +32,18 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      *
      * @param object
      *            {@link AbstractGenericIdentifiableDomainObject} to create
+     * @return TODO
      */
-    void create(TYPE object);
+    boolean create(TYPE object);
 
     /**
      *
      * @param id
      *            identifier of the
      *            {@link AbstractGenericIdentifiableDomainObject} to delete
+     * @return TODO
      */
-    void delete(ID id);
+    boolean delete(ID id);
 
     /**
      * Get a {@link Collection} of <code>TYPE</code>

@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.junit.After;
 import org.junit.Before;
 import org.springframework.web.filter.RequestContextFilter;
 
@@ -29,7 +30,15 @@ public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
      */
     @Before
     public void clearCache() {
-        this.em.getEntityManagerFactory().getCache().evictAll();
+        this.em.getEntityManagerFactory()
+                .getCache()
+                .evictAll();
+    }
+
+    @After
+    public void close() {
+        this.client()
+                .close();
     }
 
     /**

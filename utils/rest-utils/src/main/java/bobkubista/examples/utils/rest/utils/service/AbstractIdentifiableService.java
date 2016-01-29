@@ -47,26 +47,36 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
      */
     @SuppressWarnings("unchecked")
     public AbstractIdentifiableService() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
+                .getGenericSuperclass();
         this.domainClass = (Class<TYPE>) genericSuperclass.getActualTypeArguments()[DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER];
         this.identifierClass = (Class<ID>) genericSuperclass.getActualTypeArguments()[IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER];
         this.collectionClass = (Class<COL>) genericSuperclass.getActualTypeArguments()[COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER];
     }
 
     @Override
-    public void create(final TYPE object) {
-        this.getProxy().create(object);
+    public boolean create(final TYPE object) {
+        final Response response = this.getProxy()
+                .create(object);
+        final boolean result = response.getStatus() == 201;
+        response.close();
+        return result;
     }
 
     @Override
-    public void delete(final ID id) {
-        this.getProxy().delete(id);
+    public boolean delete(final ID id) {
+        final Response response = this.getProxy()
+                .delete(id);
+        final boolean result = response.getStatus() == 204;
+        response.close();
+        return result;
     }
 
     @Override
     public Collection<TYPE> getAll(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
-            return this.getAllAsync(sort, page, maxResults).get();
+            return this.getAllAsync(sort, page, maxResults)
+                    .get();
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.warn(e.getMessage(), e);
             return new ArrayList<>();
@@ -75,29 +85,33 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
 
     @Override
     public CompletableFuture<Collection<TYPE>> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
-        return CompletableFuture.supplyAsync(() ->
-            {
-                final SearchBean searchBean = new SearchBean()
-                        .setMaxResults(maxResults)
-                        .setPage(page)
-                        .setSort(sort);
-                final Response response = AbstractIdentifiableService.this.getProxy().getAll(searchBean);
-                if (response.getStatus() == Status.OK.getStatusCode()) {
-                    return response.readEntity(AbstractIdentifiableService.this.getCollectionClass()).getDomainCollection();
-                } else {
-                    return Collections.emptyList();
-                }
-            });
+        return CompletableFuture.supplyAsync(() -> {
+            final SearchBean searchBean = new SearchBean().setMaxResults(maxResults)
+                    .setPage(page)
+                    .setSort(sort);
+            final Response response = AbstractIdentifiableService.this.getProxy()
+                    .getAll(searchBean);
+            if (response.getStatus() == Status.OK.getStatusCode()) {
+                return response.readEntity(AbstractIdentifiableService.this.getCollectionClass())
+                        .getDomainCollection();
+            } else {
+                return Collections.emptyList();
+            }
+        });
     }
 
     @Override
     public TYPE getByID(final ID id) {
-        return this.getProxy().getByID(id).readEntity(this.domainClass);
+        return this.getProxy()
+                .getByID(id)
+                .readEntity(this.domainClass);
     }
 
     @Override
     public TYPE update(final TYPE object) {
-        return this.getProxy().update(object).readEntity(this.domainClass);
+        return this.getProxy()
+                .update(object)
+                .readEntity(this.domainClass);
     }
 
     protected Class<COL> getCollectionClass() {

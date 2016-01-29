@@ -68,7 +68,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         if (entity != null) {
             this.getService()
                     .delete(entity);
-            return Response.ok()
+            return Response.noContent()
                     .build();
         } else {
             LOGGER.debug("resource {} not found", identifier);

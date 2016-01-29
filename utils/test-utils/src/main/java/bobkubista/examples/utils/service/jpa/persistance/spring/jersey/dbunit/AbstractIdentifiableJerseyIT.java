@@ -51,6 +51,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         Assert.assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
         Assert.assertTrue(StringUtils.isNotBlank(response.getLocation()
                 .getPath()));
+        response.close();
     }
 
     /**
@@ -60,9 +61,11 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     @ExpectedDatabase(value = "/dataset/expected/FacadeIT_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void shouldDelete() {
-        this.target("/1")
+        final Response response = this.target("/1")
                 .request()
                 .delete();
+        Assert.assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        response.close();
     }
 
     /**
