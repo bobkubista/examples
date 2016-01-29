@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
@@ -94,9 +95,18 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             LOGGER.debug("resource {} not found", identifier);
             throw new NotFoundException();
         } else {
-            return Response.ok(this.getConverter()
-                    .convertToDomainObject(result))
-                    .build();
+            try {
+                return Response.ok(this.getConverter()
+                        .convertToDomainObject(result))
+                        .location(new URI(identifier.toString()))
+                        .lastModified(new Date(result.getUpdatedDate()
+                                .getTime()))
+                        .build();
+            } catch (final URISyntaxException e) {
+                LOGGER.warn(e.getMessage(), e);
+                return Response.serverError()
+                        .build();
+            }
         }
     }
 
@@ -106,10 +116,21 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                 .convertToEntity(object);
         this.getService()
                 .update(entity);
-        return Response.ok(this.getConverter()
-                .convertToDomainObject(this.getService()
-                        .getById(entity.getId())))
-                .build();
+        try {
+            final TYPE result = this.getService()
+                    .getById(entity.getId());
+            return Response.ok(this.getConverter()
+                    .convertToDomainObject(result))
+                    .location(new URI(entity.getId()
+                            .toString()))
+                    .lastModified(new Date(result.getUpdatedDate()
+                            .getTime()))
+                    .build();
+        } catch (final URISyntaxException e) {
+            LOGGER.warn(e.getMessage(), e);
+            return Response.serverError()
+                    .build();
+        }
     }
 
     /**

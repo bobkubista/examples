@@ -4,9 +4,15 @@
 package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Date;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -29,6 +35,8 @@ import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIden
 public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
         extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableFacade.class);
+
     @Override
     public Response getByFunctionalId(final String identifier) {
         final TYPE result = this.getService()
@@ -36,9 +44,18 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
         if (result == null) {
             throw new NotFoundException();
         } else {
-            return Response.ok(this.getConverter()
-                    .convertToDomainObject(result))
-                    .build();
+            try {
+                return Response.ok(this.getConverter()
+                        .convertToDomainObject(result))
+                        .location(new URI(identifier))
+                        .lastModified(new Date(result.getUpdatedDate()
+                                .getTime()))
+                        .build();
+            } catch (final URISyntaxException e) {
+                LOGGER.warn(e.getMessage(), e);
+                return Response.serverError()
+                        .build();
+            }
         }
     }
 
@@ -50,8 +67,15 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
         if (result == null) {
             throw new NotFoundException();
         } else {
-            return Response.ok(result.toString())
-                    .build();
+            try {
+                return Response.ok(result.toString())
+                        .location(new URI(fId))
+                        .build();
+            } catch (final URISyntaxException e) {
+                LOGGER.warn(e.getMessage(), e);
+                return Response.serverError()
+                        .build();
+            }
         }
     }
 

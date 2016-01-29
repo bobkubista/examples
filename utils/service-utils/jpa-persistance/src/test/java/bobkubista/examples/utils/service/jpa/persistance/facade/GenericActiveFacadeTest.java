@@ -31,6 +31,7 @@ public class GenericActiveFacadeTest {
         final Response result = this.facade.create(new MockDomain());
         Assert.assertNotNull(result);
         Assert.assertEquals(201, result.getStatus());
+        Assert.assertNotNull(result.getLocation());
     }
 
     @Test(expected = NullPointerException.class)
