@@ -47,7 +47,7 @@ public class GenericActiveFacadeTest {
     public void testDelete() {
         final Response result = this.facade.delete(1L);
         Assert.assertNotNull(result);
-        Assert.assertEquals(200, result.getStatus());
+        Assert.assertEquals(204, result.getStatus());
     }
 
     @Test(expected = NotFoundException.class)
