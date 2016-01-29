@@ -77,7 +77,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
         final Response response = this.target("/functionId/notthere")
                 .request()
                 .get(Response.class);
-        Assert.assertEquals(404, response.getStatus());
+        Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     /**
