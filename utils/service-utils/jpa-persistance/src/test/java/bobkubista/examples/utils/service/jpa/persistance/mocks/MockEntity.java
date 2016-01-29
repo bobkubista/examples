@@ -1,5 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
+import java.sql.Timestamp;
+
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 public class MockEntity extends AbstractGenericActiveEntity<Long> {
@@ -17,6 +19,11 @@ public class MockEntity extends AbstractGenericActiveEntity<Long> {
     @Override
     public Long getId() {
         return this.id;
+    }
+
+    @Override
+    public Timestamp getUpdatedDate() {
+        return new Timestamp(0);
     }
 
     @Override

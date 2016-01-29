@@ -27,12 +27,12 @@ public class MockFunctionalEntity extends AbstractGenericFunctionalIdentifiableE
     }
 
     @Override
-    public void setFunctionalId(String functionalId) {
+    public void setFunctionalId(final String functionalId) {
 
     }
 
     @Override
-    public void setId(Integer id) {
+    public void setId(final Integer id) {
 
     }
 
