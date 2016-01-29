@@ -7,7 +7,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -56,7 +55,6 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     /**
      * Test if create works
      */
-    @Ignore
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldNotCreate() {

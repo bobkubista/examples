@@ -55,6 +55,8 @@ public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
         final ResourceConfig rc = new ResourceConfig().register(RequestContextFilter.class);
 
         rc.property("contextConfigLocation", this.getContextConfigLocation());
+        rc.packages("bobkubista.examples.utils.service.jpa.persistance.exception.handler");
+
         return this.configure(rc);
     }
 
