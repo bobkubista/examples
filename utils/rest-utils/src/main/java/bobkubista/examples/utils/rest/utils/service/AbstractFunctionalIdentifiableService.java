@@ -5,6 +5,8 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 
+import javax.ws.rs.core.Response;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy;
@@ -23,16 +25,24 @@ public abstract class AbstractFunctionalIdentifiableService<TYPE extends Abstrac
 
     @Override
     public TYPE getByFunctionalId(final String functionalId) {
-        return this.getProxy()
-                .getByFunctionalId(functionalId)
-                .readEntity(this.getDomainClass());
+        final Response byFunctionalId = this.getProxy()
+                .getByFunctionalId(functionalId);
+        try {
+            return byFunctionalId.readEntity(this.getDomainClass());
+        } finally {
+            byFunctionalId.close();
+        }
     }
 
     @Override
     public ID getIdByFunctionalId(final String fId) {
-        return this.getProxy()
-                .getIdByFunctionalId(fId)
-                .readEntity(this.getIdClass());
+        final Response idByFunctionalId = this.getProxy()
+                .getIdByFunctionalId(fId);
+        try {
+            return idByFunctionalId.readEntity(this.getIdClass());
+        } finally {
+            idByFunctionalId.close();
+        }
     }
 
     @Override

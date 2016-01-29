@@ -47,11 +47,14 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final Response response = this.target("/")
                 .request()
                 .post(Entity.xml(domainObject));
-        Assert.assertNotNull(response);
-        Assert.assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
-        Assert.assertTrue(StringUtils.isNotBlank(response.getLocation()
-                .getPath()));
-        response.close();
+        try {
+            Assert.assertNotNull(response);
+            Assert.assertEquals(Status.CREATED.getStatusCode(), response.getStatus());
+            Assert.assertTrue(StringUtils.isNotBlank(response.getLocation()
+                    .getPath()));
+        } finally {
+            response.close();
+        }
     }
 
     /**
@@ -64,8 +67,11 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final Response response = this.target("/1")
                 .request()
                 .delete();
-        Assert.assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
-        response.close();
+        try {
+            Assert.assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        } finally {
+            response.close();
+        }
     }
 
     /**
@@ -133,8 +139,11 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final Response response = this.target("/100")
                 .request()
                 .delete();
-        Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
-        response.close();
+        try {
+            Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        } finally {
+            response.close();
+        }
     }
 
     /**
@@ -148,9 +157,15 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get(this.getSingleClass());
         response = this.update(response);
-        this.target("/")
+        final Response updatedResponse = this.target("/")
                 .request()
                 .put(Entity.xml(response));
+        try {
+            Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());
+            this.checkUpdated(updatedResponse.readEntity(this.getSingleClass()));
+        } finally {
+            updatedResponse.close();
+        }
     }
 
     /**

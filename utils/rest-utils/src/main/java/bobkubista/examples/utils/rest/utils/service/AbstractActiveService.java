@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import javax.ws.rs.core.Response;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,12 +48,18 @@ public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDo
     @Override
     public CompletableFuture<Collection<TYPE>> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults) {
 
-        return CompletableFuture.supplyAsync(() -> AbstractActiveService.this.getProxy()
-                .getAllActive(new SearchBean().setMaxResults(maxResults)
-                        .setPage(page)
-                        .setSort(sort))
-                .readEntity(AbstractActiveService.this.getCollectionClass())
-                .getDomainCollection());
+        return CompletableFuture.supplyAsync(() -> {
+            final Response allActive = AbstractActiveService.this.getProxy()
+                    .getAllActive(new SearchBean().setMaxResults(maxResults)
+                            .setPage(page)
+                            .setSort(sort));
+            try {
+                return allActive.readEntity(AbstractActiveService.this.getCollectionClass())
+                        .getDomainCollection();
+            } finally {
+                allActive.close();
+            }
+        });
     }
 
     @Override

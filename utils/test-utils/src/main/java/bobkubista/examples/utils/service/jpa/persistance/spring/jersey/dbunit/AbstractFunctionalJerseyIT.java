@@ -63,9 +63,12 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
         final Response response = this.target("/")
                 .request()
                 .post(Entity.xml(domainObject));
-        Assert.assertNotNull(response);
-        Assert.assertEquals(Status.PRECONDITION_FAILED.getStatusCode(), response.getStatus());
-        response.close();
+        try {
+            Assert.assertNotNull(response);
+            Assert.assertEquals(Status.PRECONDITION_FAILED.getStatusCode(), response.getStatus());
+        } finally {
+            response.close();
+        }
     }
 
     /**
@@ -77,7 +80,11 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
         final Response response = this.target("/functionId/notthere")
                 .request()
                 .get(Response.class);
-        Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        try {
+            Assert.assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        } finally {
+            response.close();
+        }
     }
 
     /**

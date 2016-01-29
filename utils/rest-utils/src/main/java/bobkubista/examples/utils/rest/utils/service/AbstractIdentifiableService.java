@@ -58,18 +58,24 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     public boolean create(final TYPE object) {
         final Response response = this.getProxy()
                 .create(object);
-        final boolean result = response.getStatus() == 201;
-        response.close();
-        return result;
+        try {
+            final boolean result = response.getStatus() == 201;
+            return result;
+        } finally {
+            response.close();
+        }
     }
 
     @Override
     public boolean delete(final ID id) {
         final Response response = this.getProxy()
                 .delete(id);
-        final boolean result = response.getStatus() == 204;
-        response.close();
-        return result;
+        try {
+            final boolean result = response.getStatus() == 204;
+            return result;
+        } finally {
+            response.close();
+        }
     }
 
     @Override
@@ -91,27 +97,39 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
                     .setSort(sort);
             final Response response = AbstractIdentifiableService.this.getProxy()
                     .getAll(searchBean);
-            if (response.getStatus() == Status.OK.getStatusCode()) {
-                return response.readEntity(AbstractIdentifiableService.this.getCollectionClass())
-                        .getDomainCollection();
-            } else {
-                return Collections.emptyList();
+            try {
+                if (response.getStatus() == Status.OK.getStatusCode()) {
+                    return response.readEntity(AbstractIdentifiableService.this.getCollectionClass())
+                            .getDomainCollection();
+                } else {
+                    return Collections.emptyList();
+                }
+            } finally {
+                response.close();
             }
         });
     }
 
     @Override
     public TYPE getByID(final ID id) {
-        return this.getProxy()
-                .getByID(id)
-                .readEntity(this.domainClass);
+        final Response byID = this.getProxy()
+                .getByID(id);
+        try {
+            return byID.readEntity(this.domainClass);
+        } finally {
+            byID.close();
+        }
     }
 
     @Override
     public TYPE update(final TYPE object) {
-        return this.getProxy()
-                .update(object)
-                .readEntity(this.domainClass);
+        final Response update = this.getProxy()
+                .update(object);
+        try {
+            return update.readEntity(this.domainClass);
+        } finally {
+            update.close();
+        }
     }
 
     protected Class<COL> getCollectionClass() {
