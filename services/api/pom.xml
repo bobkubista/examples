@@ -15,6 +15,7 @@
     <module>user-service-api</module>
     <module>email-api</module>
 <!--     <module>catalog-api</module> -->
+    <module>file-service-api</module>
   </modules>
 
 </project>
