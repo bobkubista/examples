@@ -55,9 +55,9 @@ public class TodoServiceJerseyIT extends AbstractActiveJerseyIT<TodoList, Long, 
 	@Override
 	protected void checkUpdated(final TodoList response) {
 		Assert.assertNotNull(response);
-		Assert.assertEquals("something", response.getFunctionalId());
+		Assert.assertEquals("todo.abc", response.getFunctionalId());
 		Assert.assertNotNull(response.getTodoList());
-		Assert.assertEquals(1, response.getTodoList().size());
+		Assert.assertEquals(2, response.getTodoList().size());
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class TodoServiceJerseyIT extends AbstractActiveJerseyIT<TodoList, Long, 
 		todoList.setId(2L);
 		final Todo todo = new Todo();
 		todo.setActive(true);
-		todo.setValue("todo.abc");
+		todo.setValue("something");
 		todoList.getTodoList().add(todo);
 
 		return todoList;
