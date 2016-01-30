@@ -12,12 +12,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
+ * Api for files
+ *
  * @author Bob
  *
  */
 @Path("file")
 public interface FileApi {
 
+    /**
+     * Download a file at this path
+     *
+     * @param filepath
+     *            relative filepath
+     * @return the file
+     */
     @GET
     @Path("{filepath: .*}")
     @Produces(MediaType.TEXT_PLAIN)
