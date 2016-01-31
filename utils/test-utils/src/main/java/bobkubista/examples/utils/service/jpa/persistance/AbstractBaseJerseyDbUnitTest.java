@@ -16,6 +16,8 @@ import org.springframework.web.filter.RequestContextFilter;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 /**
+ * Base jersey test with DBUnit
+ *
  * @author Bob
  *
  */
@@ -34,6 +36,9 @@ public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
                 .evictAll();
     }
 
+    /**
+     * Close client after test
+     */
     @After
     public void close() {
         this.client()
