@@ -10,10 +10,10 @@
   <artifactId>webapps</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>jsf-app</module>
+<!--     <module>jsf-app</module> -->
     <!-- <module>wicket-app</module> -->
-    <module>single-sign-on</module>
-    <module>common-resources</module>
+<!--     <module>single-sign-on</module> -->
+<!--     <module>common-resources</module> -->
   </modules>
 
   <dependencyManagement>
