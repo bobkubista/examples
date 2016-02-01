@@ -19,6 +19,11 @@ public class TodoService extends AbstractActiveService<TodoList, Long, TodoListC
     private TodoProxy proxy;
 
     @Override
+    protected TodoListCollection getEmptyCollection() {
+        return new TodoListCollection();
+    }
+
+    @Override
     protected TodoProxy getProxy() {
         return this.proxy;
     }

@@ -12,6 +12,7 @@ import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
 
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
@@ -24,8 +25,8 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  *            value, which is
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  */
-public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>>
-        extends AbstractIdentifiableAsyncCaffeineCache<K, V> {
+public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
+        extends AbstractIdentifiableAsyncCaffeineCache<K, V, COL> {
     private static final int EXPIRE_AFTER_ACCESS = 5;
     private static final int EXPIRE_AFTER_WRITE = 10;
     private static final int INITIAL_CAPACITY = 150;
@@ -38,7 +39,8 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
             .refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
             .ticker(Ticker.systemTicker())
             .recordStats()
-            .buildAsync(key -> this.getFunctionalService().getIdByFunctionalId(key));
+            .buildAsync(key -> this.getFunctionalService()
+                    .getIdByFunctionalId(key));
 
     /**
      * Constructor
@@ -64,7 +66,8 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
      *             Thrown if the asynchronous methode is interrupted
      */
     public CompletableFuture<V> get(final String functionalId) throws InterruptedException, ExecutionException {
-        return this.get(this.functionalToIdentifiercache.get(functionalId, this.getFunctionalService()::getIdByFunctionalId).get());
+        return this.get(this.functionalToIdentifiercache.get(functionalId, this.getFunctionalService()::getIdByFunctionalId)
+                .get());
     }
 
     @Override
@@ -80,10 +83,10 @@ public abstract class AbstractFunctionalAutoCache<K extends Serializable, V exte
     /**
      * @return the {@link FunctionalIdentifiableService}
      */
-    protected abstract FunctionalIdentifiableService<V, K> getFunctionalService();
+    protected abstract FunctionalIdentifiableService<V, K, COL> getFunctionalService();
 
     @Override
-    protected final IdentifiableService<V, K> getIdentifiableService() {
+    protected final IdentifiableService<V, K, COL> getIdentifiableService() {
         return this.getFunctionalService();
     }
 

@@ -4,11 +4,11 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 
 /**
  * @author Bob Kubista
@@ -18,7 +18,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            The identifier of the {@link AbstractGenericActiveDomainObject}
  */
-public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableService<TYPE, ID> {
+public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
+        extends FunctionalIdentifiableService<TYPE, ID, COL> {
 
     /**
      * @param sort
@@ -29,7 +30,7 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
      *            how many results to give back
      * @return Get all active {@link AbstractGenericActiveDomainObject}
      */
-    Collection<TYPE> getAllActive(final List<String> sort, final Integer page, final Integer maxResults);
+    COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults);
 
     /**
      * @param sort
@@ -40,5 +41,5 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
      *            how many results to give back
      * @return Get all active {@link AbstractGenericActiveDomainObject}
      */
-    CompletableFuture<Collection<TYPE>> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults);
+    CompletableFuture<COL> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults);
 }

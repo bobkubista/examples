@@ -15,6 +15,7 @@ import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
 
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
@@ -29,7 +30,8 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <V>
  *            {@link AbstractGenericIdentifiableDomainObject} value
  */
-public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>> implements CacheLoader<K, V> {
+public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
+        implements CacheLoader<K, V> {
 
     private static final int EXPIRE_AFTER_ACCESS = 5;
     private static final int EXPIRE_AFTER_WRITE = 10;
@@ -117,11 +119,12 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      */
     protected Collection<V> getAllObjects() {
         return this.getIdentifiableService()
-                .getAll(null, null, null);
+                .getAll(null, null, null)
+                .getDomainCollection();
     }
 
     /**
      * @return {@link IdentifiableService} for <code>V</code>.
      */
-    protected abstract IdentifiableService<V, K> getIdentifiableService();
+    protected abstract IdentifiableService<V, K, COL> getIdentifiableService();
 }

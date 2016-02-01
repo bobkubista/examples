@@ -5,9 +5,6 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -33,7 +30,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericDomainObjectCollection} for TYPE
  */
 public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
-        implements IdentifiableService<TYPE, ID> {
+        implements IdentifiableService<TYPE, ID, COL> {
     private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;
     private static final int DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER = 0;
     private static final int IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER = 1;
@@ -79,18 +76,18 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     }
 
     @Override
-    public Collection<TYPE> getAll(final List<String> sort, final Integer page, final Integer maxResults) {
+    public COL getAll(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
             return this.getAllAsync(sort, page, maxResults)
                     .get();
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.warn(e.getMessage(), e);
-            return new ArrayList<>();
+            return this.getEmptyCollection();
         }
     }
 
     @Override
-    public CompletableFuture<Collection<TYPE>> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
+    public CompletableFuture<COL> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
         return CompletableFuture.supplyAsync(() -> {
             final SearchBean searchBean = new SearchBean().setMaxResults(maxResults)
                     .setPage(page)
@@ -99,10 +96,9 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
                     .getAll(searchBean);
             try {
                 if (response.getStatus() == Status.OK.getStatusCode()) {
-                    return response.readEntity(AbstractIdentifiableService.this.getCollectionClass())
-                            .getDomainCollection();
+                    return response.readEntity(AbstractIdentifiableService.this.getCollectionClass());
                 } else {
-                    return Collections.emptyList();
+                    return this.getEmptyCollection();
                 }
             } finally {
                 response.close();
@@ -139,6 +135,8 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     protected Class<TYPE> getDomainClass() {
         return this.domainClass;
     }
+
+    protected abstract COL getEmptyCollection();
 
     protected Class<ID> getIdClass() {
         return this.identifierClass;

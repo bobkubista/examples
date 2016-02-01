@@ -26,12 +26,14 @@ public class AbstractActiveServiceTest {
     @Test
     public void testGetAll() {
         Assert.assertEquals(2, this.service.getAll(null, 0, 2)
+                .getDomainCollection()
                 .size());
     }
 
     @Test
     public void testGetAllActive() {
         Assert.assertEquals(2, this.service.getAllActive(null, 0, 100)
+                .getDomainCollection()
                 .size());
     }
 

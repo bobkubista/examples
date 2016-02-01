@@ -15,11 +15,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 public class MockDomainCollection extends AbstractGenericDomainObjectCollection<MockActiveDomainObject> {
 
     private static final long serialVersionUID = -7107996031356278730L;
-    private final Collection<MockActiveDomainObject> collection = new ArrayList<>();
+    private Collection<MockActiveDomainObject> collection = new ArrayList<>();
 
     @Override
     public Collection<MockActiveDomainObject> getDomainCollection() {
         return this.collection;
+    }
+
+    public void setDomainCollection(final Collection<MockActiveDomainObject> collection) {
+        this.collection = collection;
     }
 
 }

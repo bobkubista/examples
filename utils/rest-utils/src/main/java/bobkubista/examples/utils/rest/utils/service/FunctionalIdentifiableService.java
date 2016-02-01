@@ -2,6 +2,7 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
 /**
@@ -15,7 +16,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            the identifier of the
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  */
-public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableService<TYPE, ID> {
+public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
+        extends IdentifiableService<TYPE, ID, COL> {
 
     /**
      *

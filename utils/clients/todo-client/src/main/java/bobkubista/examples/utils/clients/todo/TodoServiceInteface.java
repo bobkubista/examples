@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.clients.todo;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
+import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 import bobkubista.examples.utils.rest.utils.service.ActiveService;
 
 /**
@@ -9,6 +10,6 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
  * @author Bob
  *
  */
-public interface TodoServiceInteface extends ActiveService<TodoList, Long> {
+public interface TodoServiceInteface extends ActiveService<TodoList, Long, TodoListCollection> {
 
 }

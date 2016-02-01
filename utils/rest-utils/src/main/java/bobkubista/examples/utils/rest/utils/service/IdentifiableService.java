@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
 /**
@@ -26,7 +27,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericIdentifiableDomainObject}
  *
  */
-public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> {
+public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
 
     /**
      *
@@ -46,7 +47,7 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
     boolean delete(ID id);
 
     /**
-     * Get a {@link Collection} of <code>TYPE</code>
+     * Get a {@link AbstractGenericDomainObjectCollection}
      *
      * @param sort
      *            field to sort
@@ -57,11 +58,11 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      *
      * @return all instances of that type
      */
-    Collection<TYPE> getAll(List<String> sort, Integer page, Integer maxResults);
+    COL getAll(List<String> sort, Integer page, Integer maxResults);
 
     /**
-     * Get a {@link CompletableFuture} with {@link Collection} of
-     * <code>TYPE</code>
+     * Get a {@link CompletableFuture} with
+     * {@link AbstractGenericDomainObjectCollection}
      *
      * @param sort
      *            field to sort
@@ -72,7 +73,7 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      *
      * @return {@link CompletableFuture} of all instances of that type
      */
-    CompletableFuture<Collection<TYPE>> getAllAsync(List<String> sort, Integer page, Integer maxResults);
+    CompletableFuture<COL> getAllAsync(List<String> sort, Integer page, Integer maxResults);
 
     /**
      * Get a <code>TYPE</code> with <code>ID</code>

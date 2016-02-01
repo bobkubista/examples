@@ -17,7 +17,13 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
  * @author Bob
  *
  */
-public class MockActiveService extends AbstractActiveService<MockActiveDomainObject, Integer, MockDomainCollection>implements ActiveService<MockActiveDomainObject, Integer> {
+public class MockActiveService extends AbstractActiveService<MockActiveDomainObject, Integer, MockDomainCollection>
+        implements ActiveService<MockActiveDomainObject, Integer, MockDomainCollection> {
+
+    @Override
+    protected MockDomainCollection getEmptyCollection() {
+        return new MockDomainCollection();
+    }
 
     @SuppressWarnings("unchecked")
     @Override
