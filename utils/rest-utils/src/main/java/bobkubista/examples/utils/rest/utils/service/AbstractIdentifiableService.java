@@ -56,8 +56,7 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         final Response response = this.getProxy()
                 .create(object);
         try {
-            final boolean result = response.getStatus() == 201;
-            return result;
+            return response.getStatus() == Status.CREATED.getStatusCode();
         } finally {
             response.close();
         }
@@ -68,8 +67,7 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         final Response response = this.getProxy()
                 .delete(id);
         try {
-            final boolean result = response.getStatus() == 204;
-            return result;
+            return response.getStatus() == Status.NO_CONTENT.getStatusCode();
         } finally {
             response.close();
         }
