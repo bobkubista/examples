@@ -25,6 +25,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            The identifier of the
  *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <COL>
+ *            The {@link AbstractGenericDomainObjectCollection}
  *
  */
 public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {

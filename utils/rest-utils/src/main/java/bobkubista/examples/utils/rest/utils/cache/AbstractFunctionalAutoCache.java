@@ -24,6 +24,8 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <V>
  *            value, which is
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
+ * @param <COL>
+ *            The {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractFunctionalAutoCache<K extends Serializable, V extends AbstractGenericFunctionalIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         extends AbstractIdentifiableAsyncCaffeineCache<K, V, COL> {

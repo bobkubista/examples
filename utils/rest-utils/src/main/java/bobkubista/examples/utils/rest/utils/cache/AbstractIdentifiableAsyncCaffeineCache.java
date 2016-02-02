@@ -29,6 +29,8 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  *            {@link Serializable} identifier
  * @param <V>
  *            {@link AbstractGenericIdentifiableDomainObject} value
+ * @param <COL>
+ *            The {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         implements CacheLoader<K, V> {

@@ -18,7 +18,8 @@ import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableServic
  *            the identifier
  * @param <V>
  *            the {@link AbstractGenericActiveDomainObject}
- *
+ * @param <COL>
+ *            The {@link AbstractGenericDomainObjectCollection}
  * @author Bob
  *
  */
