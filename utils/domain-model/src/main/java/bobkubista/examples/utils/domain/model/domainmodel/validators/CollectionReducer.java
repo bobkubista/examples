@@ -16,7 +16,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @author Bob
  *
  */
-public class CollectionReducer {
+public final class CollectionReducer {
 
     /**
      * private Constructor
@@ -46,8 +46,8 @@ public class CollectionReducer {
      * @return {@link Optional} with <code>T</code> if none or one is found.
      *         DuplicateItemException is thrown if more then one value is found
      */
-    public final static <TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, E extends RuntimeException> Optional<TYPE> findOnlyOne(final Object value,
-            final Stream<TYPE> stream, final Function<TYPE, Object> function, final Supplier<E> supplier) {
+    public final static <TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, E extends RuntimeException> Optional<TYPE> findOnlyOne(
+            final Object value, final Stream<TYPE> stream, final Function<TYPE, Object> function, final Supplier<E> supplier) {
         return stream.filter(item -> function.apply(item)
                 .equals(value))
                 .reduce((element, otherElement) -> {
