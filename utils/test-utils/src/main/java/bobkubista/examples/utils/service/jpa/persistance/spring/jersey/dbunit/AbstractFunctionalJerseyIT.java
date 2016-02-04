@@ -65,7 +65,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
                 .post(Entity.xml(domainObject));
         try {
             Assert.assertNotNull(response);
-            Assert.assertEquals(Status.PRECONDITION_FAILED.getStatusCode(), response.getStatus());
+            Assert.assertEquals(422, response.getStatus());
         } finally {
             response.close();
         }
