@@ -3,7 +3,6 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,12 +69,13 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      *            the page
      * @param maxResults
      *            the max amount of results per page
+     * @param where
      * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
      *         same type
      */
     public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResults) {
         return this.getDAO()
-                .getAll(sortFields, page, maxResults, Optional.empty());
+                .getAll(sortFields, page, maxResults);
     }
 
     /**

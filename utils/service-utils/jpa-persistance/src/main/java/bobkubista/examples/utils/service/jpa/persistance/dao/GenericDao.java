@@ -58,8 +58,24 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      *            which page
      * @param maxResult
      *            the amount of result per page
+     * @return a {@link Collection} of <code>TYPE</code>
+     */
+    public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResults) {
+        return getAll(sortFields, page, maxResults, Optional.empty());
+    }
+
+    /**
+     * Get a {@link Collection} of all the <code>TYPE</code>, order by
+     * <code>ID</code>
+     *
+     * @param sortFields
+     *            the sorting field
+     * @param page
+     *            which page
+     * @param maxResult
+     *            the amount of result per page
      * @param whereClause
-     *            TODO
+     *            An {@link Optional} of a where clause
      * @return a {@link Collection} of <code>TYPE</code>
      */
     public abstract Collection<TYPE> getAll(List<String> sortFields, int page, int maxResult, Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause);
@@ -81,5 +97,4 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      * @return the number of objects affected
      */
     public abstract TYPE update(TYPE object);
-
 }

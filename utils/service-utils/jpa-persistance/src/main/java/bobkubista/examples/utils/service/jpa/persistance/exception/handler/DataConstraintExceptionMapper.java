@@ -4,7 +4,6 @@
 package bobkubista.examples.utils.service.jpa.persistance.exception.handler;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
@@ -19,7 +18,7 @@ public class DataConstraintExceptionMapper implements ExceptionMapper<DataIntegr
 
     @Override
     public Response toResponse(final DataIntegrityViolationException exception) {
-        return Response.status(Status.PRECONDITION_FAILED)
+        return Response.status(422)
                 .build();
     }
 

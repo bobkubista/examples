@@ -82,6 +82,7 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
         if (whereClause.isPresent()) {
             cq.where(whereClause.get()
                     .apply(entity, criteriaBuilder));
+            // cq.where(criteriaBuilder.<operator>(entity.get(<field>),<value>));
         }
         return this.orderedBy(sortFields, page, maxResult, cq, criteriaBuilder, entity);
     }

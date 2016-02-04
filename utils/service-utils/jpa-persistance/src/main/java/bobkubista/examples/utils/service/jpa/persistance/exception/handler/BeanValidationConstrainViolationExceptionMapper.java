@@ -23,7 +23,7 @@ public class BeanValidationConstrainViolationExceptionMapper implements Exceptio
     public Response toResponse(final ConstraintViolationException e) {
         final ConstraintViolation<?> cv = (ConstraintViolation<?>) e.getConstraintViolations()
                 .toArray()[0];
-        return Response.status(Response.Status.PRECONDITION_FAILED)
+        return Response.status(422)
                 .entity(new ConstraintViolationEntity(cv.getMessage()))
                 .build();
     }
