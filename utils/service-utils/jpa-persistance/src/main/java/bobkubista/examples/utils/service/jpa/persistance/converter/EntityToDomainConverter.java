@@ -5,8 +5,8 @@ package bobkubista.examples.utils.service.jpa.persistance.converter;
 
 import java.util.Collection;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 
 /**
@@ -30,19 +30,32 @@ public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends 
      *
      * @param entities
      *            the {@link Collection} of {@link EntityObject}s to convert
+     * @param amount
+     *            amount of possible results
      * @return a {@link Collection} of {@link DomainObject}s. It will never
      *         return a <code>null</code>
      */
-    DMOL convertToDomainObject(Collection<EO> entities);
+    DMOL convertToDomainObject(Collection<EO> entities, Long amount);
 
     /**
      * Convert an {@link EntityObject} to a {@link DomainObject}
-     * 
+     *
      * @param entity
      *            the {@link EntityObject} to convert
      * @return the converted {@link DomainObject}
      */
     DMO convertToDomainObject(EO entity);
+
+    /**
+     * Convert a {@link AbstractGenericDomainObjectCollection} to
+     * {@link EntityObject}s
+     *
+     * @param domainObjects
+     *            a {@link Collection} of {@link DomainObject}s
+     * @return a {@link Collection} of {@link EntityObject}s. It will never
+     *         return a <code>null</code>
+     */
+    Collection<EO> convertToEntity(AbstractGenericDomainObjectCollection<DMO> domainObjects);
 
     /**
      * Convert a {@link DomainObject} to an {@link EntityObject}. It will create
@@ -53,14 +66,4 @@ public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends 
      * @return the newly created {@link EntityObject}
      */
     EO convertToEntity(DMO domainModelObject);
-
-    /**
-     * Convert a {@link AbstractGenericDomainObjectCollection} to {@link EntityObject}s
-     *
-     * @param domainObjects
-     *            a {@link Collection} of {@link DomainObject}s
-     * @return a {@link Collection} of {@link EntityObject}s. It will never
-     *         return a <code>null</code>
-     */
-    Collection<EO> convertToEntity(AbstractGenericDomainObjectCollection<DMO> domainObjects);
 }

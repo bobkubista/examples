@@ -18,18 +18,23 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  */
 public interface ActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableDao<TYPE, ID> {
 
-	/**
-	 * Find all active {@link AbstractGenericActiveEntity}s
-	 *
-	 * @param page
-	 *            amount to skip: page * maxResults
-	 * @param maxResults
-	 *            amount of results to return
-	 *
-	 * @param sortFields
-	 *            the field to sort for
-	 * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
-	 */
-	Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults);
+    /**
+     *
+     * @return the amount of active entities
+     */
+    public Long countActive();
 
+    /**
+     * Find all active {@link AbstractGenericActiveEntity}s
+     *
+     * @param page
+     *            amount to skip: page * maxResults
+     * @param maxResults
+     *            amount of results to return
+     *
+     * @param sortFields
+     *            the field to sort for
+     * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
+     */
+    Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults);
 }

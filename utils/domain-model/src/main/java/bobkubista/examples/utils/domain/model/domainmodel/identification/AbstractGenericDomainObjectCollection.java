@@ -23,7 +23,7 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
     private static final long serialVersionUID = -7020164336355743584L;
 
     @XmlElement
-    private int count;
+    private long count;
 
     /**
      * Constructor
@@ -36,7 +36,7 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
      *
      * @return count
      */
-    public int getAmount() {
+    public long getAmount() {
         return this.count;
     }
 
@@ -50,7 +50,7 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
      * @param amount
      *            count
      */
-    public void setAmount(final int amount) {
+    public void setAmount(final long amount) {
         this.count = amount;
     }
 

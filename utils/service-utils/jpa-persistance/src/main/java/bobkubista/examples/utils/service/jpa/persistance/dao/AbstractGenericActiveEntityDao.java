@@ -26,13 +26,15 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 public abstract class AbstractGenericActiveEntityDao<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable>
         extends AbstractGenericFunctionalIdentifiableEntityDao<TYPE, ID>implements ActiveDAO<TYPE, ID> {
 
+    private final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> activeCriteria = Optional.of((root, build) -> build.equal(root.get("active"), true));
+
+    @Override
+    public Long countActive() {
+        return this.count(this.activeCriteria);
+    }
+
     @Override
     public Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
-        return this.getAll(sortFields, page, maxResults, Optional.of(new BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>() {
-            @Override
-            public Predicate apply(Root<TYPE> root, CriteriaBuilder build) {
-                return build.equal(root.get("active"), true);
-            }
-        }));
+        return this.getAll(sortFields, page, maxResults, this.activeCriteria);
     }
 }

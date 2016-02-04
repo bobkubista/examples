@@ -36,6 +36,15 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
     }
 
     /**
+     *
+     * @return Return the amount found
+     */
+    public default Long count() {
+        return this.getDAO()
+                .count();
+    }
+
+    /**
      * Create the object of {@link AbstractIdentifiableEntity} type
      *
      * @param object

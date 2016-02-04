@@ -32,6 +32,24 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
     public boolean contains(TYPE entity);
 
     /**
+     * Count the total amount of results
+     * 
+     * @return the amount of results found
+     */
+    public default Long count() {
+        return count(Optional.empty());
+    }
+
+    /**
+     * Count the total amount of results
+     * 
+     * @param whereClause
+     *            An {@link Optional} of a where clause
+     * @return the amount of results found
+     */
+    public Long count(Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause);
+
+    /**
      * insert a <code>TYPE</code> instance
      *
      * @param object

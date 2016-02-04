@@ -61,6 +61,23 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     }
 
     @Override
+    public Long count(final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause) {
+        final CriteriaBuilder criteriaBuilder = this.getEntityManager()
+                .getCriteriaBuilder();
+        final CriteriaQuery<Long> cq = criteriaBuilder.createQuery(Long.class);
+
+        cq.select(criteriaBuilder.count(cq.from(this.getEntityClass())));
+
+        final Root<TYPE> entity = cq.from(this.getEntityClass());
+        if (whereClause.isPresent()) {
+            cq.where(whereClause.get()
+                    .apply(entity, criteriaBuilder));
+        }
+        return this.entityManager.createQuery(cq)
+                .getSingleResult();
+    }
+
+    @Override
     public TYPE create(final TYPE object) {
         this.entityManager.persist(object);
         return this.entityManager.find(this.entityClass, object.getId());

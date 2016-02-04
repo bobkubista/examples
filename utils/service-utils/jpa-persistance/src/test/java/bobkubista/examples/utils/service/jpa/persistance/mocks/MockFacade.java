@@ -34,7 +34,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class)))
                 .thenReturn(this.buildMockDomain());
 
-        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection()))
+        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong()))
                 .thenReturn(new MockDomainCollection());
 
         return mock;

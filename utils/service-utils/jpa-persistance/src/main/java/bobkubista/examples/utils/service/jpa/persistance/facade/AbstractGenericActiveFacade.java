@@ -30,7 +30,9 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
     public Response getAllActive(@BeanParam final SearchBean searchBean) {
         return Response.ok(this.getConverter()
                 .convertToDomainObject(this.getService()
-                        .getAllActive(searchBean.getSort(), searchBean.getPage(), searchBean.getMaxResults())))
+                        .getAllActive(searchBean.getSort(), searchBean.getPage(), searchBean.getMaxResults()),
+                        this.getService()
+                                .countActive()))
                 .build();
     }
 

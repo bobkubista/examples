@@ -82,8 +82,11 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         // TODO fix search
         final Collection<TYPE> allEntities = this.getService()
                 .getAll(search.getSort(), search.getPage(), search.getMaxResults());
+
+        final Long amount = this.getService()
+                .count();
         return Response.ok(this.getConverter()
-                .convertToDomainObject(allEntities))
+                .convertToDomainObject(allEntities, amount))
                 .build();
     }
 
