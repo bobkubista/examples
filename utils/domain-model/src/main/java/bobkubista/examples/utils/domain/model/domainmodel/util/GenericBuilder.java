@@ -1,7 +1,7 @@
 /**
  *
  */
-package bobkubista.examples.utils.domain.model.domainmodel;
+package bobkubista.examples.utils.domain.model.domainmodel.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
