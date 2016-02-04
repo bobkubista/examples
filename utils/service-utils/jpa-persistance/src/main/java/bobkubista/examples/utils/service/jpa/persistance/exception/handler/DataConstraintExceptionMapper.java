@@ -9,6 +9,8 @@ import javax.ws.rs.ext.Provider;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
+import bobkubista.examples.utils.domain.model.RestConstants;
+
 /**
  * @author Bob
  *
@@ -18,7 +20,7 @@ public class DataConstraintExceptionMapper implements ExceptionMapper<DataIntegr
 
     @Override
     public Response toResponse(final DataIntegrityViolationException exception) {
-        return Response.status(422)
+        return Response.status(RestConstants.UNPROCESSABLE_ENTITY)
                 .build();
     }
 

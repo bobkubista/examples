@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.domain.model.domainmodel.validators;
+package bobkubista.examples.utils.domain.model.domainmodel.util;
 
 import java.io.Serializable;
 import java.util.Optional;

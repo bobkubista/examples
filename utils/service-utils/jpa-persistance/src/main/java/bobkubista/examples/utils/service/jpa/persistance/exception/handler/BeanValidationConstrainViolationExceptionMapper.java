@@ -6,6 +6,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import bobkubista.examples.utils.domain.model.RestConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.ConstraintViolationEntity;
 
 /**
@@ -23,7 +24,7 @@ public class BeanValidationConstrainViolationExceptionMapper implements Exceptio
     public Response toResponse(final ConstraintViolationException e) {
         final ConstraintViolation<?> cv = (ConstraintViolation<?>) e.getConstraintViolations()
                 .toArray()[0];
-        return Response.status(422)
+        return Response.status(RestConstants.UNPROCESSABLE_ENTITY)
                 .entity(new ConstraintViolationEntity(cv.getMessage()))
                 .build();
     }

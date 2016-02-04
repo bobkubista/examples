@@ -33,7 +33,7 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
 
     /**
      * Count the total amount of results
-     * 
+     *
      * @return the amount of results found
      */
     public default Long count() {
@@ -42,7 +42,7 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
 
     /**
      * Count the total amount of results
-     * 
+     *
      * @param whereClause
      *            An {@link Optional} of a where clause
      * @return the amount of results found
@@ -74,7 +74,7 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      *            the sorting field
      * @param page
      *            which page
-     * @param maxResult
+     * @param maxResults
      *            the amount of result per page
      * @return a {@link Collection} of <code>TYPE</code>
      */

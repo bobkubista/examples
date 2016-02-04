@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import bobkubista.examples.utils.domain.model.RestConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
@@ -65,7 +66,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
                 .post(Entity.xml(domainObject));
         try {
             Assert.assertNotNull(response);
-            Assert.assertEquals(422, response.getStatus());
+            Assert.assertEquals(RestConstants.UNPROCESSABLE_ENTITY, response.getStatus());
         } finally {
             response.close();
         }

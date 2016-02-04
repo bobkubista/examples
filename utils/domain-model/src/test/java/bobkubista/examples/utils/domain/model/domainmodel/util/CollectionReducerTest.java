@@ -1,7 +1,7 @@
 /**
  * Bob Kubista's examples
  */
-package bobkubista.examples.utils.domain.model.domainmodel.validators;
+package bobkubista.examples.utils.domain.model.domainmodel.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +15,7 @@ import org.junit.Test;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.GenericTestActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.GenericTestFunctionalDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.util.CollectionReducer;
 
 /**
  * @author Bob
