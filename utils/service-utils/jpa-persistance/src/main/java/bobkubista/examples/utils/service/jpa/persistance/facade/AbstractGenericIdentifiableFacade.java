@@ -102,7 +102,6 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             try {
                 return Response.ok(this.getConverter()
                         .convertToDomainObject(result))
-                        // TODO the location isn't right yet
                         .location(new URI(this.getClass()
                                 .getDeclaredAnnotation(Path.class)
                                 .value() + identifier.toString()))
