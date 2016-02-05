@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.Validate;
@@ -101,7 +102,10 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             try {
                 return Response.ok(this.getConverter()
                         .convertToDomainObject(result))
-                        .location(new URI(identifier.toString()))
+                        // TODO the location isn't right yet
+                        .location(new URI(this.getClass()
+                                .getDeclaredAnnotation(Path.class)
+                                .value() + identifier.toString()))
                         .lastModified(new Date(result.getUpdatedDate()
                                 .getTime()))
                         .build();

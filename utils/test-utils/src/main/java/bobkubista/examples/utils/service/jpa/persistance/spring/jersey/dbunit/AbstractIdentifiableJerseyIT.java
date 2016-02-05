@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,6 +17,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheFilterFactory;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
@@ -124,10 +127,15 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetById() {
-        final TYPE response = this.target("/" + this.getId())
+        final Response response = this.target("/" + this.getId())
                 .request()
-                .get(this.getSingleClass());
-        this.checkSingle(response);
+                .get(Response.class);
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
+        // TODO
+        // Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        this.checkHeaders(response);
+        this.checkSingle(response.readEntity(this.getSingleClass()));
     }
 
     /**
@@ -167,6 +175,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
             updatedResponse.close();
         }
     }
+
+    protected abstract void checkHeaders(Response response);
 
     /**
      *
@@ -251,6 +261,11 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
                 .getGenericSuperclass();
         return (Class<TYPE>) genericSuperclass.getActualTypeArguments()[0];
+    }
+
+    @Override
+    protected ResourceConfig registerFilters(final ResourceConfig rc) {
+        return rc.register(CacheFilterFactory.class);
     }
 
     /**
