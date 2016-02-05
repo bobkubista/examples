@@ -22,7 +22,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.NotImplementedException;
 
-import bobkubista.examples.utils.domain.model.annotation.http.cache.NoCache;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 
 /**
@@ -112,7 +111,6 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{id}")
-    @NoCache
     default Response getByID(@Valid @PathParam("id") final ID identifier) {
         return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
     }

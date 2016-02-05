@@ -25,22 +25,22 @@ public class CacheFilterFactory implements DynamicFeature {
     @Override
     public void configure(final ResourceInfo resourceInfo, final FeatureContext featureContext) {
 
-        final NoCache noCache = resourceInfo.getResourceMethod()
-                .getAnnotation(NoCache.class);
-        if (noCache != null) {
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(NoCache.class)) {
             featureContext.register(new ContainerResponseFilter() {
 
                 @Override
                 public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
                     // TODO must be a better way
-                    requestContext.getHeaders()
+                    responseContext.getHeaders()
                             .putSingle(HttpHeaders.CACHE_CONTROL, "no-cache");
                 }
             });
         } else {
-            final CacheMaxAge maxAge = resourceInfo.getResourceMethod()
-                    .getAnnotation(CacheMaxAge.class);
-            if (maxAge != null) {
+            if (resourceInfo.getResourceMethod()
+                    .isAnnotationPresent(CacheMaxAge.class)) {
+                final CacheMaxAge maxAge = resourceInfo.getResourceMethod()
+                        .getDeclaredAnnotation(CacheMaxAge.class);
                 featureContext.register(new ContainerResponseFilter() {
 
                     @Override

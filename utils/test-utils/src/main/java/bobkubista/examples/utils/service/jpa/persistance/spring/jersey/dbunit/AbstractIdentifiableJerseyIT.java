@@ -132,8 +132,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .get(Response.class);
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
-        // TODO
-        // Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
         this.checkHeaders(response);
         this.checkSingle(response.readEntity(this.getSingleClass()));
     }

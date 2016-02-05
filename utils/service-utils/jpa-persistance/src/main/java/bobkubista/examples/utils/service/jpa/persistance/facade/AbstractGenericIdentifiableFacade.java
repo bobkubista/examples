@@ -14,6 +14,7 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.utils.domain.model.annotation.http.cache.NoCache;
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -91,6 +92,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                 .build();
     }
 
+    @NoCache
     @Override
     public Response getByID(final ID identifier) {
         final TYPE result = this.getService()

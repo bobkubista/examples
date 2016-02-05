@@ -70,7 +70,6 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
         Assert.assertNotNull(response);
         Assert.assertEquals(this.getFunctionalId(), response.getFunctionalId());
         Assert.assertTrue(response.isActive());
-
     }
 
     @Override
