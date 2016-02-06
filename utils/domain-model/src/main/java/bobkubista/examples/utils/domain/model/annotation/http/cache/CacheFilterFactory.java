@@ -12,6 +12,13 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 
 /**
+ * A Cache filter factory. Creates {@link ContainerResponseFilter}s that add
+ * cache-control headers to the response, based on the annotations on the
+ * implemented methodes.
+ *
+ * Example: a method annotated with the {@link CacheNo} annotation, will have
+ * the cache-control header "no-cache"
+ *
  * @see <a href=
  *      "http://stackoverflow.com/questions/10934316/jersey-default-cache-control-to-no-cache">
  *      source</a>
@@ -38,14 +45,27 @@ public class CacheFilterFactory implements DynamicFeature {
                 .toSeconds(maxAge.time())));
     }
 
+    /**
+     * Create the filter and register it
+     *
+     * @param resourceInfo
+     *            {@link ResourceInfo}
+     * @param featureContext
+     *            {@link FeatureContext}
+     * @param annotationClass
+     *            the annotation class
+     * @param header
+     *            {@link Function} of the cache annotation to {@link String}
+     */
     protected <T extends Annotation> void setHeader(final ResourceInfo resourceInfo, final FeatureContext featureContext, final Class<T> annotationClass,
             final Function<T, String> header) {
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(annotationClass)) {
             final T maxAge = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(annotationClass);
+            // TODO only does last annotation
             featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
-                    .putSingle(HttpHeaders.CACHE_CONTROL, header.apply(maxAge)));
+                    .add(HttpHeaders.CACHE_CONTROL, header.apply(maxAge)));
         }
 
     }

@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -14,7 +15,9 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheNo;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePublic;
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -46,6 +49,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
+    @CacheNo
     @Override
     public Response create(final DMO object) {
         Validate.notNull(object);
@@ -92,7 +96,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                 .build();
     }
 
-    @CacheNo
+    @CacheMaxAge(time = 5, unit = TimeUnit.MINUTES)
+    @CachePublic
     @Override
     public Response getByID(final ID identifier) {
         final TYPE result = this.getService()
