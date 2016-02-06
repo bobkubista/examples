@@ -31,7 +31,6 @@ public class CacheFilterFactory implements DynamicFeature {
 
                 @Override
                 public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    // TODO must be a better way
                     responseContext.getHeaders()
                             .putSingle(HttpHeaders.CACHE_CONTROL, CacheNo.HEADER);
                 }
@@ -45,13 +44,91 @@ public class CacheFilterFactory implements DynamicFeature {
 
                 @Override
                 public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    // TODO must be a better way
                     responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, Long.toString(maxAge.unit()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheMaxAge.HEADER + Long.toString(maxAge.unit()
                                     .toSeconds(maxAge.time())));
                 }
             });
         }
-        // TODO add more annotations
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheMustRevalidate.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheMustRevalidate.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheNoStore.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoStore.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheNoTransform.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoTransform.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CachePrivate.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CachePrivate.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheProxyRevalidate.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheProxyRevalidate.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CachePublic.class)) {
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CachePublic.HEADER);
+                }
+            });
+        }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheSMaxAge.class)) {
+            final CacheSMaxAge maxAge = resourceInfo.getResourceMethod()
+                    .getDeclaredAnnotation(CacheSMaxAge.class);
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheSMaxAge.HEADER + Long.toString(maxAge.unit()
+                                    .toSeconds(maxAge.time())));
+                }
+            });
+        }
     }
 }

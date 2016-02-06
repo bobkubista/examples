@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface CacheNo {
 
-    public static final String HEADER = "no-transform";
+    public static final String HEADER = "no-cache";
 
 }

@@ -8,7 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 /**
  * @author Bob
@@ -22,8 +21,7 @@ import java.util.function.Function;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface CacheMaxAge {
-    public static final Function<CacheMaxAge, String> HEADER = maxAge -> "max-age=" + Long.toString(maxAge.unit()
-            .toSeconds(maxAge.time()));
+    public static final String HEADER = "max-age=";
 
     /**
      * @return The amount of time to cache this resource.

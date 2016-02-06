@@ -7,7 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
 
 /**
  * Sets the cache header to the value "Private"
@@ -22,6 +21,6 @@ import java.util.function.Function;
 @Target(ElementType.METHOD)
 public @interface CachePrivate {
 
-    public static final Function<CachePrivate, String> HEADER = t -> "private";
+    public static final String HEADER = "private";
 
 }

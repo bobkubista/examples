@@ -7,7 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
 
 /**
  *
@@ -23,6 +22,6 @@ import java.util.function.Function;
 @Target(ElementType.METHOD)
 public @interface CachePublic {
 
-    public static final Function<CachePublic, String> HEADER = t -> "public";
+    public static final String HEADER = "public";
 
 }
