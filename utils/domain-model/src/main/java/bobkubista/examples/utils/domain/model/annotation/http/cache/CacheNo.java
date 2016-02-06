@@ -4,7 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
 
 /**
  * Sets the cache header to the value "no cache"
@@ -16,7 +15,4 @@ import java.util.function.Function;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface CacheNo {
-
-    public static final Function<CacheNo, String> HEADER = t -> "no-cache";
-
 }
