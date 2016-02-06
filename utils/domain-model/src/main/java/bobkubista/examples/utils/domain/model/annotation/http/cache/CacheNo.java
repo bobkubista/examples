@@ -15,4 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface CacheNo {
+
+    public static final String HEADER = "no-transform";
+
 }

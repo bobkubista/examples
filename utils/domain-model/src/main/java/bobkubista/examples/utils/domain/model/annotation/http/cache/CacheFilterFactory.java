@@ -33,26 +33,25 @@ public class CacheFilterFactory implements DynamicFeature {
                 public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
                     // TODO must be a better way
                     responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, "no-cache");
+                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNo.HEADER);
                 }
             });
-        } else {
-            if (resourceInfo.getResourceMethod()
-                    .isAnnotationPresent(CacheMaxAge.class)) {
-                final CacheMaxAge maxAge = resourceInfo.getResourceMethod()
-                        .getDeclaredAnnotation(CacheMaxAge.class);
-                featureContext.register(new ContainerResponseFilter() {
-
-                    @Override
-                    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                        // TODO must be a better way
-                        responseContext.getHeaders()
-                                .putSingle(HttpHeaders.CACHE_CONTROL, Long.toString(maxAge.unit()
-                                        .toSeconds(maxAge.time())));
-                    }
-                });
-            }
-            // TODO add more annotations
         }
+        if (resourceInfo.getResourceMethod()
+                .isAnnotationPresent(CacheMaxAge.class)) {
+            final CacheMaxAge maxAge = resourceInfo.getResourceMethod()
+                    .getDeclaredAnnotation(CacheMaxAge.class);
+            featureContext.register(new ContainerResponseFilter() {
+
+                @Override
+                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
+                    // TODO must be a better way
+                    responseContext.getHeaders()
+                            .putSingle(HttpHeaders.CACHE_CONTROL, Long.toString(maxAge.unit()
+                                    .toSeconds(maxAge.time())));
+                }
+            });
+        }
+        // TODO add more annotations
     }
 }
