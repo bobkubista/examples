@@ -15,6 +15,10 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 
 /**
+ * Cache filter factory. This will dynamically register a {@link CacheFilter},
+ * which adds cache control headers to a response, based on the cache
+ * annotations of the method.
+ *
  * @see <a href=
  *      "http://stackoverflow.com/questions/10934316/jersey-default-cache-control-to-no-cache">
  *      source</a>
@@ -56,11 +60,12 @@ public class CacheFilterFactory implements DynamicFeature {
 
     private <T extends Annotation> void addToHeader(final ResourceInfo resourceInfo, final FeatureContext featureContext, final Class<T> annotationClass,
             final Function<T, String> function) {
+
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(annotationClass)) {
+
             final T annotation = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(annotationClass);
-
             featureContext.register(new CacheFilter<T>(function, annotation));
         }
     }
