@@ -13,16 +13,16 @@ import java.util.function.Function;
 /**
  * @author Bob
  *
- *         Set the "Max-age" Cache header.
+ *         Sets the cache header to the value "s max age"
  *
  * @see <a href=
- *      'http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.3'>W3C
+ *      'http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1'>W3c
  *      Header Field Definitions</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CacheMaxAge {
-    public static final Function<CacheMaxAge, String> HEADER = maxAge -> "max-age=" + Long.toString(maxAge.unit()
+public @interface CacheSMaxAge {
+    public static final Function<CacheSMaxAge, String> HEADER = maxAge -> "s-maxage=" + Long.toString(maxAge.unit()
             .toSeconds(maxAge.time()));
 
     /**
