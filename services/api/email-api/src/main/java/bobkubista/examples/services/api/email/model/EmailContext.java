@@ -107,7 +107,8 @@ public final class EmailContext implements DomainObject {
     private EmailContext(final EmailBuilder builder) {
         this.recipient = builder.recipient;
         this.subject = builder.subject;
-        this.replacements = builder.replacement.stream().collect(Collectors.toMap(t -> t.getLeft(), t -> t.getRight()));
+        this.replacements = builder.replacement.stream()
+                .collect(Collectors.toMap(t -> t.getLeft(), t -> t.getRight()));
     }
 
     /**

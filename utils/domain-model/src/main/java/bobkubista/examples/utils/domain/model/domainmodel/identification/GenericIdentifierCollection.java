@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
 public class GenericIdentifierCollection<ID> implements DomainObject {
-
     private static final long serialVersionUID = -8623470897577981147L;
 
     @XmlElementWrapper(name = "ids")

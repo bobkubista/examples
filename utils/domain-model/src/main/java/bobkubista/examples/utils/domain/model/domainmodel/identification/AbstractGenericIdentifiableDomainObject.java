@@ -29,6 +29,7 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
      * Constructor
      */
     public AbstractGenericIdentifiableDomainObject() {
+        super();
     }
 
     @Override
@@ -37,12 +38,16 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
             return false;
         }
 
-        if (!obj.getClass().isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass() && !this.getClass().isAssignableFrom(obj.getClass())) {
+        if (!obj.getClass()
+                .isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass()
+                && !this.getClass()
+                        .isAssignableFrom(obj.getClass())) {
             return false;
         }
         @SuppressWarnings("unchecked")
         final AbstractGenericIdentifiableDomainObject<ID> other = (AbstractGenericIdentifiableDomainObject<ID>) obj;
-        return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
+        return new EqualsBuilder().append(this.getId(), other.getId())
+                .isEquals();
     }
 
     /**
@@ -52,7 +57,8 @@ public abstract class AbstractGenericIdentifiableDomainObject<ID extends Seriali
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.getId()).toHashCode();
+        return new HashCodeBuilder().append(this.getId())
+                .toHashCode();
     }
 
     /**
