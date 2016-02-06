@@ -1,10 +1,6 @@
 
 package bobkubista.examples.utils.domain.model.annotation.http.cache;
 
-import java.io.IOException;
-
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
@@ -27,108 +23,54 @@ public class CacheFilterFactory implements DynamicFeature {
 
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheNo.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNo.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheNo.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheMaxAge.class)) {
             final CacheMaxAge maxAge = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(CacheMaxAge.class);
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheMaxAge.HEADER + Long.toString(maxAge.unit()
-                                    .toSeconds(maxAge.time())));
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheMaxAge.HEADER + Long.toString(maxAge.unit()
+                            .toSeconds(maxAge.time()))));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheMustRevalidate.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheMustRevalidate.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheMustRevalidate.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheNoStore.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoStore.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoStore.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheNoTransform.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoTransform.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheNoTransform.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CachePrivate.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CachePrivate.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CachePrivate.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheProxyRevalidate.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheProxyRevalidate.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheProxyRevalidate.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CachePublic.class)) {
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CachePublic.HEADER);
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CachePublic.HEADER));
         }
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(CacheSMaxAge.class)) {
             final CacheSMaxAge maxAge = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(CacheSMaxAge.class);
-            featureContext.register(new ContainerResponseFilter() {
-
-                @Override
-                public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-                    responseContext.getHeaders()
-                            .putSingle(HttpHeaders.CACHE_CONTROL, CacheSMaxAge.HEADER + Long.toString(maxAge.unit()
-                                    .toSeconds(maxAge.time())));
-                }
-            });
+            featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                    .putSingle(HttpHeaders.CACHE_CONTROL, CacheSMaxAge.HEADER + Long.toString(maxAge.unit()
+                            .toSeconds(maxAge.time()))));
         }
     }
 }
