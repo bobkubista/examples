@@ -118,10 +118,12 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get(this.getCollectionClass());
         Assert.assertNotNull(response.getLinks());
-        Assert.assertTrue(response.getLinks()
-                .stream()
-                .anyMatch(link -> link.getRel()
-                        .equals("next")));
+        Assert.assertTrue(!(response.getDomainCollection()
+                .size() == 2)
+                || response.getLinks()
+                        .stream()
+                        .anyMatch(link -> link.getRel()
+                                .equals("next")));
         Assert.assertFalse(response.getLinks()
                 .stream()
                 .anyMatch(link -> link.getRel()
