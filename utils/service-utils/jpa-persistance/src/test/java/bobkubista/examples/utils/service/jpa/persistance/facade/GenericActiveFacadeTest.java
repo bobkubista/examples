@@ -80,8 +80,17 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetAllActive() {
-        SearchBean search = new SearchBean();
+        final SearchBean search = new SearchBean();
         final Response result = this.facade.getAllActive(search);
+        Assert.assertNotNull(result);
+        Assert.assertNotNull(result.getEntity());
+    }
+
+    @Test
+    public void testGetAllSecondPageWithMoreResults() {
+        final SearchBean search = new SearchBean().setMaxResults(1)
+                .setPage(1);
+        final Response result = this.facade.getAll(search);
         Assert.assertNotNull(result);
         Assert.assertNotNull(result.getEntity());
     }
@@ -114,7 +123,7 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetByID() {
-        final Response result = this.facade.getByFunctionalId("Bla");
+        final Response result = this.facade.getByID(1L);
         Assert.assertNotNull(result);
         Assert.assertEquals(200, result.getStatus());
         Assert.assertNotNull(result.getEntity());

@@ -6,7 +6,7 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.ws.rs.NotFoundException;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Link;
 
 import org.mockito.Matchers;
@@ -20,6 +20,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  * @author Bob Kubista
  *
  */
+@Path("/")
 public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
 
     @SuppressWarnings("unchecked")
@@ -48,19 +49,22 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.create(null))
                 .thenReturn(null);
 
-        final MockEntity entity = this.buildMockEntity();
         Mockito.when(mock.create(Matchers.any(MockEntity.class)))
-                .thenReturn(entity);
+                .thenReturn(this.buildMockEntity());
 
         Mockito.when(mock.getById(1L))
                 .thenReturn(this.buildMockEntity());
         Mockito.when(mock.getById(2L))
-                .thenThrow(new NotFoundException());
+                .thenReturn(null);
 
         Mockito.when(mock.getAll(Collections.singletonList("id"), 0, 100))
                 .thenReturn(Collections.singletonList(this.buildMockEntity()));
         Mockito.when(mock.getAllActive(new ArrayList<>(), 0, 100))
                 .thenReturn(Collections.singletonList(this.buildMockEntity()));
+        Mockito.when(mock.getAll(new ArrayList<>(), 1, 1))
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
+        Mockito.when(mock.count())
+                .thenReturn(100L);
 
         Mockito.when(mock.getByFunctionalId("Bla"))
                 .thenReturn(this.buildMockEntity());
