@@ -1,5 +1,6 @@
 package bobkubista.examples.utils.domain.model.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DefaultValue;
@@ -20,14 +21,14 @@ public class SearchBean implements DomainObject {
 
     @QueryParam(ApiConstants.MAX)
     @DefaultValue("20")
-    private Integer maxResults;
+    private Integer maxResults = 20;
 
     @QueryParam(ApiConstants.PAGE)
     @DefaultValue("0")
-    private Integer page;
+    private Integer page = 0;
 
     @QueryParam(ApiConstants.SORT)
-    private List<String> sort;
+    private List<String> sort = new ArrayList<>();
 
     /**
      * @return the maxResults

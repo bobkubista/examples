@@ -80,7 +80,8 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetAllActive() {
-        final Response result = this.facade.getAllActive(new SearchBean());
+        SearchBean search = new SearchBean();
+        final Response result = this.facade.getAllActive(search);
         Assert.assertNotNull(result);
         Assert.assertNotNull(result.getEntity());
     }
