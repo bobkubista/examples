@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntSupplier;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -97,30 +98,9 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                 .count();
         final List<Link> links = new ArrayList<>(2);
 
-        if (allEntities.size() == search.getMaxResults() && search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
-            final URI nextUri = UriBuilder.fromResource(this.getClass())
-                    .queryParam(ApiConstants.SORT, search.getSort()
-                            .toArray())
-                    .queryParam(ApiConstants.MAX, search.getMaxResults())
-                    .queryParam(ApiConstants.PAGE, search.getPage() + 1)
-                    .build();
-            final Link next = Link.fromUri(nextUri)
-                    .rel("next")
-                    .build();
-            links.add(next);
-        }
-        if (search.getPage() != 0) {
-            final URI previousUri = UriBuilder.fromResource(this.getClass())
-                    .queryParam(ApiConstants.SORT, search.getSort()
-                            .toArray())
-                    .queryParam(ApiConstants.MAX, search.getMaxResults())
-                    .queryParam(ApiConstants.PAGE, search.getPage() - 1)
-                    .build();
-            final Link previous = Link.fromUri(previousUri)
-                    .rel("previous")
-                    .build();
-            links.add(previous);
-        }
+        this.buildNextCollectionLink(search, allEntities, amount, links);
+        this.buildPreviousCollectionLink(search, links);
+
         return Response.ok(this.getConverter()
                 .convertToDomainObject(allEntities, amount, links))
                 .build();
@@ -173,6 +153,67 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             LOGGER.warn(e.getMessage(), e);
             return Response.serverError()
                     .build();
+        }
+    }
+
+    /**
+     * Build a link for a collection result
+     * 
+     * @param search
+     *            {@link SearchBean}, used to fill in some blanks
+     * @param links
+     *            a {@link List} of {@link Link}s to add the created to.
+     * @param rel
+     *            the rel value of the {@link Link}
+     * @param page
+     *            {@link IntSupplier}, to calculate the page
+     */
+    protected void buildCollectionLink(final SearchBean search, final List<Link> links, final String rel, final IntSupplier page) {
+        final URI nextUri = UriBuilder.fromResource(this.getClass())
+                .queryParam(ApiConstants.SORT, search.getSort()
+                        .toArray())
+                .queryParam(ApiConstants.MAX, search.getMaxResults())
+                .queryParam(ApiConstants.PAGE, page.getAsInt())
+                .build();
+        final Link next = Link.fromUri(nextUri)
+                .rel(rel)
+                .build();
+        links.add(next);
+    }
+
+    /**
+     * If a previous link is valid, it will be added to the links
+     *
+     * @param search
+     *            {@link SearchBean}, used to determain if the link should be
+     *            added
+     * @param links
+     *            a {@link List} of {@link Link}s to add the previous link to.
+     * @param allEntities
+     *            {@link Collection} of <code>TYPE</code>, used to determain if
+     *            the link should be added
+     * @param amount
+     *            amount of total results to be able to be returned. Used to
+     *            determain if the link should be added
+     */
+    protected void buildNextCollectionLink(final SearchBean search, final Collection<TYPE> allEntities, final Long amount, final List<Link> links) {
+        if (allEntities.size() == search.getMaxResults() && search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
+            this.buildCollectionLink(search, links, "next", () -> search.getPage() + 1);
+        }
+    }
+
+    /**
+     * If a previous link is valid, it will be added to the links
+     *
+     * @param search
+     *            {@link SearchBean}, used to determain if the link should be
+     *            added
+     * @param links
+     *            a {@link List} of {@link Link}s to add the previous link to.
+     */
+    protected void buildPreviousCollectionLink(final SearchBean search, final List<Link> links) {
+        if (search.getPage() != 0) {
+            this.buildCollectionLink(search, links, "previous", () -> search.getPage() - 1);
         }
     }
 
