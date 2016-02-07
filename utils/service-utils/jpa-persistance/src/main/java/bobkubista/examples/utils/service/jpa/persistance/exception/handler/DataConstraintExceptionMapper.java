@@ -21,6 +21,7 @@ public class DataConstraintExceptionMapper implements ExceptionMapper<DataIntegr
     @Override
     public Response toResponse(final DataIntegrityViolationException exception) {
         return Response.status(RestConstants.UNPROCESSABLE_ENTITY)
+                .entity(exception.getMessage())
                 .build();
     }
 
