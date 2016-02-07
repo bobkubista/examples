@@ -117,8 +117,41 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .queryParam(ApiConstants.MAX, 2)
                 .request()
                 .get(this.getCollectionClass());
+        Assert.assertNotNull(response.getLinks());
+        Assert.assertTrue(response.getLinks()
+                .stream()
+                .anyMatch(link -> link.getRel()
+                        .equals("next")));
+        Assert.assertFalse(response.getLinks()
+                .stream()
+                .anyMatch(link -> link.getRel()
+                        .equals("previous")));
+
         this.checkResponseGetAll(response, this.expectedSize());
         this.checkSorting(response, false);
+    }
+
+    /**
+     * Test if getAll with query params works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetAllWithSortAndLimitPreviousLink() {
+        final COL response = this.target("/")
+                .queryParam(ApiConstants.SORT, this.getIdField())
+                .queryParam(ApiConstants.PAGE, 1)
+                .queryParam(ApiConstants.MAX, 1000)
+                .request()
+                .get(this.getCollectionClass());
+        Assert.assertNotNull(response.getLinks());
+        Assert.assertFalse(response.getLinks()
+                .stream()
+                .anyMatch(link -> link.getRel()
+                        .equals("next")));
+        Assert.assertTrue(response.getLinks()
+                .stream()
+                .anyMatch(link -> link.getRel()
+                        .equals("previous")));
     }
 
     /**
