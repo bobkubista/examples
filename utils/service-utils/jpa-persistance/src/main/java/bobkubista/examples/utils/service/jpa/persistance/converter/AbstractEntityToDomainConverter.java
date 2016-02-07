@@ -6,6 +6,9 @@ package bobkubista.examples.utils.service.jpa.persistance.converter;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+
+import javax.ws.rs.core.Link;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +37,11 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
     @Override
-    public DMOL convertToDomainObject(final Collection<EO> entities, final Long amount) {
+    public DMOL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
         final DMOL result = this.getNewDomainObjectCollection();
         result.setAmount(amount);
+        result.getLinks()
+                .addAll(links);
         LOGGER.debug("Converting entities to domain");
         if (entities != null) {
             entities.stream()

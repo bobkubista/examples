@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Link;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -34,7 +35,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class)))
                 .thenReturn(this.buildMockDomain());
 
-        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong()))
+        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong(), Matchers.anyListOf(Link.class)))
                 .thenReturn(new MockDomainCollection());
 
         return mock;

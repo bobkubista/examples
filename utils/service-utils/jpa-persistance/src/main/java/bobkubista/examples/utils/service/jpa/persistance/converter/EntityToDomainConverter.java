@@ -4,6 +4,9 @@
 package bobkubista.examples.utils.service.jpa.persistance.converter;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.ws.rs.core.Link;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
@@ -32,10 +35,11 @@ public interface EntityToDomainConverter<DMO extends DomainObject, DMOL extends 
      *            the {@link Collection} of {@link EntityObject}s to convert
      * @param amount
      *            amount of possible results
+     * @param links
      * @return a {@link Collection} of {@link DomainObject}s. It will never
      *         return a <code>null</code>
      */
-    DMOL convertToDomainObject(Collection<EO> entities, Long amount);
+    DMOL convertToDomainObject(Collection<EO> entities, Long amount, List<Link> links);
 
     /**
      * Convert an {@link EntityObject} to a {@link DomainObject}
