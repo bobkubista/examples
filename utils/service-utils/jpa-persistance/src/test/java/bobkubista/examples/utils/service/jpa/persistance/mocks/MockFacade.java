@@ -59,11 +59,17 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
 
         Mockito.when(mock.getAll(Collections.singletonList("id"), 0, 100))
                 .thenReturn(Collections.singletonList(this.buildMockEntity()));
-        Mockito.when(mock.getAllActive(new ArrayList<>(), 0, 100))
-                .thenReturn(Collections.singletonList(this.buildMockEntity()));
         Mockito.when(mock.getAll(new ArrayList<>(), 1, 1))
                 .thenReturn(Collections.singletonList(this.buildMockEntity()));
+
+        Mockito.when(mock.getAllActive(new ArrayList<>(), 0, 100))
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
+        Mockito.when(mock.getAllActive(new ArrayList<>(), 1, 1))
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
+
         Mockito.when(mock.count())
+                .thenReturn(100L);
+        Mockito.when(mock.countActive())
                 .thenReturn(100L);
 
         Mockito.when(mock.getByFunctionalId("Bla"))
