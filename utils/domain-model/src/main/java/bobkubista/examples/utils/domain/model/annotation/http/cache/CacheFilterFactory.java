@@ -61,10 +61,10 @@ public class CacheFilterFactory implements DynamicFeature {
             final Function<T, String> header) {
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(annotationClass)) {
-            final T maxAge = resourceInfo.getResourceMethod()
+            final T annotation = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(annotationClass);
             featureContext.register((ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
-                    .add(HttpHeaders.CACHE_CONTROL, header.apply(maxAge)));
+                    .add(HttpHeaders.CACHE_CONTROL, header.apply(annotation)));
         }
 
     }
