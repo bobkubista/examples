@@ -3,9 +3,6 @@
  */
 package bobkubista.examples.services.rest.todo;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 
@@ -29,13 +26,6 @@ public class TodoServiceJerseyIT extends AbstractActiveJerseyIT<TodoList, Long, 
     @Override
     public ResourceConfig configure(final ResourceConfig rc) {
         return rc.register(TodoFacade.class);
-    }
-
-    @Override
-    protected void checkHeaders(final Response response) {
-        Assert.assertEquals("no-cache", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
-        Assert.assertEquals("http://localhost:9998/1", response.getHeaderString(HttpHeaders.LOCATION));
     }
 
     @Override
