@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.utils.domain.model.annotation.http.cache;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+@Documented
 public @interface CacheSMaxAge {
     public static final String HEADER = "s-maxage=";
 
