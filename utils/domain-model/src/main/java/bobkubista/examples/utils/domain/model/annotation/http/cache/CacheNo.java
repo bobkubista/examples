@@ -5,6 +5,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.function.Function;
+
+import javax.ws.rs.core.CacheControl;
 
 /**
  * Sets the cache header to the value "no cache"
@@ -18,6 +21,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CacheNo {
 
-    public static final String HEADER = "no-cache";
+    public static final Function<CacheNo, CacheControl> HEADER = t -> {
+        final CacheControl cc = new CacheControl();
+        cc.setNoCache(true);
+        return cc;
+    };
 
 }

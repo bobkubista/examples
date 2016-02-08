@@ -8,6 +8,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.function.Function;
+
+import javax.ws.rs.core.CacheControl;
 
 /**
  * Sets the cache header to the value "Private"
@@ -23,6 +26,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CachePrivate {
 
-    public static final String HEADER = "private";
+    public static final Function<CachePrivate, CacheControl> HEADER = t -> {
+        final CacheControl cc = new CacheControl();
+        cc.setPrivate(true);
+        return cc;
+    };
 
 }
