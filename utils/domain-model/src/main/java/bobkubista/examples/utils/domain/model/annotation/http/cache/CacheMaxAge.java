@@ -9,9 +9,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-
-import javax.ws.rs.core.CacheControl;
 
 /**
  * @author Bob
@@ -26,12 +23,7 @@ import javax.ws.rs.core.CacheControl;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheMaxAge {
-    public static final Function<CacheMaxAge, CacheControl> HEADER = t -> {
-        final CacheControl cc = new CacheControl();
-        cc.setMaxAge((int) t.unit()
-                .toSeconds(t.time()));
-        return cc;
-    };
+    public static final String HEADER = "max-age=";
 
     /**
      * @return The amount of time to cache this resource.

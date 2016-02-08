@@ -8,9 +8,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
-
-import javax.ws.rs.core.CacheControl;
 
 /**
  *
@@ -27,10 +24,6 @@ import javax.ws.rs.core.CacheControl;
 @Documented
 public @interface CacheMustRevalidate {
 
-    public static final Function<CacheMustRevalidate, CacheControl> HEADER = t -> {
-        final CacheControl cc = new CacheControl();
-        cc.setMustRevalidate(true);
-        return cc;
-    };
+    public static final String HEADER = "must-revalidate";
 
 }

@@ -8,9 +8,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
-
-import javax.ws.rs.core.CacheControl;
 
 /**
  *
@@ -27,10 +24,6 @@ import javax.ws.rs.core.CacheControl;
 @Documented
 public @interface CacheNoStore {
 
-    public static final Function<CacheNoStore, CacheControl> HEADER = t -> {
-        final CacheControl cc = new CacheControl();
-        cc.setNoStore(true);
-        return cc;
-    };
+    public static final String HEADER = "no-store";
 
 }
