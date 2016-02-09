@@ -3,7 +3,6 @@
  */
 package bobkubista.examples.services.rest.user;
 
-import javax.validation.Valid;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -33,9 +32,9 @@ public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEnti
 
     @CacheNo
     @Override
-    public @Valid Response isAuthorized(final Long userId, final String right) {
+    public Response isAuthorized(final Long userId, final String right) {
         if (this.service.isAuthorized(userId, right)) {
-            return Response.ok()
+            return Response.noContent()
                     .build();
         } else {
             return Response.status(Status.UNAUTHORIZED)
