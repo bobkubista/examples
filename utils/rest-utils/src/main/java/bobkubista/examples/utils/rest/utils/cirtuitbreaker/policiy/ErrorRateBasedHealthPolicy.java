@@ -17,8 +17,11 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transacti
  *
  */
 public class ErrorRateBasedHealthPolicy implements HealthPolicy {
+
     private static final int THRESHOLD = 30;
+
     private final MetricsRegistry metricsRegistry;
+
     private final int thresholdMinReqPerMin;
 
     /**
@@ -35,7 +38,7 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
     /**
      *
      * Constructor
-     * 
+     *
      * @param metricsRegistry
      *            {@link MetricsRegistry}
      * @param thresholdMinRatePerMin
@@ -48,14 +51,15 @@ public class ErrorRateBasedHealthPolicy implements HealthPolicy {
 
     @Override
     public boolean isHealthy(final String scope) {
-        final Transactions transactions = this.metricsRegistry.transactions(scope).ofLast(Duration.ofMinutes(1));
+        final Transactions transactions = this.metricsRegistry.transactions(scope)
+                .ofLast(Duration.ofMinutes(1));
 
         return !(transactions.size() > this.thresholdMinReqPerMin && // check
                                                                      // threshold
                                                                      // reached?
-        transactions.failed().size() == transactions.size() // every
-                                                            // call
-                                                            // failed?
-        ); // client connection pool limit reached?
+        transactions.failed()
+                .size() == transactions.size() // every call failed?
+        );
+        // client connection pool limit reached?
     }
 }
