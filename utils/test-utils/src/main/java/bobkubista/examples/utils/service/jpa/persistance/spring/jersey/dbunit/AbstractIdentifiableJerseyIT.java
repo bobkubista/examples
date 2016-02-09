@@ -165,10 +165,14 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final Response response = this.target("/" + this.getId())
                 .request()
                 .get(Response.class);
+
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        this.checkHeaders(response);
+        Assert.assertEquals("no-transform, max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
+        Assert.assertEquals("http://localhost:9998/1", response.getHeaderString(HttpHeaders.LOCATION));
+
         this.checkSingle(response.readEntity(this.getSingleClass()));
     }
 
@@ -208,12 +212,6 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         } finally {
             updatedResponse.close();
         }
-    }
-
-    protected void checkHeaders(final Response response) {
-        Assert.assertEquals("no-transform, max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
-        Assert.assertEquals("http://localhost:9998/1", response.getHeaderString(HttpHeaders.LOCATION));
     }
 
     /**
