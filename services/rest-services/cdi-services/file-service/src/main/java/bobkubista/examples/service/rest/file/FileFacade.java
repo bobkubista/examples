@@ -5,6 +5,8 @@ package bobkubista.examples.service.rest.file;
 
 import java.io.File;
 
+import javax.ws.rs.core.Response;
+
 import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.rest.api.file.FileApi;
 
@@ -16,13 +18,19 @@ import bobkubista.examples.services.rest.api.file.FileApi;
  */
 public class FileFacade implements FileApi {
 
-    static final String BASEPATH = ServerProperties.getString("file.base.path");
+    private static final String BASEPATH = ServerProperties.getString("file.base.path");
 
     @Override
     public File getFile(final String filepath) {
         // TODO check if path is directory, if so, compress the dir and send the
         // tar/zip file
         return new File(BASEPATH + filepath);
+    }
+
+    @Override
+    public Response uploadFile(final String filepath) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
