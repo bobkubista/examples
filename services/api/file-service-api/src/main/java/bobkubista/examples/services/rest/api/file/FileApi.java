@@ -35,6 +35,13 @@ public interface FileApi {
     @Produces(MediaType.TEXT_PLAIN)
     public File getFile(@PathParam("filepath") final String filepath);
 
+    /**
+     * Upload a file
+     * 
+     * @param filepath
+     *            the relative filepath where to store the file
+     * @return {@link Response} that indicated if the upload was succesfull.
+     */
     @POST
     @Path("{filepath: .*}")
     @Consumes(MediaType.TEXT_PLAIN)
