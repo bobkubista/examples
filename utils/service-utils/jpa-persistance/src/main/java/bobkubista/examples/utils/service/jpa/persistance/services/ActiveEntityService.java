@@ -21,6 +21,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Transactional
 public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableEntityService<TYPE, ID> {
 
+    /**
+     *
+     * @return the amount of all active entities
+     */
     public default Long countActive() {
         return this.getDAO()
                 .countActive();

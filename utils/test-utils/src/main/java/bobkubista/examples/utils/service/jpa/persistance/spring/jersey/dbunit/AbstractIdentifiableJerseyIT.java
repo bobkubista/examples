@@ -39,6 +39,10 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 
     private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
 
+    private static final String NEXT_LINK = "next";
+
+    private static final String PREVIOUS_LINK = "previous";
+
     /**
      * Test if create works
      */
@@ -127,12 +131,10 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .size() == 2)
                 || response.getLinks()
                         .stream()
-                        .anyMatch(link -> link.getRel()
-                                .equals("next")));
+                        .anyMatch(link -> NEXT_LINK.equals(link.getRel())));
         Assert.assertFalse(response.getLinks()
                 .stream()
-                .anyMatch(link -> link.getRel()
-                        .equals("previous")));
+                .anyMatch(link -> PREVIOUS_LINK.equals(link.getRel())));
 
         this.checkResponseGetAll(response, this.expectedSize());
         this.checkSorting(response, false);
@@ -153,12 +155,10 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         Assert.assertNotNull(response.getLinks());
         Assert.assertFalse(response.getLinks()
                 .stream()
-                .anyMatch(link -> link.getRel()
-                        .equals("next")));
+                .anyMatch(link -> NEXT_LINK.equals(link.getRel())));
         Assert.assertTrue(response.getLinks()
                 .stream()
-                .anyMatch(link -> link.getRel()
-                        .equals("previous")));
+                .anyMatch(link -> PREVIOUS_LINK.equals(link.getRel())));
     }
 
     /**
