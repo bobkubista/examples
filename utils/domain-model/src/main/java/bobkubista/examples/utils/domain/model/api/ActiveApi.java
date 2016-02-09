@@ -33,6 +33,6 @@ public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("active/")
     default Response getAllActive(@Valid @BeanParam final SearchBean searchBean) {
-        return IdentifiableApi.buildMethodNotAllowedResponse();
+        return IdentifiableApi.buildMethodNotAllowedResponse(searchBean);
     }
 }

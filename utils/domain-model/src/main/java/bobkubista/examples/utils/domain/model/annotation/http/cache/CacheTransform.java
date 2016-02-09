@@ -23,5 +23,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheTransform {
+
+    /**
+     *
+     * @return true if the proxy can transform the request. Default is false
+     */
     boolean value() default false;
 }

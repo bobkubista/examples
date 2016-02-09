@@ -23,5 +23,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheMustRevalidate {
+
+    /**
+     *
+     * @return true is the client cache must revalidate the request. Default is
+     *         true
+     */
     boolean value() default true;
 }

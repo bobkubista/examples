@@ -23,5 +23,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheProxyRevalidate {
+
+    /**
+     *
+     * @return true if the proxy cache should revalidate the request. Default is
+     *         true
+     */
     boolean value() default true;
 }

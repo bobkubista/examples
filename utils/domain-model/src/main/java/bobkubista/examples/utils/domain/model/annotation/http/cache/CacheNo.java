@@ -18,5 +18,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CacheNo {
 
+    /**
+     * 
+     * @return true if the client cache should not store the request. Default is
+     *         true
+     */
     boolean value() default true;
 }

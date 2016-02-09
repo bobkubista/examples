@@ -23,5 +23,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheNoStore {
+
+    /**
+     * 
+     * @return true if a proxy cache should not store the request. Default is
+     *         true
+     */
     boolean value() default true;
 }

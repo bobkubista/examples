@@ -22,5 +22,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CachePrivate {
+
+    /**
+     *
+     * @return true if only a client cache should store the request. Default is
+     *         true
+     */
     boolean value() default true;
 }
