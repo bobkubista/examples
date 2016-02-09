@@ -3,6 +3,9 @@
  */
 package bobkubista.examples.services.rest.user;
 
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,10 +35,14 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void isAuthenticatedTest() {
-        Assert.assertEquals(200, this.target("1/admin")
+        final Response response = this.target("1/admin")
                 .request()
-                .get()
-                .getStatus());
+                .get();
+
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("no-cache", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        Assert.assertEquals(200, response.getStatus());
     }
 
     @Test

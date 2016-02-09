@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
@@ -14,6 +15,9 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
@@ -37,6 +41,9 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableFacade.class);
 
+    @CacheTransform
+    @CachePrivate
+    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
     public Response getByFunctionalId(final String identifier) {
         final TYPE result = this.getService()
@@ -59,6 +66,9 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
         }
     }
 
+    @CacheTransform
+    @CachePrivate
+    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
     public Response getIdByFunctionalId(final String fId) {
         final ID result = this.getService()

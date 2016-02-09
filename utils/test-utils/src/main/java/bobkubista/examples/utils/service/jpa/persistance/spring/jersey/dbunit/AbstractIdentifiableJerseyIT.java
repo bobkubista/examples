@@ -83,10 +83,15 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAll() {
-        final COL response = this.target("/")
+        final Response response = this.target("/")
                 .request()
-                .get(this.getCollectionClass());
-        this.checkResponseGetAll(response, this.expectedSize());
+                .get();
+
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("private, max-age=10", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        final COL collection = response.readEntity(this.getCollectionClass());
+        this.checkResponseGetAll(collection, this.expectedSize());
     }
 
     /**

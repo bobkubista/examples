@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
 import bobkubista.examples.utils.domain.model.api.ActiveApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
@@ -30,6 +34,9 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
 public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends AbstractGenericActiveEntity<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
         extends AbstractGenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveApi<DMO, ID> {
 
+    @CacheTransform
+    @CachePrivate
+    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
     public Response getAllActive(@BeanParam final SearchBean search) {
         final List<Link> links = new ArrayList<>(2);

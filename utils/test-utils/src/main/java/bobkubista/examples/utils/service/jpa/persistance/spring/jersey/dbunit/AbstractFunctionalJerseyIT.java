@@ -3,6 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 import java.io.Serializable;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -34,9 +35,13 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetByFunctionalId() {
-        this.checkSingle(this.target("/functionId/" + this.getFunctionalId())
+        final Response response = this.target("/functionId/" + this.getFunctionalId())
                 .request()
-                .get(this.getSingleClass()));
+                .get();
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        this.checkSingle(response.readEntity(this.getSingleClass()));
     }
 
     /**
@@ -45,9 +50,14 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetIdByFunctionalId() {
-        final String actual = this.target("/id/" + this.getFunctionalId())
+        final Response response = this.target("/id/" + this.getFunctionalId())
                 .request()
-                .get(String.class);
+                .get();
+
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        final String actual = response.readEntity(String.class);
 
         Assert.assertEquals(this.getId()
                 .toString(), actual);

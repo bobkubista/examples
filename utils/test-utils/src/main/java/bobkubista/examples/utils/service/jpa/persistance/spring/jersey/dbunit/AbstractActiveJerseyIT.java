@@ -5,6 +5,10 @@ package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
 
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -29,9 +33,15 @@ public abstract class AbstractActiveJerseyIT<TYPE extends AbstractGenericActiveD
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAllActive() {
-        final COL response = this.target("/active")
+        final Response response = this.target("/active")
                 .request()
-                .get(this.getCollectionClass());
-        this.checkResponseGetAll(response, this.expectedSize());
+                .get();
+
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        final COL actual = response.readEntity(this.getCollectionClass());
+
+        this.checkResponseGetAll(actual, this.expectedSize());
     }
 }

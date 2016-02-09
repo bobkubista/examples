@@ -34,6 +34,8 @@ public class CacheFilterFactory implements DynamicFeature {
     public void configure(final ResourceInfo resourceInfo, final FeatureContext featureContext) {
         final CacheControl cacheControl = new CacheControl();
 
+        cacheControl.setNoTransform(false);
+
         this.setCacheControl(resourceInfo, featureContext, CacheNo.class, cacheControl, (t, u) -> t.setNoCache(u.value()));
         this.setCacheControl(resourceInfo, featureContext, CacheMustRevalidate.class, cacheControl, (t, u) -> t.setMustRevalidate(u.value()));
         this.setCacheControl(resourceInfo, featureContext, CacheNoStore.class, cacheControl, (t, u) -> t.setNoStore(u.value()));

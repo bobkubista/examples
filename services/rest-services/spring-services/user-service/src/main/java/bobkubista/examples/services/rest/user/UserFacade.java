@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import bobkubista.examples.services.api.user.UserApi;
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheNo;
 import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
 
 /**
@@ -30,6 +31,7 @@ public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEnti
     @Autowired
     private UserService service;
 
+    @CacheNo
     @Override
     public @Valid Response isAuthorized(final Long userId, final String right) {
         if (this.service.isAuthorized(userId, right)) {

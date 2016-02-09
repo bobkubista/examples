@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
-import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheNo;
+import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
@@ -55,7 +55,6 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
-    @CacheNo
     @Override
     public Response create(final DMO object) {
         Validate.notNull(object);
@@ -89,6 +88,9 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         }
     }
 
+    @CacheTransform
+    @CachePrivate
+    @CacheMaxAge(time = 10, unit = TimeUnit.SECONDS)
     @Override
     public Response getAll(final SearchBean search) {
         final Collection<TYPE> allEntities = this.getService()
