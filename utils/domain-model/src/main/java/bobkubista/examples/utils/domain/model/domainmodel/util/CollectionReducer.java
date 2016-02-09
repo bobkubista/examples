@@ -46,7 +46,7 @@ public final class CollectionReducer {
      * @return {@link Optional} with <code>T</code> if none or one is found.
      *         DuplicateItemException is thrown if more then one value is found
      */
-    public final static <TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, E extends RuntimeException> Optional<TYPE> findOnlyOne(
+    public static final <TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, E extends RuntimeException> Optional<TYPE> findOnlyOne(
             final Object value, final Stream<TYPE> stream, final Function<TYPE, Object> function, final Supplier<E> supplier) {
         return stream.filter(item -> function.apply(item)
                 .equals(value))
