@@ -169,7 +169,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("no-transform, max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
         Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
         Assert.assertEquals("http://localhost:9998/1", response.getHeaderString(HttpHeaders.LOCATION));
 
