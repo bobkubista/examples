@@ -51,11 +51,9 @@ public class CacheFilterFactory implements DynamicFeature {
     }
 
     private ContainerResponseFilter getResponseFilter(final CacheControl cacheControl) {
-        return (ContainerResponseFilter) (requestContext, responseContext) -> {
-            responseContext.getHeaders()
-                    .add(HttpHeaders.CACHE_CONTROL, cacheControl);
+        return (ContainerResponseFilter) (requestContext, responseContext) -> responseContext.getHeaders()
+                .add(HttpHeaders.CACHE_CONTROL, cacheControl);
 
-        };
     }
 
     private <T extends Annotation> void setCacheControl(final ResourceInfo resourceInfo, final Class<T> annotationClass, final CacheControl cacheControl,
