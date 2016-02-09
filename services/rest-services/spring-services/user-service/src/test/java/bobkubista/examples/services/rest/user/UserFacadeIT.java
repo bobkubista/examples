@@ -24,7 +24,9 @@ import bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit.Ab
 public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollection> {
 
     private static final String FUNCTIONALID = "bla@foo.bar";
+
     private static final Long ID = 1L;
+
     private static final String PARTIAL_FUNCTIONAL_ID = "bla@";
 
     @Override
@@ -42,7 +44,7 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
         Assert.assertEquals("no-cache", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
 
-        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals(204, response.getStatus());
     }
 
     @Test
