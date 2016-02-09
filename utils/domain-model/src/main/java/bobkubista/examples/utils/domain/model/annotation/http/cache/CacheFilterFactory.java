@@ -36,15 +36,15 @@ public class CacheFilterFactory implements DynamicFeature {
 
         cacheControl.setNoTransform(false);
 
-        this.setCacheControl(resourceInfo, featureContext, CacheNo.class, cacheControl, (t, u) -> t.setNoCache(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CacheMustRevalidate.class, cacheControl, (t, u) -> t.setMustRevalidate(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CacheNoStore.class, cacheControl, (t, u) -> t.setNoStore(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CacheTransform.class, cacheControl, (t, u) -> t.setNoTransform(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CachePrivate.class, cacheControl, (t, u) -> t.setPrivate(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CacheProxyRevalidate.class, cacheControl, (t, u) -> t.setProxyRevalidate(u.value()));
-        this.setCacheControl(resourceInfo, featureContext, CacheSMaxAge.class, cacheControl, (t, maxAge) -> t.setSMaxAge((int) maxAge.unit()
+        this.setCacheControl(resourceInfo, CacheNo.class, cacheControl, (t, u) -> t.setNoCache(u.value()));
+        this.setCacheControl(resourceInfo, CacheMustRevalidate.class, cacheControl, (t, u) -> t.setMustRevalidate(u.value()));
+        this.setCacheControl(resourceInfo, CacheNoStore.class, cacheControl, (t, u) -> t.setNoStore(u.value()));
+        this.setCacheControl(resourceInfo, CacheTransform.class, cacheControl, (t, u) -> t.setNoTransform(u.value()));
+        this.setCacheControl(resourceInfo, CachePrivate.class, cacheControl, (t, u) -> t.setPrivate(u.value()));
+        this.setCacheControl(resourceInfo, CacheProxyRevalidate.class, cacheControl, (t, u) -> t.setProxyRevalidate(u.value()));
+        this.setCacheControl(resourceInfo, CacheSMaxAge.class, cacheControl, (t, maxAge) -> t.setSMaxAge((int) maxAge.unit()
                 .toSeconds(maxAge.time())));
-        this.setCacheControl(resourceInfo, featureContext, CacheMaxAge.class, cacheControl, (t, maxAge) -> t.setMaxAge((int) maxAge.unit()
+        this.setCacheControl(resourceInfo, CacheMaxAge.class, cacheControl, (t, maxAge) -> t.setMaxAge((int) maxAge.unit()
                 .toSeconds(maxAge.time())));
 
         featureContext.register(this.getResponseFilter(cacheControl), Priorities.HEADER_DECORATOR);
@@ -58,8 +58,8 @@ public class CacheFilterFactory implements DynamicFeature {
         };
     }
 
-    private <T extends Annotation> void setCacheControl(final ResourceInfo resourceInfo, final FeatureContext featureContext, final Class<T> annotationClass,
-            final CacheControl cacheControl, final BiConsumer<CacheControl, T> header) {
+    private <T extends Annotation> void setCacheControl(final ResourceInfo resourceInfo, final Class<T> annotationClass, final CacheControl cacheControl,
+            final BiConsumer<CacheControl, T> header) {
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(annotationClass)) {
             final T annotation = resourceInfo.getResourceMethod()
