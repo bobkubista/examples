@@ -23,7 +23,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheNoStore {
-
-    public static final String HEADER = "no-store";
-
+    boolean value() default true;
 }

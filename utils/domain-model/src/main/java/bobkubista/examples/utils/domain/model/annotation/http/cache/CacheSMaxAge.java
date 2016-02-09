@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheSMaxAge {
-    public static final String HEADER = "s-maxage=";
 
     /**
      * @return The amount of time to cache this resource.

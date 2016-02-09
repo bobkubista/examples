@@ -23,7 +23,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheProxyRevalidate {
-
-    public static final String HEADER = "proxy-revalidate";
-
+    boolean value() default true;
 }

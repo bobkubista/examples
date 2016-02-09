@@ -22,7 +22,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CachePrivate {
-
-    public static final String HEADER = "private";
-
+    boolean value() default true;
 }

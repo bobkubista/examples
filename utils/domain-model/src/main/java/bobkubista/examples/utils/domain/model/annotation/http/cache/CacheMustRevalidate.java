@@ -23,7 +23,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Documented
 public @interface CacheMustRevalidate {
-
-    public static final String HEADER = "must-revalidate";
-
+    boolean value() default true;
 }

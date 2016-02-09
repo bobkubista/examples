@@ -18,6 +18,5 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CacheNo {
 
-    public static final String HEADER = "no-cache";
-
+    boolean value() default true;
 }

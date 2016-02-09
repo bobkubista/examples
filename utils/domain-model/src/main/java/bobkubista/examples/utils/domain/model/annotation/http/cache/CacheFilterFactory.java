@@ -2,12 +2,13 @@
 package bobkubista.examples.utils.domain.model.annotation.http.cache;
 
 import java.lang.annotation.Annotation;
-import java.util.function.Function;
+import java.util.function.BiConsumer;
 
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
@@ -31,50 +32,37 @@ public class CacheFilterFactory implements DynamicFeature {
 
     @Override
     public void configure(final ResourceInfo resourceInfo, final FeatureContext featureContext) {
+        final CacheControl cacheControl = new CacheControl();
 
-        this.setHeader(resourceInfo, featureContext, CacheNo.class, t -> CacheNo.HEADER);
-        this.setHeader(resourceInfo, featureContext, CacheMustRevalidate.class, t -> CacheMustRevalidate.HEADER);
-        this.setHeader(resourceInfo, featureContext, CacheNoStore.class, t -> CacheNoStore.HEADER);
-        this.setHeader(resourceInfo, featureContext, CacheNoTransform.class, t -> CacheNoTransform.HEADER);
-        this.setHeader(resourceInfo, featureContext, CachePrivate.class, t -> CachePrivate.HEADER);
-        this.setHeader(resourceInfo, featureContext, CacheProxyRevalidate.class, t -> CacheProxyRevalidate.HEADER);
-        this.setHeader(resourceInfo, featureContext, CachePublic.class, t -> CachePublic.HEADER);
+        this.setCacheControl(resourceInfo, featureContext, CacheNo.class, cacheControl, (t, u) -> t.setNoCache(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CacheMustRevalidate.class, cacheControl, (t, u) -> t.setMustRevalidate(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CacheNoStore.class, cacheControl, (t, u) -> t.setNoStore(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CacheTransform.class, cacheControl, (t, u) -> t.setNoTransform(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CachePrivate.class, cacheControl, (t, u) -> t.setPrivate(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CacheProxyRevalidate.class, cacheControl, (t, u) -> t.setProxyRevalidate(u.value()));
+        this.setCacheControl(resourceInfo, featureContext, CacheSMaxAge.class, cacheControl, (t, maxAge) -> t.setSMaxAge((int) maxAge.unit()
+                .toSeconds(maxAge.time())));
+        this.setCacheControl(resourceInfo, featureContext, CacheMaxAge.class, cacheControl, (t, maxAge) -> t.setMaxAge((int) maxAge.unit()
+                .toSeconds(maxAge.time())));
 
-        this.setHeader(resourceInfo, featureContext, CacheSMaxAge.class, maxAge -> CacheSMaxAge.HEADER + Long.toString(maxAge.unit()
-                .toSeconds(maxAge.time())));
-        this.setHeader(resourceInfo, featureContext, CacheMaxAge.class, maxAge -> CacheMaxAge.HEADER + Long.toString(maxAge.unit()
-                .toSeconds(maxAge.time())));
+        featureContext.register(this.getResponseFilter(cacheControl), Priorities.HEADER_DECORATOR);
     }
 
-    private <T extends Annotation> ContainerResponseFilter getResponseFilter(final Function<T, Object> header, final T annotation) {
-        final ContainerResponseFilter containerResponseFilter = (ContainerResponseFilter) (requestContext, responseContext) -> {
+    private ContainerResponseFilter getResponseFilter(final CacheControl cacheControl) {
+        return (ContainerResponseFilter) (requestContext, responseContext) -> {
             responseContext.getHeaders()
-                    .add(HttpHeaders.CACHE_CONTROL, header.apply(annotation));
+                    .add(HttpHeaders.CACHE_CONTROL, cacheControl);
 
         };
-        return containerResponseFilter;
     }
 
-    /**
-     * Create the filter and register it
-     *
-     * @param resourceInfo
-     *            {@link ResourceInfo}
-     * @param featureContext
-     *            {@link FeatureContext}
-     * @param annotationClass
-     *            the annotation class
-     * @param header
-     *            {@link Function} of the cache annotation to {@link String}
-     */
-    private <T extends Annotation> void setHeader(final ResourceInfo resourceInfo, final FeatureContext featureContext, final Class<T> annotationClass,
-            final Function<T, Object> header) {
+    private <T extends Annotation> void setCacheControl(final ResourceInfo resourceInfo, final FeatureContext featureContext, final Class<T> annotationClass,
+            final CacheControl cacheControl, final BiConsumer<CacheControl, T> header) {
         if (resourceInfo.getResourceMethod()
                 .isAnnotationPresent(annotationClass)) {
             final T annotation = resourceInfo.getResourceMethod()
                     .getDeclaredAnnotation(annotationClass);
-            // TODO only process one annotation. This is not correct
-            featureContext.register(this.getResponseFilter(header, annotation), Priorities.HEADER_DECORATOR);
+            header.accept(cacheControl, annotation);
         }
     }
 }
