@@ -35,12 +35,9 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todolist", allocationSize = 1, sequenceName = "sq_todolist", initialValue = 1)
 public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
+
     private static final long serialVersionUID = 9086574784838581996L;
 
-    @Basic
-    @Column(nullable = false)
-    @SearchField(fieldName = "active")
-    private boolean active;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todolist")
     @Column(name = "todolistid")
@@ -49,6 +46,7 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
 
     @OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private final List<TodoEntity> items = new ArrayList<>();
+
     @Basic
     @Column(unique = true, nullable = false)
     @SearchField(fieldName = "functionalId")
@@ -69,16 +67,6 @@ public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
      */
     public List<TodoEntity> getTodoList() {
         return this.items;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

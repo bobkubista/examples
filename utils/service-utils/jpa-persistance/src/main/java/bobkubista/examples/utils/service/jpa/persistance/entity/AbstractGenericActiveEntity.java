@@ -5,7 +5,10 @@ package bobkubista.examples.utils.service.jpa.persistance.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
+import bobkubista.examples.utils.service.jpa.persistance.annotation.SearchField;
 
 /**
  * Basic implementation of an {@link AbstractGenericActiveEntity}
@@ -19,6 +22,10 @@ public abstract class AbstractGenericActiveEntity<ID extends Serializable> exten
 
     private static final long serialVersionUID = -6184924216288636653L;
 
+    @Column(nullable = false)
+    @SearchField(fieldName = "active")
+    private boolean active;
+
     /**
      * Constructor
      */
@@ -28,12 +35,15 @@ public abstract class AbstractGenericActiveEntity<ID extends Serializable> exten
     /**
      * @return isActive active flag
      */
-    public abstract boolean isActive();
+    public boolean isActive() {
+        return this.active;
+    }
 
     /**
      * @param active
      *            flag value
      */
-    public abstract void setActive(boolean active);
-
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
 }

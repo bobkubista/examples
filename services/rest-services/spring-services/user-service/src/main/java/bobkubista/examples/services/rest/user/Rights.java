@@ -24,9 +24,6 @@ public class Rights extends AbstractGenericActiveEntity<Long> {
 
     private static final long serialVersionUID = 2359290515125351928L;
 
-    @Column(nullable = false)
-    private boolean active;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
     @Column(nullable = false)
@@ -57,16 +54,6 @@ public class Rights extends AbstractGenericActiveEntity<Long> {
     @Override
     public Long getId() {
         return this.id;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

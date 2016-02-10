@@ -28,9 +28,6 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
 
     private static final long serialVersionUID = -7212732541628102691L;
 
-    @Column(nullable = false)
-    private boolean active;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
     @Column(nullable = false)
@@ -74,16 +71,6 @@ public class Roles extends AbstractGenericActiveEntity<Long> {
      */
     public List<Rights> getRights() {
         return this.rights;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     @Override

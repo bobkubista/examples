@@ -32,6 +32,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 public class TodoEntity extends AbstractIdentifiableEntity<Long> {
 
     private static final long serialVersionUID = 8974577038350152806L;
+
     @Basic
     @Column(nullable = false)
     private boolean active;
@@ -39,9 +40,11 @@ public class TodoEntity extends AbstractIdentifiableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
     private Long id;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "todolistid", nullable = false)
     private TodoListEntity listEntity;
+
     @Column(nullable = false)
     private String value;
 
