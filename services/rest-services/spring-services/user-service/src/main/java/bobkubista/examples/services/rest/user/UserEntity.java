@@ -2,6 +2,7 @@ package bobkubista.examples.services.rest.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,18 +34,35 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     @Column(nullable = false, unique = true)
     @SearchField(fieldName = "functionalId")
     private String email;
+
     private String encryptedPassword;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user")
     @Column(nullable = false)
     @SearchField(fieldName = "id")
     private Long id;
+
     @Column
     @SearchField(fieldName = "name")
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private final List<Roles> roles = new ArrayList<>();
+
+    /**
+     * Is the current user authorized The user, role and right should be active
+     *
+     * @param right
+     *            functional name of right or role
+     * @return true is autorized
+     */
+    public static Predicate<UserEntity> isAuthorized(final String right) {
+        final Predicate<UserEntity> active = UserEntity::isActive;
+        final Predicate<UserEntity> roles = t -> t.roles.stream()
+                .anyMatch(Roles.isAuthorized(right));
+        return active.and(roles);
+    }
 
     /**
      * @return
@@ -80,18 +98,6 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
     @Override
     public boolean isActive() {
         return this.active;
-    }
-
-    /**
-     * Is the current user authorized The user, role and right should be active
-     *
-     * @param right
-     *            functional name of right or role
-     * @return true is autorized
-     */
-    public boolean isAuthorized(final String right) {
-        return this.isActive() && this.roles.stream()
-                .anyMatch(role -> role.isAuthorized(right));
     }
 
     @Override

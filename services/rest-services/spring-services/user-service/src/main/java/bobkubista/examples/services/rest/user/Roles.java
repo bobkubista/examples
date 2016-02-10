@@ -5,6 +5,7 @@ package bobkubista.examples.services.rest.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,66 +26,73 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @SequenceGenerator(name = "sq_role", allocationSize = 1, sequenceName = "sq_role", initialValue = 1)
 public class Roles extends AbstractGenericActiveEntity<Long> {
 
-	private static final long serialVersionUID = -7212732541628102691L;
+    private static final long serialVersionUID = -7212732541628102691L;
 
-	@Column(nullable = false)
-	private boolean active;
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
-	@Column(nullable = false)
-	private Long id;
-	@Column(unique = true, nullable = false)
-	private String name;
+    @Column(nullable = false)
+    private boolean active;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private final List<Rights> rights = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
+    @Column(nullable = false)
+    private Long id;
 
-	@Override
-	public String getFunctionalId() {
-		return this.name;
-	}
+    @Column(unique = true, nullable = false)
+    private String name;
 
-	@Override
-	public Long getId() {
-		return this.id;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    private final List<Rights> rights = new ArrayList<>();
 
-	/**
-	 * @return the rights
-	 */
-	public List<Rights> getRights() {
-		return this.rights;
-	}
+    /**
+     * Check that the {@link Roles} has an active {@link Rights} assigned to it
+     * and is active
+     *
+     * @param name
+     *            {@link Rights} to check
+     * @return true if authorized
+     */
+    public static Predicate<Roles> isAuthorized(final String name) {
+        final Predicate<Roles> active = Roles::isActive;
+        final Predicate<Roles> rights = t -> t.rights.stream()
+                .anyMatch(Rights.isAuthorized(name));
+        final Predicate<Roles> names = t -> t.name.equals(name);
+        return active.and(names)
+                .or(rights);
+    }
 
-	@Override
-	public boolean isActive() {
-		return this.active;
-	}
+    @Override
+    public String getFunctionalId() {
+        return this.name;
+    }
 
-	/**
-	 * Check that the {@link Roles} has an active {@link Rights} assigned to it
-	 * and is active
-	 *
-	 * @param name
-	 *            {@link Rights} to check
-	 * @return true if authorized
-	 */
-	public boolean isAuthorized(final String name) {
-		return this.isActive() && (this.getFunctionalId().equals(name) || this.rights.stream().anyMatch(t -> t.isAuthorized(name)));
-	}
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
-	@Override
-	public void setActive(final boolean active) {
-		this.active = active;
-	}
+    /**
+     * @return the rights
+     */
+    public List<Rights> getRights() {
+        return this.rights;
+    }
 
-	@Override
-	public void setFunctionalId(final String functionalId) {
-		this.name = functionalId;
-	}
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
 
-	@Override
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    @Override
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public void setFunctionalId(final String functionalId) {
+        this.name = functionalId;
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
+    }
 }

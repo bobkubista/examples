@@ -16,25 +16,26 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
 @Transactional
 public class UserService implements ActiveEntityService<UserEntity, Long> {
 
-	@Autowired
-	private UserDao dao;
+    @Autowired
+    private UserDao dao;
 
-	@Override
-	public UserDao getDAO() {
-		return this.dao;
-	}
+    @Override
+    public UserDao getDAO() {
+        return this.dao;
+    }
 
-	/**
-	 * Authorize a user
-	 *
-	 * @param userId
-	 *            the user id
-	 * @param right
-	 *            the name of the right
-	 * @return true if autorized
-	 */
-	public boolean isAuthorized(final Long userId, final String right) {
-		return this.getById(userId).isAuthorized(right);
-	}
+    /**
+     * Authorize a user
+     *
+     * @param userId
+     *            the user id
+     * @param right
+     *            the name of the right
+     * @return true if autorized
+     */
+    public boolean isAuthorized(final Long userId, final String right) {
+        return UserEntity.isAuthorized(right)
+                .test(this.getById(userId));
+    }
 
 }

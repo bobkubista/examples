@@ -3,6 +3,8 @@
  */
 package bobkubista.examples.services.rest.user;
 
+import java.util.function.Predicate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,55 +21,61 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Entity
 @SequenceGenerator(name = "sq_rights", allocationSize = 1, sequenceName = "sq_rights", initialValue = 1)
 public class Rights extends AbstractGenericActiveEntity<Long> {
-	private static final long serialVersionUID = 2359290515125351928L;
 
-	@Column(nullable = false)
-	private boolean active;
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
-	@Column(nullable = false)
-	private Long id;
-	@Column(unique = true, nullable = false)
-	private String name;
+    private static final long serialVersionUID = 2359290515125351928L;
 
-	@Override
-	public String getFunctionalId() {
-		return this.name;
-	}
+    @Column(nullable = false)
+    private boolean active;
 
-	@Override
-	public Long getId() {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
+    @Column(nullable = false)
+    private Long id;
 
-	@Override
-	public boolean isActive() {
-		return this.active;
-	}
+    @Column(unique = true, nullable = false)
+    private String name;
 
-	/**
-	 * Check that the right is active and equal to the asked right
-	 * 
-	 * @param right
-	 *            {@link Rights} to check against
-	 * @return true if equal and active
-	 */
-	public boolean isAuthorized(final String right) {
-		return this.getFunctionalId().equals(right) && this.isActive();
-	}
+    /**
+     * Check that the right is active and equal to the asked right
+     *
+     * @param right
+     *            {@link Rights} to check against
+     * @return true if equal and active
+     */
+    public static Predicate<Rights> isAuthorized(final String right) {
+        final Predicate<Rights> name = t -> t.getFunctionalId()
+                .equals(right);
+        final Predicate<Rights> active = t -> t.isActive();
+        return name.and(active);
+    }
 
-	@Override
-	public void setActive(final boolean active) {
-		this.active = active;
-	}
+    @Override
+    public String getFunctionalId() {
+        return this.name;
+    }
 
-	@Override
-	public void setFunctionalId(final String functionalId) {
-		this.name = functionalId;
-	}
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
-	@Override
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public void setFunctionalId(final String functionalId) {
+        this.name = functionalId;
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
+    }
 }
