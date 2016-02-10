@@ -27,10 +27,6 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
 
     private static final long serialVersionUID = 3230156455762101429L;
 
-    @Column(nullable = false)
-    @SearchField(fieldName = "active")
-    private boolean active;
-
     @Column(nullable = false, unique = true)
     @SearchField(fieldName = "functionalId")
     private String email;
@@ -93,16 +89,6 @@ public class UserEntity extends AbstractGenericActiveEntity<Long> {
      */
     public List<Roles> getRoles() {
         return this.roles;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(final boolean active) {
-        this.active = active;
     }
 
     /**

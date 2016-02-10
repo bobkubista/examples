@@ -50,7 +50,7 @@ public class AbstractGenericActiveEntityTest {
     public void testToString() {
         final MockEntity classToTest = new MockEntity();
         Assert.assertTrue(StringUtils.isNotBlank(classToTest.toString()));
-        Assert.assertEquals("MockEntity[active=true,functionalId=foo,id=1,insertedDate=<null>,updatedDate=<null>]", classToTest.toString());
+        Assert.assertEquals("MockEntity[active=true,functionalId=foo,id=1,active=false,insertedDate=<null>,updatedDate=<null>]", classToTest.toString());
     }
 
 }
