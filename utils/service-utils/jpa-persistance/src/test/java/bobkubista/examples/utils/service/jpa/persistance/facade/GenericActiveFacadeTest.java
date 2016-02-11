@@ -10,7 +10,6 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -117,7 +116,10 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetByFunctionalId() {
-        final Response result = this.facade.getByFunctionalId("Bla");
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(null);
+        final Response result = this.facade.getByFunctionalId("Bla", request);
         Assert.assertNotNull(result);
         Assert.assertEquals(200, result.getStatus());
         Assert.assertNotNull(result.getEntity());
@@ -128,7 +130,25 @@ public class GenericActiveFacadeTest {
      */
     @Test(expected = NotFoundException.class)
     public void testGetByFunctionalIdNull() {
-        this.facade.getByFunctionalId("");
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(null);
+        this.facade.getByFunctionalId("", request);
+    }
+
+    /**
+     * Test method for
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericFunctionalIdentifiableFacade#getByFunctionalId(java.lang.String)}
+     * .
+     */
+    @Test
+    public void testGetByFunctionalIdShouldNotGet() {
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(Response.notModified());
+        final Response result = this.facade.getByFunctionalId("Bla", request);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(304, result.getStatus());
     }
 
     /**
@@ -152,7 +172,6 @@ public class GenericActiveFacadeTest {
      * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#getByID(java.io.Serializable)}
      * .
      */
-    @Ignore
     @Test
     public void testGetByIDNotUpdated() {
         final Request request = Mockito.mock(Request.class);
@@ -161,7 +180,6 @@ public class GenericActiveFacadeTest {
         final Response result = this.facade.getByID(1L, request);
         Assert.assertNotNull(result);
         Assert.assertEquals(304, result.getStatus());
-        Assert.assertNotNull(result.getEntity());
     }
 
     /**
@@ -217,7 +235,6 @@ public class GenericActiveFacadeTest {
      * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#update(bobkubista.examples.utils.domain.model. domainmodel.identification.DomainObject)}
      * .
      */
-    @Ignore
     @Test
     public void testUpdateShouldNotUpdate() {
         final MockDomain object = new MockDomain();

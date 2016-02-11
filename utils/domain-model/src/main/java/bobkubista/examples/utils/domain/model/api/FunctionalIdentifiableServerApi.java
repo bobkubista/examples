@@ -7,7 +7,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
@@ -22,7 +24,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  *
  */
-public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableServerApi<DMO, ID> {
+public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
+        extends IdentifiableServerApi<DMO, ID> {
 
     /**
      * get the <code>DMO</code>
@@ -35,8 +38,8 @@ public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunc
     @Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("functionId/{id}")
-    default Response getByFunctionalId(@PathParam("id") final String identifier) {
-        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier);
+    default Response getByFunctionalId(@PathParam("id") final String identifier, @Context final Request request) {
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
     }
 
     /**

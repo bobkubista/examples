@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +47,18 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
     @CachePrivate
     @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
-    public Response getByFunctionalId(final String identifier) {
+    public Response getByFunctionalId(final String identifier, final Request request) {
         final TYPE result = this.getService()
                 .getByFunctionalId(identifier);
         if (result == null) {
             throw new NotFoundException();
         } else {
             try {
+                final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
+                if (response != null) {
+                    return response.build();
+                }
+
                 return Response.ok(this.getConverter()
                         .convertToDomainObject(result))
                         .location(new URI(identifier))

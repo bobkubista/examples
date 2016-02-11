@@ -150,7 +150,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         final ResponseBuilder response = request.evaluatePreconditions(entity.getUpdatedDate());
 
         if (response != null) {
-            response.build();
+            return response.build();
         }
 
         this.getService()
