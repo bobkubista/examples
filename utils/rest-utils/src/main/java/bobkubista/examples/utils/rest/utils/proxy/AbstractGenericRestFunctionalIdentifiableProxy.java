@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
-import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableClientApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
 /**
@@ -17,7 +17,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link Serializable}
  */
 public abstract class AbstractGenericRestFunctionalIdentifiableProxy<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
-        extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableApi<TYPE, ID> {
+        extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableClientApi<TYPE, ID> {
 
     @Override
     public Response getByFunctionalId(final String functionalId) {

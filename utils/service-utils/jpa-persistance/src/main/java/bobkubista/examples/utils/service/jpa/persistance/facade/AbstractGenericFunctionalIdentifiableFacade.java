@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
-import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableServerApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
@@ -37,7 +37,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIden
  *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
-        extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableApi<DMO, ID> {
+        extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableServerApi<DMO, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableFacade.class);
 

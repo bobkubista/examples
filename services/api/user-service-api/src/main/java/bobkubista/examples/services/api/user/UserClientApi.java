@@ -6,14 +6,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import bobkubista.examples.services.api.user.domain.User;
-import bobkubista.examples.utils.domain.model.api.ActiveApi;
-import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.ActiveClientApi;
+import bobkubista.examples.utils.domain.model.api.IdentifiableServerApi;
 
 /**
  * @author Bob Kubista
  *
  */
-public interface UserApi extends ActiveApi<User, Long> {
+public interface UserClientApi extends ActiveClientApi<User, Long> {
 
     /**
      * Checks if the user is authorized for a given right.
@@ -27,6 +27,6 @@ public interface UserApi extends ActiveApi<User, Long> {
     @GET
     @Path("{userId}/{right}")
     default Response isAuthorized(@PathParam("userId") final Long userId, @PathParam("right") final String right) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(userId, right);
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(userId, right);
     }
 }

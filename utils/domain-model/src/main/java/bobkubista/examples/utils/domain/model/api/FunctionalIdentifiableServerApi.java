@@ -22,7 +22,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  *
  */
-public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableApi<DMO, ID> {
+public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable> extends IdentifiableServerApi<DMO, ID> {
 
     /**
      * get the <code>DMO</code>
@@ -36,7 +36,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("functionId/{id}")
     default Response getByFunctionalId(@PathParam("id") final String identifier) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
@@ -51,7 +51,7 @@ public interface FunctionalIdentifiableApi<DMO extends AbstractGenericFunctional
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("id/{functionalId}")
     default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(fId);
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(fId);
     }
 
 }

@@ -16,7 +16,7 @@
       <artifactId>property-utils</artifactId>
     </dependency>
     <dependency>
-      <groupId>bobkubista.examples.services</groupId>
+      <groupId>bobkubista.examples.services.api</groupId>
       <artifactId>user-service-api</artifactId>
       <version>${project.version}</version>
     </dependency>

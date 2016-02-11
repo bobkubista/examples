@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import bobkubista.examples.utils.domain.model.api.ActiveApi;
+import bobkubista.examples.utils.domain.model.api.ActiveClientApi;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
@@ -25,7 +25,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            Identifier
  */
 public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable>
-        extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>implements ActiveApi<TYPE, ID> {
+        extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>implements ActiveClientApi<TYPE, ID> {
 
     @Override
     public Response getAllActive(final SearchBean searchBean) {

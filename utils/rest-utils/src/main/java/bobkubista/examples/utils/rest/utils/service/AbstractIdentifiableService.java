@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.IdentifiableClientApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
@@ -31,12 +31,19 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         implements IdentifiableService<TYPE, ID, COL> {
+
     private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;
+
     private static final int DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER = 0;
+
     private static final int IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER = 1;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractIdentifiableService.class);
+
     private final Class<COL> collectionClass;
+
     private final Class<TYPE> domainClass;
+
     private final Class<ID> identifierClass;
 
     /**
@@ -140,5 +147,5 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         return this.identifierClass;
     }
 
-    protected abstract IdentifiableApi<TYPE, ID> getProxy();
+    protected abstract IdentifiableClientApi<TYPE, ID> getProxy();
 }

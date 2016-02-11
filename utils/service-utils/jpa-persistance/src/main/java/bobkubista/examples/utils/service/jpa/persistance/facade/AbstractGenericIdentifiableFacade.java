@@ -13,7 +13,9 @@ import java.util.function.IntSupplier;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Link;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang3.Validate;
@@ -24,7 +26,7 @@ import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
-import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.IdentifiableServerApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
@@ -33,7 +35,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
- * A generic implementation of the {@link IdentifiableApi}. In general, only get
+ * A generic implementation of the {@link IdentifiableServerApi}. In general, only get
  * opperations are supported. Create, update and delete should only be used in
  * admin applications. If you want to create, update or delete from a webapp,
  * override the methodes and implement them seperatly.
@@ -51,7 +53,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  *
  */
 public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
-        implements IdentifiableApi<DMO, ID> {
+        implements IdentifiableServerApi<DMO, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
@@ -111,7 +113,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @CacheMaxAge(time = 5, unit = TimeUnit.MINUTES)
     @CacheTransform
     @Override
-    public Response getByID(final ID identifier) {
+    public Response getByID(final ID identifier, final Request request) {
         final TYPE result = this.getService()
                 .getById(identifier);
         if (result == null) {
@@ -119,6 +121,11 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             throw new NotFoundException();
         } else {
             try {
+                final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
+                if (response != null) {
+                    return response.build();
+                }
+
                 return Response.ok(this.getConverter()
                         .convertToDomainObject(result))
                         .location(new URI(this.getClass()

@@ -3,11 +3,16 @@
  */
 package bobkubista.examples.utils.service.jpa.persistance.facade;
 
+import java.sql.Date;
+
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
 
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.mocks.MockDomain;
@@ -132,9 +137,28 @@ public class GenericActiveFacadeTest {
      */
     @Test
     public void testGetByID() {
-        final Response result = this.facade.getByID(1L);
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(null);
+        final Response result = this.facade.getByID(1L, request);
         Assert.assertNotNull(result);
         Assert.assertEquals(200, result.getStatus());
+        Assert.assertNotNull(result.getEntity());
+    }
+
+    /**
+     * Test method for
+     * {@link bobkubista.examples.utils.service.jpa.persistance.facade. AbstractGenericIdentifiableFacade#getByID(java.io.Serializable)}
+     * .
+     */
+    @Test
+    public void testGetByIDNotUpdated() {
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(Response.notModified());
+        final Response result = this.facade.getByID(1L, request);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(304, result.getStatus());
         Assert.assertNotNull(result.getEntity());
     }
 
@@ -143,7 +167,10 @@ public class GenericActiveFacadeTest {
      */
     @Test(expected = NotFoundException.class)
     public void testGetByIDNull() {
-        this.facade.getByID(2L);
+        final Request request = Mockito.mock(Request.class);
+        Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
+                .thenReturn(null);
+        this.facade.getByID(2L, request);
         Assert.fail();
     }
 

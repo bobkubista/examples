@@ -29,8 +29,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * request methodes. This facade should be used by all applications, except
  * admin applications.
  *
- * The interface extends the {@link IdentifiableApi} which describes the input
- * and return types possible. For Rest services, we need to return only
+ * The interface extends the {@link IdentifiableClientApi} which describes the
+ * input and return types possible. For Rest services, we need to return only
  * {@link Response} types as the single objects and collection of objects. The
  * identifier stays the same.
  *
@@ -41,7 +41,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * @author bkubista
  *
  */
-public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializable> {
+public interface IdentifiableClientApi<DMO extends DomainObject, ID extends Serializable> {
 
     /**
      * @param entity
@@ -65,7 +65,7 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response create(@Valid final DMO object) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(object);
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(object);
     }
 
     /**
@@ -80,13 +80,13 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response delete(@Valid @PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
      * get all known {@link DomainObject} of that type. Delegate this methode to
-     * {@link IdentifiableApi#getAll(Integer, Integer)} and use set the sort
-     * field as queryparameters. This methode is used to construct the
+     * {@link IdentifiableClientApi#getAll(Integer, Integer)} and use set the
+     * sort field as queryparameters. This methode is used to construct the
      * {@link GET}.
      *
      * @param search
@@ -97,35 +97,37 @@ public interface IdentifiableApi<DMO extends DomainObject, ID extends Serializab
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response getAll(@Valid @BeanParam final SearchBean search) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(search);
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(search);
     }
 
     /**
      * get the {@link DomainObject}
      *
      * @param identifier
-     *            the identfier @return the {@link DomainObject} @return
-     *            {@link Response}
+     *            the identfier
+     * @param request
+     *            the request, to do a conditional {@link GET}
+     * @return {@link Response}
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{id}")
     default Response getByID(@Valid @PathParam("id") final ID identifier) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(identifier);
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(identifier);
     }
 
     /**
      * update the object of {@link DomainObject}
      *
      * @param object
-     *            the object to update @return the updated object @return
-     *            {@link Response}
+     *            the object to update
+     * @return {@link Response}
      */
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response update(@Valid final DMO object) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(object);
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(object);
     }
 }

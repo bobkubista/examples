@@ -6,7 +6,7 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
-import bobkubista.examples.utils.domain.model.api.ActiveApi;
+import bobkubista.examples.utils.domain.model.api.ActiveServerApi;
 import bobkubista.examples.utils.service.jpa.persistance.converter.AbstractEntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
@@ -14,7 +14,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author Bob Kubista
  *
  */
-public class MockConverter extends AbstractEntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity, Long>implements ActiveApi<MockDomain, Long> {
+public class MockConverter extends AbstractEntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity, Long>implements ActiveServerApi<MockDomain, Long> {
 
     @Override
     protected MockDomain doConvertToDomainObject(final MockEntity entity) {

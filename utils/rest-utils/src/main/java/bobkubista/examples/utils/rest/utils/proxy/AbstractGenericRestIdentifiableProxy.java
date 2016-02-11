@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.collections.CollectionUtils;
 
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
-import bobkubista.examples.utils.domain.model.api.IdentifiableApi;
+import bobkubista.examples.utils.domain.model.api.IdentifiableClientApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
@@ -27,7 +27,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            the type of {@link AbstractGenericIdentifiableDomainObject}
  */
 public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable> extends AbstractRestProxy
-        implements IdentifiableApi<TYPE, ID> {
+        implements IdentifiableClientApi<TYPE, ID> {
 
     /**
      * Create the object of <code>TYPE</code>
@@ -37,7 +37,8 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
      */
     @Override
     public Response create(final TYPE object) {
-        return this.getRequest(this.getServiceWithPaths()).post(Entity.entity(object, MediaType.APPLICATION_JSON));
+        return this.getRequest(this.getServiceWithPaths())
+                .post(Entity.entity(object, MediaType.APPLICATION_JSON));
     }
 
     /**
@@ -48,7 +49,8 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
      */
     @Override
     public Response delete(final ID identifier) {
-        return this.getRequest(this.getServiceWithPaths(identifier.toString())).delete();
+        return this.getRequest(this.getServiceWithPaths(identifier.toString()))
+                .delete();
     }
 
     @Override
@@ -63,12 +65,14 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
         if (search.getMaxResults() != null) {
             params.put(ApiConstants.MAX, search.getMaxResults());
         }
-        return this.getRequest(this.getServiceWithQueryParams(params)).get();
+        return this.getRequest(this.getServiceWithQueryParams(params))
+                .get();
     }
 
     @Override
     public Response getByID(final ID identifier) {
-        return this.getRequest(this.getServiceWithPaths(identifier.toString())).get();
+        return this.getRequest(this.getServiceWithPaths(identifier.toString()))
+                .get();
     }
 
     /**
@@ -79,7 +83,8 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
      */
     @Override
     public Response update(final TYPE object) {
-        return this.getRequest(this.getServiceWithPaths()).put(Entity.entity(object, MediaType.APPLICATION_JSON));
+        return this.getRequest(this.getServiceWithPaths())
+                .put(Entity.entity(object, MediaType.APPLICATION_JSON));
     }
 
 }

@@ -3,14 +3,14 @@
  */
 package bobkubista.examples.utils.rest.utils.mocks;
 
-import bobkubista.examples.utils.domain.model.api.ActiveApi;
+import bobkubista.examples.utils.domain.model.api.ActiveServerApi;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
 
 /**
  * @author Bob
  *
  */
-public class MockActiveProxy extends AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> implements ActiveApi<MockActiveDomainObject, Integer> {
+public class MockActiveProxy extends AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> implements ActiveServerApi<MockActiveDomainObject, Integer> {
 
     @Override
     protected String getBasePath() {

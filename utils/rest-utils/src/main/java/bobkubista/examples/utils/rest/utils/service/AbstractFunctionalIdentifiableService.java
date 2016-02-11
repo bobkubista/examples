@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
+import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableClientApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
-import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestFunctionalIdentifiableProxy;
 
 /**
  * @author Bob Kubista
@@ -46,5 +46,5 @@ public abstract class AbstractFunctionalIdentifiableService<TYPE extends Abstrac
     }
 
     @Override
-    protected abstract AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID> getProxy();
+    protected abstract FunctionalIdentifiableClientApi<TYPE, ID> getProxy();
 }

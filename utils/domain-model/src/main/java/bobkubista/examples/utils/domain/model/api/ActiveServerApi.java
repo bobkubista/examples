@@ -20,7 +20,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            The idertifier
  */
-public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableApi<DMO, ID> {
+public interface ActiveServerApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable> extends FunctionalIdentifiableServerApi<DMO, ID> {
 
     /**
      *
@@ -33,6 +33,6 @@ public interface ActiveApi<DMO extends AbstractGenericActiveDomainObject<ID>, ID
     @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("active/")
     default Response getAllActive(@Valid @BeanParam final SearchBean searchBean) {
-        return IdentifiableApi.buildMethodNotAllowedResponse(searchBean);
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(searchBean);
     }
 }

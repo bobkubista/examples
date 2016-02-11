@@ -13,10 +13,10 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.examples.utils.domain.model.api.ActiveClientApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
-import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
 
 /**
  * @author Bob Kubista
@@ -60,5 +60,5 @@ public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDo
     }
 
     @Override
-    protected abstract AbstractGenericRestActiveProxy<TYPE, ID> getProxy();
+    protected abstract ActiveClientApi<TYPE, ID> getProxy();
 }
