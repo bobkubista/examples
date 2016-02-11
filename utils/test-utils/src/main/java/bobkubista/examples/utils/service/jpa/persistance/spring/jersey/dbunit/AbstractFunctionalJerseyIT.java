@@ -1,6 +1,8 @@
 package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
@@ -29,6 +31,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractIdentifiableJerseyIT<TYPE, ID, COL> {
+
     /**
      * Test getByFunctionalId
      */
@@ -38,6 +41,36 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
         final Response response = this.target("/functionId/" + this.getFunctionalId())
                 .request()
                 .get();
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+
+        this.checkSingle(response.readEntity(this.getSingleClass()));
+    }
+
+    /**
+     * Test getByFunctionalId
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetByFunctionalIdPreconditionsMet() {
+        final Response response = this.target("/functionId/" + this.getFunctionalId())
+                .request()
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.now()))
+                .get();
+        Assert.assertEquals(Status.NOT_MODIFIED.getStatusCode(), response.getStatus());
+    }
+
+    /**
+     * Test getByFunctionalId
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetByFunctionalIdPreconditionsNotMet() {
+        final Response response = this.target("/functionId/" + this.getFunctionalId())
+                .request()
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
+                .get();
+        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
         Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
 

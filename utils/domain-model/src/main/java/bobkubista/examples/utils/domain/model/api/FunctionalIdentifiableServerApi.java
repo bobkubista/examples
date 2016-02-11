@@ -32,6 +32,9 @@ public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunc
      *
      * @param identifier
      *            the identfier
+     * @param request
+     *            the request filled with headers to determain the conditional
+     *            get with
      * @return{@link Response}
      */
     @GET
