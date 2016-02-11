@@ -35,10 +35,10 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
- * A generic implementation of the {@link IdentifiableServerApi}. In general, only get
- * opperations are supported. Create, update and delete should only be used in
- * admin applications. If you want to create, update or delete from a webapp,
- * override the methodes and implement them seperatly.
+ * A generic implementation of the {@link IdentifiableServerApi}. In general,
+ * only get opperations are supported. Create, update and delete should only be
+ * used in admin applications. If you want to create, update or delete from a
+ * webapp, override the methodes and implement them seperatly.
  *
  * @param <DMO>
  *            A {@link DomainObject}
@@ -143,9 +143,16 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public Response update(final DMO object) {
+    public Response update(final DMO object, final Request request) {
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
+
+        final ResponseBuilder response = request.evaluatePreconditions(entity.getUpdatedDate());
+
+        if (response != null) {
+            response.build();
+        }
+
         this.getService()
                 .update(entity);
         try {

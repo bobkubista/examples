@@ -31,8 +31,8 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * request methodes. This facade should be used by all applications, except
  * admin applications.
  *
- * The interface extends the {@link IdentifiableServerApi} which describes the input
- * and return types possible. For Rest services, we need to return only
+ * The interface extends the {@link IdentifiableServerApi} which describes the
+ * input and return types possible. For Rest services, we need to return only
  * {@link Response} types as the single objects and collection of objects. The
  * identifier stays the same.
  *
@@ -87,8 +87,8 @@ public interface IdentifiableServerApi<DMO extends DomainObject, ID extends Seri
 
     /**
      * get all known {@link DomainObject} of that type. Delegate this methode to
-     * {@link IdentifiableServerApi#getAll(Integer, Integer)} and use set the sort
-     * field as queryparameters. This methode is used to construct the
+     * {@link IdentifiableServerApi#getAll(Integer, Integer)} and use set the
+     * sort field as queryparameters. This methode is used to construct the
      * {@link GET}.
      *
      * @param search
@@ -103,33 +103,39 @@ public interface IdentifiableServerApi<DMO extends DomainObject, ID extends Seri
     }
 
     /**
-     * get the {@link DomainObject}
+     * Conditional get the {@link DomainObject}
      *
      * @param identifier
      *            the identfier
      * @param request
      *            the request, to do a conditional {@link GET}
-     * @return {@link Response}
+     * @return {@link Response}, 200 if if-Modified-since header is not filled
+     *         in or the object has been modified since. 304 in the header is
+     *         filled in and the object isn't modified
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{id}")
     default Response getByID(@Valid @PathParam("id") final ID identifier, @Context final Request request) {
-        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier);
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
     }
 
     /**
-     * update the object of {@link DomainObject}
+     * Conditional update the object of {@link DomainObject}.
      *
      * @param object
      *            the object to update
-     * @return {@link Response}
+     * @param request
+     *            the request, to do a conditional {@link PUT}
+     * @return {@link Response}, 200 if modified, 412 if the object has been
+     *         modified since and the object has to be refreshed by the client
+     *         first
      */
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    default Response update(@Valid final DMO object) {
-        return IdentifiableServerApi.buildMethodNotAllowedResponse(object);
+    default Response update(@Valid final DMO object, @Context final Request request) {
+        return IdentifiableServerApi.buildMethodNotAllowedResponse(object, request);
     }
 }
