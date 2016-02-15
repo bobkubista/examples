@@ -258,7 +258,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .put(Entity.xml(toUpdate));
         try {
             Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());
-            Assert.assertNotEquals(lastModified, response.getHeaderString(HttpHeaders.LAST_MODIFIED));
+            Assert.assertNotEquals(lastModified, updatedResponse.getHeaderString(HttpHeaders.LAST_MODIFIED));
             this.checkUpdated(updatedResponse.readEntity(this.getSingleClass()));
         } finally {
             updatedResponse.close();
