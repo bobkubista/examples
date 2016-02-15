@@ -44,12 +44,20 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
         if (obj == null) {
             return false;
         }
-        if (this.getClass() != obj.getClass() && !obj.getClass().isAssignableFrom(this.getClass()) && !this.getClass().isAssignableFrom(obj.getClass())) {
+        if (this.getClass() != obj.getClass() && !obj.getClass()
+                .isAssignableFrom(this.getClass())
+                && !this.getClass()
+                        .isAssignableFrom(obj.getClass())) {
             return false;
         }
         @SuppressWarnings("unchecked")
         final AbstractIdentifiableEntity<ID> other = (AbstractIdentifiableEntity<ID>) obj;
-        return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
+        // TODO maybe refactor this and hashcode to "new
+        // EqualsBuilder().reflectionEquals(lhs, rhs, excludeFields)" where the
+        // excludeFields is an abstract method
+        return new EqualsBuilder().append(this.getId(), other.getId())
+                .append(this.getUpdatedDate(), other.getUpdatedDate())
+                .isEquals();
     }
 
     /**
@@ -76,7 +84,9 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.getId()).toHashCode();
+        return new HashCodeBuilder().append(this.getId())
+                .append(this.getUpdatedDate())
+                .toHashCode();
     }
 
     /**
