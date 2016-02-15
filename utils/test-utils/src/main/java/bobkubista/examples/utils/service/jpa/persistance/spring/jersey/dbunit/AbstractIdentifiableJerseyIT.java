@@ -173,16 +173,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get(Response.class);
 
-        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
-        Assert.assertEquals(this.getBaseUri()
-                .toString() + "1", response.getHeaderString(HttpHeaders.LOCATION));
-
-        this.checkSingle(response.readEntity(this.getSingleClass()));
+        this.checkSingleResponse(response);
     }
 
     /**
@@ -195,18 +186,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
                 .get(Response.class);
-        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
-        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
 
-        Assert.assertEquals(this.getBaseUri()
-                .toString() + "1", response.getHeaderString(HttpHeaders.LOCATION));
-
-        this.checkSingle(response.readEntity(this.getSingleClass()));
-
+        this.checkSingleResponse(response);
     }
 
     /**
@@ -281,6 +262,19 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      *            the type to check
      */
     protected abstract void checkSingle(TYPE response);
+
+    protected void checkSingleResponse(final Response response) {
+        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LAST_MODIFIED));
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.LOCATION));
+        Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("max-age=300", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+        Assert.assertEquals("Wed, 31 Dec 2014 23:00:00 GMT", response.getHeaderString(HttpHeaders.LAST_MODIFIED));
+        Assert.assertEquals(this.getBaseUri()
+                .toString() + "1", response.getHeaderString(HttpHeaders.LOCATION));
+
+        this.checkSingle(response.readEntity(this.getSingleClass()));
+    }
 
     /**
      * Check the sorting of a collection
