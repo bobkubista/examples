@@ -2,10 +2,12 @@ package bobkubista.examples.utils.service.jpa.persistance.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -106,6 +108,14 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
      */
     @PrePersist
     protected void setInsertedDate() {
-        this.insertedDate = new Timestamp(System.currentTimeMillis());
+        this.insertedDate = Timestamp.from(Instant.now());
+    }
+
+    /**
+     * set the insertedDate. Saved before persist of the first time
+     */
+    @PreUpdate
+    protected void setUpdatedDate() {
+        this.insertedDate = Timestamp.from(Instant.now());
     }
 }
