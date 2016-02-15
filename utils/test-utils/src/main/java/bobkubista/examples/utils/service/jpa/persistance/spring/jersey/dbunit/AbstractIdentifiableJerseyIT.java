@@ -242,15 +242,20 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     @ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void shouldUpdate() {
-        TYPE response = this.target("/1")
+        final Response response = this.target("/1")
                 .request()
-                .get(this.getSingleClass());
-        response = this.update(response);
+                .get();
+        final String lastModified = response.getHeaderString(HttpHeaders.LAST_MODIFIED);
+        TYPE toUpdate = response.readEntity(this.getSingleClass());
+
+        toUpdate = this.update(toUpdate);
+
         final Response updatedResponse = this.target("/")
                 .request()
-                .put(Entity.xml(response));
+                .put(Entity.xml(toUpdate));
         try {
             Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());
+            Assert.assertNotEquals(lastModified, response.getHeaderString(HttpHeaders.LAST_MODIFIED));
             this.checkUpdated(updatedResponse.readEntity(this.getSingleClass()));
         } finally {
             updatedResponse.close();
