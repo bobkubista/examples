@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.TestProperties;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.web.filter.RequestContextFilter;
@@ -23,6 +24,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
  */
 @DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection")
 public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -60,6 +62,7 @@ public abstract class AbstractBaseJerseyDbUnitTest extends JerseyTest {
 
         rc.property("contextConfigLocation", this.getContextConfigLocation());
         rc.packages("bobkubista.examples.utils.service.jpa.persistance.exception.handler");
+        this.forceSet(TestProperties.CONTAINER_PORT, "0");
         return this.configure(this.registerFilters(rc));
     }
 
