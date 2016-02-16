@@ -6,8 +6,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
-
 /**
  * A util class to reduce a {@link Stream} down to 1 element of that stream.
  * <a href ="https://www.voxxed.com/blog/2016/02/beware-findfirst-findany/">
@@ -30,7 +28,7 @@ public final class CollectionReducer {
      * given value and the value returned by the function
      *
      * @param <TYPE>
-     *            {@link AbstractGenericIdentifiableDomainObject}
+     *            {@link Object}
      * @param <ID>
      *            {@link Serializable}
      * @param <E>
@@ -46,8 +44,8 @@ public final class CollectionReducer {
      * @return {@link Optional} with <code>T</code> if none or one is found.
      *         DuplicateItemException is thrown if more then one value is found
      */
-    public static final <TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, E extends RuntimeException> Optional<TYPE> findOnlyOne(
-            final Object value, final Stream<TYPE> stream, final Function<TYPE, Object> function, final Supplier<E> supplier) {
+    public static final <TYPE extends Object, E extends RuntimeException> Optional<TYPE> findOnlyOne(final Object value, final Stream<TYPE> stream,
+            final Function<TYPE, Object> function, final Supplier<E> supplier) {
         return stream.filter(item -> function.apply(item)
                 .equals(value))
                 .reduce((element, otherElement) -> {
