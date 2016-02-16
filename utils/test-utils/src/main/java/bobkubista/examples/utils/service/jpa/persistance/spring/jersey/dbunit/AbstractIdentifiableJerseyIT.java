@@ -184,7 +184,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     public void shouldGetByIdModified() {
         final Response response = this.target("/" + this.getId())
                 .request()
-                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Instant.EPOCH)
                 .get(Response.class);
 
         this.checkSingleResponse(response);
@@ -198,7 +198,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     public void shouldGetByIdNotModified() {
         final Response response = this.target("/" + this.getId())
                 .request()
-                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.now()))
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Instant.now())
                 .get(Response.class);
         Assert.assertEquals(Status.NOT_MODIFIED.getStatusCode(), response.getStatus());
     }
