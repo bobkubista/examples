@@ -166,6 +166,8 @@
                 <Build-Date>${maven.build.timestamp}</Build-Date>
               </manifestEntries>
             </archive>
+            <attachClasses>true</attachClasses>
+            <classesClassifier>classes</classesClassifier>
           </configuration>
         </plugin>
         <plugin>
