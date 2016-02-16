@@ -184,7 +184,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     public void shouldGetByIdModified() {
         final Response response = this.target("/" + this.getId())
                 .request()
-                .header(HttpHeaders.IF_MODIFIED_SINCE, Instant.EPOCH)
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
                 .get(Response.class);
 
         this.checkSingleResponse(response);
@@ -198,7 +198,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
     public void shouldGetByIdNotModified() {
         final Response response = this.target("/" + this.getId())
                 .request()
-                .header(HttpHeaders.IF_MODIFIED_SINCE, Instant.now())
+                .header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.now()))
                 .get(Response.class);
         Assert.assertEquals(Status.NOT_MODIFIED.getStatusCode(), response.getStatus());
     }
@@ -236,6 +236,62 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 
         final Response updatedResponse = this.target("/")
                 .request()
+                .put(Entity.xml(toUpdate));
+        try {
+            Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());
+            Assert.assertNotEquals(lastModified, updatedResponse.getHeaderString(HttpHeaders.LAST_MODIFIED));
+            this.checkUpdated(updatedResponse.readEntity(this.getSingleClass()));
+        } finally {
+            updatedResponse.close();
+        }
+    }
+
+    /**
+     * Test if update works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    @ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    public void shouldUpdateModified() {
+        final Response response = this.target("/1")
+                .request()
+                .get();
+        final String lastModified = response.getHeaderString(HttpHeaders.LAST_MODIFIED);
+        TYPE toUpdate = response.readEntity(this.getSingleClass());
+
+        toUpdate = this.update(toUpdate);
+
+        final Response updatedResponse = this.target("/")
+                .request()
+                .header(HttpHeaders.LAST_MODIFIED, Date.from(Instant.EPOCH))
+                .put(Entity.xml(toUpdate));
+        try {
+            Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());
+            Assert.assertNotEquals(lastModified, updatedResponse.getHeaderString(HttpHeaders.LAST_MODIFIED));
+            this.checkUpdated(updatedResponse.readEntity(this.getSingleClass()));
+        } finally {
+            updatedResponse.close();
+        }
+    }
+
+    /**
+     * Test if update works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    @ExpectedDatabase(value = "/dataset/expected/FacadeIT_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    public void shouldUpdateNotModified() {
+        final Response response = this.target("/1")
+                .request()
+                .get();
+        final String lastModified = response.getHeaderString(HttpHeaders.LAST_MODIFIED);
+        TYPE toUpdate = response.readEntity(this.getSingleClass());
+
+        toUpdate = this.update(toUpdate);
+
+        final Response updatedResponse = this.target("/")
+                .request()
+                .header(HttpHeaders.LAST_MODIFIED, lastModified)
                 .put(Entity.xml(toUpdate));
         try {
             Assert.assertEquals(Status.OK.getStatusCode(), updatedResponse.getStatus());

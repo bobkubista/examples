@@ -5,6 +5,7 @@ package bobkubista.examples.services.rest.user;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
@@ -44,12 +45,12 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
         Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
         Assert.assertEquals("no-cache", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
 
-        Assert.assertEquals(204, response.getStatus());
+        Assert.assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
     }
 
     @Test
     public void isNotAuthenticatedTest() {
-        Assert.assertEquals(401, this.target("1/user")
+        Assert.assertEquals(Status.UNAUTHORIZED.getStatusCode(), this.target("1/user")
                 .request()
                 .get()
                 .getStatus());
