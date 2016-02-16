@@ -13,8 +13,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import bobkubista.examples.utils.domain.model.domainmodel.util.CollectionReducer;
 
 /**
  * @author bkubista
@@ -60,6 +63,18 @@ public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainO
     @Override
     public List<Link> getLinks() {
         return this.links;
+    }
+
+    @XmlTransient
+    public Link getNext() {
+        return CollectionReducer.findOnlyOne("next", this.links.stream(), link -> link.getRel(), IllegalStateException::new)
+                .orElseGet(() -> null);
+    }
+
+    @XmlTransient
+    public Link getPrevious() {
+        return CollectionReducer.findOnlyOne("previous", this.links.stream(), link -> link.getRel(), IllegalStateException::new)
+                .orElseGet(() -> null);
     }
 
     /**
