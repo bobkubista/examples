@@ -32,13 +32,19 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  * @param <COL>
  *            The {@link AbstractGenericDomainObjectCollection}
  */
+// TODO replace this with a smaller implementation and only use the proxy
 public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         implements CacheLoader<K, V> {
 
+    // TODO make this configurable
     private static final int EXPIRE_AFTER_ACCESS = 5;
+
     private static final int EXPIRE_AFTER_WRITE = 10;
+
     private static final int INITIAL_CAPACITY = 150;
+
     private static final int REFRESH_AFTER_WRITE = 1;
+
     private final AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)
             .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
