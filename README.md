@@ -35,7 +35,23 @@ This is my examples of code that I am trying out stuff with. It is for reference
 ##Todo:
 
 ### Done:
-
+  * [add other webservices to deploy](https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
+  * replace deploy job with multi configurable job, which doesn't run parallel
+  * make builds use branches
+  * Make use of joins
+  * add pagination
+  * add search
+  * add circuit breaker to clients (http://www.javaworld.com/article/2824163/application-performance/stability-patterns-applied-in-a-restful-architecture.html?page=2)
+  * static methodes in interfaces
+  * Asynchronous calls 
+  * new Date api 
+  * @queryparam
+  * @cookieparam
+  * @hearderparam
+  * @matrixparam
+  * Rest services
+  * starting up service
+ 
 ### New:
 * Simian Monkey
 * Chef vs Puppet vs Ansible
@@ -43,12 +59,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 ### Existing:
 * Buildstreet:
-  * [add other webservices to deploy](https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html)
-  * replace deploy job with multi configurable job, which doesn't run parallel
-  * make builds use branches
   * make the builds smaller by only building the correct modules and the modules that depend on them. Maybe with the generate maven build job automatically.
   * Use job inheritence with the maven jenkins plugin
-  * Make use of joins
   * build step javadoc
   * build step code coverage
   * investigate Job-dsl for jenkins (https://blog.codecentric.de/en/2015/01/continuous-delivery-microservices-jenkins-job-dsl-plugin/) (https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial---Using-the-Jenkins-Job-DSL)
@@ -58,7 +70,6 @@ This is my examples of code that I am trying out stuff with. It is for reference
 * Servers:
 
  * [fix reverse proxy problem](http://httpd.apache.org/docs/2.2/mod/mod_proxy.html) [or](https://groups.google.com/forum/#!searchin/jenkinsci-users/proxy/jenkinsci-users/jcllTOoD684/fDQQZ6WpwNwJ) [or](http://jenkins-ci.361315.n4.nabble.com/Apache-reverse-proxy-to-Jenkins-servlet-on-port-8080-td3444546.html)
- * build automatic VM scripts (maybe jenkins job) May need to buy stuff, so no
  * [configure tomcat](http://www.jsf2.com/using-cdi-and-jsf-2.2-faces-flow-in-tomcat/#steps)
  * http 2
  * [setup tomcat env dev/test/prod](https://www.voxxed.com/blog/2015/10/multiple-tomcat-instances/)
@@ -66,11 +77,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 * Java:
 
-* add pagination
-* add search
 * add jmeter performance tests
 * add jmeter load test
-* add circuit breaker to clients (http://www.javaworld.com/article/2824163/application-performance/stability-patterns-applied-in-a-restful-architecture.html?page=2)
  * refactor emails to make better use of lambda's
  * take another look at future
  * optionals
@@ -85,8 +93,6 @@ This is my examples of code that I am trying out stuff with. It is for reference
  * service circuit breakers on too many timeouts of webservices. 
  * refactor converters to lambda's
  * build common front end components and styling module
- * static methodes in interfaces
- * Asynchronous calls 
  * Non blocking IO
  * Security:
   * stateless security client side cross site request forgery tokens (CSRF tokens) in cookie and http header check in a filter/interceptor
@@ -104,16 +110,9 @@ This is my examples of code that I am trying out stuff with. It is for reference
  * JMS
  * Batch processing
  * Lambda logging
- * new Date api 
  * Vert.x
  * Webservlet: Java EE essentials
  * SOAP
- * Rest services
- * starting up service
- * @queryparam
- * @cookieparam
- * @hearderparam
- * @matrixparam
  * JSESSIONID
  * Error handling in clients
  * datagathering client
