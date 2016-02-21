@@ -29,61 +29,67 @@ import bobkubista.examples.utils.domain.model.domainmodel.util.CollectionReducer
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainObject> implements DomainObject, LinkedDomainObject {
 
-    private static final long serialVersionUID = -7020164336355743584L;
+	private static final long serialVersionUID = -7020164336355743584L;
 
-    @XmlElement
-    private long count;
+	@XmlElement
+	private long count;
 
-    @XmlElementWrapper(name = "links")
-    @XmlElement(name = "link")
-    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
-    @NotNull
-    private final List<Link> links = new ArrayList<>();
+	@XmlElementWrapper(name = "links")
+	@XmlElement(name = "link")
+	@XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+	@NotNull
+	private final List<Link> links = new ArrayList<>();
 
-    /**
-     * Constructor
-     */
-    public AbstractGenericDomainObjectCollection() {
-        super();
-    }
+	/**
+	 * Constructor
+	 */
+	public AbstractGenericDomainObjectCollection() {
+		super();
+	}
 
-    /**
-     *
-     * @return count
-     */
-    public long getAmount() {
-        return this.count;
-    }
+	/**
+	 *
+	 * @return count
+	 */
+	public long getAmount() {
+		return this.count;
+	}
 
-    /**
-     * @return the domainCollection
-     */
-    public abstract Collection<TYPE> getDomainCollection();
+	/**
+	 * @return the domainCollection
+	 */
+	public abstract Collection<TYPE> getDomainCollection();
 
-    @Override
-    public List<Link> getLinks() {
-        return this.links;
-    }
+	@Override
+	public List<Link> getLinks() {
+		return this.links;
+	}
 
-    @XmlTransient
-    public Link getNext() {
-        return CollectionReducer.findOnlyOne("next", this.links.stream(), link -> link.getRel(), IllegalStateException::new)
-                .orElseGet(() -> null);
-    }
+	/**
+	 * 
+	 * @return the next {@link Link}
+	 */
+	@XmlTransient
+	public Link getNext() {
+		return CollectionReducer.findOnlyOne("next", this.links.stream(), link -> link.getRel(), IllegalStateException::new).orElseGet(() -> null);
+	}
 
-    @XmlTransient
-    public Link getPrevious() {
-        return CollectionReducer.findOnlyOne("previous", this.links.stream(), link -> link.getRel(), IllegalStateException::new)
-                .orElseGet(() -> null);
-    }
+	/**
+	 * 
+	 * @return the previous {@link Link}
+	 */
+	@XmlTransient
+	public Link getPrevious() {
+		return CollectionReducer.findOnlyOne("previous", this.links.stream(), link -> link.getRel(), IllegalStateException::new).orElseGet(() -> null);
+	}
 
-    /**
-     *
-     * @param amount
-     *            count
-     */
-    public void setAmount(final long amount) {
-        this.count = amount;
-    }
+	/**
+	 *
+	 * @param amount
+	 *            count
+	 */
+	public void setAmount(final long amount) {
+		this.count = amount;
+	}
 
 }
