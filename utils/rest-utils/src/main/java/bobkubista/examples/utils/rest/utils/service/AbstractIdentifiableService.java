@@ -5,10 +5,14 @@ package bobkubista.examples.utils.rest.utils.service;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -112,6 +116,24 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     }
 
     @Override
+    public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
+        final Response byID = this.getProxy()
+                .getByID(object.getObject()
+                        .getId(), object.getETag(), object.getModifiedDate());
+        try {
+            if (byID.getStatus() == Status.OK.getStatusCode()) {
+                return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
+                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass));
+            } else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
+                return object;
+            }
+            throw new WebApplicationException(byID);
+        } finally {
+            byID.close();
+        }
+    }
+
+    @Override
     public TYPE getByID(final ID id) {
         final Response byID = this.getProxy()
                 .getByID(id);
@@ -119,6 +141,22 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
             return byID.readEntity(this.domainClass);
         } finally {
             byID.close();
+        }
+    }
+
+    @Override
+    public GenericETagModifiedDateDomainObjectDecorator<TYPE> update(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
+        final Response update = this.getProxy()
+                .update(object.getObject(), object.getETag(), object.getModifiedDate());
+        try {
+            if (update.getStatus() == Status.OK.getStatusCode()) {
+                return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
+                        Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass));
+            } else {
+                throw new WebApplicationException(update);
+            }
+        } finally {
+            update.close();
         }
     }
 

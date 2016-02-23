@@ -4,6 +4,7 @@
 package bobkubista.examples.utils.domain.model.api;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -105,8 +107,6 @@ public interface IdentifiableClientApi<DMO extends DomainObject, ID extends Seri
      *
      * @param identifier
      *            the identfier
-     * @param request
-     *            the request, to do a conditional {@link GET}
      * @return {@link Response}
      */
     @GET
@@ -115,6 +115,25 @@ public interface IdentifiableClientApi<DMO extends DomainObject, ID extends Seri
     @Path("{id}")
     default Response getByID(@Valid @PathParam("id") final ID identifier) {
         return IdentifiableClientApi.buildMethodNotAllowedResponse(identifier);
+    }
+
+    /**
+     * get the {@link DomainObject}
+     *
+     * @param id
+     *            the identfier
+     * @param eTag
+     *            {@link EntityTag}
+     * @param modifiedDate
+     *            {@link Instant}
+     * @return {@link Response}
+     */
+    @GET
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Path("{id}")
+    default Response getByID(final ID id, final EntityTag eTag, final Instant modifiedDate) {
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(id, eTag, modifiedDate);
     }
 
     /**
@@ -129,5 +148,19 @@ public interface IdentifiableClientApi<DMO extends DomainObject, ID extends Seri
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     default Response update(@Valid final DMO object) {
         return IdentifiableClientApi.buildMethodNotAllowedResponse(object);
+    }
+
+    /**
+     * update the object of {@link DomainObject}
+     *
+     * @param object
+     *            the object to update
+     * @return {@link Response}
+     */
+    @PUT
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    default Response update(final DMO object, final EntityTag eTag, final Instant modifiedDate) {
+        return IdentifiableClientApi.buildMethodNotAllowedResponse(object, eTag, modifiedDate);
     }
 }

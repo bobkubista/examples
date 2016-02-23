@@ -78,6 +78,15 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
     CompletableFuture<COL> getAllAsync(List<String> sort, Integer page, Integer maxResults);
 
     /**
+     * Get a new <code>TYPE</code> if it is modified.
+     *
+     * @param object
+     *            the old value
+     * @return the current value
+     */
+    GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(GenericETagModifiedDateDomainObjectDecorator<TYPE> object);
+
+    /**
      * Get a <code>TYPE</code> with <code>ID</code>
      *
      * @param id
@@ -85,6 +94,17 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      * @return the single instance of the <code>TYPE</code>
      */
     TYPE getByID(ID id);
+
+    /**
+     *
+     * @param object
+     *            the {@link GenericETagModifiedDateDomainObjectDecorator} of
+     *            TYPE to update
+     *
+     * @return the updated {@link GenericETagModifiedDateDomainObjectDecorator}
+     *         of TYPE
+     */
+    GenericETagModifiedDateDomainObjectDecorator<TYPE> update(GenericETagModifiedDateDomainObjectDecorator<TYPE> object);
 
     /**
      *

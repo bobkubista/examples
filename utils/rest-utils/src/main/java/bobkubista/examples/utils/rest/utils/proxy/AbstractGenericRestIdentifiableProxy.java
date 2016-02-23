@@ -1,10 +1,14 @@
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -75,15 +79,25 @@ public abstract class AbstractGenericRestIdentifiableProxy<TYPE extends Abstract
                 .get();
     }
 
-    /**
-     * Updating is not possible, override this methode
-     *
-     * @param object
-     *            the <code>TYPE</code> to update @return the updated object
-     */
+    @Override
+    public Response getByID(final ID id, final EntityTag eTag, final Instant modifiedDate) {
+        return this.getRequest(this.getServiceWithPaths(id.toString()))
+                .header(HttpHeaders.ETAG, eTag)
+                .header(HttpHeaders.LAST_MODIFIED, Date.from(modifiedDate))
+                .get();
+    }
+
     @Override
     public Response update(final TYPE object) {
         return this.getRequest(this.getServiceWithPaths())
+                .put(Entity.entity(object, MediaType.APPLICATION_JSON));
+    }
+
+    @Override
+    public Response update(final TYPE object, final EntityTag eTag, final Instant modifiedDate) {
+        return this.getRequest(this.getServiceWithPaths())
+                .header(HttpHeaders.ETAG, eTag)
+                .header(HttpHeaders.LAST_MODIFIED, Date.from(modifiedDate))
                 .put(Entity.entity(object, MediaType.APPLICATION_JSON));
     }
 
