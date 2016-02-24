@@ -3,14 +3,18 @@
  */
 package bobkubista.examples.utils.rest.utils.mocks;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.ws.rs.core.EntityTag;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import bobkubista.examples.utils.rest.utils.cache.AbstractFunctionalAutoCache;
 import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableService;
+import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
 /**
  * @author Bob
@@ -33,9 +37,11 @@ public class MockCache extends AbstractFunctionalAutoCache<Integer, MockActiveDo
         Mockito.when(mockService.getIdByFunctionalId("F1"))
                 .thenReturn(1);
         Mockito.when(mockService.getByID(1))
-                .thenReturn(this.buildActiveDomainObjectMock(1, "F1"));
+                .thenReturn(new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(new EntityTag("tag"), Instant.now(), this.buildActiveDomainObjectMock(1, "F1"),
+                        null));
         Mockito.when(mockService.getByID(2))
-                .thenReturn(this.buildActiveDomainObjectMock(2, "F2"));
+                .thenReturn(new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(new EntityTag("tag"), Instant.now(), this.buildActiveDomainObjectMock(2, "F2"),
+                        null));
         return mockService;
     }
 

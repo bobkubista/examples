@@ -123,7 +123,7 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         try {
             if (byID.getStatus() == Status.OK.getStatusCode()) {
                 return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
-                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass));
+                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
             } else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
                 return object;
             }
@@ -134,11 +134,12 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
     }
 
     @Override
-    public TYPE getByID(final ID id) {
+    public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final ID id) {
         final Response byID = this.getProxy()
                 .getByID(id);
         try {
-            return byID.readEntity(this.domainClass);
+            return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
+                    Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
         } finally {
             byID.close();
         }
@@ -151,7 +152,7 @@ public abstract class AbstractIdentifiableService<TYPE extends AbstractGenericId
         try {
             if (update.getStatus() == Status.OK.getStatusCode()) {
                 return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
-                        Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass));
+                        Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass), null);
             } else {
                 throw new WebApplicationException(update);
             }

@@ -51,6 +51,7 @@ public class AbstractActiveServiceTest {
     @Test
     public void testGetById() {
         Assert.assertEquals(new Integer(1), this.service.getByID(1)
+                .getObject()
                 .getId());
     }
 
@@ -58,7 +59,7 @@ public class AbstractActiveServiceTest {
     public void testGetByIdEtagError() {
         final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.MIN, mockDomainObject);
+                new EntityTag("tag"), Instant.MIN, mockDomainObject, null);
         this.service.getByID(object)
                 .getObject();
     }
@@ -66,7 +67,7 @@ public class AbstractActiveServiceTest {
     @Test
     public void testGetByIdEtagModified() {
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.EPOCH, new MockActiveDomainObject());
+                new EntityTag("tag"), Instant.EPOCH, new MockActiveDomainObject(), null);
         Assert.assertEquals(object.getObject(), this.service.getByID(object)
                 .getObject());
     }
@@ -75,7 +76,7 @@ public class AbstractActiveServiceTest {
     public void testGetByIdEtagUnModified() {
         final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.MAX, mockDomainObject);
+                new EntityTag("tag"), Instant.MAX, mockDomainObject, null);
         Assert.assertEquals(object, this.service.getByID(object));
     }
 
@@ -94,7 +95,7 @@ public class AbstractActiveServiceTest {
     public void testUpdateModified() {
         final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.MIN, mockDomainObject);
+                new EntityTag("tag"), Instant.MIN, mockDomainObject, null);
         this.service.update(object);
     }
 
@@ -102,7 +103,7 @@ public class AbstractActiveServiceTest {
     public void testUpdateUnModified() {
         final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.MAX, mockDomainObject);
+                new EntityTag("tag"), Instant.MAX, mockDomainObject, null);
         Assert.assertEquals(new Integer(1), this.service.update(object)
                 .getObject()
                 .getId());

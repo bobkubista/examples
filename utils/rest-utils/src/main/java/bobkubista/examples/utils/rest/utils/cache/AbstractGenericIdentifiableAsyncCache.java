@@ -1,14 +1,14 @@
+/**
+ * Bob Kubista's examples
+ */
 package bobkubista.examples.utils.rest.utils.cache;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
@@ -17,24 +17,15 @@ import com.github.benmanes.caffeine.cache.Ticker;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
+import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
 /**
- * Class which wraps the caffeine cache
- *
- *
  * @author Bob
  *
- * @param <K>
- *            {@link Serializable} identifier
- * @param <V>
- *            {@link AbstractGenericIdentifiableDomainObject} value
- * @param <COL>
- *            The {@link AbstractGenericDomainObjectCollection}
  */
-// TODO replace this with a smaller implementation and only use the proxy
-public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
-        implements CacheLoader<K, V> {
+public abstract class AbstractGenericIdentifiableAsyncCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
+        implements CacheLoader<K, GenericETagModifiedDateDomainObjectDecorator<V>> {
 
     // TODO make this configurable
     private static final int EXPIRE_AFTER_ACCESS = 5;
@@ -45,7 +36,7 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
 
     private static final int REFRESH_AFTER_WRITE = 1;
 
-    private final AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
+    private final AsyncLoadingCache<K, GenericETagModifiedDateDomainObjectDecorator<V>> cache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)
             .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
             .expireAfterWrite(EXPIRE_AFTER_WRITE, TimeUnit.MINUTES)
@@ -66,22 +57,15 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
 
     /**
      *
-     * @param key
-     *            the <code>k</code> key to use
-     * @return <code>V</code> value, that is associated with that <code>K</code>
-     *         key
-     */
-    public CompletableFuture<V> get(final K key) {
-        return this.cache.get(key);
-    }
-
-    /**
-     *
      * @return get all cached objects
      */
-    public Map<K, V> getAll() {
+    public Map<K, GenericETagModifiedDateDomainObjectDecorator<V>> getAll() {
         return this.cache.synchronous()
                 .asMap();
+    }
+
+    public AsyncLoadingCache<K, GenericETagModifiedDateDomainObjectDecorator<V>> getCache() {
+        return this.cache;
     }
 
     /**
@@ -91,34 +75,33 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializa
      * @return a {@link Map} of <code>K</code>, <code>V</code> pair of all the
      *         keys
      */
-    public CompletableFuture<Map<K, V>> getAll(final Iterable<? extends K> keys) {
+    public CompletableFuture<Map<K, GenericETagModifiedDateDomainObjectDecorator<V>>> getCachedAll(final Iterable<? extends K> keys) {
         return this.cache.getAll(keys);
     }
 
     @Override
-    public V load(final K key) throws Exception {
+    public GenericETagModifiedDateDomainObjectDecorator<V> load(final K key) throws Exception {
         return this.getIdentifiableService()
-                .getByID(key)
-                .getObject();
-    }
-
-    /**
-     * Load all on init
-     */
-    @PostConstruct
-    public void loadAll() {
-        final Map<K, V> map = this.getAllObjects()
-                .stream()
-                .collect(Collectors.toMap(t -> t.getId(), Function.identity()));
-        this.cache.synchronous()
-                .putAll(map);
+                .getByID(key);
     }
 
     @Override
-    public Map<K, V> loadAll(final Iterable<? extends K> keys) throws Exception {
-        final Collection<V> all = this.getAllObjects();
-        return all.parallelStream()
-                .collect(Collectors.toMap(value -> value.getId(), Function.identity()));
+    public Map<K, GenericETagModifiedDateDomainObjectDecorator<V>> loadAll(final Iterable<? extends K> keys) throws Exception {
+        final Map<K, GenericETagModifiedDateDomainObjectDecorator<V>> result = new HashMap<>();
+
+        keys.forEach(key -> {
+            final GenericETagModifiedDateDomainObjectDecorator<V> item = this.getIdentifiableService()
+                    .getByID(key);
+            result.put(key, item);
+        });
+
+        return result;
+    }
+
+    @Override
+    public GenericETagModifiedDateDomainObjectDecorator<V> reload(final K key, final GenericETagModifiedDateDomainObjectDecorator<V> oldValue) throws Exception {
+        return this.getIdentifiableService()
+                .getByID(oldValue);
     }
 
     /**

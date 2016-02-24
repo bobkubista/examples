@@ -93,7 +93,7 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      *            the identifier
      * @return the single instance of the <code>TYPE</code>
      */
-    TYPE getByID(ID id);
+    GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(ID id);
 
     /**
      *

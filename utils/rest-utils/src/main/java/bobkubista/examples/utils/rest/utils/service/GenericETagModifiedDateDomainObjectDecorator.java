@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.rest.utils.service;
 
 import java.time.Instant;
+import java.util.Locale;
 
 import javax.ws.rs.core.EntityTag;
 
@@ -19,6 +20,8 @@ public class GenericETagModifiedDateDomainObjectDecorator<TYPE extends DomainObj
 
     private final EntityTag eTag;
 
+    private final Locale locale;
+
     private final Instant modifiedDate;
 
     private final TYPE object;
@@ -26,7 +29,7 @@ public class GenericETagModifiedDateDomainObjectDecorator<TYPE extends DomainObj
     /**
      *
      * Constructor
-     * 
+     *
      * @param eTag
      *            {@link EntityTag}
      * @param modifiedDate
@@ -34,10 +37,11 @@ public class GenericETagModifiedDateDomainObjectDecorator<TYPE extends DomainObj
      * @param object
      *            The {@link DomainObject}
      */
-    public GenericETagModifiedDateDomainObjectDecorator(final EntityTag eTag, final Instant modifiedDate, final TYPE object) {
+    public GenericETagModifiedDateDomainObjectDecorator(final EntityTag eTag, final Instant modifiedDate, final TYPE object, final Locale locale) {
         this.eTag = eTag;
         this.modifiedDate = modifiedDate;
         this.object = object;
+        this.locale = locale;
     }
 
     /**
@@ -45,6 +49,13 @@ public class GenericETagModifiedDateDomainObjectDecorator<TYPE extends DomainObj
      */
     public final EntityTag getETag() {
         return this.eTag;
+    }
+
+    /**
+     * @return the locale
+     */
+    public Locale getLocale() {
+        return this.locale;
     }
 
     /**

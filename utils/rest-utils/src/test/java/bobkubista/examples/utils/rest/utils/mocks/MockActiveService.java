@@ -52,6 +52,10 @@ public class MockActiveService extends AbstractActiveService<MockActiveDomainObj
                 .thenReturn(new MockActiveDomainObject(1, "F1"));
         Mockito.when(mockProxy.getByFunctionalId("F1"))
                 .thenReturn(mockSingleResponse);
+        Mockito.when(mockSingleResponse.getHeaderString(HttpHeaders.ETAG))
+                .thenReturn(new EntityTag("tag").toString());
+        Mockito.when(mockSingleResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                .thenReturn(Instant.EPOCH.toString());
 
         final Response mockModifiedSingleResponse = Mockito.mock(Response.class);
         Mockito.when(mockModifiedSingleResponse.readEntity(MockActiveDomainObject.class))
