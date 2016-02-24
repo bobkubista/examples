@@ -3,6 +3,11 @@
  */
 package bobkubista.examples.utils.rest.utils.service;
 
+import java.time.Instant;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.EntityTag;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +54,31 @@ public class AbstractActiveServiceTest {
                 .getId());
     }
 
+    @Test(expected = WebApplicationException.class)
+    public void testGetByIdEtagError() {
+        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
+                new EntityTag("tag"), Instant.MIN, mockDomainObject);
+        this.service.getByID(object)
+                .getObject();
+    }
+
+    @Test
+    public void testGetByIdEtagModified() {
+        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
+                new EntityTag("tag"), Instant.EPOCH, new MockActiveDomainObject());
+        Assert.assertEquals(object.getObject(), this.service.getByID(object)
+                .getObject());
+    }
+
+    @Test
+    public void testGetByIdEtagUnModified() {
+        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
+                new EntityTag("tag"), Instant.MAX, mockDomainObject);
+        Assert.assertEquals(object, this.service.getByID(object));
+    }
+
     @Test
     public void testGetIdByFunctionalId() {
         Assert.assertEquals(new Integer(1), this.service.getIdByFunctionalId("F1"));
@@ -57,6 +87,24 @@ public class AbstractActiveServiceTest {
     @Test
     public void testUpdate() {
         Assert.assertEquals(new Integer(1), this.service.update(new MockActiveDomainObject(1, "F1"))
+                .getId());
+    }
+
+    @Test(expected = WebApplicationException.class)
+    public void testUpdateModified() {
+        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
+                new EntityTag("tag"), Instant.MIN, mockDomainObject);
+        this.service.update(object);
+    }
+
+    @Test
+    public void testUpdateUnModified() {
+        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
+                new EntityTag("tag"), Instant.MAX, mockDomainObject);
+        Assert.assertEquals(new Integer(1), this.service.update(object)
+                .getObject()
                 .getId());
     }
 }

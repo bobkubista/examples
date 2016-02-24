@@ -3,7 +3,13 @@
  */
 package bobkubista.examples.utils.rest.utils.mocks;
 
+import java.time.Instant;
+
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.StatusType;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -47,6 +53,20 @@ public class MockActiveService extends AbstractActiveService<MockActiveDomainObj
         Mockito.when(mockProxy.getByFunctionalId("F1"))
                 .thenReturn(mockSingleResponse);
 
+        final Response mockModifiedSingleResponse = Mockito.mock(Response.class);
+        Mockito.when(mockModifiedSingleResponse.readEntity(MockActiveDomainObject.class))
+                .thenReturn(new MockActiveDomainObject(1, "F1"));
+        Mockito.when(mockModifiedSingleResponse.getStatus())
+                .thenReturn(Status.OK.getStatusCode());
+        Mockito.when(mockModifiedSingleResponse.getHeaderString(HttpHeaders.ETAG))
+                .thenReturn(new EntityTag("tag").toString());
+        Mockito.when(mockModifiedSingleResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                .thenReturn(Instant.EPOCH.toString());
+
+        final Response mockSingleNotModifiedResponse = Mockito.mock(Response.class);
+        Mockito.when(mockSingleNotModifiedResponse.getStatus())
+                .thenReturn(Status.NOT_MODIFIED.getStatusCode());
+
         final Response mockIdResponse = Mockito.mock(Response.class);
         Mockito.when(mockIdResponse.readEntity(Integer.class))
                 .thenReturn(1);
@@ -62,6 +82,26 @@ public class MockActiveService extends AbstractActiveService<MockActiveDomainObj
                 .thenReturn(mockSingleResponse);
         Mockito.when(mockProxy.update(new MockActiveDomainObject(1, "F1")))
                 .thenReturn(mockSingleResponse);
+        Mockito.when(mockProxy.getByID(1, new EntityTag("tag"), Instant.EPOCH))
+                .thenReturn(mockModifiedSingleResponse);
+        Mockito.when(mockProxy.getByID(Matchers.eq(1), Matchers.eq(new EntityTag("tag")), Matchers.eq(Instant.MAX)))
+                .thenReturn(mockSingleNotModifiedResponse);
+
+        final Response mockErrorResponse = Mockito.mock(Response.class);
+        Mockito.when(mockErrorResponse.getStatus())
+                .thenReturn(Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        final StatusType mockStatusType = Mockito.mock(StatusType.class);
+        Mockito.when(mockStatusType.getReasonPhrase())
+                .thenReturn("blaat");
+        Mockito.when(mockErrorResponse.getStatusInfo())
+                .thenReturn(mockStatusType);
+        Mockito.when(mockProxy.getByID(Matchers.eq(1), Matchers.eq(new EntityTag("tag")), Matchers.eq(Instant.MIN)))
+                .thenReturn(mockErrorResponse);
+
+        Mockito.when(mockProxy.update(new MockActiveDomainObject(1, "F1"), new EntityTag("tag"), Instant.MAX))
+                .thenReturn(mockModifiedSingleResponse);
+        Mockito.when(mockProxy.update(new MockActiveDomainObject(1, "F1"), new EntityTag("tag"), Instant.MIN))
+                .thenReturn(mockErrorResponse);
 
         return mockProxy;
     }
