@@ -11,7 +11,7 @@
   <groupId>bobkubista.examples.dependencies</groupId>
 
   <properties>
-    <org.springframework.version>4.2.3.RELEASE</org.springframework.version>
+    <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
     <org.springframework.security.version>4.0.3.RELEASE</org.springframework.security.version>
   </properties>
 
