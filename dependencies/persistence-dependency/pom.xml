@@ -13,7 +13,7 @@
   <properties>
     <hibernate.version>5.1.0.Final</hibernate.version>
     <jpa.version>1.0.0.Final</jpa.version>
-    <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
+    <hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
     <javassist.version>3.19.0-GA</javassist.version>
     <flyway.version>3.2</flyway.version>
     <postgresql.version>9.4-1200-jdbc41</postgresql.version>
@@ -49,7 +49,7 @@
       </dependency>
       <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
-        <artifactId>hibernate-jpa-2.0-api</artifactId>
+        <artifactId>hibernate-jpa-2.1-api</artifactId>
         <version>${hibernate.jpa.version}</version>
       </dependency>
       <dependency>

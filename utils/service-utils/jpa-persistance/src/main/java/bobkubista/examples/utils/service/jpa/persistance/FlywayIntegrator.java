@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.flywaydb.core.Flyway;
-import org.hibernate.boot.Metadata;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.integrator.spi.Integrator;
+import org.hibernate.metamodel.source.MetadataImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import bobkubista.example.utils.property.ServerProperties;
  *
  */
 public class FlywayIntegrator implements Integrator {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(FlywayIntegrator.class);
 
     @Override
@@ -29,7 +29,8 @@ public class FlywayIntegrator implements Integrator {
     }
 
     @Override
-    public void integrate(final Metadata metadata, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+    public void integrate(final Configuration configuration, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+
         // Create the Flyway instance
         final Flyway flyway = new Flyway();
 
@@ -54,4 +55,11 @@ public class FlywayIntegrator implements Integrator {
         flyway.validate();
         LOGGER.info("Finished database validation");
     }
+
+    @Override
+    public void integrate(final MetadataImplementor metadata, final SessionFactoryImplementor sessionFactory, final SessionFactoryServiceRegistry serviceRegistry) {
+        // not needed
+
+    }
+
 }
