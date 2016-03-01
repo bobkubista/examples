@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericFunctionalIdentifiableEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.FunctionalIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
 /**
@@ -34,7 +34,8 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFuncti
     @Test
     @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
     public void shouldGetEntityByFunctionalId() {
-        final TYPE entity = this.getDao().getByFunctionalId(this.getFunctionalId());
+        final TYPE entity = this.getDao()
+                .getByFunctionalId(this.getFunctionalId());
         this.checkAssertion(entity);
     }
 
@@ -42,7 +43,7 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFuncti
      * Get the {@link AbstractGenericFunctionalIdentifiableEntityDao}
      */
     @Override
-    protected abstract AbstractGenericFunctionalIdentifiableEntityDao<TYPE, ID> getDao();
+    protected abstract FunctionalIdentifiableDao<TYPE, ID> getDao();
 
     /**
      *

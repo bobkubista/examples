@@ -19,7 +19,7 @@ public class ActiveEntityDaoTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getEntityClass()}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericIdentifiableDao#getEntityClass()}
      * .
      */
     @Test
@@ -29,7 +29,7 @@ public class ActiveEntityDaoTest {
 
     /**
      * Test method for
-     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao#getIdentifierClass()}
+     * {@link bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericIdentifiableDao#getIdentifierClass()}
      * .
      */
     @Test

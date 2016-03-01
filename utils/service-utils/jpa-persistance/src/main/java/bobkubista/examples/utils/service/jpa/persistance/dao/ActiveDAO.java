@@ -6,6 +6,12 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
@@ -22,7 +28,9 @@ public interface ActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, ID exte
      *
      * @return the amount of active entities
      */
-    public Long countActive();
+    public default Long countActive() {
+        return this.count(this.getActiveCriteria());
+    };
 
     /**
      * Find all active {@link AbstractGenericActiveEntity}s
@@ -36,5 +44,11 @@ public interface ActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, ID exte
      *            the field to sort for
      * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
      */
-    Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults);
+    default Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
+        return this.getAll(sortFields, page, maxResults, this.getActiveCriteria());
+    }
+
+    default Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> getActiveCriteria() {
+        return Optional.of((root, build) -> build.equal(root.get("active"), true));
+    }
 }

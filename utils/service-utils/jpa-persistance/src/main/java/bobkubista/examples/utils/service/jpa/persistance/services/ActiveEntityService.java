@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 /**
@@ -31,7 +31,7 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID
     }
 
     @Override
-    public abstract AbstractGenericActiveEntityDao<TYPE, ID> getDAO();
+    public abstract ActiveDAO<TYPE, ID> getDAO();
 
     /**
      *

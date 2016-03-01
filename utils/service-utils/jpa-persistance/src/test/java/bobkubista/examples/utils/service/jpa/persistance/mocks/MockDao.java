@@ -3,13 +3,24 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericActiveEntityDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class MockDao extends AbstractGenericActiveEntityDao<MockEntity, Long> {
+import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
+
+public class MockDao extends AbstractGenericDao<MockEntity, Long>implements ActiveDAO<MockEntity, Long> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MockDao.class);
 
     @Override
-    protected Path<String> getFunctionalIdField(Root<MockEntity> entity) {
+    public Path<String> getFunctionalIdField(final Root<MockEntity> entity) {
         return entity.<String> get("functionalId");
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LOGGER;
     }
 
 }

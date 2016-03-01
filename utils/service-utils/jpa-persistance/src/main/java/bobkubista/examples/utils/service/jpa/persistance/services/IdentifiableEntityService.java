@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.GenericDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
@@ -114,10 +114,10 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
     }
 
     /**
-     * Get the {@link GenericDao}
+     * Get the {@link GenericIdentifiableDao}
      *
-     * @return A subtype of {@link GenericDao}
+     * @return A subtype of {@link GenericIdentifiableDao}
      */
-    GenericDao<TYPE, ID> getDAO();
+    GenericIdentifiableDao<TYPE, ID> getDAO();
 
 }

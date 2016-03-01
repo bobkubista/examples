@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
 /**
@@ -41,7 +41,9 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
      */
     @Before
     public void clearCache() {
-        this.em.getEntityManagerFactory().getCache().evictAll();
+        this.em.getEntityManagerFactory()
+                .getCache()
+                .evictAll();
     }
 
     /**
@@ -52,11 +54,14 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
     @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
     public void shouldDeleteEntity() {
         // GIVEN
-        final TYPE entity = this.getDao().getById(this.getId());
+        final TYPE entity = this.getDao()
+                .getById(this.getId());
         // WHEN
-        this.getDao().delete(entity);
+        this.getDao()
+                .delete(entity);
         // THEN
-        Assert.assertNull(this.getDao().getById(this.getId()));
+        Assert.assertNull(this.getDao()
+                .getById(this.getId()));
     }
 
     /**
@@ -68,7 +73,8 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
     public void shouldGetById() {
         // GIVEN
         // WHEN
-        final TYPE entity = this.getDao().getById(this.getId());
+        final TYPE entity = this.getDao()
+                .getById(this.getId());
         // THEN
         this.checkAssertion(entity);
     }
@@ -80,9 +86,11 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
     @Transactional
     @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
     public void shouldUpdateEntity() {
-        TYPE entity = this.getDao().getById(this.getId());
+        TYPE entity = this.getDao()
+                .getById(this.getId());
         this.updateEntity(entity);
-        entity = this.getDao().update(entity);
+        entity = this.getDao()
+                .update(entity);
         this.checkAssertionUpdated(entity);
     }
 
@@ -102,9 +110,9 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
 
     /**
      *
-     * @return get the {@link AbstractGenericDao}
+     * @return get the {@link AbstractGenericIdentifiableDao}
      */
-    protected abstract AbstractGenericDao<TYPE, ID> getDao();
+    protected abstract GenericIdentifiableDao<TYPE, ID> getDao();
 
     /**
      *
