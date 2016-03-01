@@ -96,7 +96,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @Override
     public Response getAll(final SearchBean search) {
         final Collection<TYPE> allEntities = this.getService()
-                .getAll(search.getSort(), search.getPage(), search.getMaxResults());
+                .getAll(search);
 
         final Long amount = this.getService()
                 .count();

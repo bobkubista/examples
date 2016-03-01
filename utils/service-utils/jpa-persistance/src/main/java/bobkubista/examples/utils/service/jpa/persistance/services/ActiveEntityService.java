@@ -2,10 +2,10 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.dao.GenericActiveDAO;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
@@ -43,9 +43,9 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID
      *            the field to sort by
      * @return all active entities of <code>TYPE</code>
      */
-    default Collection<TYPE> getAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
+    default Collection<TYPE> getAllActive(final SearchBean search) {
         return this.getDAO()
-                .findAllActive(sortFields, page, maxResults);
+                .findAllActive(search);
     }
 
 }

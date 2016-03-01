@@ -2,10 +2,10 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.dao.GenericIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
@@ -82,9 +82,9 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
      *         same type
      */
-    public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResults) {
+    public default Collection<TYPE> getAll(final SearchBean search) {
         return this.getDAO()
-                .getAll(sortFields, page, maxResults);
+                .getAll(search);
     }
 
     /**

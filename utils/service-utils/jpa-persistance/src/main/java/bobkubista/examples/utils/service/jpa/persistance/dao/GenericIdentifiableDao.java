@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.annotation.SearchField;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
@@ -111,8 +112,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            the amount of result per page
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResults) {
-        return getAll(sortFields, page, maxResults, Optional.empty());
+    public default Collection<TYPE> getAll(final SearchBean search) {
+        return getAll(search, Optional.empty());
     }
 
     /**
@@ -129,8 +130,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            An {@link Optional} of a where clause
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public default Collection<TYPE> getAll(final List<String> sortFields, final int page, final int maxResult,
-            final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause) {
+    public default Collection<TYPE> getAll(final SearchBean search, final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause) {
         final CriteriaBuilder criteriaBuilder = this.getEntityManager()
                 .getCriteriaBuilder();
         final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
@@ -140,7 +140,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
                     .apply(entity, criteriaBuilder));
             // cq.where(criteriaBuilder.<operator>(entity.get(<field>),<value>))
         }
-        return this.orderedBy(sortFields, page, maxResult, cq, criteriaBuilder, entity);
+        return this.orderedBy(search.getSort(), search.getPage(), search.getMaxResults(), cq, criteriaBuilder, entity);
     }
 
     /**

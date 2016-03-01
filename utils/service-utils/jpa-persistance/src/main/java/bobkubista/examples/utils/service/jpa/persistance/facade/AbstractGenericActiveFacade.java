@@ -41,7 +41,7 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
     public Response getAllActive(@BeanParam final SearchBean search) {
         final List<Link> links = new ArrayList<>(2);
         final Collection<TYPE> allEntities = this.getService()
-                .getAllActive(search.getSort(), search.getPage(), search.getMaxResults());
+                .getAllActive(search);
         final Long amount = this.getService()
                 .countActive();
 

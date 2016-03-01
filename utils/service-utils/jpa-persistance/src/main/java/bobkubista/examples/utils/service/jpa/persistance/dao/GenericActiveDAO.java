@@ -5,7 +5,6 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -13,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
 /**
@@ -44,8 +44,8 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, 
      *            the field to sort for
      * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
      */
-    default Collection<TYPE> findAllActive(final List<String> sortFields, final Integer page, final Integer maxResults) {
-        return this.getAll(sortFields, page, maxResults, this.getActiveCriteria());
+    default Collection<TYPE> findAllActive(final SearchBean search) {
+        return this.getAll(search, this.getActiveCriteria());
     }
 
     default Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> getActiveCriteria() {
