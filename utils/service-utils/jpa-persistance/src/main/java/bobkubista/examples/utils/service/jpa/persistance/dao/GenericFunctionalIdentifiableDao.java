@@ -23,7 +23,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericF
  * @param <ID>
  *            identifier
  */
-public interface FunctionalIdentifiableDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends GenericIdentifiableDao<TYPE, ID> {
+public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends GenericIdentifiableDao<TYPE, ID> {
 
     /**
      * get a <code>TYPE</code> object by its <code>ID</code> id

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.FunctionalIdentifiableDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
 /**
@@ -43,7 +43,7 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFuncti
      * Get the {@link AbstractGenericFunctionalIdentifiableEntityDao}
      */
     @Override
-    protected abstract FunctionalIdentifiableDao<TYPE, ID> getDao();
+    protected abstract GenericFunctionalIdentifiableDao<TYPE, ID> getDao();
 
     /**
      *

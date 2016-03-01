@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import bobkubista.examples.utils.service.jpa.persistance.dao.FunctionalIdentifiableDao;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalIdentifiableDao;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
 /**
@@ -34,7 +34,7 @@ public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGeneri
     }
 
     @Override
-    public abstract FunctionalIdentifiableDao<TYPE, ID> getDAO();
+    public abstract GenericFunctionalIdentifiableDao<TYPE, ID> getDAO();
 
     /**
      *

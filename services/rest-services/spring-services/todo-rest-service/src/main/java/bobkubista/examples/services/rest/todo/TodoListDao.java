@@ -11,14 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericActiveDAO;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalIdentifiableDao;
 
 /**
  * @author Bob Kubista
  *
  */
 @Repository
-class TodoListDao extends AbstractGenericDao<TodoListEntity, Long>implements ActiveDAO<TodoListEntity, Long> {
+class TodoListDao extends AbstractGenericDao<TodoListEntity, Long>implements GenericActiveDAO<TodoListEntity, Long>, GenericFunctionalIdentifiableDao<TodoListEntity, Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoListDao.class);
 

@@ -22,7 +22,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  * @param <ID>
  *            Identifier of the {@link AbstractGenericActiveEntity}
  */
-public interface ActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends FunctionalIdentifiableDao<TYPE, ID> {
+public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, ID extends Serializable> extends GenericFunctionalIdentifiableDao<TYPE, ID> {
 
     /**
      *

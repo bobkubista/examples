@@ -11,14 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
-import bobkubista.examples.utils.service.jpa.persistance.dao.ActiveDAO;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericActiveDAO;
+import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalIdentifiableDao;
 
 /**
  * @author Bob
  *
  */
 @Repository
-public class RightDao extends AbstractGenericDao<Rights, Long>implements ActiveDAO<Rights, Long> {
+public class RightDao extends AbstractGenericDao<Rights, Long>implements GenericActiveDAO<Rights, Long>, GenericFunctionalIdentifiableDao<Rights, Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RightDao.class);
 
