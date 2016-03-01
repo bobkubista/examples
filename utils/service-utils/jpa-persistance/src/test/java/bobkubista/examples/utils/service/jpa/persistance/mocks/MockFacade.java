@@ -44,8 +44,8 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
 
     @Override
     protected ActiveEntityService<MockEntity, Long> getService() {
-        @SuppressWarnings("unchecked")
-        final ActiveEntityService<MockEntity, Long> mock = Mockito.mock(ActiveEntityService.class);
+
+        final MockEntityService mock = Mockito.mock(MockEntityService.class);
         Mockito.when(mock.create(null))
                 .thenReturn(null);
 
