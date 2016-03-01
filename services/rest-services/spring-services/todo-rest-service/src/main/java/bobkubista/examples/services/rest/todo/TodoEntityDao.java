@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.service.jpa.persistance.dao.AbstractGenericDao;
 import bobkubista.examples.utils.service.jpa.persistance.dao.GenericIdentifiableDao;
-import bobkubista.examples.utils.service.jpa.persistance.mocks.MockDao;
 
 /**
  * @author Bob
@@ -16,7 +15,7 @@ import bobkubista.examples.utils.service.jpa.persistance.mocks.MockDao;
  */
 public class TodoEntityDao extends AbstractGenericDao<TodoEntity, Long>implements GenericIdentifiableDao<TodoEntity, Long> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MockDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TodoEntityDao.class);
 
     /**
      * Constructor
