@@ -2,9 +2,13 @@ package bobkubista.examples.utils.domain.model.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import javax.validation.constraints.Max;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -22,8 +26,12 @@ public class SearchBean implements DomainObject {
 
     private static final long serialVersionUID = 292585102377195854L;
 
+    @HeaderParam(HttpHeaders.ACCEPT_LANGUAGE)
+    private List<Locale> languages;
+
     @QueryParam(ApiConstants.MAX)
     @DefaultValue("20")
+    @Max(value = 100)
     private Integer maxResults = 20;
 
     @QueryParam(ApiConstants.PAGE)
@@ -55,6 +63,13 @@ public class SearchBean implements DomainObject {
     }
 
     /**
+     * @return the languages
+     */
+    public final List<Locale> getLanguages() {
+        return this.languages;
+    }
+
+    /**
      * @return the maxResults
      */
     public final Integer getMaxResults() {
@@ -81,6 +96,16 @@ public class SearchBean implements DomainObject {
                 .append(this.getPage())
                 .append(this.getMaxResults())
                 .toHashCode();
+    }
+
+    /**
+     * @param languages
+     *            the languages to set
+     * @return the {@link SearchBean}
+     */
+    public final SearchBean setLanguages(final List<Locale> languages) {
+        this.languages = languages;
+        return this;
     }
 
     /**

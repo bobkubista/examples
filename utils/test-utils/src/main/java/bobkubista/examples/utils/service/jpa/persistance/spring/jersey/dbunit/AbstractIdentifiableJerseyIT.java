@@ -19,6 +19,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
+import bobkubista.examples.utils.domain.model.RestConstants;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheFilterFactory;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -105,6 +106,20 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
      */
     @Test
     @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+    public void shouldGetAllWithMaxLimit() {
+        final Response response = this.target("/")
+                .queryParam(ApiConstants.PAGE, 0)
+                .queryParam(ApiConstants.MAX, 200)
+                .request()
+                .get();
+        Assert.assertEquals(RestConstants.UNPROCESSABLE_ENTITY, response.getStatus());
+    }
+
+    /**
+     * Test if getAll with query params works
+     */
+    @Test
+    @DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
     public void shouldGetAllWithReverseSortAndLimit() {
         final COL response = this.target("/")
                 .queryParam(ApiConstants.SORT, "-" + this.getIdField())
@@ -151,7 +166,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
         final COL response = this.target("/")
                 .queryParam(ApiConstants.SORT, this.getIdField())
                 .queryParam(ApiConstants.PAGE, 1)
-                .queryParam(ApiConstants.MAX, 1000)
+                .queryParam(ApiConstants.MAX, 100)
                 .request()
                 .get(this.getCollectionClass());
         Assert.assertNotNull(response.getLinks());

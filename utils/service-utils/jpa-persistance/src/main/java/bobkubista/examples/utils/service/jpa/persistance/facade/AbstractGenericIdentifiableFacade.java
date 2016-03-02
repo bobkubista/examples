@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
 
+import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Link;
@@ -58,7 +59,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
     @Override
-    public Response create(final DMO object) {
+    public Response create(@Valid final DMO object) {
         Validate.notNull(object);
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
@@ -143,7 +144,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     }
 
     @Override
-    public Response update(final DMO object, final Request request) {
+    public Response update(@Valid final DMO object, final Request request) {
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
 
