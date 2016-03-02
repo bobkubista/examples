@@ -24,6 +24,7 @@ import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheFilterF
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.ConstraintViolationEntity;
 
 /**
  *
@@ -113,6 +114,9 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
                 .request()
                 .get();
         Assert.assertEquals(RestConstants.UNPROCESSABLE_ENTITY, response.getStatus());
+        final ConstraintViolationEntity violation = response.readEntity(ConstraintViolationEntity.class);
+        Assert.assertNotNull(violation);
+        Assert.assertEquals("must be less than or equal to 100", violation.getErrorMsg());
     }
 
     /**
