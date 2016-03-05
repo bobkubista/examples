@@ -20,6 +20,8 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.Transacti
  * Client filter for circuitbreakers
  *
  * @author Bob
+ * 
+ * @see <A href="http://www.javaworld.com/article/2824163/application-performance/stability-patterns-applied-in-a-restful-architecture.html?page=2"> source</a>
  *
  */
 public class CircuitBreakerFilter implements ClientRequestFilter, ClientResponseFilter {
