@@ -10,6 +10,8 @@
   <artifactId>services</artifactId>
   <packaging>pom</packaging>
   <modules>
+    <module>api-bom</module>
+    <module>services-bom</module>
     <module>api</module>
     <module>rest-services</module>
   </modules>
