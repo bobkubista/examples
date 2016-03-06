@@ -9,12 +9,12 @@
   <groupId>bobkubista.examples.services.rest.cdi</groupId>
   <artifactId>email-cdi-service</artifactId>
   <packaging>war</packaging>
-  
   <dependencies>
     <dependency>
       <groupId>bobkubista.examples.services.api</groupId>
       <artifactId>email-api</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>

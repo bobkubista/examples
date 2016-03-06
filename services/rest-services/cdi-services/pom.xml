@@ -11,34 +11,29 @@
   <packaging>pom</packaging>
   <modules>
     <module>datagathering-rest-service</module>
-    <!-- <module>rest-example</module> -->
-    <!-- <module>todo-cdi-rest-service</module> Going with spring for these 
-      modules, this is only a technical excursise -->
-    <!-- <module>user-cdi-rest-service</module> Going with spring for these 
-      modules, this is only a technical excursise -->
+<!--     <module>rest-example</module> -->
+<!--     <module>todo-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
+<!--     <module>user-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
     <module>email-cdi-service</module>
-    <!-- <module>catalog-service</module> -->
+<!--     <module>catalog-service</module> -->
     <module>file-service</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>bobkubista.examples.dependencies</groupId>
-        <artifactId>cdi-service-bom</artifactId>
+        <groupId>bobkubista.examples.utils.services</groupId>
+        <artifactId>jpa-persistance</artifactId>
         <version>${project.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+  
   <dependencies>
-    <dependency>
-      <groupId>bobkubista.examples.dependencies</groupId>
-      <artifactId>cdi-service-bom</artifactId>
-      <type>pom</type>
-      <version>${project.version}</version>
-    </dependency>
+  <dependency>
+    <groupId>org.glassfish.hk2.external</groupId>
+    <artifactId>javax.inject</artifactId>
+    <scope>runtime</scope>
+  </dependency>
   </dependencies>
 </project>

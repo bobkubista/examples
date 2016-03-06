@@ -19,10 +19,5 @@
     <module>logging-dependency</module>
     <module>common-dependency</module>
     <module>spring-dependency</module>
-    <module>services-bom</module>
-    <module>rest-service-bom</module>
-    <module>spring-service-bom</module>
-    <module>cdi-service-bom</module>
-    <module>api-bom</module>
   </modules>
 </project>

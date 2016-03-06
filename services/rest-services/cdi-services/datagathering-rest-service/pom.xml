@@ -16,6 +16,14 @@
       <artifactId>datagathering-rest-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>test-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

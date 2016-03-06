@@ -12,9 +12,17 @@
 
   <dependencies>
     <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>property-utils</artifactId>
+    </dependency>
+    <dependency>
       <groupId>bobkubista.examples.services.api</groupId>
       <artifactId>user-service-api</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
     </dependency>
   </dependencies>
 

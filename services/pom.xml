@@ -18,12 +18,74 @@
     <skipPerformanceTests>true</skipPerformanceTests>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>javaee-dependency</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.utils</groupId>
+        <artifactId>property-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.utils</groupId>
+        <artifactId>domain-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>logging-dependency</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>common-dependency</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>test-dependency</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>bobkubista.examples.dependencies</groupId>
+        <artifactId>apache-commons</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
-      <groupId>bobkubista.examples.dependencies</groupId>
-      <artifactId>services-bom</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <type>pom</type>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>domain-model</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

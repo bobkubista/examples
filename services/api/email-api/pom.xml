@@ -11,10 +11,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>bobkubista.examples.depencendies</groupId>
-      <artifactId>api-bom</artifactId>
-      <version>${project.version}</version>
-      <type>pom</type>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 
