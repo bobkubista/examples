@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>bobkubista.examples.services.rest</groupId>
+    <artifactId>datagathering</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>bobkubista.examples.services.rest.cdi</groupId>
+  <artifactId>datagathering-rest-service</artifactId>
+  <packaging>war</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>bobkubista.examples.services.api</groupId>
+      <artifactId>datagathering-rest-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>test-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
