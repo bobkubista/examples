@@ -3,26 +3,26 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>bobkubista.examples.services.rest</groupId>
-    <artifactId>cdi-services</artifactId>
+    <artifactId>user</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>bobkubista.examples.services.rest.cdi</groupId>
-  <artifactId>datagathering-rest-service</artifactId>
+  <groupId>bobkubista.examples.services.rest.spring</groupId>
+  <artifactId>user-service</artifactId>
   <packaging>war</packaging>
 
   <dependencies>
     <dependency>
+      <groupId>bobkubista.examples.utils</groupId>
+      <artifactId>property-utils</artifactId>
+    </dependency>
+    <dependency>
       <groupId>bobkubista.examples.services.api</groupId>
-      <artifactId>datagathering-rest-api</artifactId>
+      <artifactId>user-service-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>bobkubista.examples.utils</groupId>
-      <artifactId>test-utils</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
     </dependency>
   </dependencies>
 
@@ -31,6 +31,10 @@
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
         <artifactId>cargo-maven2-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.lazerycode.jmeter</groupId>
+        <artifactId>jmeter-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
