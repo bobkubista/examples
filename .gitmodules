@@ -1,0 +1,4 @@
+[submodule "services/rest-services/cdi-services/catalog"]
+	path = services/rest-services/cdi-services/catalog
+	url = https://github.com/bobkubista/catalog.git
+	branch = master
