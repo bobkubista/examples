@@ -53,6 +53,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
   * starting up service
  
 ### New:
+* new jenkins setup with jobs as code, make sure git submodules are supported
+* split everything up into git submodules
 * Simian Monkey
 * Chef vs Puppet vs Ansible
 * file web service
@@ -77,9 +79,8 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 * Java:
 
-* add jmeter performance tests
-* add jmeter load test
- * refactor emails to make better use of lambda's
+ * add jmeter performance tests
+ * add jmeter load test
  * take another look at future
  * optionals
  * JDeps -JDKinternals app.jar
@@ -119,3 +120,14 @@ This is my examples of code that I am trying out stuff with. It is for reference
  * jsf
  * angular
  * jquery
+ 
+ 
+ ### JNDI:
+ in tomcat server.xml
+ <Context docBase="user-service"
+                    path="/user-service" reloadable="true"
+                    source="org.eclipse.jst.jee.server:reporting-service">
+                    <Environment name="configurationPath"
+                        value="/opt/apps/config/user-service/server.properties"
+                        type="java.lang.String" />
+                </Context>
