@@ -37,7 +37,7 @@ public final class CollectionReducer {
      *            value to check against
      * @param stream
      *            {@link Stream} to search
-     * @param function
+     * @param filter
      *            the {@link Function} to apply for looking at the right value
      * @param supplier
      *            {@link Supplier} of a {@link RuntimeException}
@@ -45,8 +45,8 @@ public final class CollectionReducer {
      *         DuplicateItemException is thrown if more then one value is found
      */
     public static final <TYPE extends Object, E extends RuntimeException> Optional<TYPE> findOnlyOne(final Object value, final Stream<TYPE> stream,
-            final Function<TYPE, Object> function, final Supplier<E> supplier) {
-        return stream.filter(item -> function.apply(item)
+            final Function<TYPE, Object> filter, final Supplier<E> supplier) {
+        return stream.filter(item -> filter.apply(item)
                 .equals(value))
                 .reduce((element, otherElement) -> {
                     throw supplier.get();
