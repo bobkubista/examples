@@ -17,6 +17,7 @@ public class XorFieldsValidator implements ConstraintValidator<XorFields, Object
     private static final Logger LOGGER = LoggerFactory.getLogger(XorFieldsValidator.class);
 
     private String firstFieldName;
+
     private String secondFieldName;
 
     @Override
@@ -31,7 +32,7 @@ public class XorFieldsValidator implements ConstraintValidator<XorFields, Object
             final Object firstObj = BeanUtils.getProperty(value, this.firstFieldName);
             final Object secondObj = BeanUtils.getProperty(value, this.secondFieldName);
 
-            return firstObj == null && secondObj != null || firstObj != null && secondObj == null;
+            return firstObj == null ^ secondObj == null;
         } catch (final Exception ignore) {
             LOGGER.debug(ignore.getMessage(), ignore);
         }
