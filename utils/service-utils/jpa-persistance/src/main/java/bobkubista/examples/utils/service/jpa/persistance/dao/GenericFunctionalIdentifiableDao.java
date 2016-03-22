@@ -53,6 +53,12 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
         }
     }
 
+    /**
+     *
+     * @param entity
+     *            {@link Root}
+     * @return {@link Path}
+     */
     public Path<String> getFunctionalIdField(Root<TYPE> entity);
 
     /**

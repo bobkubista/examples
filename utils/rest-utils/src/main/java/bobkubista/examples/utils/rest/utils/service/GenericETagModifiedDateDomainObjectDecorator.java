@@ -36,6 +36,8 @@ public class GenericETagModifiedDateDomainObjectDecorator<TYPE extends DomainObj
      *            {@link Instant}
      * @param object
      *            The {@link DomainObject}
+     * @param locale
+     *            {@link Locale}
      */
     public GenericETagModifiedDateDomainObjectDecorator(final EntityTag eTag, final Instant modifiedDate, final TYPE object, final Locale locale) {
         this.eTag = eTag;

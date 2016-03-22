@@ -35,19 +35,18 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, 
     /**
      * Find all active {@link AbstractGenericActiveEntity}s
      *
-     * @param page
-     *            amount to skip: page * maxResults
-     * @param maxResults
-     *            amount of results to return
-     *
-     * @param sortFields
-     *            the field to sort for
+     * @param search
+     *            {@link SearchBean}
      * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
      */
     default Collection<TYPE> findAllActive(final SearchBean search) {
         return this.getAll(search, this.getActiveCriteria());
     }
 
+    /**
+     *
+     * @return the active Criteria
+     */
     default Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> getActiveCriteria() {
         return Optional.of((root, build) -> build.equal(root.get("active"), true));
     }

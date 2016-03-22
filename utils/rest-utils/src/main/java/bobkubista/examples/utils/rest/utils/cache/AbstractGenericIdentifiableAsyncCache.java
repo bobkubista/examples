@@ -23,6 +23,13 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 /**
  * @author Bob
  *
+ * @param <K>
+ *            key extends {@link Serializable}
+ * @param <V>
+ *            Value extends {@link AbstractGenericIdentifiableDomainObject}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
+ *
  */
 public abstract class AbstractGenericIdentifiableAsyncCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         implements CacheLoader<K, GenericETagModifiedDateDomainObjectDecorator<V>> {

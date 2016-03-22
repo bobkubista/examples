@@ -104,12 +104,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      * Get a {@link Collection} of all the <code>TYPE</code>, order by
      * <code>ID</code>
      *
-     * @param sortFields
-     *            the sorting field
-     * @param page
-     *            which page
-     * @param maxResults
-     *            the amount of result per page
+     * @param search
+     *            {@link SearchBean}
      * @return a {@link Collection} of <code>TYPE</code>
      */
     public default Collection<TYPE> getAll(final SearchBean search) {
@@ -120,12 +116,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      * Get a {@link Collection} of all the <code>TYPE</code>, order by
      * <code>ID</code>
      *
-     * @param sortFields
-     *            the sorting field
-     * @param page
-     *            which page
-     * @param maxResult
-     *            the amount of result per page
+     * @param search
+     *            {@link SearchBean}
      * @param whereClause
      *            An {@link Optional} of a where clause
      * @return a {@link Collection} of <code>TYPE</code>
@@ -160,6 +152,10 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      * @param fields
      *            fields to order by. Fields with prefix "-" are ordered
      *            descending
+     * @param startPositon
+     *            amount of elements to skip
+     * @param maxResults
+     *            the amount of results to return
      * @param query
      *            the {@link CriteriaQuery}
      * @param builder

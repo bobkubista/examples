@@ -13,17 +13,39 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 
 /**
  * @author Bob
- *
+ * @param <TYPE>
+ *            {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            {@link Serializable}
  */
 public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
 
+    /**
+     * Flush
+     */
     public void flush();
 
+    /**
+     *
+     * @return the Entity {@link Class}
+     */
     public Class<TYPE> getEntityClass();
 
+    /**
+     *
+     * @return {@link EntityManager}
+     */
     public EntityManager getEntityManager();
 
+    /**
+     *
+     * @return identifier {@link Class}
+     */
     public Class<ID> getIdentifierClass();
 
+    /**
+     *
+     * @return {@link Logger}
+     */
     public Logger getLogger();
 }

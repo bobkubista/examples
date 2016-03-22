@@ -35,12 +35,8 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID
 
     /**
      *
-     * @param maxResults
-     *            amount of results to return
-     * @param page
-     *            the page to skip too. page * maxResults will be skipped
-     * @param sortFields
-     *            the field to sort by
+     * @param search
+     *            {@link SearchBean}
      * @return all active entities of <code>TYPE</code>
      */
     default Collection<TYPE> getAllActive(final SearchBean search) {

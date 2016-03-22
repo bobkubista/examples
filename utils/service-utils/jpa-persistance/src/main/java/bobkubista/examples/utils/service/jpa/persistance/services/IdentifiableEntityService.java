@@ -72,13 +72,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
     /**
      * get all known {@link AbstractIdentifiableEntity} of that type
      *
-     * @param sortFields
-     *            which field to sort
-     * @param page
-     *            the page
-     * @param maxResults
-     *            the max amount of results per page
-     * @param where
+     * @param search
+     *            {@link SearchBean}
      * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
      *         same type
      */
