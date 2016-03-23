@@ -64,7 +64,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         final TYPE entity = this.getConverter()
                 .convertToEntity(object);
         final TYPE result = this.getService()
-                .create(entity);
+                .create(entity)
+                .orElseThrow(NotFoundException::new);
         try {
             return Response.created(new URI(result.getId()
                     .toString()))
@@ -79,16 +80,12 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @Override
     public Response delete(final ID identifier) {
         final TYPE entity = this.getService()
-                .getById(identifier);
-        if (entity != null) {
-            this.getService()
-                    .delete(entity);
-            return Response.noContent()
-                    .build();
-        } else {
-            LOGGER.debug("resource {} not found", identifier);
-            throw new NotFoundException();
-        }
+                .getById(identifier)
+                .orElseThrow(NotFoundException::new);
+        this.getService()
+                .delete(entity);
+        return Response.noContent()
+                .build();
     }
 
     @CacheTransform
@@ -116,30 +113,26 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @Override
     public Response getByID(final ID identifier, final Request request) {
         final TYPE result = this.getService()
-                .getById(identifier);
-        if (result == null) {
-            LOGGER.debug("resource {} not found", identifier);
-            throw new NotFoundException();
-        } else {
-            try {
-                final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
-                if (response != null) {
-                    return response.build();
-                }
-
-                return Response.ok(this.getConverter()
-                        .convertToDomainObject(result))
-                        .location(new URI(this.getClass()
-                                .getDeclaredAnnotation(Path.class)
-                                .value() + identifier.toString()))
-                        .lastModified(new Date(result.getUpdatedDate()
-                                .getTime()))
-                        .build();
-            } catch (final URISyntaxException e) {
-                LOGGER.warn(e.getMessage(), e);
-                return Response.serverError()
-                        .build();
+                .getById(identifier)
+                .orElseThrow(NotFoundException::new);
+        try {
+            final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
+            if (response != null) {
+                return response.build();
             }
+
+            return Response.ok(this.getConverter()
+                    .convertToDomainObject(result))
+                    .location(new URI(this.getClass()
+                            .getDeclaredAnnotation(Path.class)
+                            .value() + identifier.toString()))
+                    .lastModified(new Date(result.getUpdatedDate()
+                            .getTime()))
+                    .build();
+        } catch (final URISyntaxException e) {
+            LOGGER.warn(e.getMessage(), e);
+            return Response.serverError()
+                    .build();
         }
     }
 
@@ -158,7 +151,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                 .update(entity);
         try {
             final TYPE result = this.getService()
-                    .getById(entity.getId());
+                    .getById(entity.getId())
+                    .orElseThrow(NotFoundException::new);
             return Response.ok(this.getConverter()
                     .convertToDomainObject(result))
                     .location(new URI(entity.getId()

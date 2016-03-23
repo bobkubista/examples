@@ -3,6 +3,8 @@
  */
 package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
+import java.util.Optional;
+
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -50,7 +52,8 @@ public class MockConverter extends AbstractEntityToDomainConverter<MockDomain, M
     protected IdentifiableEntityService<MockEntity, Long> getService() {
         @SuppressWarnings("unchecked")
         final IdentifiableEntityService<MockEntity, Long> mock = Mockito.mock(IdentifiableEntityService.class);
-        Mockito.when(mock.getById(Matchers.anyLong())).thenReturn(new MockEntity());
+        Mockito.when(mock.getById(Matchers.anyLong()))
+                .thenReturn(Optional.of(new MockEntity()));
         return mock;
     }
 

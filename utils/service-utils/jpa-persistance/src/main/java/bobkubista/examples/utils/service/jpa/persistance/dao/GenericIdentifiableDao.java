@@ -32,7 +32,19 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
     /**
      *
      * @param entity
-     *            the TYPE to check for @return does the entity exist
+     *            the ID to check for
+     * @return does the entity exist
+     */
+    public default boolean contains(final ID id) {
+        return this.getEntityManager()
+                .find(getEntityClass(), id) != null;
+    }
+
+    /**
+     *
+     * @param entity
+     *            the TYPE to check for
+     * @return does the entity exist
      */
     public default boolean contains(final TYPE entity) {
         return this.getEntityManager()
@@ -80,11 +92,11 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            the <code>TYPE</code> object to insert
      * @return the created <code>TYPE</code>
      */
-    public default TYPE create(final TYPE object) {
+    public default Optional<TYPE> create(final TYPE object) {
         this.getEntityManager()
                 .persist(object);
-        return this.getEntityManager()
-                .find(this.getEntityClass(), object.getId());
+        return Optional.ofNullable(this.getEntityManager()
+                .find(this.getEntityClass(), object.getId()));
     }
 
     /**
@@ -142,9 +154,9 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            the <code>ID</code> id to search for
      * @return the <code>TYPE</code> object
      */
-    public default TYPE getById(final ID id) {
-        return this.getEntityManager()
-                .find(this.getEntityClass(), id);
+    public default Optional<TYPE> getById(final ID id) {
+        return Optional.ofNullable(this.getEntityManager()
+                .find(this.getEntityClass(), id));
     }
 
     /**

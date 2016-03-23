@@ -5,6 +5,7 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Link;
@@ -51,10 +52,10 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
                 .thenReturn(null);
 
         Mockito.when(mock.create(Matchers.any(MockEntity.class)))
-                .thenReturn(this.buildMockEntity());
+                .thenReturn(Optional.of(this.buildMockEntity()));
 
         Mockito.when(mock.getById(1L))
-                .thenReturn(this.buildMockEntity());
+                .thenReturn(Optional.of(this.buildMockEntity()));
         Mockito.when(mock.getById(2L))
                 .thenReturn(null);
 
@@ -90,7 +91,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
                 .thenReturn(1L);
 
         Mockito.when(mock.update(Matchers.any(MockEntity.class)))
-                .thenReturn(this.buildMockEntity());
+                .thenReturn(Optional.of(this.buildMockEntity()));
 
         return mock;
     }

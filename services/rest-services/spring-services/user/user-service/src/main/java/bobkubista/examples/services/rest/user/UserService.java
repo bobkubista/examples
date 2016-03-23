@@ -35,7 +35,8 @@ public class UserService implements ActiveEntityService<UserEntity, Long> {
      */
     public boolean isAuthorized(final Long userId, final String right) {
         return UserEntity.isAuthorized(right)
-                .test(this.getById(userId));
+                .test(this.getById(userId)
+                        .get());
     }
 
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -55,7 +56,8 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
     public void shouldDeleteEntity() {
         // GIVEN
         final TYPE entity = this.getDao()
-                .getById(this.getId());
+                .getById(this.getId())
+                .orElseThrow(NotFoundException::new);
         // WHEN
         this.getDao()
                 .delete(entity);
@@ -74,7 +76,8 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
         // GIVEN
         // WHEN
         final TYPE entity = this.getDao()
-                .getById(this.getId());
+                .getById(this.getId())
+                .orElseThrow(NotFoundException::new);
         // THEN
         this.checkAssertion(entity);
     }
@@ -87,7 +90,8 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
     @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
     public void shouldUpdateEntity() {
         TYPE entity = this.getDao()
-                .getById(this.getId());
+                .getById(this.getId())
+                .orElseThrow(NotFoundException::new);
         this.updateEntity(entity);
         entity = this.getDao()
                 .update(entity);

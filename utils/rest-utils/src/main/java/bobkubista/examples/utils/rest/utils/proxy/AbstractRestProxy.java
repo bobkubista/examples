@@ -27,86 +27,87 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
 // TODO refactor to be a builder
 public abstract class AbstractRestProxy {
 
-	private Client client;
-	private WebTarget service;
+    private Client client;
 
-	/**
-	 * Get the base {@link Client} and {@link WebTarget}
-	 */
-	@PostConstruct
-	public void base() {
-		this.client = ClientBuilder.newClient();
-		this.client.register(new CircuitBreakerFilter());
-		// TODO refactor for service discovery
-		this.service = this.client.target(this.getBaseUri());
-	}
+    private WebTarget service;
 
-	/**
-	 * close the connection before destroy
-	 */
-	@PreDestroy
-	protected void close() {
-		if (this.client != null) {
-			this.client.close();
-		}
-	}
+    /**
+     * Get the base {@link Client} and {@link WebTarget}
+     */
+    @PostConstruct
+    public void base() {
+        this.client = ClientBuilder.newClient();
+        this.client.register(new CircuitBreakerFilter());
+        // TODO refactor for service discovery
+        this.service = this.client.target(this.getBaseUri());
+    }
 
-	/**
-	 *
-	 * @return get the basePath
-	 */
-	protected abstract String getBasePath();
+    /**
+     * close the connection before destroy
+     */
+    @PreDestroy
+    protected void close() {
+        if (this.client != null) {
+            this.client.close();
+        }
+    }
 
-	/**
-	 *
-	 * @return get the baseUri
-	 */
-	protected abstract String getBaseUri();
+    /**
+     *
+     * @return get the basePath
+     */
+    protected abstract String getBasePath();
 
-	protected Builder getRequest(final WebTarget target) {
-		return target.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
-	}
+    /**
+     *
+     * @return get the baseUri
+     */
+    protected abstract String getBaseUri();
 
-	/**
-	 *
-	 * @param paths
-	 *            the paths to get for the rest service
-	 *
-	 * @return {@link javax.ws.rs.client.Invocation.Builder}
-	 */
-	// TODO refactor to make use of template see page 84 JEE essentials
-	protected WebTarget getServiceWithPaths(final String... paths) {
-		WebTarget serviceWithPath = this.getServiceWithPaths();
-		for (final String path : paths) {
-			serviceWithPath = serviceWithPath.path(path);
-		}
-		return serviceWithPath;
-	}
+    protected Builder getRequest(final WebTarget target) {
+        return target.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON);
+    }
 
-	protected WebTarget getServiceWithQueryParams(@NotNull final Map<String, Object> params, final String... paths) {
-		WebTarget serviceWithQuery = this.getServiceWithPaths(paths);
-		if (params != null) {
-			for (final Entry<String, Object> queryParam : params.entrySet()) {
-				serviceWithQuery = this.processQueryparam(serviceWithQuery, queryParam);
-			}
-		}
-		return serviceWithQuery;
-	}
+    /**
+     *
+     * @param paths
+     *            the paths to get for the rest service
+     *
+     * @return {@link javax.ws.rs.client.Invocation.Builder}
+     */
+    // TODO refactor to make use of template see page 84 JEE essentials
+    protected WebTarget getServiceWithPaths(final String... paths) {
+        WebTarget serviceWithPath = this.getServiceWithPaths();
+        for (final String path : paths) {
+            serviceWithPath = serviceWithPath.path(path);
+        }
+        return serviceWithPath;
+    }
 
-	private WebTarget getServiceWithPaths() {
-		return this.service.path(this.getBasePath());
-	}
+    protected WebTarget getServiceWithQueryParams(@NotNull final Map<String, Object> params, final String... paths) {
+        WebTarget serviceWithQuery = this.getServiceWithPaths(paths);
+        if (params != null) {
+            for (final Entry<String, Object> queryParam : params.entrySet()) {
+                serviceWithQuery = this.processQueryparam(serviceWithQuery, queryParam);
+            }
+        }
+        return serviceWithQuery;
+    }
 
-	private WebTarget processQueryparam(final WebTarget serviceWithQuery, final Entry<String, Object> queryParam) {
-		WebTarget target = serviceWithQuery;
-		if (queryParam.getValue() instanceof Collection) {
-			for (final Object value : (Collection<?>) queryParam.getValue()) {
-				target = target.queryParam(queryParam.getKey(), value);
-			}
-		} else {
-			target = target.queryParam(queryParam.getKey(), queryParam.getValue());
-		}
-		return target;
-	}
+    private WebTarget getServiceWithPaths() {
+        return this.service.path(this.getBasePath());
+    }
+
+    private WebTarget processQueryparam(final WebTarget serviceWithQuery, final Entry<String, Object> queryParam) {
+        WebTarget target = serviceWithQuery;
+        if (queryParam.getValue() instanceof Collection) {
+            for (final Object value : (Collection<?>) queryParam.getValue()) {
+                target = target.queryParam(queryParam.getKey(), value);
+            }
+        } else {
+            target = target.queryParam(queryParam.getKey(), queryParam.getValue());
+        }
+        return target;
+    }
 
 }

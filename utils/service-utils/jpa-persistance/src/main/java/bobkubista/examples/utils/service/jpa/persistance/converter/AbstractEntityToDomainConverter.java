@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.core.Link;
 
@@ -34,6 +35,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  */
 public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements EntityToDomainConverter<DMO, DMOL, EO> {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
     @Override
@@ -76,10 +78,12 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
             entity = null;
         } else {
             LOGGER.debug("Converting domain to entity with id {}", domainModelObject.getId());
-            final EO oldEntity;
-            if (domainModelObject.getId() != null && (oldEntity = this.getService()
-                    .getById(domainModelObject.getId())) != null) {
-                entity = oldEntity;
+            final Optional<EO> oldEntity;
+            if (domainModelObject.getId() != null && this.getService()
+                    .contains(domainModelObject.getId())) {
+                oldEntity = this.getService()
+                        .getById(domainModelObject.getId());
+                entity = oldEntity.get();
                 this.doConvertToEntity(domainModelObject, entity);
             } else {
                 entity = this.doConvertToEntity(domainModelObject);

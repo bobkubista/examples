@@ -2,6 +2,7 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,18 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 @Transactional
 @FunctionalInterface
 public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
+
+    /**
+     * Check if object of {@link AbstractIdentifiableEntity} exists
+     *
+     * @param id
+     *            the id to check
+     * @return true if exists
+     */
+    public default boolean contains(final ID id) {
+        return this.getDAO()
+                .contains(id);
+    }
 
     /**
      * Check if object of {@link AbstractIdentifiableEntity} exists
@@ -51,7 +64,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      *            the object to create
      * @return <code>TYPE</code> that was created
      */
-    public default TYPE create(final TYPE object) {
+    public default Optional<TYPE> create(final TYPE object) {
         this.getDAO()
                 .create(object);
         return this.getDAO()
@@ -89,7 +102,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      *            the identfier
      * @return the {@link AbstractIdentifiableEntity}
      */
-    public default TYPE getById(final ID identifier) {
+    public default Optional<TYPE> getById(final ID identifier) {
         return this.getDAO()
                 .getById(identifier);
     }
@@ -101,7 +114,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      *            the object to update
      * @return the updated object
      */
-    public default TYPE update(final TYPE object) {
+    public default Optional<TYPE> update(final TYPE object) {
         this.getDAO()
                 .update(object);
         return this.getDAO()
