@@ -57,7 +57,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.getById(1L))
                 .thenReturn(Optional.of(this.buildMockEntity()));
         Mockito.when(mock.getById(2L))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         Mockito.when(mock.getAll(new SearchBean().setSort(Collections.singletonList("id"))
                 .setPage(0)
