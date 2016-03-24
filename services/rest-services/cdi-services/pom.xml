@@ -17,6 +17,7 @@
     <module>file</module>
     <module>email</module>
     <module>datagathering</module>
+    <!--<module>catalog</module>-->
   </modules>
 
   <dependencyManagement>
