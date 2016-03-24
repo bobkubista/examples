@@ -24,6 +24,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            Identifier
  */
+@Deprecated
 public abstract class AbstractGenericRestActiveProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable>
         extends AbstractGenericRestFunctionalIdentifiableProxy<TYPE, ID>implements ActiveClientApi<TYPE, ID> {
 

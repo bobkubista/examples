@@ -27,6 +27,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection}
  */
+@Deprecated
 public abstract class AbstractActiveService<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractFunctionalIdentifiableService<TYPE, ID, COL>implements ActiveService<TYPE, ID, COL> {
 

@@ -23,6 +23,7 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
  * @author Bob
  *
  */
+@Deprecated
 public class MockActiveService extends AbstractActiveService<MockActiveDomainObject, Integer, MockDomainCollection>
         implements ActiveService<MockActiveDomainObject, Integer, MockDomainCollection> {
 

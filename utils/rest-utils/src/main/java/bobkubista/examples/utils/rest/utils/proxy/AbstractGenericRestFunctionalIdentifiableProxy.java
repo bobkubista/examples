@@ -16,6 +16,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <ID>
  *            {@link Serializable}
  */
+@Deprecated
 public abstract class AbstractGenericRestFunctionalIdentifiableProxy<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
         extends AbstractGenericRestIdentifiableProxy<TYPE, ID>implements FunctionalIdentifiableClientApi<TYPE, ID> {
 

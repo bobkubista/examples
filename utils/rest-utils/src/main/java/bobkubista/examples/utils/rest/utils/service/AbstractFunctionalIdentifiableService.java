@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import bobkubista.examples.utils.domain.model.api.FunctionalIdentifiableClientApi;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
+import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericFunctionalIdentifiableRestProxy;
 
 /**
  * @author Bob Kubista
@@ -19,7 +20,9 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *            Identifier
  * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection} for TYPE
+ * @deprecated use {@link AbstractGenericFunctionalIdentifiableRestProxy}
  */
+@Deprecated
 public abstract class AbstractFunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractIdentifiableService<TYPE, ID, COL>implements FunctionalIdentifiableService<TYPE, ID, COL> {
 

@@ -62,6 +62,7 @@ public class AbstractActiveServiceTest {
                 new EntityTag("tag"), Instant.MIN, mockDomainObject, null);
         this.service.getByID(object)
                 .getObject();
+        Assert.fail();
     }
 
     @Test
@@ -97,6 +98,7 @@ public class AbstractActiveServiceTest {
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
                 new EntityTag("tag"), Instant.MIN, mockDomainObject, null);
         this.service.update(object);
+        Assert.fail();
     }
 
     @Test

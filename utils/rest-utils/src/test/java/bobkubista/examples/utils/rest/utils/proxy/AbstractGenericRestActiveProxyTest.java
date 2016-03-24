@@ -32,11 +32,13 @@ import bobkubista.examples.utils.rest.utils.mocks.MockActiveProxy;
  * @author Bob
  *
  */
+@Deprecated
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ClientBuilder.class)
 public class AbstractGenericRestActiveProxyTest {
 
     final Client mockClient = Mockito.mock(Client.class);
+
     final Response mockResponse = Mockito.mock(Response.class);
 
     private final AbstractGenericRestActiveProxy<MockActiveDomainObject, Integer> proxy = new MockActiveProxy();
