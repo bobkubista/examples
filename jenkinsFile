@@ -1,0 +1,54 @@
+try {
+  // define maven tool
+  // define workspace
+  stage 'build'
+    node{ 
+  	  // git with submodules
+  	  // compile
+  	  // stash
+  	  }
+  	  paralell 'testing' {
+  	    node {
+  	      // unstash
+  	      // validate
+  	      // unit and integration tests
+  	      // stash
+  	    }
+  	  }
+    }
+  stage name: 'deployed-test', concurrency: 1
+    node{ 
+  	  // unstash
+  	  // deploy to test, should eventually be build docker image and run
+    	// stash
+      }
+  	  parallel 'quality scan': {
+  	    node{
+  	      // unstash
+	  	  // jmeter
+	  	  retry(5) {
+	  	    // front end tests
+	  	    // stash
+	    	}
+	   }
+    }
+  stage name: 'Quality', concurrency: 3
+    node {
+      // unstash
+      // sonarqube
+      // stash
+    }  
+  stage name: 'archive'
+    node {
+      // unstash
+      // nexus
+      // stash
+    }
+  stage name: 'release'
+    node {
+      // unstash
+      // release
+    }
+  } catch (e) {
+  // mail 
+}
