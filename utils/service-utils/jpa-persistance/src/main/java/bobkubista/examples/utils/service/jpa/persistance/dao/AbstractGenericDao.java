@@ -8,6 +8,15 @@ import javax.persistence.PersistenceContext;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 
+/**
+ *
+ * @author Bob
+ *
+ * @param <TYPE>
+ *            {@link AbstractIdentifiableEntity}
+ * @param <ID>
+ *            {@link Serializable}
+ */
 public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> implements GenericDao<TYPE, ID> {
 
     private final Class<TYPE> entityClass;
@@ -17,6 +26,9 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 
     private final Class<ID> identifierClass;
 
+    /**
+     * Constructor
+     */
     @SuppressWarnings("unchecked")
     public AbstractGenericDao() {
         super();

@@ -28,13 +28,19 @@ import org.slf4j.LoggerFactory;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
-import bobkubista.examples.utils.rest.utils.service.AbstractIdentifiableService;
 import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 
 /**
+ *
  * @author Bob
  *
+ * @param <TYPE>
+ *            {@link AbstractGenericIdentifiableDomainObject}
+ * @param <ID>
+ *            {@link Serializable}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractRestProxy implements IdentifiableService<TYPE, ID, COL> {
@@ -45,7 +51,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     private static final int IDENTIFIER_CLASS_TYPE_ARGUMENT_NUMBER = 1;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractIdentifiableService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableRestProxy.class);
 
     private final Class<COL> collectionClass;
 
@@ -129,7 +135,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-        Date modified = Date.from(object.getModifiedDate());
+        final Date modified = Date.from(object.getModifiedDate());
         final Response byID = this.getRequest(this.getServiceWithPaths(object.getObject()
                 .getId()
                 .toString()))
