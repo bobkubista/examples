@@ -107,18 +107,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     @Override
     public CompletableFuture<COL> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
         return CompletableFuture.supplyAsync(() -> {
-
-            final Map<String, Object> params = new HashMap<>();
-            if (CollectionUtils.isNotEmpty(sort)) {
-                params.put(ApiConstants.SORT, sort);
-            }
-            if (page != null) {
-                params.put(ApiConstants.PAGE, page);
-            }
-            if (maxResults != null) {
-                params.put(ApiConstants.MAX, maxResults);
-            }
-
+            final Map<String, Object> params = this.getQueryparameters(sort, page, maxResults);
             final Response response = this.getRequest(this.getServiceWithQueryParams(params))
                     .get();
             try {
@@ -204,5 +193,19 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     protected Class<ID> getIdClass() {
         return this.identifierClass;
+    }
+
+    protected Map<String, Object> getQueryparameters(final List<String> sort, final Integer page, final Integer maxResults) {
+        final Map<String, Object> params = new HashMap<>();
+        if (CollectionUtils.isNotEmpty(sort)) {
+            params.put(ApiConstants.SORT, sort);
+        }
+        if (page != null) {
+            params.put(ApiConstants.PAGE, page);
+        }
+        if (maxResults != null) {
+            params.put(ApiConstants.MAX, maxResults);
+        }
+        return params;
     }
 }

@@ -42,10 +42,6 @@ public class AbstractGenericActiveRestProxyTest {
     private final AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> proxy = new MockActiveProxyRevised();
 
     @Before
-    public void setUp() throws Exception {
-    }
-
-    @Before
     public void start() {
         final Builder mockBuilder = Mockito.mock(Builder.class);
         Mockito.when(mockBuilder.get())

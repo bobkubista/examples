@@ -20,8 +20,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.rest.utils.service.ActiveService;
 
 /**
+ *
  * @author Bob
  *
+ * @param <TYPE>
+ *            {@link AbstractGenericActiveDomainObject}
+ * @param <ID>
+ *            {@link Serializable}
+ * @param <COL>
+ *            {@link AbstractGenericDomainObjectCollection}
  */
 public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
         extends AbstractGenericFunctionalIdentifiableRestProxy<TYPE, ID, COL>implements ActiveService<TYPE, ID, COL> {

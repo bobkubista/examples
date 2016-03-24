@@ -31,7 +31,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
 
     /**
      *
-     * @param entity
+     * @param id
      *            the ID to check for
      * @return does the entity exist
      */
