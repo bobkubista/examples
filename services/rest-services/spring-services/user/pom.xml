@@ -13,5 +13,6 @@
   <modules>
     <module>user-service-api</module>
     <module>user-service</module>
+    <module>user-client</module>
   </modules>
 </project>

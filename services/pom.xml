@@ -12,6 +12,7 @@
   <modules>
     <module>api-bom</module>
     <module>services-bom</module>
+    <module>clients-bom</module>
     <module>api</module>
     <module>rest-services</module>
   </modules>

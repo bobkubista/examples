@@ -15,7 +15,6 @@
     <module>property-utils</module>
     <module>rest-utils</module>
     <module>test-utils</module>
-    <module>clients</module>
     <module>jee-utils</module>
   </modules>
 

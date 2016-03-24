@@ -11,5 +11,6 @@
   <modules>
   <module>todo-rest-api</module>
   <module>todo-rest-service</module>
+  <module>todo-client</module>
   </modules>
 </project>

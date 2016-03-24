@@ -2,12 +2,25 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>bobkubista.examples.utils</groupId>
-    <artifactId>clients</artifactId>
+    <groupId>bobkubista.examples.services.rest</groupId>
+    <artifactId>todo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>bobkubista.examples.utils.clients</groupId>
+  <groupId>bobkubista.examples.services.rest.todo</groupId>
   <artifactId>todo-client</artifactId>
+  <packaging>pom</packaging>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>bobkubista.examples.services</groupId>
+        <artifactId>clients-bom</artifactId>
+        <version>${project.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>bobkubista.examples.utils</groupId>
