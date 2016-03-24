@@ -20,9 +20,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-import bobkubista.examples.utils.domain.model.api.SearchBean;
-
 /**
  * @author Bob Kubista
  *
@@ -32,42 +29,41 @@ import bobkubista.examples.utils.domain.model.api.SearchBean;
 public class TodoProxyTest {
 
     final Client mockClient = Mockito.mock(Client.class);
+
     final Response mockResponse = Mockito.mock(Response.class);
+
     private final TodoProxy proxy = new TodoProxy();
 
     @Before
     public void start() {
-        Mockito.when(this.mockResponse.getStatus()).thenReturn(200);
+        Mockito.when(this.mockResponse.getStatus())
+                .thenReturn(200);
 
         final Builder mockBuilder = Mockito.mock(Builder.class);
-        Mockito.when(mockBuilder.get()).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.post(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.put(Matchers.any())).thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.delete()).thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.get())
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.post(Matchers.any()))
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.put(Matchers.any()))
+                .thenReturn(this.mockResponse);
+        Mockito.when(mockBuilder.delete())
+                .thenReturn(this.mockResponse);
 
         final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
-        Mockito.when(mockWebTarget.path(Matchers.anyString())).thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)).thenReturn(mockBuilder);
+        Mockito.when(mockWebTarget.path(Matchers.anyString()))
+                .thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
+                .thenReturn(mockBuilder);
 
-        Mockito.when(this.mockClient.target(Matchers.anyString())).thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any())).thenReturn(mockWebTarget);
+        Mockito.when(this.mockClient.target(Matchers.anyString()))
+                .thenReturn(mockWebTarget);
+        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any()))
+                .thenReturn(mockWebTarget);
 
         PowerMockito.mockStatic(ClientBuilder.class);
-        PowerMockito.when(ClientBuilder.newClient()).thenReturn(this.mockClient);
+        PowerMockito.when(ClientBuilder.newClient())
+                .thenReturn(this.mockClient);
         this.proxy.base();
-    }
-
-    @Test
-    public void testGetAll() {
-        final TodoListCollection userCollection = new TodoListCollection();
-        Mockito.when(this.mockResponse.getEntity()).thenReturn(userCollection);
-
-        final Response response = this.proxy.getAll(new SearchBean());
-        Assert.assertNotNull(response);
-        Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        final TodoListCollection users = (TodoListCollection) response.getEntity();
-        Assert.assertNotNull(users);
-        Assert.assertNotNull(users.getDomainCollection());
     }
 
     @Test

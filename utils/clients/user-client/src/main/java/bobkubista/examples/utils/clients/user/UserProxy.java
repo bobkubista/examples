@@ -1,31 +1,38 @@
 package bobkubista.examples.utils.clients.user;
 
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bobkubista.example.utils.property.ServerProperties;
-import bobkubista.examples.services.api.user.UserClientApi;
 import bobkubista.examples.services.api.user.domain.User;
-import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericRestActiveProxy;
+import bobkubista.examples.services.api.user.domain.UserCollection;
+import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
 
 /**
  * @author Bob Kubista {@link AbstractGenericRestActiveProxy} for {@link User}
  */
-public class UserProxy extends AbstractGenericRestActiveProxy<User, Long>implements UserClientApi {
+public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCollection>implements UserService {
 
     @Override
-    public Response isAuthorized(final Long userId, final String right) {
-        return this.getRequest(this.getServiceWithPaths(userId.toString(), right))
-                .get();
+    public boolean isAuthorized(final Long userId, final String right) {
+        final int status = this.getRequest(this.getServiceWithPaths(userId.toString(), right))
+                .get()
+                .getStatus();
+        return status == Status.OK.getStatusCode();
     }
 
     @Override
     protected String getBasePath() {
-        return ServerProperties.getString("rest.service.base.path");
+        return ServerProperties.getString("user.rest.service.base.path");
     }
 
     @Override
     protected String getBaseUri() {
         return "";
+    }
+
+    @Override
+    protected UserCollection getEmptyCollection() {
+        return new UserCollection();
     }
 
 }
