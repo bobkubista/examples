@@ -28,7 +28,7 @@ public class FileFacade implements FileApi {
     }
 
     @Override
-    public Response uploadFile(final String filepath) {
+    public Response uploadFile(final String filepath, final File file) {
         // TODO Auto-generated method stub
         return null;
     }

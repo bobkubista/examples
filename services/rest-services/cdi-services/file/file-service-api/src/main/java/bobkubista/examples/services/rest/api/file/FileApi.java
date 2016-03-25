@@ -32,18 +32,18 @@ public interface FileApi {
      */
     @GET
     @Path("{filepath: .*}")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public File getFile(@PathParam("filepath") final String filepath);
 
     /**
      * Upload a file
-     * 
+     *
      * @param filepath
      *            the relative filepath where to store the file
      * @return {@link Response} that indicated if the upload was succesfull.
      */
     @POST
     @Path("{filepath: .*}")
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response uploadFile(@PathParam("fileoath") final String filepath);
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response uploadFile(@PathParam("filepath") final String filepath, final File file);
 }
