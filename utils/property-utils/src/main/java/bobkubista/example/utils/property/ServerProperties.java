@@ -18,86 +18,91 @@ import org.slf4j.LoggerFactory;
  * Singleton get property config file with name server.prop from classpath
  *
  * @author Bob Kubista
- *
+ * @deprecated Move to Apache commons config
  */
+@Deprecated
 public enum ServerProperties {
-	INSTANCE;
-	private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
+    INSTANCE;
 
-	private static Properties props;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
-	private static final String SERVER_PROP_FILE = "server.properties";
+    private static Properties props;
 
-	static {
-		if (props == null) {
-			InputStream serverPropLocation = null;
-			File configFile;
-			try {
-				try {
-					LOGGER.info("Getting resource file location from JDNI");
-					String propFolder;
-					// http://stackoverflow.com/questions/13956651/externalizing-tomcat-webapp-config-from-war-file
+    private static final String SERVER_PROP_FILE = "server.properties";
 
-					// get a handle on the JNDI root context
-					final Context ctx = new InitialContext();
+    static {
+        if (props == null) {
+            InputStream serverPropLocation = null;
+            File configFile;
+            try {
+                try {
+                    LOGGER.info("Getting resource file location from JDNI");
+                    String propFolder;
+                    // http://stackoverflow.com/questions/13956651/externalizing-tomcat-webapp-config-from-war-file
 
-					// and access the environment variable for this web
-					// component
-					propFolder = (String) ctx.lookup("java:comp/env/configurationPath");
-					configFile = new File(propFolder + ServerProperties.SERVER_PROP_FILE);
-					serverPropLocation = new FileInputStream(configFile);
-				} catch (NamingException | FileNotFoundException e1) {
+                    // get a handle on the JNDI root context
+                    final Context ctx = new InitialContext();
 
-					LOGGER.warn("Defaulting back to classpath", e1);
-					LOGGER.debug("Getting resource file location from classpath");
-					serverPropLocation = Thread.currentThread().getContextClassLoader().getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
-				}
+                    // and access the environment variable for this web
+                    // component
+                    propFolder = (String) ctx.lookup("java:comp/env/configurationPath");
+                    configFile = new File(propFolder + ServerProperties.SERVER_PROP_FILE);
+                    serverPropLocation = new FileInputStream(configFile);
+                } catch (NamingException | FileNotFoundException e1) {
 
-				ServerProperties.loadProperties(serverPropLocation);
-			} finally {
-				if (serverPropLocation != null) {
-					try {
-						serverPropLocation.close();
-					} catch (final IOException e) {
-						LOGGER.error(e.getMessage(), e);
-					}
-				}
-			}
-		}
-	}
+                    LOGGER.warn("Defaulting back to classpath", e1);
+                    LOGGER.debug("Getting resource file location from classpath");
+                    serverPropLocation = Thread.currentThread()
+                            .getContextClassLoader()
+                            .getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
+                }
 
-	/**
-	 * Get all properties
-	 *
-	 * @return
-	 */
-	public static Properties getProperies() {
-		return props;
-	}
+                ServerProperties.loadProperties(serverPropLocation);
+            } finally {
+                if (serverPropLocation != null) {
+                    try {
+                        serverPropLocation.close();
+                    } catch (final IOException e) {
+                        LOGGER.error(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 *
-	 * @param key of the property @return the property value
-	 */
-	public static String getString(final String key) {
-		String result = null;
-		LOGGER.debug("Getting property for key {}", key);
-		result = props.getProperty(key);
-		LOGGER.debug("Got property for key {} and value {}", key, result);
-		return result;
-	}
+    /**
+     * Get all properties
+     *
+     * @return
+     */
+    public static Properties getProperies() {
+        return props;
+    }
 
-	private static void loadProperties(final InputStream serverPropLocation) {
-		props = new Properties();
-		if (serverPropLocation != null) {
-			try {
-				LOGGER.debug("Loading resource file location from classpath");
-				LOGGER.debug("Loading properties");
-				props.load(serverPropLocation);
-			} catch (final IOException e) {
-				LOGGER.error("Could not load file", e);
-			}
-		}
-	}
+    /**
+     *
+     * @param key
+     *            of the property @return the property value
+     */
+    public static String getString(final String key) {
+        String result = null;
+        LOGGER.debug("Getting property for key {}", key);
+        result = props.getProperty(key);
+        LOGGER.debug("Got property for key {} and value {}", key, result);
+        return result;
+    }
+
+    private static void loadProperties(final InputStream serverPropLocation) {
+        props = new Properties();
+        if (serverPropLocation != null) {
+            try {
+                LOGGER.debug("Loading resource file location from classpath");
+                LOGGER.debug("Loading properties");
+                props.load(serverPropLocation);
+            } catch (final IOException e) {
+                LOGGER.error("Could not load file", e);
+            }
+        }
+    }
 
 }
