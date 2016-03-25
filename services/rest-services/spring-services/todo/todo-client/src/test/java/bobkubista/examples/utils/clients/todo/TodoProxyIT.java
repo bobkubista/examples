@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.clients.todo;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.ServletRegistration;
@@ -9,6 +10,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,8 +36,8 @@ public class TodoProxyIT {
 
         this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
         final WebappContext context = new WebappContext("Unittest webapp", "");
-        final ServletRegistration registration = context.addServlet("RestApp", "org.glassfish.jersey.servlet.ServletContainer");
-        registration.setInitParameter("javax.ws.rs.Application", "bobkubista.examples.utils.clients.todo");
+        final ServletRegistration registration = context.addServlet("Todo-rest-service", "org.glassfish.jersey.servlet.ServletContainer");
+        registration.setInitParameter("jersey.config.server.provider.packages", "bobkubista.examples.services.rest.todo");
         registration.addMapping("/*");
         context.deploy(this.server);
         this.server.start();
@@ -50,7 +52,8 @@ public class TodoProxyIT {
 
     @Test
     public void testASDF() {
-        this.client.create(null);
+        Assert.assertNotNull(this.client.getAll(new ArrayList<String>(), 0, 2));
+
     }
 
     protected void setClient() {
