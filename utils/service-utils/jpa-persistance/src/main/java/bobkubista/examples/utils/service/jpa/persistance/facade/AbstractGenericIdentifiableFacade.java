@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
 
@@ -37,7 +39,6 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
-import jersey.repackaged.com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * A generic implementation of the {@link IdentifiableServerApi}. In general,
@@ -62,10 +63,10 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
-    private final ThreadFactoryBuilder builder = new ThreadFactoryBuilder();
+    private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
     private final ExecutorService executorService = Executors.newFixedThreadPool((int) ServerProperties.getProperies()
-            .getOrDefault("server.thread.count", 10), this.builder.build());
+            .getOrDefault("server.thread.count", 10), this.threadFactory);
 
     @Override
     public Response create(@Valid final DMO object) {
@@ -143,6 +144,13 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
             return Response.serverError()
                     .build();
         }
+    }
+
+    /**
+     * @return the executorService
+     */
+    public ExecutorService getExecutorService() {
+        return this.executorService;
     }
 
     @Override
@@ -250,11 +258,4 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
      * @return {@link IdentifiableEntityService}
      */
     protected abstract IdentifiableEntityService<TYPE, ID> getService();
-
-    /**
-     * @return the executorService
-     */
-    public ExecutorService getExecutorService() {
-        return executorService;
-    }
 }
