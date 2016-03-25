@@ -42,9 +42,6 @@ public class DatagatheringFacade implements DatagatheringApi {
     @Context
     private Application application;
 
-    @Context
-    private UriInfo info;
-
     private final Consumer<? super String> keyLogger = t -> LOGGER.debug("key: {}", t);
 
     private final BiConsumer<? super String, ? super List<String>> keyValueStringLogger = (t, u) -> LOGGER.debug("key: {}, value: {}", t, u);
@@ -58,25 +55,31 @@ public class DatagatheringFacade implements DatagatheringApi {
     @Override
     @Asynchronous
     public Response gatherData(@Context final HttpServletRequest servletRequest, @Context final HttpHeaders httpHeaders, @Context final Request request,
-            @Context final SecurityContext securityContext) {
+            @Context final SecurityContext securityContext, @Context final UriInfo info) {
         LOGGER.debug("remote adress: {}", servletRequest.getRemoteAddr());
-        final MultivaluedMap<String, String> queryParams = this.info.getQueryParameters();
+        LOGGER.debug("remote adress out of the X-Forwarded-For: {}", httpHeaders.getHeaderString("X-Forwarded-For")
+                .split(",")[0]);
+        final MultivaluedMap<String, String> queryParams = info.getQueryParameters();
         LOGGER.debug("Logging query params");
         queryParams.forEach(this.keyValueStringLogger);
-        final MultivaluedMap<String, String> pathParams = this.info.getPathParameters();
+        final MultivaluedMap<String, String> pathParams = info.getPathParameters();
         LOGGER.debug("Logging path params");
         pathParams.forEach(this.keyValueStringLogger);
-        final URI path = this.info.getAbsolutePath();
+        final URI path = info.getAbsolutePath();
         LOGGER.debug("path: {}", path.toString());
         LOGGER.debug("Logging application properties");
-        this.application.getProperties().keySet().forEach(this.keyLogger);
+        this.application.getProperties()
+                .keySet()
+                .stream()
+                .forEach(this.keyLogger);
         LOGGER.debug("Logging http request headers");
-        httpHeaders.getRequestHeaders().forEach(this.keyValueStringLogger);
+        httpHeaders.getRequestHeaders()
+                .forEach(this.keyValueStringLogger);
         LOGGER.debug("Request methode: {}", request.getMethod());
         LOGGER.debug("is secure: {}", securityContext.isSecure());
         LOGGER.debug("auth schema used: {}", securityContext.getAuthenticationScheme());
-
-        return Response.ok().build();
+        return Response.ok()
+                .build();
     }
 
 }
