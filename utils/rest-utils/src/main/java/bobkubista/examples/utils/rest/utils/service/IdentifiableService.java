@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 
@@ -64,7 +67,10 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
 
     /**
      * Get a {@link CompletableFuture} with
-     * {@link AbstractGenericDomainObjectCollection}
+     * {@link AbstractGenericDomainObjectCollection}. It has a default timeout
+     * of 1 second, but can be configured. If the fallback isn't overridden,
+     * then a {@link WebApplicationException} is thrown with
+     * {@link Status#GATEWAY_TIMEOUT}
      *
      * @param sort
      *            field to sort

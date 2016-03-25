@@ -21,6 +21,11 @@ public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCo
     }
 
     @Override
+    protected UserCollection getAllFallback() {
+        return this.getEmptyCollection();
+    }
+
+    @Override
     protected String getBasePath() {
         return ServerProperties.getString("user.rest.service.base.path");
     }

@@ -27,7 +27,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bobkubista.examples.utils.rest.utils.mocks.MockActiveDomainObject;
-import bobkubista.examples.utils.rest.utils.mocks.MockActiveProxyRevised;
+import bobkubista.examples.utils.rest.utils.mocks.MockActiveProxy;
 import bobkubista.examples.utils.rest.utils.mocks.MockDomainCollection;
 import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
@@ -39,7 +39,7 @@ public class AbstractGenericActiveRestProxyTest {
 
     final Response mockResponse = Mockito.mock(Response.class);
 
-    private final AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> proxy = new MockActiveProxyRevised();
+    private final AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> proxy = new MockActiveProxy();
 
     @Before
     public void start() {

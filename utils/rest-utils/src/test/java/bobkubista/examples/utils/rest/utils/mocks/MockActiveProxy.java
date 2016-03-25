@@ -9,7 +9,12 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy
  * @author Bob
  *
  */
-public class MockActiveProxyRevised extends AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> {
+public class MockActiveProxy extends AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> {
+
+    @Override
+    protected MockDomainCollection getAllFallback() {
+        return new MockDomainCollection();
+    }
 
     @Override
     protected String getBasePath() {

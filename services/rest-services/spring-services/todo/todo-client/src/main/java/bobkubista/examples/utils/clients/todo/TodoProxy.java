@@ -15,6 +15,11 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy
 public class TodoProxy extends AbstractGenericActiveRestProxy<TodoList, Long, TodoListCollection>implements TodoServiceInteface {
 
     @Override
+    protected TodoListCollection getAllFallback() {
+        return this.getEmptyCollection();
+    }
+
+    @Override
     protected String getBasePath() {
         return ServerProperties.getString("todo.rest.service.base.path");
     }

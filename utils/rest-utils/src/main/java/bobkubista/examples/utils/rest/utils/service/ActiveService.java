@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
+
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 
@@ -24,6 +27,11 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject<ID
         extends FunctionalIdentifiableService<TYPE, ID, COL> {
 
     /**
+     * Get all active {@link AbstractGenericActiveDomainObject}. It has a
+     * default timeout of 1 second, but can be configured. If the fallback isn't
+     * overridden, then a {@link WebApplicationException} is thrown with
+     * {@link Status#GATEWAY_TIMEOUT}
+     *
      * @param sort
      *            which fields to sort
      * @param page

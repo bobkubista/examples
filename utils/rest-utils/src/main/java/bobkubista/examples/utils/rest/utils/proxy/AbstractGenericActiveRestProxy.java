@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
@@ -38,11 +41,13 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
     @Override
     public COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
+            final Long serverTimeout = (Long) ServerProperties.getProperies()
+                    .getOrDefault("server.timeout", 1L);
             return this.getAllActiveASync(sort, page, maxResults)
-                    .get();
-        } catch (InterruptedException | ExecutionException e) {
+                    .get(serverTimeout, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             LOGGER.warn(e.getMessage(), e);
-            return this.getEmptyCollection();
+            return this.getAllFallback();
         }
     }
 
