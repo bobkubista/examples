@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
 
@@ -23,6 +25,7 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
@@ -34,6 +37,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
+import jersey.repackaged.com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * A generic implementation of the {@link IdentifiableServerApi}. In general,
@@ -57,6 +61,11 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
         implements IdentifiableServerApi<DMO, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
+
+    private final ThreadFactoryBuilder builder = new ThreadFactoryBuilder();
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool((int) ServerProperties.getProperies()
+            .getOrDefault("server.thread.count", 10), this.builder.build());
 
     @Override
     public Response create(@Valid final DMO object) {
@@ -241,4 +250,11 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
      * @return {@link IdentifiableEntityService}
      */
     protected abstract IdentifiableEntityService<TYPE, ID> getService();
+
+    /**
+     * @return the executorService
+     */
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
 }
