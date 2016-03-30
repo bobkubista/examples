@@ -122,9 +122,7 @@ public abstract class AbstractRestProxy {
     private WebTarget processQueryparam(final WebTarget serviceWithQuery, final Entry<String, Object> queryParam) {
         WebTarget target = serviceWithQuery;
         if (queryParam.getValue() instanceof Collection) {
-            for (final Object value : (Collection<?>) queryParam.getValue()) {
-                target = target.queryParam(queryParam.getKey(), value);
-            }
+            target = target.queryParam(queryParam.getKey(), ((Collection<?>) queryParam.getValue()).toArray());
         } else {
             target = target.queryParam(queryParam.getKey(), queryParam.getValue());
         }
