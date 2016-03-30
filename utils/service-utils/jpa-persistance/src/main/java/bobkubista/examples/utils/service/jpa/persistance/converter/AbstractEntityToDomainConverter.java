@@ -25,23 +25,23 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
 /**
  * @author bkubista
  *
- * @param <DMO>
+ * @param <DTO>
  *            {@link AbstractGenericIdentifiableDomainObject}
- * @param <DMOL>
+ * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection}
  * @param <EO>
  *            {@link AbstractIdentifiableEntity}
  * @param <ID>
  *            Identifier
  */
-public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
-        implements EntityToDomainConverter<DMO, DMOL, EO> {
+public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGenericIdentifiableDomainObject<ID>, COL extends AbstractGenericDomainObjectCollection<DTO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
+        implements EntityToDomainConverter<DTO, COL, EO> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
     @Override
-    public DMOL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
-        final DMOL result = this.getNewDomainObjectCollection();
+    public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
+        final COL result = this.getNewDomainObjectCollection();
         result.setAmount(amount);
         result.getLinks()
                 .addAll(links);
@@ -54,13 +54,13 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
     }
 
     @Override
-    public DMO convertToDomainObject(final EO entity) {
+    public DTO convertToDomainObject(final EO entity) {
         LOGGER.debug("Converting entity to domain with id {}", entity.getId());
         return this.doConvertToDomainObject(entity);
     }
 
     @Override
-    public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DMO> domainObjects) {
+    public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DTO> domainObjects) {
         LOGGER.debug("Converting domain to entities");
         return domainObjects.getDomainCollection()
                 .stream()
@@ -69,7 +69,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
     }
 
     @Override
-    public EO convertToEntity(final DMO domainModelObject) {
+    public EO convertToEntity(final DTO domainModelObject) {
         final EO entity;
         if (domainModelObject == null) {
             entity = null;
@@ -96,7 +96,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
      *            the {@link EntityObject} to convert
      * @return the converted {@link DomainObject}
      */
-    protected abstract DMO doConvertToDomainObject(final EO entity);
+    protected abstract DTO doConvertToDomainObject(final EO entity);
 
     /**
      * Convert a {@link DomainObject} to and {@link EntityObject}
@@ -105,7 +105,7 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
      *            the {@link DomainObject}
      * @return an {@link AbstractIdentifiableEntity}
      */
-    protected abstract EO doConvertToEntity(final DMO domainModelObject);
+    protected abstract EO doConvertToEntity(final DTO domainModelObject);
 
     /**
      * Convert a {@link DomainObject} to an {@link EntityObject}
@@ -115,13 +115,13 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
      * @param entityObject
      *            the {@link EntityObject} to convert to
      */
-    protected abstract void doConvertToEntity(final DMO domainModelObject, final EO entityObject);
+    protected abstract void doConvertToEntity(final DTO domainModelObject, final EO entityObject);
 
     /**
      *
      * @return {@link AbstractGenericDomainObjectCollection} <code>DMO</code>
      */
-    protected abstract DMOL getNewDomainObjectCollection();
+    protected abstract COL getNewDomainObjectCollection();
 
     /**
      *
