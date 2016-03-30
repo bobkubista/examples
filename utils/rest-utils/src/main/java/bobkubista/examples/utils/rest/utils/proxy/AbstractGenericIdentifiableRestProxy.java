@@ -20,7 +20,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -74,26 +73,31 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
         this.collectionClass = (Class<COL>) genericSuperclass.getActualTypeArguments()[COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER];
     }
 
+    protected static Map<String, Object> getQueryparameters(final List<String> sort, final Integer page, final Integer maxResults) {
+        final Map<String, Object> params = new HashMap<>();
+        if (CollectionUtils.isNotEmpty(sort)) {
+            params.put(ApiConstants.SORT, sort);
+        }
+        if (page != null) {
+            params.put(ApiConstants.PAGE, page);
+        }
+        if (maxResults != null) {
+            params.put(ApiConstants.MAX, maxResults);
+        }
+        return params;
+    }
+
     @Override
     public boolean create(final TYPE object) {
-        final Response response = this.getRequest(this.getServiceWithPaths())
-                .post(Entity.entity(object, MediaType.APPLICATION_JSON));
-        try {
-            return response.getHeaderString(HttpHeaders.LOCATION) != null && response.getStatus() == Status.CREATED.getStatusCode();
-        } finally {
-            response.close();
-        }
+        return AbstractRestProxy.call(t -> this.getRequest(this.getServiceWithPaths())
+                .post(Entity.entity(t, MediaType.APPLICATION_JSON)),
+                response -> response.getHeaderString(HttpHeaders.LOCATION) != null && response.getStatus() == Status.CREATED.getStatusCode(), object);
     }
 
     @Override
     public boolean delete(final ID id) {
-        final Response response = this.getRequest(this.getServiceWithPaths(id.toString()))
-                .delete();
-        try {
-            return response.getStatus() == Status.NO_CONTENT.getStatusCode();
-        } finally {
-            response.close();
-        }
+        return AbstractRestProxy.call(t -> this.getRequest(this.getServiceWithPaths(t.toString()))
+                .delete(), response -> response.getStatus() == Status.NO_CONTENT.getStatusCode(), id);
     }
 
     @Override
@@ -104,7 +108,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
             return this.getAllAsync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            LOGGER.warn(e.getMessage(), e);
+            LOGGER.warn(e.getMessage(), e.getCause());
             return this.getAllFallback();
         }
     }
@@ -112,31 +116,28 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     @Override
     public CompletableFuture<COL> getAllAsync(final List<String> sort, final Integer page, final Integer maxResults) {
         return CompletableFuture.supplyAsync(() -> {
-            final Map<String, Object> params = this.getQueryparameters(sort, page, maxResults);
-            final Response response = this.getRequest(this.getServiceWithQueryParams(params))
-                    .get();
-            try {
+            final Map<String, Object> params = AbstractGenericIdentifiableRestProxy.getQueryparameters(sort, page, maxResults);
+            return call(t -> this.getRequest(this.getServiceWithQueryParams(t))
+                    .get(), response -> {
                 if (response.getStatus() == Status.OK.getStatusCode()) {
                     return response.readEntity(this.getCollectionClass());
                 } else {
                     return this.getEmptyCollection();
                 }
-            } finally {
-                response.close();
-            }
+            } , params);
         });
     }
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-        final Date modified = Date.from(object.getModifiedDate());
-        final Response byID = this.getRequest(this.getServiceWithPaths(object.getObject()
-                .getId()
-                .toString()))
-                .header(HttpHeaders.ETAG, object.getETag())
-                .header(HttpHeaders.LAST_MODIFIED, modified)
-                .get();
-        try {
+        return call(t -> {
+            return this.getRequest(this.getServiceWithPaths(object.getObject()
+                    .getId()
+                    .toString()))
+                    .header(HttpHeaders.ETAG, object.getETag())
+                    .header(HttpHeaders.LAST_MODIFIED, Date.from(object.getModifiedDate()))
+                    .get();
+        } , byID -> {
             if (byID.getStatus() == Status.OK.getStatusCode()) {
                 return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
                         Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
@@ -144,52 +145,44 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
                 return object;
             }
             throw new WebApplicationException(byID);
-        } finally {
-            byID.close();
-        }
+        } , object);
+
     }
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final ID id) {
-        final Response byID = this.getRequest(this.getServiceWithPaths(id.toString()))
-                .get();
-        try {
-            return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
-                    Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
-        } finally {
-            byID.close();
-        }
+        return call(t -> this.getRequest(this.getServiceWithPaths(id.toString()))
+                .get(),
+                byID -> new GenericETagModifiedDateDomainObjectDecorator<TYPE>(new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
+                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null),
+                id);
     }
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> update(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-        final Response update = this.getRequest(this.getServiceWithPaths())
-                .header(HttpHeaders.ETAG, object.getETag())
-                .header(HttpHeaders.LAST_MODIFIED, Date.from(object.getModifiedDate()))
-                .put(Entity.entity(object.getObject(), MediaType.APPLICATION_JSON));
-        try {
-            if (update.getStatus() == Status.OK.getStatusCode()) {
-                return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
-                        Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass), null);
-            } else {
-                throw new WebApplicationException(update);
-            }
-        } finally {
-            update.close();
-        }
+        return call(t -> this.getRequest(this.getServiceWithPaths())
+                .header(HttpHeaders.ETAG, t.getETag())
+                .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
+                .put(Entity.entity(t.getObject(), MediaType.APPLICATION_JSON)), update -> {
+                    if (update.getStatus() == Status.OK.getStatusCode()) {
+                        return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
+                                Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass), null);
+                    } else {
+                        throw new WebApplicationException(update);
+                    }
+                } , object);
     }
 
     @Override
     public TYPE update(final TYPE object) {
-        return this.getRequest(this.getServiceWithPaths())
-                .put(Entity.entity(object, MediaType.APPLICATION_JSON))
-                .readEntity(this.domainClass);
+        return call(t -> this.getRequest(this.getServiceWithPaths())
+                .put(Entity.entity(t, MediaType.APPLICATION_JSON)), t -> t.readEntity(this.domainClass), object);
     }
 
     /**
      * Fallback method when something goes wrong. Default throws a
      * {@link WebApplicationException} with {@link Status#GATEWAY_TIMEOUT}
-     * 
+     *
      * @return
      */
     protected COL getAllFallback() {
@@ -208,19 +201,5 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     protected Class<ID> getIdClass() {
         return this.identifierClass;
-    }
-
-    protected Map<String, Object> getQueryparameters(final List<String> sort, final Integer page, final Integer maxResults) {
-        final Map<String, Object> params = new HashMap<>();
-        if (CollectionUtils.isNotEmpty(sort)) {
-            params.put(ApiConstants.SORT, sort);
-        }
-        if (page != null) {
-            params.put(ApiConstants.PAGE, page);
-        }
-        if (maxResults != null) {
-            params.put(ApiConstants.MAX, maxResults);
-        }
-        return params;
     }
 }
