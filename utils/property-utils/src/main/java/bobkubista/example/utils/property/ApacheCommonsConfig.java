@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 import javax.naming.NamingException;
 
@@ -25,243 +26,301 @@ import org.slf4j.LoggerFactory;
 public enum ApacheCommonsConfig implements Configuration {
     INSTANCE;
 
-    private static Configuration config;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ApacheCommonsConfig.class);
 
-    static {
-        if (config == null) {
-            try {
-                final JNDIConfiguration jndiBuilder = new JNDIConfiguration();
-                config = jndiBuilder.interpolatedConfiguration();
-                LOGGER.info("Loaded JNDI config");
-            } catch (final NamingException e) {
-                LOGGER.info("could not load form jndi", e);
-                // SystemConfiguration systemBuilder = new
-                // SystemConfiguration();
-                // config = systemBuilder.interpolatedConfiguration();
+    private static Supplier<Configuration> config = () -> {
+        return getConfig();
+    };
+
+    private synchronized static Configuration getConfig() {
+        class InternalConfigFactory implements Supplier<Configuration> {
+
+            private final Configuration config = this.create();
+
+            @Override
+            public Configuration get() {
+                return this.config;
+            }
+
+            private Configuration create() {
                 try {
-                    final DefaultConfigurationBuilder propertiesBuilder = new DefaultConfigurationBuilder("server.properties");
-                    config = propertiesBuilder.getConfiguration(true);
-                    LOGGER.info("Loaded server.properties config");
-                } catch (final ConfigurationException e1) {
+                    final JNDIConfiguration jndiBuilder = new JNDIConfiguration();
+                    LOGGER.info("Loaded JNDI config");
+                    return jndiBuilder.interpolatedConfiguration();
+                } catch (final NamingException e) {
+                    LOGGER.info("could not load form jndi", e);
+                    // SystemConfiguration systemBuilder = new
+                    // SystemConfiguration();
+                    // config = systemBuilder.interpolatedConfiguration();
                     try {
-                        final DefaultConfigurationBuilder xmlBuilder = new DefaultConfigurationBuilder("server.xml");
-                        config = xmlBuilder.getConfiguration(true);
-                        LOGGER.info("Loaded server.xml config", e1);
-                    } catch (final ConfigurationException e2) {
-                        final BaseConfiguration builder = new BaseConfiguration();
-                        config = builder.interpolatedConfiguration();
-                        LOGGER.info("Loaded in memory config", e2);
+                        final DefaultConfigurationBuilder propertiesBuilder = new DefaultConfigurationBuilder("server.properties");
+                        LOGGER.info("Loaded server.properties config");
+                        return propertiesBuilder.getConfiguration(true);
+                    } catch (final ConfigurationException e1) {
+                        try {
+                            final DefaultConfigurationBuilder xmlBuilder = new DefaultConfigurationBuilder("server.xml");
+                            LOGGER.info("Loaded server.xml config", e1);
+                            return xmlBuilder.getConfiguration(true);
+                        } catch (final ConfigurationException e2) {
+                            final BaseConfiguration builder = new BaseConfiguration();
+                            LOGGER.info("Loaded in memory config", e2);
+                            return builder.interpolatedConfiguration();
+                        }
                     }
                 }
             }
         }
+
+        if (!InternalConfigFactory.class.isInstance(config)) {
+            config = new InternalConfigFactory();
+        }
+        return config.get();
     }
 
     @Override
     public void addProperty(final String key, final Object value) {
-        config.addProperty(key, value);
+        config.get()
+                .addProperty(key, value);
     }
 
     @Override
     public void clear() {
-        config.clear();
+        config.get()
+                .clear();
     }
 
     @Override
     public void clearProperty(final String key) {
-        config.clearProperty(key);
+        config.get()
+                .clearProperty(key);
     }
 
     @Override
     public boolean containsKey(final String key) {
-        return config.containsKey(key);
+        return config.get()
+                .containsKey(key);
     }
 
     @Override
     public BigDecimal getBigDecimal(final String key) {
-        return config.getBigDecimal(key);
+        return config.get()
+                .getBigDecimal(key);
     }
 
     @Override
     public BigDecimal getBigDecimal(final String key, final BigDecimal defaultValue) {
-        return config.getBigDecimal(key, defaultValue);
+        return config.get()
+                .getBigDecimal(key, defaultValue);
     }
 
     @Override
     public BigInteger getBigInteger(final String key) {
-        return config.getBigInteger(key);
+        return config.get()
+                .getBigInteger(key);
     }
 
     @Override
     public BigInteger getBigInteger(final String key, final BigInteger defaultValue) {
-        return config.getBigInteger(key, defaultValue);
+        return config.get()
+                .getBigInteger(key, defaultValue);
     }
 
     @Override
     public boolean getBoolean(final String key) {
-        return config.getBoolean(key);
+        return config.get()
+                .getBoolean(key);
     }
 
     @Override
     public boolean getBoolean(final String key, final boolean defaultValue) {
-        return config.getBoolean(key, defaultValue);
+        return config.get()
+                .getBoolean(key, defaultValue);
     }
 
     @Override
     public Boolean getBoolean(final String key, final Boolean defaultValue) {
-        return config.getBoolean(key, defaultValue);
+        return config.get()
+                .getBoolean(key, defaultValue);
     }
 
     @Override
     public byte getByte(final String key) {
-        return config.getByte(key);
+        return config.get()
+                .getByte(key);
     }
 
     @Override
     public byte getByte(final String key, final byte defaultValue) {
-        return config.getByte(key, defaultValue);
+        return config.get()
+                .getByte(key, defaultValue);
     }
 
     @Override
     public Byte getByte(final String key, final Byte defaultValue) {
-        return config.getByte(key, defaultValue);
+        return config.get()
+                .getByte(key, defaultValue);
     }
 
     @Override
     public double getDouble(final String key) {
-        return config.getDouble(key);
+        return config.get()
+                .getDouble(key);
     }
 
     @Override
     public double getDouble(final String key, final double defaultValue) {
-        return config.getDouble(key, defaultValue);
+        return config.get()
+                .getDouble(key, defaultValue);
     }
 
     @Override
     public Double getDouble(final String key, final Double defaultValue) {
-        return config.getDouble(key, defaultValue);
+        return config.get()
+                .getDouble(key, defaultValue);
     }
 
     @Override
     public float getFloat(final String key) {
-        return config.getFloat(key);
+        return config.get()
+                .getFloat(key);
     }
 
     @Override
     public float getFloat(final String key, final float defaultValue) {
-        return config.getFloat(key, defaultValue);
+        return config.get()
+                .getFloat(key, defaultValue);
     }
 
     @Override
     public Float getFloat(final String key, final Float defaultValue) {
-        return config.getFloat(key, defaultValue);
+        return config.get()
+                .getFloat(key, defaultValue);
     }
 
     @Override
     public int getInt(final String key) {
-        return config.getInt(key);
+        return config.get()
+                .getInt(key);
     }
 
     @Override
     public int getInt(final String key, final int defaultValue) {
-        return config.getInt(key, defaultValue);
+        return config.get()
+                .getInt(key, defaultValue);
     }
 
     @Override
     public Integer getInteger(final String key, final Integer defaultValue) {
-        return config.getInteger(key, defaultValue);
+        return config.get()
+                .getInteger(key, defaultValue);
     }
 
     @Override
     public Iterator<String> getKeys() {
-        return config.getKeys();
+        return config.get()
+                .getKeys();
     }
 
     @Override
     public Iterator<String> getKeys(final String prefix) {
-        return config.getKeys(prefix);
+        return config.get()
+                .getKeys(prefix);
     }
 
     @Override
     public List<Object> getList(final String key) {
-        return config.getList(key);
+        return config.get()
+                .getList(key);
     }
 
     @Override
     public List<Object> getList(final String key, final List<?> defaultValue) {
-        return config.getList(key, defaultValue);
+        return config.get()
+                .getList(key, defaultValue);
     }
 
     @Override
     public long getLong(final String key) {
-        return config.getLong(key);
+        return config.get()
+                .getLong(key);
     }
 
     @Override
     public long getLong(final String key, final long defaultValue) {
-        return config.getLong(key, defaultValue);
+        return config.get()
+                .getLong(key, defaultValue);
     }
 
     @Override
     public Long getLong(final String key, final Long defaultValue) {
-        return config.getLong(key, defaultValue);
+        return config.get()
+                .getLong(key, defaultValue);
     }
 
     @Override
     public Properties getProperties(final String key) {
-        return config.getProperties(key);
+        return config.get()
+                .getProperties(key);
     }
 
     @Override
     public Object getProperty(final String key) {
-        return config.getProperty(key);
+        return config.get()
+                .getProperty(key);
     }
 
     @Override
     public short getShort(final String key) {
-        return config.getShort(key);
+        return config.get()
+                .getShort(key);
     }
 
     @Override
     public short getShort(final String key, final short defaultValue) {
-        return config.getShort(key, defaultValue);
+        return config.get()
+                .getShort(key, defaultValue);
     }
 
     @Override
     public Short getShort(final String key, final Short defaultValue) {
-        return config.getShort(key, defaultValue);
+        return config.get()
+                .getShort(key, defaultValue);
     }
 
     @Override
     public String getString(final String key) {
-        return config.getString(key);
+        return config.get()
+                .getString(key);
     }
 
     @Override
     public String getString(final String key, final String defaultValue) {
-        return config.getString(key, defaultValue);
+        return config.get()
+                .getString(key, defaultValue);
     }
 
     @Override
     public String[] getStringArray(final String key) {
-        return config.getStringArray(key);
+        return config.get()
+                .getStringArray(key);
     }
 
     @Override
     public boolean isEmpty() {
-        return config.isEmpty();
+        return config.get()
+                .isEmpty();
     }
 
     @Override
     public void setProperty(final String key, final Object value) {
-        config.setProperty(key, value);
+        config.get()
+                .setProperty(key, value);
     }
 
     @Override
     public Configuration subset(final String prefix) {
-        return config.subset(prefix);
+        return config.get()
+                .subset(prefix);
     }
 
 }
