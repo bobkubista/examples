@@ -14,10 +14,8 @@ public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCo
 
     @Override
     public boolean isAuthorized(final Long userId, final String right) {
-        final int status = this.getRequest(this.getServiceWithPaths(userId.toString(), right))
-                .get()
-                .getStatus();
-        return status == Status.OK.getStatusCode();
+        return call(t -> this.getRequest(this.getServiceWithPaths(userId.toString(), right))
+                .get(), t -> t.getStatus() == Status.OK.getStatusCode(), null);
     }
 
     @Override

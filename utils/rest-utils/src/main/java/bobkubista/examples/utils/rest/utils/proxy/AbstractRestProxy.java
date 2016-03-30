@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,6 +36,15 @@ public abstract class AbstractRestProxy {
 
     protected static <T, R> R call(final Function<T, Response> webServiceCall, final Function<Response, R> responseProcessor, final T value) {
         final Response result = webServiceCall.apply(value);
+        try {
+            return responseProcessor.apply(result);
+        } finally {
+            result.close();
+        }
+    }
+
+    protected static <T, R> R call(final Supplier<Response> webServiceCall, final Function<Response, R> responseProcessor) {
+        final Response result = webServiceCall.get();
         try {
             return responseProcessor.apply(result);
         } finally {

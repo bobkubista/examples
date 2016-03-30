@@ -131,11 +131,11 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
         return call(t -> {
-            return this.getRequest(this.getServiceWithPaths(object.getObject()
+            return this.getRequest(this.getServiceWithPaths(t.getObject()
                     .getId()
                     .toString()))
-                    .header(HttpHeaders.ETAG, object.getETag())
-                    .header(HttpHeaders.LAST_MODIFIED, Date.from(object.getModifiedDate()))
+                    .header(HttpHeaders.ETAG, t.getETag())
+                    .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
                     .get();
         } , byID -> {
             if (byID.getStatus() == Status.OK.getStatusCode()) {
@@ -151,7 +151,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final ID id) {
-        return call(t -> this.getRequest(this.getServiceWithPaths(id.toString()))
+        return call(t -> this.getRequest(this.getServiceWithPaths(t.toString()))
                 .get(),
                 byID -> new GenericETagModifiedDateDomainObjectDecorator<TYPE>(new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
                         Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null),
