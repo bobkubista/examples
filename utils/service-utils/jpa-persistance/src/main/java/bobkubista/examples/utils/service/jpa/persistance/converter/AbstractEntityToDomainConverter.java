@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Link;
 
@@ -45,11 +46,10 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
         result.getLinks()
                 .addAll(links);
         LOGGER.debug("Converting entities to domain");
-        if (entities != null) {
-            entities.stream()
-                    .forEach(v -> result.getDomainCollection()
-                            .add(this.convertToDomainObject(v)));
-        }
+        result.getDomainCollection()
+                .addAll(entities.stream()
+                        .map(v -> this.convertToDomainObject(v))
+                        .collect(Collectors.toList()));
         return result;
     }
 
@@ -61,14 +61,11 @@ public abstract class AbstractEntityToDomainConverter<DMO extends AbstractGeneri
 
     @Override
     public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DMO> domainObjects) {
-        final Collection<EO> result = new LinkedList<EO>();
         LOGGER.debug("Converting domain to entities");
-        if (domainObjects != null) {
-            domainObjects.getDomainCollection()
-                    .stream()
-                    .forEach(v -> result.add(this.convertToEntity(v)));
-        }
-        return result;
+        return domainObjects.getDomainCollection()
+                .stream()
+                .map(v -> this.convertToEntity(v))
+                .collect(Collectors.toCollection(() -> new LinkedList<EO>()));
     }
 
     @Override
