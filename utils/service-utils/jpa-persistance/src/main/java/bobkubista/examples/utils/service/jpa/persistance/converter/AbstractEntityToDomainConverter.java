@@ -46,10 +46,12 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
         result.getLinks()
                 .addAll(links);
         LOGGER.debug("Converting entities to domain");
-        result.getDomainCollection()
-                .addAll(entities.stream()
-                        .map(v -> this.convertToDomainObject(v))
-                        .collect(Collectors.toList()));
+        if (entities != null) {
+            result.getDomainCollection()
+                    .addAll(entities.stream()
+                            .map(v -> this.convertToDomainObject(v))
+                            .collect(Collectors.toList()));
+        }
         return result;
     }
 
@@ -62,10 +64,13 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
     @Override
     public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DTO> domainObjects) {
         LOGGER.debug("Converting domain to entities");
+        if (domainObjects == null) {
+            return new LinkedList<EO>();
+        }
         return domainObjects.getDomainCollection()
                 .stream()
                 .map(v -> this.convertToEntity(v))
-                .collect(Collectors.toCollection(() -> new LinkedList<EO>()));
+                .collect(Collectors.toCollection(LinkedList<EO>::new));
     }
 
     @Override
