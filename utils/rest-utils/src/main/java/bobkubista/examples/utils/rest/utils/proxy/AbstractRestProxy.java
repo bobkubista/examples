@@ -33,10 +33,6 @@ public abstract class AbstractRestProxy {
 
     private WebTarget service;
 
-    protected static <T, R> R call(final Function<T, R> webServiceCall, final T value) {
-        return webServiceCall.apply(value);
-    }
-
     protected static <T, R> R call(final Function<T, Response> webServiceCall, final Function<Response, R> responseProcessor, final T value) {
         final Response result = webServiceCall.apply(value);
         try {

@@ -54,7 +54,7 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
 
             final Map<String, Object> params = AbstractGenericIdentifiableRestProxy.getQueryparameters(sort, page, maxResults);
             return call(t -> this.getRequest(this.getServiceWithQueryParams(params, "active"))
-                    .get(this.getCollectionClass()), params);
+                    .get(), t -> t.readEntity(this.getCollectionClass()), params);
         });
     }
 }

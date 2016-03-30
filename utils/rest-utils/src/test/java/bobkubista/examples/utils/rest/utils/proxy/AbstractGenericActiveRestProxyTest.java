@@ -52,19 +52,18 @@ public class AbstractGenericActiveRestProxyTest {
                 .thenReturn(this.mockResponse);
         Mockito.when(mockBuilder.delete())
                 .thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.get(MockActiveDomainObject.class))
-                .thenReturn(new MockActiveDomainObject(1, "F1"));
 
         final MockDomainCollection mockDomainCollection = new MockDomainCollection();
         mockDomainCollection.getDomainCollection()
                 .add(new MockActiveDomainObject(1, "F1"));
         mockDomainCollection.getDomainCollection()
                 .add(new MockActiveDomainObject(2, "F2"));
-        Mockito.when(mockBuilder.get(MockDomainCollection.class))
-                .thenReturn(mockDomainCollection);
-
-        Mockito.when(mockBuilder.get(Integer.class))
+        Mockito.when(this.mockResponse.readEntity(Integer.class))
                 .thenReturn(1);
+        Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
+                .thenReturn(mockDomainCollection);
+        Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
+                .thenReturn(new MockActiveDomainObject(1, "F1"));
 
         Mockito.when(mockBuilder.header(Matchers.anyString(), Matchers.any()))
                 .thenReturn(mockBuilder);
