@@ -4,6 +4,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -32,7 +33,7 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
      *            the <code>ID</code> id to search for
      * @return the <code>TYPE</code> object
      */
-    public default TYPE getByFunctionalId(final Object id) {
+    public default Optional<TYPE> getByFunctionalId(final Object id) {
         getLogger().debug("Get object with functional id {}", id);
 
         final EntityType<TYPE> entityType = this.getEntityManager()
@@ -46,10 +47,10 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
         final TypedQuery<TYPE> tp = this.getEntityManager()
                 .createQuery(cq);
         try {
-            return tp.getSingleResult();
+            return Optional.ofNullable(tp.getSingleResult());
         } catch (final NoResultException ex) {
             getLogger().debug(String.format("object with id '%s' not found", id), ex);
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -67,16 +68,16 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
      *            functional identifier
      * @return identifier
      */
-    public default ID getIdByFunctionalId(final String fId) {
+    public default Optional<ID> getIdByFunctionalId(final String fId) {
         final CriteriaBuilder builder = this.getEntityManager()
                 .getCriteriaBuilder();
         final CriteriaQuery<ID> query = builder.createQuery(this.getIdentifierClass());
         final Root<TYPE> root = query.from(this.getEntityClass());
         query.where(builder.equal(this.getFunctionalIdField(root), fId));
         query.multiselect(root.get("id"));
-        return this.getEntityManager()
+        return Optional.ofNullable(this.getEntityManager()
                 .createQuery(query)
-                .getSingleResult();
+                .getSingleResult());
     }
 
 }

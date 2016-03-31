@@ -1,6 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.spring.dao;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -34,9 +35,9 @@ public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFuncti
     @Test
     @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
     public void shouldGetEntityByFunctionalId() {
-        final TYPE entity = this.getDao()
+        final Optional<TYPE> entity = this.getDao()
                 .getByFunctionalId(this.getFunctionalId());
-        this.checkAssertion(entity);
+        this.checkAssertion(entity.orElseThrow(AssertionError::new));
     }
 
     /**

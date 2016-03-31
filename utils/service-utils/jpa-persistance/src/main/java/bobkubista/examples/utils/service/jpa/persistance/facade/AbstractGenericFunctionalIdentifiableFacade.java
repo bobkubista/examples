@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.NotFoundException;
@@ -48,28 +49,26 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
     @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
     public Response getByFunctionalId(final String identifier, final Request request) {
-        final TYPE result = this.getService()
+        final Optional<TYPE> result = this.getService()
                 .getByFunctionalId(identifier);
-        if (result == null) {
-            throw new NotFoundException();
-        } else {
-            try {
-                final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
-                if (response != null) {
-                    return response.build();
-                }
-
-                return Response.ok(this.getConverter()
-                        .convertToDomainObject(result))
-                        .location(new URI(identifier))
-                        .lastModified(new Date(result.getUpdatedDate()
-                                .getTime()))
-                        .build();
-            } catch (final URISyntaxException e) {
-                LOGGER.warn(e.getMessage(), e);
-                return Response.serverError()
-                        .build();
+        try {
+            final ResponseBuilder response = request.evaluatePreconditions(result.orElseThrow(NotFoundException::new)
+                    .getUpdatedDate());
+            if (response != null) {
+                return response.build();
             }
+
+            return Response.ok(this.getConverter()
+                    .convertToDomainObject(result.orElseThrow(NotFoundException::new)))
+                    .location(new URI(identifier))
+                    .lastModified(new Date(result.orElseThrow(NotFoundException::new)
+                            .getUpdatedDate()
+                            .getTime()))
+                    .build();
+        } catch (final URISyntaxException e) {
+            LOGGER.warn(e.getMessage(), e);
+            return Response.serverError()
+                    .build();
         }
     }
 
@@ -78,21 +77,18 @@ public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends Ab
     @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
     @Override
     public Response getIdByFunctionalId(final String fId) {
-        final ID result = this.getService()
+        final Optional<ID> result = this.getService()
                 .getIdByFunctionalId(fId);
 
-        if (result == null) {
-            throw new NotFoundException();
-        } else {
-            try {
-                return Response.ok(result.toString())
-                        .location(new URI(fId))
-                        .build();
-            } catch (final URISyntaxException e) {
-                LOGGER.warn(e.getMessage(), e);
-                return Response.serverError()
-                        .build();
-            }
+        try {
+            return Response.ok(result.orElseThrow(NotFoundException::new)
+                    .toString())
+                    .location(new URI(fId))
+                    .build();
+        } catch (final URISyntaxException e) {
+            LOGGER.warn(e.getMessage(), e);
+            return Response.serverError()
+                    .build();
         }
     }
 
