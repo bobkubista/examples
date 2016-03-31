@@ -3,8 +3,7 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.policiy;
 import java.time.Duration;
 import java.time.Instant;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 /**
  * implementation of the {@link HealthPolicy}
@@ -21,7 +20,9 @@ public class CachedCircuitBreakerPolicy implements HealthPolicy {
      *
      */
     private class CachedResult {
+
         private final boolean isHealthy;
+
         private final Instant validTo;
 
         /**
@@ -35,7 +36,8 @@ public class CachedCircuitBreakerPolicy implements HealthPolicy {
          */
         CachedResult(final boolean isHealthy, final Duration ttl) {
             this.isHealthy = isHealthy;
-            this.validTo = Instant.now().plus(ttl);
+            this.validTo = Instant.now()
+                    .plus(ttl);
         }
 
         /**
@@ -43,7 +45,8 @@ public class CachedCircuitBreakerPolicy implements HealthPolicy {
          * @return is the cached object past it's expiration time
          */
         public boolean isExpired() {
-            return Instant.now().isAfter(this.validTo);
+            return Instant.now()
+                    .isAfter(this.validTo);
         }
 
         /**
@@ -55,8 +58,12 @@ public class CachedCircuitBreakerPolicy implements HealthPolicy {
         }
     }
 
-    private final Cache<String, CachedResult> cache = CacheBuilder.newBuilder().maximumSize(1000).build();
+    private final com.github.benmanes.caffeine.cache.Cache<String, CachedResult> cache = Caffeine.newBuilder()
+            .maximumSize(1000)
+            .build();
+
     private final Duration cacheTtl;
+
     private final HealthPolicy healthPolicy;
 
     /**
