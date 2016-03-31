@@ -1,49 +1,53 @@
 package bobkubista.examples.utils.clients.todo;
 
-import java.net.URI;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 
-import javax.servlet.ServletRegistration;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.servlet.WebappContext;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.apache.catalina.Context;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 
 public class TodoProxyIT {
 
-    private static final int port = new Random().nextInt(1000) + 10000;
-
-    private static final String BASE_URI = "http://localhost:" + port;
-
     private TodoProxy client;
 
-    private HttpServer server;
+    private Tomcat tomcat;
 
     @Before
     public void setUp() throws Exception {
         // TODO start tomcat
 
-        this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
-        final WebappContext context = new WebappContext("Unittest webapp", "");
-        final ServletRegistration registration = context.addServlet("Todo-rest-service", "org.glassfish.jersey.servlet.ServletContainer");
-        registration.setInitParameter("jersey.config.server.provider.packages", "bobkubista.examples.services.rest.todo");
-        registration.addMapping("/*");
-        context.deploy(this.server);
-        this.server.start();
+        this.tomcat = new Tomcat();
+        final String serverPort = ServerProperties.getString("server.test.port");
+        this.tomcat.setPort(Integer.valueOf(serverPort));
+        final String tmpDirPath = System.getProperty("java.io.tmpdir");
+        this.tomcat.setBaseDir(tmpDirPath);
+        this.tomcat.getHost()
+                .setAppBase(tmpDirPath);
+        this.tomcat.getHost()
+                .setAutoDeploy(true);
+        this.tomcat.getHost()
+                .setDeployOnStartup(true);
+        // this.tomcat.addWebapp(this.tomcat.getHost(), docBase);
+
+        final Context context = this.tomcat.addContext("/", tmpDirPath);
+        context.setConfigFile(new File(tmpDirPath + "/WEB-INF/web.xml").toURI()
+                .toURL());
+
+        this.tomcat.start();
         this.setClient();
     }
 
     @After
-    public void tearDown() {
-        // TODO stop tomcat
-        this.server.shutdown();
+    public void tearDown() throws LifecycleException {
+        this.tomcat.stop();
     }
 
     @Test

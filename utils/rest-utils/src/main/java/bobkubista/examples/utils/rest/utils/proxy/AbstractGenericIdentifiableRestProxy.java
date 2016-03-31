@@ -103,8 +103,8 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     @Override
     public COL getAll(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
-            final Long serverTimeout = (Long) ServerProperties.getProperies()
-                    .getOrDefault("server.timeout", 1L);
+            final Long serverTimeout = Long.valueOf((String) ServerProperties.getProperies()
+                    .getOrDefault("server.timeout", "1"));
             return this.getAllAsync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
         } catch (InterruptedException | TimeoutException e) {
