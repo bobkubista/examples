@@ -1,10 +1,9 @@
 package bobkubista.examples.utils.rest.utils.cirtuitbreaker.registry;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.Validate;
-
-import com.google.common.collect.Maps;
 
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction.TransactionMetrics;
 
@@ -18,10 +17,11 @@ public class MetricsRegistry {
     private static final int BUFFERSIZE = 1000;
 
     private static final int MAX_ENTRIES = 100;
+
     /**
      * Key is the scope, aka the host. Value is a {@link TransactionMetrics}
      */
-    private final Map<String, TransactionMetrics> metricsMap = Maps.newConcurrentMap();
+    private final Map<String, TransactionMetrics> metricsMap = new ConcurrentHashMap<>();
 
     /**
      *
