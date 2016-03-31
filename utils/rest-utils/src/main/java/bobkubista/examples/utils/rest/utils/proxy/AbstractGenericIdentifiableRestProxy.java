@@ -107,9 +107,12 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
                     .getOrDefault("server.timeout", 1L);
             return this.getAllAsync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            LOGGER.warn(e.getMessage(), e.getCause());
+        } catch (InterruptedException | TimeoutException e) {
+            LOGGER.warn(e.getMessage(), e);
             return this.getAllFallback();
+        } catch (final ExecutionException e) {
+            LOGGER.warn(e.getMessage(), e);
+            return this.getAllFallback(e.getCause());
         }
     }
 
@@ -187,6 +190,10 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
      */
     protected COL getAllFallback() {
         throw new WebApplicationException(Status.GATEWAY_TIMEOUT);
+    }
+
+    protected COL getAllFallback(final Throwable cause) {
+        throw new WebApplicationException(cause);
     }
 
     protected Class<COL> getCollectionClass() {
