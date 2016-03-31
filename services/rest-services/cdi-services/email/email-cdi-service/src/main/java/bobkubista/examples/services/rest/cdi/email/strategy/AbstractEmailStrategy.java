@@ -3,7 +3,6 @@ package bobkubista.examples.services.rest.cdi.email.strategy;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -19,13 +18,12 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 
 import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.api.email.model.EmailContext;
@@ -58,9 +56,9 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
     }
 
     protected final void composeEmail(final EmailContext email, final String templateFile) {
-        final URL url = Resources.getResource(templateFile);
         try {
-            final String textToProcess = Resources.toString(url, Charsets.UTF_8);
+            final String textToProcess = IOUtils.toString(this.getClass()
+                    .getResource(templateFile), Charsets.UTF_8);
             final VelocityContext context = new VelocityContext();
             email.getReplacements()
                     .entrySet()
