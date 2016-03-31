@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
+
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.generic.Immutables;
 
 /**
@@ -13,86 +15,66 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.generic.Immutables;
  *
  */
 class TransactionsImpl implements Transactions {
+	private static final int PERCENT = 100;
+    private final ImmutableSet<Transaction> transactions;
 
-    private static final int PERCENT = 100;
+	/**
+	 *
+	 * Constructor
+	 *
+	 * @param transactions
+	 *            a {@link Set} of {@link Transaction}
+	 */
+	public TransactionsImpl(final ImmutableSet<Transaction> transactions) {
+		this.transactions = transactions;
+	}
 
-    private final Set<Transaction> transactions;
+	@Override
+	public Transactions failed() {
+		return new TransactionsImpl(this.all().stream().parallel().filter(transaction -> transaction.isFailed()).collect(Immutables.toSet()));
+	}
 
-    /**
-     *
-     * Constructor
-     *
-     * @param transactions
-     *            a {@link Set} of {@link Transaction}
-     */
-    public TransactionsImpl(final Set<Transaction> transactions) {
-        this.transactions = transactions;
-    }
+	@Override
+	public Transactions ofLast(final Duration duration) {
+		return this.since(Instant.now().minus(duration));
+	}
 
-    @Override
-    public Transactions failed() {
-        return new TransactionsImpl(this.all()
-                .stream()
-                .parallel()
-                .filter(transaction -> transaction.isFailed())
-                .collect(Immutables.toSet()));
-    }
+	@Override
+	public Duration percentile(final int percent) {
+		if (this.transactions.isEmpty()) {
+			return Duration.ZERO;
+		} else {
+			final int[] sortedValues = this.all().stream().mapToInt(transaction -> (int) transaction.getConsumedMillis().toMillis()).sorted().toArray();
 
-    @Override
-    public Transactions ofLast(final Duration duration) {
-        return this.since(Instant.now()
-                .minus(duration));
-    }
+			if (percent == 0) {
+				return Duration.ofMillis(sortedValues[0]);
+			} else {
+				return Duration.ofMillis(sortedValues[percent * sortedValues.length / PERCENT]);
+			}
+		}
+	}
 
-    @Override
-    public Duration percentile(final int percent) {
-        if (this.transactions.isEmpty()) {
-            return Duration.ZERO;
-        } else {
-            final int[] sortedValues = this.all()
-                    .stream()
-                    .mapToInt(transaction -> (int) transaction.getConsumedMillis()
-                            .toMillis())
-                    .sorted()
-                    .toArray();
+	@Override
+	public Transactions running() {
+		return new TransactionsImpl(this.all().stream().filter(transaction -> transaction.isRunning()).collect(Immutables.toSet()));
+	}
 
-            if (percent == 0) {
-                return Duration.ofMillis(sortedValues[0]);
-            } else {
-                return Duration.ofMillis(sortedValues[percent * sortedValues.length / PERCENT]);
-            }
-        }
-    }
+	@Override
+	public Transactions since(final Instant fromTime) {
+		return new TransactionsImpl(this.all().stream().filter(transaction -> transaction.getStarttime().isAfter(fromTime)).collect(Immutables.toSet()));
+	}
 
-    @Override
-    public Transactions running() {
-        return new TransactionsImpl(this.all()
-                .stream()
-                .filter(transaction -> transaction.isRunning())
-                .collect(Immutables.toSet()));
-    }
+	@Override
+	public int size() {
+		return this.all().size();
+	}
 
-    @Override
-    public Transactions since(final Instant fromTime) {
-        return new TransactionsImpl(this.all()
-                .stream()
-                .filter(transaction -> transaction.getStarttime()
-                        .isAfter(fromTime))
-                .collect(Immutables.toSet()));
-    }
+	@Override
+	public String toString() {
+		return this.transactions.toString();
+	}
 
-    @Override
-    public int size() {
-        return this.all()
-                .size();
-    }
-
-    @Override
-    public String toString() {
-        return this.transactions.toString();
-    }
-
-    private Set<Transaction> all() {
-        return this.transactions;
-    }
+	private ImmutableSet<Transaction> all() {
+		return this.transactions;
+	}
 }

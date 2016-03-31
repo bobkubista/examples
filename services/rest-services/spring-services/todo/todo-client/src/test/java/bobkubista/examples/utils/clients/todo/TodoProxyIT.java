@@ -12,10 +12,10 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import bobkubista.examples.services.api.todo.domain.TodoListCollection;
-
+@Ignore
 public class TodoProxyIT {
 
     private static final int port = new Random().nextInt(1000) + 10000;
@@ -25,6 +25,10 @@ public class TodoProxyIT {
     private TodoProxy client;
 
     private HttpServer server;
+
+    protected TodoProxyIT() {
+        super();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -48,13 +52,11 @@ public class TodoProxyIT {
 
     @Test
     public void testASDF() {
-        final TodoListCollection all = this.client.getAll(new ArrayList<String>(), 0, 2);
-        Assert.assertNotNull(all);
+        Assert.assertNotNull(this.client.getAll(new ArrayList<String>(), 0, 2));
 
     }
 
     protected void setClient() {
         this.client = new TodoProxy();
-        this.client.base();
     }
 }
