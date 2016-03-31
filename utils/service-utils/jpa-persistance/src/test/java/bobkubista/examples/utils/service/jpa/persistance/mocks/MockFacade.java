@@ -85,10 +85,12 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.getByFunctionalId("Bla"))
                 .thenReturn(Optional.ofNullable(this.buildMockEntity()));
         Mockito.when(mock.getByFunctionalId(""))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         Mockito.when(mock.getIdByFunctionalId("Bla"))
                 .thenReturn(Optional.ofNullable(1L));
+        Mockito.when(mock.getIdByFunctionalId(""))
+                .thenReturn(Optional.empty());
 
         Mockito.when(mock.update(Matchers.any(MockEntity.class)))
                 .thenReturn(Optional.of(this.buildMockEntity()));

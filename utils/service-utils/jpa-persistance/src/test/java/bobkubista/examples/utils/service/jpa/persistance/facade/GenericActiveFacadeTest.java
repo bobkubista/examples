@@ -134,6 +134,7 @@ public class GenericActiveFacadeTest {
         Mockito.when(request.evaluatePreconditions(Matchers.any(Date.class)))
                 .thenReturn(null);
         this.facade.getByFunctionalId("", request);
+        Assert.fail();
     }
 
     /**
