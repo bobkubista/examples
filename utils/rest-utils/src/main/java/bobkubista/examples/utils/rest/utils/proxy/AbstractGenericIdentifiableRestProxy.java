@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,10 +89,10 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     }
 
     @Override
-    public boolean create(final TYPE object) {
+    public String create(final TYPE object) {
         return AbstractRestProxy.call(t -> this.getRequest(this.getServiceWithPaths())
-                .post(Entity.entity(t, MediaType.APPLICATION_JSON)),
-                response -> response.getHeaderString(HttpHeaders.LOCATION) != null && response.getStatus() == Status.CREATED.getStatusCode(), object);
+                .post(Entity.entity(t, MediaType.APPLICATION_JSON)), response -> response.getStatus() == Status.CREATED.getStatusCode(),
+                response -> response.getHeaderString(HttpHeaders.LOCATION), () -> StringUtils.EMPTY, object);
     }
 
     @Override

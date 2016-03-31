@@ -40,7 +40,7 @@ public interface IdentifiableService<TYPE extends AbstractGenericIdentifiableDom
      *            {@link AbstractGenericIdentifiableDomainObject} to create
      * @return TODO
      */
-    boolean create(TYPE object);
+    String create(TYPE object);
 
     /**
      *

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import bobkubista.example.utils.property.ServerProperties;
@@ -20,9 +20,9 @@ public class TodoProxyIT {
 
     private Tomcat tomcat;
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception {
-        // TODO start tomcat
+        // TODO add dbunit
 
         this.tomcat = new Tomcat();
         final String serverPort = ServerProperties.getString("server.test.port");
@@ -45,7 +45,7 @@ public class TodoProxyIT {
         this.setClient();
     }
 
-    @After
+    @AfterClass
     public void tearDown() throws LifecycleException {
         this.tomcat.stop();
     }

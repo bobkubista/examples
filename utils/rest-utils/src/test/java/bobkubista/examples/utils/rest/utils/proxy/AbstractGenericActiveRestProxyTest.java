@@ -96,7 +96,10 @@ public class AbstractGenericActiveRestProxyTest {
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(201);
 
-        Assert.assertTrue(this.proxy.create(new MockActiveDomainObject()));
+        final String create = this.proxy.create(new MockActiveDomainObject());
+        Assert.assertNotNull(create);
+        Assert.assertNotEquals("", create);
+
     }
 
     @Test

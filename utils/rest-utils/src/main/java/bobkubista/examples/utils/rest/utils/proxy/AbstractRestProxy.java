@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
@@ -43,10 +44,38 @@ public abstract class AbstractRestProxy {
         }
     }
 
+    protected static <T, R> R call(final Function<T, Response> webServiceCall, final Predicate<Response> statusChecker, final Function<Response, R> responseProcessor,
+            final Supplier<R> fallback, final T value) {
+        final Response result = webServiceCall.apply(value);
+        try {
+            if (statusChecker.test(result)) {
+                return responseProcessor.apply(result);
+            } else {
+                return fallback.get();
+            }
+        } finally {
+            result.close();
+        }
+    }
+
     protected static <T, R> R call(final Supplier<Response> webServiceCall, final Function<Response, R> responseProcessor) {
         final Response result = webServiceCall.get();
         try {
             return responseProcessor.apply(result);
+        } finally {
+            result.close();
+        }
+    }
+
+    protected static <T, R> R call(final Supplier<Response> webServiceCall, final Predicate<Response> statusChecker, final Function<Response, R> responseProcessor,
+            final Supplier<R> fallback) {
+        final Response result = webServiceCall.get();
+        try {
+            if (statusChecker.test(result)) {
+                return responseProcessor.apply(result);
+            } else {
+                return fallback.get();
+            }
         } finally {
             result.close();
         }
