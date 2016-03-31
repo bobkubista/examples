@@ -57,7 +57,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      * @return the amount of results found
      */
     public default Long count() {
-        return count(Optional.empty());
+        return count(null);
     }
 
     /**
@@ -67,7 +67,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            An {@link Optional} of a where clause
      * @return the amount of results found
      */
-    public default Long count(final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause) {
+    public default Long count(final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> whereClause) {
         final CriteriaBuilder criteriaBuilder = this.getEntityManager()
                 .getCriteriaBuilder();
         final CriteriaQuery<Long> cq = criteriaBuilder.createQuery(Long.class);
@@ -75,9 +75,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
         cq.select(criteriaBuilder.count(cq.from(this.getEntityClass())));
 
         final Root<TYPE> entity = cq.from(this.getEntityClass());
-        if (whereClause.isPresent()) {
-            cq.where(whereClause.get()
-                    .apply(entity, criteriaBuilder));
+        if (whereClause != null) {
+            cq.where(whereClause.apply(entity, criteriaBuilder));
         }
         return this.getEntityManager()
                 .createQuery(cq)
@@ -121,7 +120,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      * @return a {@link Collection} of <code>TYPE</code>
      */
     public default Collection<TYPE> getAll(final SearchBean search) {
-        return getAll(search, Optional.empty());
+        return getAll(search, null);
     }
 
     /**
@@ -134,14 +133,13 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            An {@link Optional} of a where clause
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public default Collection<TYPE> getAll(final SearchBean search, final Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> whereClause) {
+    public default Collection<TYPE> getAll(final SearchBean search, final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> whereClause) {
         final CriteriaBuilder criteriaBuilder = this.getEntityManager()
                 .getCriteriaBuilder();
         final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
         final Root<TYPE> entity = cq.from(this.getEntityClass());
-        if (whereClause.isPresent()) {
-            cq.where(whereClause.get()
-                    .apply(entity, criteriaBuilder));
+        if (whereClause != null) {
+            cq.where(whereClause.apply(entity, criteriaBuilder));
             // cq.where(criteriaBuilder.<operator>(entity.get(<field>),<value>))
         }
         return this.orderedBy(search.getSort(), search.getPage(), search.getMaxResults(), cq, criteriaBuilder, entity);
@@ -209,9 +207,9 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            the <code>TYPE</code> object to update
      * @return the number of objects affected
      */
-    public default TYPE update(final TYPE object) {
-        return this.getEntityManager()
-                .merge(object);
+    public default Optional<TYPE> update(final TYPE object) {
+        return Optional.ofNullable(this.getEntityManager()
+                .merge(object));
     }
 
 }

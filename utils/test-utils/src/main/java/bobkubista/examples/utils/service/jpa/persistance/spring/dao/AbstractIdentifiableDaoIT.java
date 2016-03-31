@@ -94,7 +94,8 @@ public abstract class AbstractIdentifiableDaoIT<TYPE extends AbstractIdentifiabl
                 .orElseThrow(NotFoundException::new);
         this.updateEntity(entity);
         entity = this.getDao()
-                .update(entity);
+                .update(entity)
+                .get();
         this.checkAssertionUpdated(entity);
     }
 

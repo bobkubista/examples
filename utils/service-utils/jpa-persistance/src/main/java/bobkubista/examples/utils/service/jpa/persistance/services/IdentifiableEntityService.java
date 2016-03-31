@@ -115,10 +115,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * @return the updated object
      */
     public default Optional<TYPE> update(final TYPE object) {
-        this.getDAO()
-                .update(object);
         return this.getDAO()
-                .getById(object.getId());
+                .update(object);
     }
 
     /**

@@ -5,7 +5,6 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.BiFunction;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -47,7 +46,7 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, 
      *
      * @return the active Criteria
      */
-    default Optional<BiFunction<Root<TYPE>, CriteriaBuilder, Predicate>> getActiveCriteria() {
-        return Optional.of((root, build) -> build.equal(root.get("active"), true));
+    default BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> getActiveCriteria() {
+        return (root, build) -> build.equal(root.get("active"), true);
     }
 }
