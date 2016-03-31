@@ -3,6 +3,7 @@ package bobkubista.examples.services.rest.cdi.email.strategy;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -57,8 +58,10 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     protected final void composeEmail(final EmailContext email, final String templateFile) {
         try {
-            final String textToProcess = IOUtils.toString(this.getClass()
-                    .getResource(templateFile), Charsets.UTF_8);
+            final URL resource = this.getClass()
+                    .getClassLoader()
+                    .getResource(templateFile);
+            final String textToProcess = IOUtils.toString(resource, Charsets.UTF_8);
             final VelocityContext context = new VelocityContext();
             email.getReplacements()
                     .entrySet()
