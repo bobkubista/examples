@@ -23,6 +23,8 @@ public class TodoProxyIT {
     @BeforeClass
     public void setUp() throws Exception {
         // TODO add dbunit
+        // TODO make sure that the property file is gotten from this test
+        // classpath instead of the server classpath
 
         this.tomcat = new Tomcat();
         final String serverPort = ServerProperties.getString("server.test.port");
