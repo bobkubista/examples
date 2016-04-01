@@ -29,11 +29,16 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
  *
  */
 // TODO refactor to be a builder
+// TODO do 1 redirect if needed
 public abstract class AbstractRestProxy {
 
     private Client client;
 
     private WebTarget service;
+
+    protected static <T, R> R call(final Function<T, R> webServiceCall, final T value) {
+        return webServiceCall.apply(value);
+    }
 
     protected static <T, R> R call(final Function<T, Response> webServiceCall, final Function<Response, R> responseProcessor, final T value) {
         final Response result = webServiceCall.apply(value);
