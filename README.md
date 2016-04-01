@@ -32,6 +32,12 @@ This is my examples of code that I am trying out stuff with. It is for reference
 * If no state, then default methodes in interfaces
 * JPA for ORM
 
+##versioning:
+ * new functionality: major version bump
+ * technical changes: minor version bump
+ * bugfixes: patch version bump
+ 
+
 ##Todo:
 
 ### Done:
