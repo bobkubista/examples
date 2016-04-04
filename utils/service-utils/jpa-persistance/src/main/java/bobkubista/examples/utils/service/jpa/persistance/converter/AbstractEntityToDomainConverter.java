@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.ws.rs.core.Link;
 
@@ -41,13 +40,7 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
     @Override
-    public DTO convertToDomainObject(final EO entity) {
-        LOGGER.debug("Converting entity to domain with id {}", entity.getId());
-        return this.doConvertToDomainObject(entity);
-    }
-
-    @Override
-    public COL convertToDomainObject(final Stream<EO> entities, final Long amount, final List<Link> links) {
+    public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
         final COL result = this.getNewDomainObjectCollection();
         result.setAmount(amount);
         result.getLinks()
@@ -55,10 +48,17 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
         LOGGER.debug("Converting entities to domain");
         if (entities != null) {
             result.getDomainCollection()
-                    .addAll(entities.map(v -> this.convertToDomainObject(v))
+                    .addAll(entities.stream()
+                            .map(v -> this.convertToDomainObject(v))
                             .collect(Collectors.toList()));
         }
         return result;
+    }
+
+    @Override
+    public DTO convertToDomainObject(final EO entity) {
+        LOGGER.debug("Converting entity to domain with id {}", entity.getId());
+        return this.doConvertToDomainObject(entity);
     }
 
     @Override

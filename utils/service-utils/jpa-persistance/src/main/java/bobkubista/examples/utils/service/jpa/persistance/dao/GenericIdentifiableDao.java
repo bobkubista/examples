@@ -119,7 +119,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            {@link SearchBean}
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public default Stream<TYPE> getAll(final SearchBean search) {
+    public default Collection<TYPE> getAll(final SearchBean search) {
         return getAll(search, null);
     }
 
@@ -133,7 +133,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            An {@link Optional} of a where clause
      * @return a {@link Collection} of <code>TYPE</code>
      */
-    public default Stream<TYPE> getAll(final SearchBean search, final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> whereClause) {
+    public default Collection<TYPE> getAll(final SearchBean search, final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> whereClause) {
         final CriteriaBuilder criteriaBuilder = this.getEntityManager()
                 .getCriteriaBuilder();
         final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
@@ -174,8 +174,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
      *            {@link Root}
      * @return {@link Collection} of the given <code>TYPE</code>
      */
-    public default <T, U> Stream<T> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<T> query, final CriteriaBuilder builder,
-            final Root<U> queryRoot) {
+    public default <T, U> Collection<T> orderedBy(final List<String> fields, final int startPositon, final int maxResults, final CriteriaQuery<T> query,
+            final CriteriaBuilder builder, final Root<U> queryRoot) {
 
         // TODO refactor to make use of http://use-the-index-luke.com/no-offset
         // There must be a better way to do this
@@ -197,8 +197,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
                 .createQuery(query)
                 .setFirstResult(startPositon)
                 .setMaxResults(maxResults)
-                .getResultList()
-                .stream();
+                .getResultList();
     }
 
     /**

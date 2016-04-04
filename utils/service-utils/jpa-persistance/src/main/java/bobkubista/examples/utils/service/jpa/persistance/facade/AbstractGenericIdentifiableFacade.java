@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
-import java.util.stream.Stream;
 
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
@@ -104,7 +103,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @CacheMaxAge(time = 10, unit = TimeUnit.SECONDS)
     @Override
     public Response getAll(final SearchBean search) {
-        final Stream<TYPE> allEntities = this.getService()
+        final Collection<TYPE> allEntities = this.getService()
                 .getAll(search);
 
         final Long amount = this.getService()
@@ -225,8 +224,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
      *            amount of total results to be able to be returned. Used to
      *            determain if the link should be added
      */
-    protected void buildNextCollectionLink(final SearchBean search, final Stream<TYPE> allEntities, final Long amount, final List<Link> links) {
-        if (allEntities.count() == search.getMaxResults() && search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
+    protected void buildNextCollectionLink(final SearchBean search, final Collection<TYPE> allEntities, final Long amount, final List<Link> links) {
+        if (allEntities.size() == search.getMaxResults() && search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
             this.buildCollectionLink(search, links, "next", () -> search.getPage() + 1);
         }
     }

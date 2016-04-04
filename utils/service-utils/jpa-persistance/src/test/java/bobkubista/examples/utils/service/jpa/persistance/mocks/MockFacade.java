@@ -6,7 +6,6 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Link;
@@ -39,7 +38,7 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class)))
                 .thenReturn(this.buildMockDomain());
 
-        Mockito.when(mock.convertToDomainObject(Matchers.any(Stream.class), Matchers.anyLong(), Matchers.anyListOf(Link.class)))
+        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong(), Matchers.anyListOf(Link.class)))
                 .thenReturn(new MockDomainCollection());
 
         return mock;
@@ -60,32 +59,23 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, Mo
         Mockito.when(mock.getById(2L))
                 .thenReturn(Optional.empty());
 
-        Mockito.when(mock.getAll(new SearchBean().setMaxResults(2)))
-                .thenReturn(new ArrayList().stream());
-        Mockito.when(mock.getAllActive(new SearchBean()))
-                .thenReturn(new ArrayList().stream());
-
         Mockito.when(mock.getAll(new SearchBean().setSort(Collections.singletonList("id"))
                 .setPage(0)
                 .setMaxResults(100)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity())
-                        .stream());
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
         Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
                 .setPage(1)
                 .setMaxResults(1)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity())
-                        .stream());
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
 
         Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
                 .setPage(0)
                 .setMaxResults(100)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity())
-                        .stream());
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
         Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
                 .setPage(1)
                 .setMaxResults(1)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity())
-                        .stream());
+                .thenReturn(Collections.singletonList(this.buildMockEntity()));
 
         Mockito.when(mock.count())
                 .thenReturn(100L);

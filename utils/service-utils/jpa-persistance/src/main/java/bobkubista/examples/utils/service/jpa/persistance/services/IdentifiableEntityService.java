@@ -3,7 +3,6 @@ package bobkubista.examples.utils.service.jpa.persistance.services;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,7 +90,7 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
      *         same type
      */
-    public default Stream<TYPE> getAll(final SearchBean search) {
+    public default Collection<TYPE> getAll(final SearchBean search) {
         return this.getDAO()
                 .getAll(search);
     }
