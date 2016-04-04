@@ -27,7 +27,7 @@ public class AbstractEntityToDomainConverterTest {
         final Collection<MockEntity> entities = new ArrayList<>();
         entities.add(this.buildMockEntity());
 
-        final MockDomainCollection result = this.converter.convertToDomainObject(entities, 0L, new ArrayList<>());
+        final MockDomainCollection result = this.converter.convertToDomainObject(entities.stream(), 0L, new ArrayList<>());
 
         Assert.assertNotNull(result);
         final Collection<MockDomain> domainCollection = result.getDomainCollection();
@@ -37,8 +37,8 @@ public class AbstractEntityToDomainConverterTest {
 
     @Test
     public void testConvertToDomainObjectCollectionOfEONull() {
-        final Collection<MockEntity> entities = null;
-        final MockDomainCollection result = this.converter.convertToDomainObject(entities, 0L, new ArrayList<>());
+        final Collection<MockEntity> entities = new ArrayList<>();
+        final MockDomainCollection result = this.converter.convertToDomainObject(entities.stream(), 0L, new ArrayList<>());
 
         Assert.assertNotNull(result);
         Assert.assertNotNull(result.getDomainCollection());

@@ -2,9 +2,9 @@ package bobkubista.examples.utils.service.jpa.persistance.facade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.core.Link;
@@ -28,11 +28,11 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *            The idertifier
  * @param <TYPE>
  *            {@link AbstractGenericActiveEntity}
- * @param <DMOL>
+ * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection}
  */
-public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends AbstractGenericActiveEntity<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
-        extends AbstractGenericFunctionalIdentifiableFacade<DMO, TYPE, ID, DMOL>implements ActiveServerApi<DMO, ID> {
+public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, TYPE extends AbstractGenericActiveEntity<ID>, COL extends AbstractGenericDomainObjectCollection<DMO>>
+        extends AbstractGenericFunctionalIdentifiableFacade<DMO, TYPE, ID, COL>implements ActiveServerApi<DMO, ID> {
 
     @CacheTransform
     @CachePrivate
@@ -40,7 +40,7 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
     @Override
     public Response getAllActive(@BeanParam final SearchBean search) {
         final List<Link> links = new ArrayList<>(2);
-        final Collection<TYPE> allEntities = this.getService()
+        final Stream<TYPE> allEntities = this.getService()
                 .getAllActive(search);
         final Long amount = this.getService()
                 .countActive();

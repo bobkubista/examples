@@ -1,7 +1,7 @@
 package bobkubista.examples.utils.service.jpa.persistance.services;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +39,7 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity<ID
      *            {@link SearchBean}
      * @return all active entities of <code>TYPE</code>
      */
-    default Collection<TYPE> getAllActive(final SearchBean search) {
+    default Stream<TYPE> getAllActive(final SearchBean search) {
         return this.getDAO()
                 .findAllActive(search);
     }

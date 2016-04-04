@@ -6,6 +6,7 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -38,7 +39,7 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity<ID>, 
      *            {@link SearchBean}
      * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
      */
-    default Collection<TYPE> findAllActive(final SearchBean search) {
+    default Stream<TYPE> findAllActive(final SearchBean search) {
         return this.getAll(search, this.getActiveCriteria());
     }
 
