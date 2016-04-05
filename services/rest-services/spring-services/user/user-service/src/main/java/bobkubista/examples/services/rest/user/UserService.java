@@ -1,7 +1,8 @@
 package bobkubista.examples.services.rest.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
@@ -12,11 +13,11 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  * @author Bob
  *
  */
-@Service
+@Named
 @Transactional
 public class UserService implements ActiveEntityService<UserEntity, Long> {
 
-    @Autowired
+    @Inject
     private UserDao dao;
 
     @Override

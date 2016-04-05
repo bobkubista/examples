@@ -3,12 +3,11 @@
  */
 package bobkubista.examples.services.rest.user;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import bobkubista.examples.services.api.user.UserServerApi;
 import bobkubista.examples.services.api.user.domain.User;
@@ -20,14 +19,14 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  * @author Bob Kubista
  *
  */
-@Service
+@Named
 @Path("/")
 public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEntity, UserCollection>implements UserServerApi {
 
-    @Autowired
+    @Inject
     private UserConverter converter;
 
-    @Autowired
+    @Inject
     private UserService service;
 
     @CacheNo
