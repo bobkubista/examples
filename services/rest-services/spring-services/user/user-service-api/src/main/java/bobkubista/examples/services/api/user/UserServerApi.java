@@ -1,8 +1,6 @@
 package bobkubista.examples.services.api.user;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -16,10 +14,6 @@ import bobkubista.examples.utils.domain.model.api.IdentifiableServerApi;
  *
  */
 public interface UserServerApi extends ActiveServerApi<User, Long> {
-
-    @POST
-    Response changePassword(@FormParam("userId") final Long userId, @FormParam("oldPassword") final String oldPassword, @FormParam("password") final String password,
-            @FormParam("passwordCheck") final String passwordCheck);
 
     /**
      * Checks if the user is authorized for a given right.

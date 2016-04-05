@@ -6,7 +6,6 @@ package bobkubista.examples.services.rest.user;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
 
 import bobkubista.examples.services.api.user.domain.User;
@@ -30,7 +29,7 @@ public class UserConverter extends AbstractEntityToDomainConverter<User, UserCol
 
         if (entity != null) {
             user.setActive(entity.isActive());
-            user.setEncryptedPassword(DigestUtils.sha512Hex(entity.getEncryptedPassword()));
+            user.setEncryptedPassword(entity.getEncryptedPassword());
             user.setFunctionalId(entity.getFunctionalId());
             user.setId(entity.getId());
             user.setName(entity.getName());
@@ -52,6 +51,7 @@ public class UserConverter extends AbstractEntityToDomainConverter<User, UserCol
         Validate.notNull(domainModelObject);
 
         entityObject.setActive(domainModelObject.isActive());
+        entityObject.setEncryptedPassword(domainModelObject.getEncryptedPassword());
         entityObject.setFunctionalId(domainModelObject.getFunctionalId());
         entityObject.setId(domainModelObject.getId());
         entityObject.setName(domainModelObject.getName());
