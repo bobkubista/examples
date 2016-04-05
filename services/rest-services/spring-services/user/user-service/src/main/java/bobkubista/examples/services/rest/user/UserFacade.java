@@ -29,6 +29,13 @@ public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEnti
     @Inject
     private UserService service;
 
+    @Override
+    public Response changePassword(final Long userId, final String oldPassword, final String password, final String passwordCheck) {
+        this.service.changePassword(userId, oldPassword, password, passwordCheck);
+        return Response.ok()
+                .build();
+    }
+
     @CacheNo
     @Override
     public Response isAuthorized(final Long userId, final String right) {
