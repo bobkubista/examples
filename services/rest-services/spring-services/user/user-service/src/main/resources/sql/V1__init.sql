@@ -1,8 +1,8 @@
 CREATE TABLE ${schema}.userentity
 (
   id bigint NOT NULL,
-  inserteddate timestamp without time zone NOT NULL,
-  updateddate timestamp without time zone NOT NULL,
+  inserteddate timestamp with time zone NOT NULL,
+  updateddate timestamp with time zone NOT NULL,
   active boolean NOT NULL,
   email character varying(255) NOT NULL,
   encryptedpassword character varying(255),

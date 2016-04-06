@@ -1,8 +1,8 @@
 CREATE TABLE ${schema}.rights
 (
   id bigint NOT NULL,
-  inserteddate timestamp without time zone NOT NULL,
-  updateddate timestamp without time zone NOT NULL,
+  inserteddate timestamp with time zone NOT NULL,
+  updateddate timestamp with time zone NOT NULL,
   active boolean NOT NULL,
   name character varying(255) NOT NULL,
   CONSTRAINT rights_pkey PRIMARY KEY (id),
@@ -12,8 +12,8 @@ CREATE TABLE ${schema}.rights
 CREATE TABLE ${schema}.roles
 (
   id bigint NOT NULL,
-  inserteddate timestamp without time zone NOT NULL,
-  updateddate timestamp without time zone NOT NULL,
+  inserteddate timestamp with time zone NOT NULL,
+  updateddate timestamp with time zone NOT NULL,
   active boolean NOT NULL,
   name character varying(255) NOT NULL,
   CONSTRAINT roles_pkey PRIMARY KEY (id),
