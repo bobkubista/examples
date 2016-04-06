@@ -12,20 +12,18 @@ try {
   	  // stash
   	  stash includes: '*', name: 'buildStash'
   	  }
-  	  paralell 'testing' {
-  	    node {
-  	      // unstash
-  	      unstash 'buildStash'
-  	      // validate
-  	      sh "mvn -B validate"
-  	      // TODO unit and integration tests
-  	      sh "mvn -B test -P test"
-  	      sh "mvn -B integration-test -P integration-test"
-  	      // stash
-  	      stash includes: '*', name 'testStash'
-  	    }
-  	  }
-    }
+  	paralell 'testing' 
+  	  node {
+  	    // unstash
+  	    unstash 'buildStash'
+  	    // validate
+  	    sh "mvn -B validate"
+  	    // TODO unit and integration tests
+  	    sh "mvn -B test -P test"
+  	    sh "mvn -B integration-test -P integration-test"
+  	    // stash
+  	    stash includes: '*', name 'testStash'
+  	  }    
   stage name: 'deployed-test', concurrency: 1
     node{ 
   	  // unstash
