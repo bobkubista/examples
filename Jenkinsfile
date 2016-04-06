@@ -17,11 +17,16 @@ try {
   	    // unstash
   	    unstash 'buildStash' 
   	    withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
-  	      // validate
-  	      sh "mvn -B validate"
-  	      // TODO unit and integration tests
-  	      sh "mvn -B test -P test"
-  	      sh "mvn -B integration-test -P integration-test"
+  	     // parallel 'testing': {
+  	        // validate
+  	        sh "mvn -B validate"
+  	        // unit and integration tests
+  	        // archive test results
+  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+  	        sh "mvn -B integration-test -P integration-test"
+  	        // archive test results
+  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
+  	    // }
   	    }
   	    // stash
   	    stash includes: '**', name 'testStash'
@@ -38,8 +43,10 @@ try {
   	    node('master') {
   	      // TODO unstash 
 	  	  // TODO jmeter
+	  	  // TODO archive test results
 	  	  retry(5) {
 	  	    // TODO front end tests
+	  	    // TODO archive test results
 	  	    // TODO stash
 	    	}
 	   }
