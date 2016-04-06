@@ -21,11 +21,12 @@ try {
   	        // validate
   	        sh "mvn -B validate"
   	        // unit and integration tests
+  	        sh "mvn -B test -P test"
   	        // archive test results
-  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
   	        sh "mvn -B integration-test -P integration-test"
   	        // archive test results
-  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
+  	        step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
   	    // }
   	    }
   	    // stash
