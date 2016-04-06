@@ -10,6 +10,8 @@ try {
         git credentialsId: 'e9d3c47c-244a-4be0-80a7-492a01628556', url: 'https://github.com/bobkubista/examples.git', branch: 'master'
         // compile
         sh "mvn -B compile"
+        // archive
+        step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
         // stash
         stash includes: '*', name: 'buildStash'
     }
@@ -31,7 +33,7 @@ try {
             // }
         }
         // stash
-        stash includes: '**', name 'testStash'
+        stash includes: '*', name 'testStash'
     }
     stage name: 'deployed-test', concurrency: 1
     node('master') {
