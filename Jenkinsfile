@@ -1,7 +1,7 @@
 // TODO build parameters
 try {
     // TODO define workspace
-    stage 'build'
+    stage 'checkout and compile'
     node('master') {
         // define maven tool
         def mvnHome = tool 'M3'
@@ -15,6 +15,7 @@ try {
         // stash
         stash includes: '*', name: 'buildStash'
     }
+    stage 'unit and integration testing'
     //parallel 'testing'
     node('master') {
         // unstash
@@ -39,7 +40,7 @@ try {
     node('master') {
         // unstash
         unstash 'testStash'
-        withEnv(["PATH+MAVEN=${tool 'm3'}/bin"]) {
+        withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
 
             // TODO deploy to test, should eventually be build docker image and run
             // TODO stash
@@ -76,5 +77,6 @@ try {
     }
 } catch (e) {
     // TODO mail
+    // emailext attachLog: 'true', subject: '', body: ''
     // mail bcc: '', body: '', cc: '', charset: '', from: '', mimeType: '', replyTo: '', subject: '', to: ''
 }
