@@ -1,8 +1,8 @@
 CREATE TABLE ${schema}.todolist
 (
   todolistid bigint NOT NULL,
-  inserteddate timestamp without time zone NOT NULL,
-  updateddate timestamp without time zone NOT NULL,
+  inserteddate timestamp with time zone NOT NULL,
+  updateddate timestamp with time zone NOT NULL,
   active boolean NOT NULL,
   todolistname character varying(255) NOT NULL,
   CONSTRAINT todolist_pkey PRIMARY KEY (todolistid),
@@ -12,8 +12,8 @@ CREATE TABLE ${schema}.todolist
 CREATE TABLE ${schema}.todoitem
 (
   id bigint NOT NULL,
-  inserteddate timestamp without time zone NOT NULL,
-  updateddate timestamp without time zone NOT NULL,
+  inserteddate timestamp with time zone NOT NULL,
+  updateddate timestamp with time zone NOT NULL,
   active boolean NOT NULL,
   value character varying(255) NOT NULL,
   todolistid bigint NOT NULL,
