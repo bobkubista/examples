@@ -1,6 +1,7 @@
 // TODO build parameters
 try {
     // TODO define workspace
+ws('$JOB_NAME-$BRANCH_NAME') {
     stage 'checkout and compile'
     node('master') {
         // define maven tool
@@ -25,6 +26,7 @@ try {
             // validate
             sh "mvn -B validate"
             // unit and integration tests
+            // TODO splitTests
             sh "mvn -B test -P test"
             // archive test results
             step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
@@ -75,6 +77,7 @@ try {
         // TODO unstash
         // TODO release
     }
+  }
 } catch (e) {
     // TODO mail
     // emailext attachLog: 'true', subject: '', body: ''
