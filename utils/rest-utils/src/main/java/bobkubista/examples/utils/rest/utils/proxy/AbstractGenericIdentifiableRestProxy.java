@@ -169,6 +169,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
                 .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
                 .put(Entity.entity(t.getObject(), MediaType.APPLICATION_JSON)), update -> {
                     if (update.getStatus() == Status.OK.getStatusCode()) {
+                        // TODO fix instant.parse, as it doesn't work
                         return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
                                 Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass), null);
                     } else {
