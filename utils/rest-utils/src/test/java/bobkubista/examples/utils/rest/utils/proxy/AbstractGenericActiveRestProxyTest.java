@@ -153,9 +153,8 @@ public class AbstractGenericActiveRestProxyTest {
 
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(200);
-        // TODO fix me
-        // Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
-        // .thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
+        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                .thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
 
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> result = this.proxy.getByID(1);
         Assert.assertNotNull(result);
@@ -241,6 +240,8 @@ public class AbstractGenericActiveRestProxyTest {
         this.mockResponse();
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(Status.OK.getStatusCode());
+        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                .thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
         final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
         final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
                 new EntityTag("tag"), Instant.now()

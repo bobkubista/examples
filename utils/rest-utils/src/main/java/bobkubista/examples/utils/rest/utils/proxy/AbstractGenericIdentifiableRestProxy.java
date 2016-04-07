@@ -5,6 +5,7 @@ package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,20 +160,24 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
         return call(t -> this.getRequest(this.getServiceWithPaths(t.toString()))
                 .get(),
                 byID -> new GenericETagModifiedDateDomainObjectDecorator<TYPE>(new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
-                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null),
+                        DateUtils.parseDate(byID.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                                .toInstant(),
+                        byID.readEntity(this.domainClass), null),
                 id);
     }
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> update(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
+        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
         return call(t -> this.getRequest(this.getServiceWithPaths())
                 .header(HttpHeaders.ETAG, t.getETag())
                 .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
                 .put(Entity.entity(t.getObject(), MediaType.APPLICATION_JSON)), update -> {
                     if (update.getStatus() == Status.OK.getStatusCode()) {
-                        // TODO fix instant.parse, as it doesn't work
                         return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
-                                Instant.parse(update.getHeaderString(HttpHeaders.LAST_MODIFIED)), update.readEntity(this.domainClass), null);
+                                DateUtils.parseDate(update.getHeaderString(HttpHeaders.LAST_MODIFIED))
+                                        .toInstant(),
+                                update.readEntity(this.domainClass), null);
                     } else {
                         throw new WebApplicationException(update);
                     }
