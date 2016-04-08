@@ -56,7 +56,7 @@ node('master') {
     // stash
 //    stash includes: '*', name 'itTestStash'
 }
-stage name: 'deployed-test', concurrency: 1
+stage name: 'performance and front-end tests', concurrency: 1
 node('master') {
     // unstash
 //    unstash 'itTtestStash'
@@ -68,11 +68,11 @@ node('master') {
     sh "mvn -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
     sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
     // stash
-    stash includes: '*', name 'deployStash'
+//    stash includes: '*', name 'deployStash'
     //parallel 'quality scan': {
     node('master') {
         // unstash
-        unstash 'deployStash'
+//        unstash 'deployStash'
         // jmeter
         ensureMaven()
         sh 'verify -P performance-test'
@@ -83,25 +83,25 @@ node('master') {
             // TODO archive test results
         }
         // stash
-        stash includes: '*', name 'qualityStash'
+//        stash includes: '*', name 'qualityStash'
         //}
     }
 }
 stage name: 'Quality', concurrency: 3
 node('master') {
     // unstash
-    unstash 'deployStash'
+//    unstash 'deployStash'
     ensureMaven()
     // sonarqube
     sh 'mvn sonar:sonar -P sonar'
 
     // stash
-    stash includes: '*', name 'sonarStash'
+//    stash includes: '*', name 'sonarStash'
 }
 stage name: 'archive'
 node('master') {
     // unstash
-    unstash 'qualityStash'
+//    unstash 'qualityStash'
     // nexus
     ensureMaven()
     sh 'mvn deploy'
