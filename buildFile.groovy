@@ -105,7 +105,8 @@ node('master') {
     // stash
     //    stash includes: '*', name 'archiveStash'
 }
-//stage name: 'release'
+// TODO ask user if we can release
+// TODO stage name: 'release'
 //node('master') {
 //    // unstash
 //    unstash 'archiveStash'
