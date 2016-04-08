@@ -21,27 +21,27 @@ node('master') {
     stash includes: '*', name: 'buildStash'
 }
 stage 'unit testing'
-parallel (validate: {
-    node('master') {
-        // unstash
-        unstash 'buildStash'
-        ensureMaven()
-        // validate
-        sh "mvn -B validate"
-    }
-},
-unitTest: {
-    // unit and integration tests
-    node('master') {
-        // unstash
-        unstash 'buildStash'
-        ensureMaven()
-        // TODO splitTests
-        sh "mvn -B test -P test"
-        // archive test results
-        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
-    }
-})
+//parallel (validate: {
+node('master') {
+    // unstash
+    unstash 'buildStash'
+    ensureMaven()
+    // validate
+    sh "mvn -B validate"
+}
+//},
+//unitTest: {
+// unit and integration tests
+node('master') {
+    // unstash
+    unstash 'buildStash'
+    ensureMaven()
+    // TODO splitTests
+    sh "mvn -B test -P test"
+    // archive test results
+    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
+}
+//})
 stage 'integration testing'
 node('master') {
     // unstash
