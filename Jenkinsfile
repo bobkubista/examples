@@ -103,15 +103,15 @@ node('master') {
     ensureMaven()
     sh 'mvn deploy'
     // stash
-    stash includes: '*', name 'archiveStash'
+    //    stash includes: '*', name 'archiveStash'
 }
-stage name: 'release'
-node('master') {
-    // unstash
-    unstash 'archiveStash'
-    // TODO release
-
-}
+//stage name: 'release'
+//node('master') {
+//    // unstash
+//    unstash 'archiveStash'
+//    // TODO release
+//
+//}
 //    }
 //} catch (e) {
 //    // TODO mail
