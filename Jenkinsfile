@@ -1,124 +1,123 @@
 // TODO build parameters
 // TODO maybe tar the source and archive source
-try {
-    // define workspace
-    ws('$JOB_NAME-$BRANCH_NAME') {
-        stage 'checkout and compile'
-        node('master') {
-            // define maven tool
-            ensureMaven()
-            // git with submodules
-            git credentialsId: 'e9d3c47c-244a-4be0-80a7-492a01628556', url: 'https://github.com/bobkubista/examples.git', branch: 'master'
-            def v = version()
-            if (v) {
-                echo "Building version ${v}"
-            }
-            // compile
-            sh "mvn -B clean compile"
-            // archive
-            step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
-            // stash
-            stash includes: '*', name: 'buildStash'
-        }
-        stage 'unit testing'
-        parallel (validate: {
-            node('master') {
-                // unstash
-                unstash 'buildStash'
-                ensureMaven()
-                // validate
-                sh "mvn -B validate"
-            },
-            // unit and integration tests
-            node('master') {
-                // unstash
-                unstash 'buildStash'
-                ensureMaven()
-                // TODO splitTests
-                sh "mvn -B test -P test"
-                // archive test results
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
-            }
-        }
-        stage 'integration testing'
-        node('master') {
-            // unstash
-            unstash 'buildStash'
-            ensureMaven()
-            retry(count:2 ) {
-                sh "mvn -B integration-test -P integration-test"
-            }
-            // archive test results
-            step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
-        }
-        // stash
-        stash includes: '*', name 'testStash'
+//try {
+// define workspace
+//    ws('$JOB_NAME-$BRANCH_NAME') {
+stage 'checkout and compile'
+node('master') {
+    // define maven tool
+    ensureMaven()
+    // git with submodules
+    git credentialsId: 'e9d3c47c-244a-4be0-80a7-492a01628556', url: 'https://github.com/bobkubista/examples.git', branch: 'master'
+    def v = version()
+    if (v) {
+        echo "Building version ${v}"
     }
-    stage name: 'deployed-test', concurrency: 1
+    // compile
+    sh "mvn -B clean compile"
+    // archive
+    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
+    // stash
+    stash includes: '*', name: 'buildStash'
+}
+stage 'unit testing'
+parallel (validate: {
     node('master') {
         // unstash
-        unstash 'testStash'
+        unstash 'buildStash'
         ensureMaven()
-
-        // deploy to test, should eventually be build docker image and run
-        sh "mvn -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        // stash
-        stash includes: '*', name 'deployStash'
-        //parallel 'quality scan': {
-        node('master') {
-            // unstash
-            unstash 'deployStash'
-            // jmeter
-            ensureMaven()
-            sh 'verify -P performance-test'
-            // archive test results
-            step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
-            retry(5) {
-                // TODO front end tests
-                // TODO archive test results
-            }
-            // stash
-            stash includes: '*', name 'qualityStash'
-            //}
-        }
+        // validate
+        sh "mvn -B validate"
     }
-    stage name: 'Quality', concurrency: 3
+},
+unitTest: {
+    // unit and integration tests
+    node('master') {
+        // unstash
+        unstash 'buildStash'
+        ensureMaven()
+        // TODO splitTests
+        sh "mvn -B test -P test"
+        // archive test results
+        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
+    }
+})
+stage 'integration testing'
+node('master') {
+    // unstash
+    unstash 'buildStash'
+    ensureMaven()
+    retry(count:2 ) { sh "mvn -B integration-test -P integration-test" }
+    // archive test results
+    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
+    // stash
+    stash includes: '*', name 'testStash'
+}
+stage name: 'deployed-test', concurrency: 1
+node('master') {
+    // unstash
+    unstash 'testStash'
+    ensureMaven()
+
+    // deploy to test, should eventually be build docker image and run
+    sh "mvn -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
+    sh "mvn -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+    sh "mvn -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+    sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+    // stash
+    stash includes: '*', name 'deployStash'
+    //parallel 'quality scan': {
     node('master') {
         // unstash
         unstash 'deployStash'
+        // jmeter
         ensureMaven()
-        // sonarqube
-        sh 'mvn sonar:sonar -P sonar'
-
+        sh 'verify -P performance-test'
+        // archive test results
+        step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
+        retry(5) {
+            // TODO front end tests
+            // TODO archive test results
+        }
         // stash
-        stash includes: '*', name 'sonarStash'
-    }
-    stage name: 'archive'
-    node('master') {
-        // unstash
-        unstash 'qualityStash'
-        // nexus
-        ensureMaven()
-        sh 'mvn deploy'
-        // stash
-        stash includes: '*', name 'archiveStash'
-    }
-    stage name: 'release'
-    node('master') {
-        // unstash
-        unstash 'archiveStash'
-        // TODO release
-
+        stash includes: '*', name 'qualityStash'
+        //}
     }
 }
-} catch (e) {
-// TODO mail
-// emailext attachLog: 'true', subject: '', body: ''
-// mail bcc: '', body: '', cc: '', charset: '', from: '', mimeType: '', replyTo: '', subject: '', to: ''
+stage name: 'Quality', concurrency: 3
+node('master') {
+    // unstash
+    unstash 'deployStash'
+    ensureMaven()
+    // sonarqube
+    sh 'mvn sonar:sonar -P sonar'
+
+    // stash
+    stash includes: '*', name 'sonarStash'
 }
+stage name: 'archive'
+node('master') {
+    // unstash
+    unstash 'qualityStash'
+    // nexus
+    ensureMaven()
+    sh 'mvn deploy'
+    // stash
+    stash includes: '*', name 'archiveStash'
+}
+stage name: 'release'
+node('master') {
+    // unstash
+    unstash 'archiveStash'
+    // TODO release
+
+}
+//    }
+//} catch (e) {
+//    // TODO mail
+//    // emailext attachLog: 'true', subject: '', body: ''
+//    // mail bcc: '', body: '', cc: '', charset: '', from: '', mimeType: '', replyTo: '', subject: '', to: ''
+//}
 
 /**
  * Deploy maven on slave if needed and add it to the path
