@@ -40,23 +40,26 @@ node('master') {
     sh "mvn -B test -P test"
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
+    // stash
+    stash includes: '*', name: 'testStash'
 }
 //})
 stage 'integration testing'
 node('master') {
     // unstash
-    unstash 'buildStash'
+    unstash 'testStash'
     ensureMaven()
     retry(count:2 ) { sh "mvn -B integration-test -P integration-test" }
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
+    echo 'Finished Integration tests'
     // stash
-    stash includes: '*', name 'testStash'
+//    stash includes: '*', name 'itTestStash'
 }
 stage name: 'deployed-test', concurrency: 1
 node('master') {
     // unstash
-    unstash 'testStash'
+//    unstash 'itTtestStash'
     ensureMaven()
 
     // deploy to test, should eventually be build docker image and run
