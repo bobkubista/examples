@@ -5,7 +5,6 @@ package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -136,22 +135,20 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-        return call(t -> {
-            return this.getRequest(this.getServiceWithPaths(t.getObject()
-                    .getId()
-                    .toString()))
-                    .header(HttpHeaders.ETAG, t.getETag())
-                    .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
-                    .get();
-        } , byID -> {
-            if (byID.getStatus() == Status.OK.getStatusCode()) {
-                return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
-                        Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
-            } else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
-                return object;
-            }
-            throw new WebApplicationException(byID);
-        } , object);
+        return call(t -> this.getRequest(this.getServiceWithPaths(t.getObject()
+                .getId()
+                .toString()))
+                .header(HttpHeaders.ETAG, t.getETag())
+                .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
+                .get(), byID -> {
+                    if (byID.getStatus() == Status.OK.getStatusCode()) {
+                        return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
+                                Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
+                    } else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
+                        return object;
+                    }
+                    throw new WebApplicationException(byID);
+                } , object);
 
     }
 
@@ -168,7 +165,6 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
     @Override
     public GenericETagModifiedDateDomainObjectDecorator<TYPE> update(final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
         return call(t -> this.getRequest(this.getServiceWithPaths())
                 .header(HttpHeaders.ETAG, t.getETag())
                 .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
