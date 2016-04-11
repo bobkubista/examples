@@ -13,15 +13,13 @@ public class TodoProxyIT extends BaseClientRestIT<TodoList, Long, TodoListCollec
 
     // TODO add dbunit
     @Override
-    public WebappContext getContext() {
-        final WebappContext context = new WebappContext("Integration test webapp", "");
+    public void buildContext(final WebappContext context) {
         final ServletRegistration registration = context.addServlet("Todo-rest-service", "org.glassfish.jersey.servlet.ServletContainer");
         registration.setInitParameter("jersey.config.server.provider.packages", "bobkubista.examples.services.rest.todo");
         registration.addMapping("/*");
         context.addContextInitParameter("contextConfigLocation", "classpath:spring/spring-config.xml");
         context.addListener("org.springframework.web.context.ContextLoaderListener");
         context.addListener("org.springframework.web.context.request.RequestContextListener");
-        return context;
     }
 
     @Override

@@ -1,19 +1,33 @@
 package bobkubista.examples.utils.clients.todo;
 
+import java.beans.PropertyVetoException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.catalina.LifecycleException;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
@@ -24,18 +38,53 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
 
     protected static final String BASE_URI = "http://localhost:" + port;
 
+    private static IDatabaseConnection connection;
+
+    private static IDataSet dataset;
+
     private HttpServer server;
 
     private AbstractGenericActiveRestProxy<TYPE, ID, COL> client;
 
+    @AfterClass
+    public static void afterClass() {
+        // TODO close dbunit database connection
+    }
+
+    @BeforeClass
+    public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
+        // TODO setup dbunit database connection
+
+        final String schema = ServerProperties.getString("database.schema");
+        final com.mchange.v2.c3p0.ComboPooledDataSource source = new ComboPooledDataSource();
+        source.setDriverClass("org.postgresql.Driver");
+        source.setJdbcUrl(ServerProperties.getString("database.url"));
+        source.setUser(ServerProperties.getString("database.username"));
+        source.setPassword(ServerProperties.getString("database.password"));
+        source.setMinPoolSize(Integer.valueOf(ServerProperties.getString("database.minPoolSize")));
+        source.setMaxPoolSize(Integer.valueOf(ServerProperties.getString("database.maxPoolSize")));
+        source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.getString("database.idleConnectionTestPeriod")));
+        connection = new DatabaseConnection(source.getConnection(), schema);
+
+        final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
+        flatXmlDataSetBuilder.setColumnSensing(true);
+        final InputStream dataSet = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream("test-data.xml");
+        dataset = flatXmlDataSetBuilder.build(dataSet);
+    }
+
     @Before
     public void setUp() throws Exception {
         // TODO add dbunit
+        // TODO maybe put this in the before class
         this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
-        final WebappContext context = this.getContext();
+        final WebappContext context = new WebappContext("Integration test webapp", "");
+        this.buildContext(context);
         context.deploy(this.server);
         this.server.start();
 
+        this.cleanBD();
         this.client = this.getClient();
         this.client.base();
     }
@@ -59,9 +108,14 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
         Assert.assertNotNull(all);
     }
 
+    protected abstract void buildContext(WebappContext context);
+
     protected abstract TYPE buildNew();
 
     protected abstract AbstractGenericActiveRestProxy<TYPE, ID, COL> getClient();
 
-    protected abstract WebappContext getContext();
+    private void cleanBD() throws DatabaseUnitException, SQLException {
+        DatabaseOperation.DELETE_ALL.execute(connection, dataset);
+        DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
+    }
 }
