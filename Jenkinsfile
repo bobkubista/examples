@@ -54,12 +54,12 @@ node('master') {
     step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
     echo 'Finished Integration tests'
     // stash
-//    stash includes: '*', name 'itTestStash'
+    //    stash includes: '*', name 'itTestStash'
 }
 stage name: 'performance and front-end tests', concurrency: 1
 node('master') {
     // unstash
-//    unstash 'itTtestStash'
+    //    unstash 'itTtestStash'
     ensureMaven()
 
     // deploy to test, should eventually be build docker image and run
@@ -68,45 +68,46 @@ node('master') {
     sh "mvn -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
     sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
     // stash
-//    stash includes: '*', name 'deployStash'
-    //parallel 'quality scan': {
-    node('master') {
-        // unstash
-//        unstash 'deployStash'
-        // jmeter
-        ensureMaven()
-        sh 'verify -P performance-test'
-        // archive test results
-        step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
-        retry(5) {
-            // TODO front end tests
-            // TODO archive test results
-        }
-        // stash
-//        stash includes: '*', name 'qualityStash'
-        //}
-    }
+    //    stash includes: '*', name 'deployStash'
 }
-stage name: 'Quality', concurrency: 3
+//parallel 'quality scan': {
 node('master') {
     // unstash
-//    unstash 'deployStash'
+    //        unstash 'deployStash'
+    // jmeter
     ensureMaven()
-    // sonarqube
-    sh 'mvn sonar:sonar -P sonar'
-
+    sh 'mvn verify -P performance-test'
+    // archive test results
+    step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
+    retry(5) {
+        // TODO front end tests
+        // TODO archive test results
+    }
     // stash
+    //        stash includes: '*', name 'qualityStash'
+    //}
+}
+//}
+stage name: 'Quality', concurrency: 3
+node('master') {
+// unstash
+//    unstash 'deployStash'
+ensureMaven()
+// sonarqube
+sh 'mvn sonar:sonar -P sonar'
+
+// stash
 //    stash includes: '*', name 'sonarStash'
 }
 stage name: 'archive'
 node('master') {
-    // unstash
+// unstash
 //    unstash 'qualityStash'
-    // nexus
-    ensureMaven()
-    sh 'mvn deploy'
-    // stash
-    //    stash includes: '*', name 'archiveStash'
+// nexus
+ensureMaven()
+sh 'mvn deploy'
+// stash
+//    stash includes: '*', name 'archiveStash'
 }
 // TODO ask user if we can release
 // TODO stage name: 'release'
@@ -127,10 +128,10 @@ node('master') {
  * Deploy maven on slave if needed and add it to the path
  */
 def ensureMaven() {
-    env.Path = "${tool 'M3'}/bin:${env.PATH}"
+env.Path = "${tool 'M3'}/bin:${env.PATH}"
 }
 
 def version() {
-    def matcher = readFile('pom.xml') =~ '</version>'
-    matcher ? matcher[0][1] : null
+def matcher = readFile('pom.xml') =~ '</version>'
+matcher ? matcher[0][1] : null
 }
