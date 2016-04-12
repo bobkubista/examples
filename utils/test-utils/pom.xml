@@ -65,6 +65,11 @@
         <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
       </dependency>
       <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-grizzly2-http</artifactId>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
       <groupId>bobkubista.examples.utils</groupId>
       <artifactId>rest-utils</artifactId>
       <version>${project.version}</version>
