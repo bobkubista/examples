@@ -6,7 +6,6 @@
     <artifactId>spring-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>bobkubista.examples.services.rest</groupId>
   <artifactId>user</artifactId>
   <packaging>pom</packaging>
 
