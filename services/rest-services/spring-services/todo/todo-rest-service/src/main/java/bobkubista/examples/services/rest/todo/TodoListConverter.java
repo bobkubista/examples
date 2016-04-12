@@ -20,7 +20,7 @@ import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomai
  *
  */
 @Component
-class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long>
+public class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity, Long>
         implements EntityToDomainConverter<TodoList, TodoListCollection, TodoListEntity> {
 
     @Autowired
@@ -33,12 +33,16 @@ class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoLi
             result.setActive(entity.isActive());
             result.setFunctionalId(entity.getFunctionalId());
             result.setId(entity.getId());
-            result.getTodoList().addAll(entity.getTodoList().stream().map(t -> {
-                final Todo todo = new Todo();
-                todo.setActive(t.isActive());
-                todo.setValue(t.getValue());
-                return todo;
-            }).collect(Collectors.toList()));
+            result.getTodoList()
+                    .addAll(entity.getTodoList()
+                            .stream()
+                            .map(t -> {
+                                final Todo todo = new Todo();
+                                todo.setActive(t.isActive());
+                                todo.setValue(t.getValue());
+                                return todo;
+                            })
+                            .collect(Collectors.toList()));
         }
         return result;
     }
@@ -58,14 +62,19 @@ class TodoListConverter extends AbstractEntityToDomainConverter<TodoList, TodoLi
         entityObject.setActive(domainModelObject.isActive());
         entityObject.setFunctionalId(domainModelObject.getFunctionalId());
         entityObject.setId(domainModelObject.getId());
-        entityObject.getTodoList().clear();
-        entityObject.getTodoList().addAll(domainModelObject.getTodoList().stream().map(t -> {
-            final TodoEntity todo = new TodoEntity();
-            todo.setActive(t.isActive());
-            todo.setValue(t.getValue());
-            todo.setListEntity(entityObject);
-            return todo;
-        }).collect(Collectors.toList()));
+        entityObject.getTodoList()
+                .clear();
+        entityObject.getTodoList()
+                .addAll(domainModelObject.getTodoList()
+                        .stream()
+                        .map(t -> {
+                            final TodoEntity todo = new TodoEntity();
+                            todo.setActive(t.isActive());
+                            todo.setValue(t.getValue());
+                            todo.setListEntity(entityObject);
+                            return todo;
+                        })
+                        .collect(Collectors.toList()));
     }
 
     @Override

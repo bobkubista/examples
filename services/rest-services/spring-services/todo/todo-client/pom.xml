@@ -32,19 +32,6 @@
 
     <!-- testing -->
     <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>8.5.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-logging-juli</artifactId>
-      <version>8.5.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>bobkubista.examples.services.rest.spring</groupId>
       <artifactId>todo-rest-service</artifactId>
       <version>${project.version}</version>

@@ -8,6 +8,8 @@ import org.glassfish.grizzly.servlet.WebappContext;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
+import bobkubista.examples.utils.client.BaseClientRest;
+import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
 public class TodoProxyIT extends BaseClientRest<TodoList, Long, TodoListCollection> {
 
@@ -30,6 +32,18 @@ public class TodoProxyIT extends BaseClientRest<TodoList, Long, TodoListCollecti
     @Override
     protected TodoProxy getClient() {
         return new TodoProxy(BASE_URI);
+    }
+
+    @Override
+    protected Long getIdentifier() {
+        return 1L;
+    }
+
+    @Override
+    protected void updateObject(final GenericETagModifiedDateDomainObjectDecorator<TodoList> object) {
+        object.getObject()
+                .getTodoList()
+                .clear();
     }
 
 }

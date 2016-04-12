@@ -17,6 +17,7 @@ import java.util.function.IntSupplier;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
@@ -138,6 +139,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                             .value() + identifier.toString()))
                     .lastModified(new Date(result.getUpdatedDate()
                             .getTime()))
+                    .tag(new EntityTag(Integer.toString(result.hashCode())))
                     .build();
         } catch (final URISyntaxException e) {
             LOGGER.warn(e.getMessage(), e);
@@ -176,6 +178,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
                             .toString()))
                     .lastModified(new Date(result.getUpdatedDate()
                             .getTime()))
+                    .tag(new EntityTag(Integer.toString(result.hashCode())))
                     .build();
         } catch (final URISyntaxException e) {
             LOGGER.warn(e.getMessage(), e);

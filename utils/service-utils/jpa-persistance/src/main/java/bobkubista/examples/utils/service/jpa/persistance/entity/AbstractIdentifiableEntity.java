@@ -116,6 +116,6 @@ public abstract class AbstractIdentifiableEntity<ID extends Serializable> implem
      */
     @PreUpdate
     protected void setUpdatedDate() {
-        this.insertedDate = Timestamp.from(Instant.now());
+        this.updatedDate = Timestamp.from(Instant.now());
     }
 }

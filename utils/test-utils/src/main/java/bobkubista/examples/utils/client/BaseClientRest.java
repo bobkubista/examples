@@ -1,4 +1,4 @@
-package bobkubista.examples.utils.clients.todo;
+package bobkubista.examples.utils.client;
 
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.catalina.LifecycleException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -32,6 +32,7 @@ import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
+import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
 public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
 
@@ -95,7 +96,7 @@ public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObj
     }
 
     @After
-    public void tearDown() throws LifecycleException {
+    public void tearDown() {
         this.server.shutdown();
     }
 
@@ -118,14 +119,27 @@ public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObj
                 .size() < 3);
     }
 
+    @Test
+    public void testUpdate() {
+        final ID id = this.getIdentifier();
+        final GenericETagModifiedDateDomainObjectDecorator<TYPE> object = this.client.getByID(id);
+        this.updateObject(object);
+        final GenericETagModifiedDateDomainObjectDecorator<TYPE> result = this.client.update(object);
+        Assert.assertNotEquals(object.getETag(), result.getETag());
+    }
+
     protected abstract void buildContext(WebappContext context);
 
     protected abstract TYPE buildNew();
 
     protected abstract AbstractGenericActiveRestProxy<TYPE, ID, COL> getClient();
 
+    protected abstract ID getIdentifier();
+
+    protected abstract void updateObject(GenericETagModifiedDateDomainObjectDecorator<TYPE> object);
+
     private void cleanBD() throws DatabaseUnitException, SQLException {
-        // DatabaseOperation.DELETE_ALL.execute(connection, dataset);
-        // DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
+        DatabaseOperation.DELETE_ALL.execute(connection, dataset);
+        DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
     }
 }
