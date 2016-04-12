@@ -8,7 +8,6 @@
   </parent>
   <groupId>bobkubista.examples.services.rest.todo</groupId>
   <artifactId>todo-client</artifactId>
-  <packaging>pom</packaging>
 
   <dependencyManagement>
     <dependencies>

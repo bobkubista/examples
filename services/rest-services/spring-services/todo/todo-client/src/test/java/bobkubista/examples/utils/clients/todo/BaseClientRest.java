@@ -14,7 +14,6 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.operation.DatabaseOperation;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -24,6 +23,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -32,11 +33,15 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
 
-public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
+public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseClientRest.class);
 
     private static final int port = new Random().nextInt(1000) + 10000;
 
     protected static final String BASE_URI = "http://localhost:" + port;
+
+    private static ComboPooledDataSource source;
 
     private static IDatabaseConnection connection;
 
@@ -47,16 +52,18 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
     private AbstractGenericActiveRestProxy<TYPE, ID, COL> client;
 
     @AfterClass
-    public static void afterClass() {
+    public static void afterClass() throws SQLException {
         // TODO close dbunit database connection
+        connection.close();
+        source.close();
     }
 
     @BeforeClass
     public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
-        // TODO setup dbunit database connection
+        // TODO dbunit
 
-        final String schema = ServerProperties.getString("database.schema");
-        final com.mchange.v2.c3p0.ComboPooledDataSource source = new ComboPooledDataSource();
+        final String schema = ServerProperties.getString("database.defaultSchema");
+        source = new ComboPooledDataSource();
         source.setDriverClass("org.postgresql.Driver");
         source.setJdbcUrl(ServerProperties.getString("database.url"));
         source.setUser(ServerProperties.getString("database.username"));
@@ -68,15 +75,13 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
 
         final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
         flatXmlDataSetBuilder.setColumnSensing(true);
-        final InputStream dataSet = Thread.currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream("test-data.xml");
+        final InputStream dataSet = BaseClientRest.class.getResourceAsStream("/dataset/given/FacadeIT.xml");
+        LOGGER.info("Loading database content for testing: {}", dataset);
         dataset = flatXmlDataSetBuilder.build(dataSet);
     }
 
     @Before
     public void setUp() throws Exception {
-        // TODO add dbunit
         // TODO maybe put this in the before class
         this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
         final WebappContext context = new WebappContext("Integration test webapp", "");
@@ -106,6 +111,11 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
     public void testGetAll() {
         final COL all = this.client.getAll(new ArrayList<String>(), 0, 2);
         Assert.assertNotNull(all);
+        Assert.assertTrue(all.getAmount() > 0);
+        Assert.assertFalse(all.getDomainCollection()
+                .isEmpty());
+        Assert.assertTrue(all.getDomainCollection()
+                .size() < 3);
     }
 
     protected abstract void buildContext(WebappContext context);
@@ -115,7 +125,7 @@ public abstract class BaseClientRestIT<TYPE extends AbstractGenericActiveDomainO
     protected abstract AbstractGenericActiveRestProxy<TYPE, ID, COL> getClient();
 
     private void cleanBD() throws DatabaseUnitException, SQLException {
-        DatabaseOperation.DELETE_ALL.execute(connection, dataset);
-        DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
+        // DatabaseOperation.DELETE_ALL.execute(connection, dataset);
+        // DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
     }
 }

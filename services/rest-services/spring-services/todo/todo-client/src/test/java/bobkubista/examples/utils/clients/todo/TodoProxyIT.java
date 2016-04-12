@@ -9,9 +9,8 @@ import org.glassfish.grizzly.servlet.WebappContext;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 
-public class TodoProxyIT extends BaseClientRestIT<TodoList, Long, TodoListCollection> {
+public class TodoProxyIT extends BaseClientRest<TodoList, Long, TodoListCollection> {
 
-    // TODO add dbunit
     @Override
     public void buildContext(final WebappContext context) {
         final ServletRegistration registration = context.addServlet("Todo-rest-service", "org.glassfish.jersey.servlet.ServletContainer");
