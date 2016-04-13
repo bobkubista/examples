@@ -92,7 +92,6 @@ public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObj
 
         this.cleanBD();
         this.client = this.getClient();
-        this.client.base();
     }
 
     @After

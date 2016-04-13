@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.StatusType;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,12 +81,6 @@ public class AbstractGenericActiveRestProxyTest {
         PowerMockito.mockStatic(ClientBuilder.class);
         PowerMockito.when(ClientBuilder.newClient())
                 .thenReturn(this.mockClient);
-        this.proxy.base();
-    }
-
-    @After
-    public void stop() {
-        this.proxy.close();
     }
 
     @Test

@@ -10,15 +10,31 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotAcceptableException;
+import javax.ws.rs.NotAllowedException;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.NotSupportedException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.RedirectionException;
+import javax.ws.rs.ServerErrorException;
+import javax.ws.rs.ServiceUnavailableException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.Status.Family;
+
+import org.glassfish.jersey.client.internal.LocalizationMessages;
 
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
 
@@ -32,54 +48,161 @@ import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
 // TODO do 1 redirect if needed
 public abstract class AbstractRestProxy {
 
-    private Client client;
+    private static final Predicate<Response> SERVER_ERROR = response -> response.getStatusInfo()
+            .getFamily()
+            .equals(Family.SERVER_ERROR);
 
-    private WebTarget service;
+    private static final Predicate<Response> SUCCES = response -> response.getStatusInfo()
+            .getFamily()
+            .equals(Family.SUCCESSFUL);
 
+    /**
+     * Do the webServiceCall. Always closes the response
+     *
+     * @param webServiceCall
+     *            a function that transforms the value to a result with the
+     *            webcall
+     * @param value
+     *            the input value
+     * @return result of the webservice call. Will throw instances of
+     *         {@link WebApplicationException} if no succes code is returned
+     */
     protected static <T, R> R call(final Function<T, R> webServiceCall, final T value) {
         return webServiceCall.apply(value);
     }
 
+    /**
+     * Do the webServiceCall. Always closes the response
+     *
+     * @param webServiceCall
+     *            a function that transforms the value to a result with the
+     *            webcall
+     * @param responseProcessor
+     *            If the webservice call returns with a {@link Status} of
+     *            {@link Family} {@link Family#SUCCESSFUL}, process the response
+     * @param value
+     *            the input value
+     * @return result of the webservice call. Will throw instances of
+     *         {@link WebApplicationException} if no succes code is returned as
+     *         per Jax-RS spec
+     */
     protected static <T, R> R call(final Function<T, Response> webServiceCall, final Function<Response, R> responseProcessor, final T value) {
         final Response result = webServiceCall.apply(value);
         try {
-            return responseProcessor.apply(result);
+            if (SUCCES.test(result)) {
+                return responseProcessor.apply(result);
+            } else {
+                throw convertToException(result);
+            }
         } finally {
             result.close();
         }
     }
 
+    /**
+     * Do the webServiceCall. Always closes the response
+     *
+     * @param webServiceCall
+     *            a function that transforms the value to a result with the
+     *            webcall
+     * @param responseProcessor
+     *            If the webservice call returns with a {@link Status} of
+     *            {@link Family} {@link Family#SUCCESSFUL}, process the
+     *            response. If of {@link Family#SERVER_ERROR}, the return the
+     *            fallback
+     * @param statusChecker
+     *            check the status and then process the response if check is
+     *            succesfull. Otherwise return the fallback
+     * @param fallback
+     *            fallback if response code doesn't pass the statusCheck
+     * @param value
+     *            the input value
+     * @return result of the webservice call. Will throw instances of
+     *         {@link WebApplicationException} if no succes or server error code
+     *         is returned
+     */
     protected static <T, R> R call(final Function<T, Response> webServiceCall, final Predicate<Response> statusChecker, final Function<Response, R> responseProcessor,
             final Supplier<R> fallback, final T value) {
         final Response result = webServiceCall.apply(value);
         try {
-            if (statusChecker.test(result)) {
-                return responseProcessor.apply(result);
+            if (SUCCES.or(SERVER_ERROR)
+                    .test(result)) {
+                if (statusChecker.test(result)) {
+                    return responseProcessor.apply(result);
+                } else {
+                    return fallback.get();
+                }
             } else {
-                return fallback.get();
+                throw convertToException(result);
             }
         } finally {
             result.close();
         }
     }
 
-    protected static <T, R> R call(final Supplier<Response> webServiceCall, final Function<Response, R> responseProcessor) {
+    /**
+     * Do the webServiceCall. Always closes the response
+     *
+     * @param webServiceCall
+     *            a {@link Supplier} that transforms the value to a result with
+     *            the webcall
+     * @param responseProcessor
+     *            If the webservice call returns with a {@link Status} of
+     *            {@link Family} {@link Family#SUCCESSFUL}, process the
+     *            response. If of {@link Family#SERVER_ERROR}, the return the
+     *            fallback
+     * @param value
+     *            the input value
+     * @return result of the webservice call. Will throw instances of
+     *         {@link WebApplicationException} if no succes code is returned
+     */
+    protected static <R> R call(final Supplier<Response> webServiceCall, final Function<Response, R> responseProcessor) {
         final Response result = webServiceCall.get();
         try {
-            return responseProcessor.apply(result);
+            if (SUCCES.test(result)) {
+                return responseProcessor.apply(result);
+            } else {
+                throw convertToException(result);
+            }
         } finally {
             result.close();
         }
     }
 
-    protected static <T, R> R call(final Supplier<Response> webServiceCall, final Predicate<Response> statusChecker, final Function<Response, R> responseProcessor,
+    /**
+     * Do the webServiceCall. Always closes the response
+     *
+     * @param webServiceCall
+     *            a {@link Supplier} that transforms the value to a result with
+     *            the webcall
+     * @param statusChecker
+     *            check the status and then process the response if check is
+     *            succesfull. Otherwise return the fallback
+     * @param fallback
+     *            fallback if response code doesn't pass the statusCheck
+     * @param responseProcessor
+     *            If the webservice call returns with a {@link Status} of
+     *            {@link Family} {@link Family#SUCCESSFUL}, process the
+     *            response. If of {@link Family#SERVER_ERROR}, the return the
+     *            fallback
+     * @param value
+     *            the input value
+     * @return result of the webservice call. Will throw instances of
+     *         {@link WebApplicationException} if no succes code is returned
+     */
+    protected static <R> R call(final Supplier<Response> webServiceCall, final Predicate<Response> statusChecker, final Function<Response, R> responseProcessor,
             final Supplier<R> fallback) {
         final Response result = webServiceCall.get();
         try {
-            if (statusChecker.test(result)) {
-                return responseProcessor.apply(result);
+            if (SUCCES.or(SERVER_ERROR)
+                    .test(result)) {
+                if (statusChecker.test(result)) {
+                    return responseProcessor.apply(result);
+                } else {
+                    return fallback.get();
+                }
             } else {
-                return fallback.get();
+                throw convertToException(result);
             }
         } finally {
             result.close();
@@ -87,24 +210,85 @@ public abstract class AbstractRestProxy {
     }
 
     /**
-     * Get the base {@link Client} and {@link WebTarget}
+     * This is the jax-rs spec
+     *
+     * @see org.glassfish.jersey.client.JerseyInvocation
      */
-    @PostConstruct
-    public void base() {
-        this.client = ClientBuilder.newClient();
-        this.client.register(new CircuitBreakerFilter());
-        // TODO refactor for service discovery
-        this.service = this.client.target(this.getBaseUri());
+    private static ProcessingException convertToException(final Response response) {
+        try {
+            // Buffer and close entity input stream (if any) to prevent
+            // leaking connections (see JERSEY-2157).
+            response.bufferEntity();
+
+            final WebApplicationException webAppException;
+            final int statusCode = response.getStatus();
+            final Response.Status status = Response.Status.fromStatusCode(statusCode);
+
+            if (status == null) {
+                final Response.Status.Family statusFamily = response.getStatusInfo()
+                        .getFamily();
+                webAppException = createExceptionForFamily(response, statusFamily);
+            } else {
+                switch (status) {
+                case BAD_REQUEST:
+                    webAppException = new BadRequestException(response);
+                    break;
+                case UNAUTHORIZED:
+                    webAppException = new NotAuthorizedException(response);
+                    break;
+                case FORBIDDEN:
+                    webAppException = new ForbiddenException(response);
+                    break;
+                case NOT_FOUND:
+                    webAppException = new NotFoundException(response);
+                    break;
+                case METHOD_NOT_ALLOWED:
+                    webAppException = new NotAllowedException(response);
+                    break;
+                case NOT_ACCEPTABLE:
+                    webAppException = new NotAcceptableException(response);
+                    break;
+                case UNSUPPORTED_MEDIA_TYPE:
+                    webAppException = new NotSupportedException(response);
+                    break;
+                case INTERNAL_SERVER_ERROR:
+                    webAppException = new InternalServerErrorException(response);
+                    break;
+                case SERVICE_UNAVAILABLE:
+                    webAppException = new ServiceUnavailableException(response);
+                    break;
+                default:
+                    final Response.Status.Family statusFamily = response.getStatusInfo()
+                            .getFamily();
+                    webAppException = createExceptionForFamily(response, statusFamily);
+                }
+            }
+
+            return new ProcessingException(webAppException);
+        } catch (final Throwable t) {
+            return new ProcessingException(LocalizationMessages.RESPONSE_TO_EXCEPTION_CONVERSION_FAILED(), t);
+        }
     }
 
     /**
-     * close the connection before destroy
+     * @see org.glassfish.jersey.client.JerseyInvocation
      */
-    @PreDestroy
-    protected void close() {
-        if (this.client != null) {
-            this.client.close();
+    private static WebApplicationException createExceptionForFamily(final Response response, final Response.Status.Family statusFamily) {
+        final WebApplicationException webAppException;
+        switch (statusFamily) {
+        case REDIRECTION:
+            webAppException = new RedirectionException(response);
+            break;
+        case CLIENT_ERROR:
+            webAppException = new ClientErrorException(response);
+            break;
+        case SERVER_ERROR:
+            webAppException = new ServerErrorException(response);
+            break;
+        default:
+            webAppException = new WebApplicationException(response);
         }
+        return webAppException;
     }
 
     /**
@@ -150,7 +334,15 @@ public abstract class AbstractRestProxy {
     }
 
     private WebTarget getServiceWithPaths() {
-        return this.service.path(this.getBasePath());
+        final Client client = ClientBuilder.newClient();
+        client.register(new CircuitBreakerFilter());
+        // TODO refactor for service discovery
+        final WebTarget service = client.target(this.getBaseUri());
+        try {
+            return service.path(this.getBasePath());
+        } finally {
+            client.close();
+        }
     }
 
     private WebTarget processQueryparam(final WebTarget serviceWithQuery, final Entry<String, Object> queryParam) {
