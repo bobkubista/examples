@@ -13,6 +13,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.Status.Family;
 import javax.ws.rs.core.Response.StatusType;
 
 import org.junit.Assert;
@@ -59,6 +60,8 @@ public class AbstractGenericActiveRestProxyTest {
                 .add(new MockActiveDomainObject(2, "F2"));
         Mockito.when(this.mockResponse.readEntity(Integer.class))
                 .thenReturn(1);
+        Mockito.when(this.mockResponse.getStatusInfo())
+                .thenReturn(Status.OK);
         Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
                 .thenReturn(mockDomainCollection);
         Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
@@ -132,6 +135,7 @@ public class AbstractGenericActiveRestProxyTest {
 
     @Test
     public void testGetByFunctionalId() {
+        this.mockResponse();
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(200);
 
@@ -198,6 +202,8 @@ public class AbstractGenericActiveRestProxyTest {
     public void testGetIdByFunctionalId() {
         Mockito.when(this.mockResponse.getStatus())
                 .thenReturn(200);
+        Mockito.when(this.mockResponse.getStatusInfo())
+                .thenReturn(Status.OK);
 
         final Integer result = this.proxy.getIdByFunctionalId("blaat");
         Assert.assertNotNull(result);
@@ -249,6 +255,8 @@ public class AbstractGenericActiveRestProxyTest {
         final StatusType mockStatusType = Mockito.mock(StatusType.class);
         Mockito.when(mockStatusType.getReasonPhrase())
                 .thenReturn("blaat");
+        Mockito.when(mockStatusType.getFamily())
+                .thenReturn(Family.CLIENT_ERROR);
         Mockito.when(this.mockResponse.getStatusInfo())
                 .thenReturn(mockStatusType);
     }
@@ -260,6 +268,8 @@ public class AbstractGenericActiveRestProxyTest {
                 .thenReturn(new EntityTag("tag").toString());
         Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
                 .thenReturn(Instant.EPOCH.toString());
+        Mockito.when(this.mockResponse.getStatusInfo())
+                .thenReturn(Status.OK);
 
         Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
                 .thenReturn(new MockActiveDomainObject(1, "F1"));

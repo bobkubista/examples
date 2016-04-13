@@ -20,7 +20,6 @@ import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.NotSupportedException;
-import javax.ws.rs.ProcessingException;
 import javax.ws.rs.RedirectionException;
 import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.ServiceUnavailableException;
@@ -212,7 +211,7 @@ public abstract class AbstractRestProxy {
      *
      * @see org.glassfish.jersey.client.JerseyInvocation
      */
-    private static ProcessingException convertToException(final Response response) {
+    private static WebApplicationException convertToException(final Response response) {
         try {
             // Buffer and close entity input stream (if any) to prevent
             // leaking connections (see JERSEY-2157).
@@ -262,9 +261,9 @@ public abstract class AbstractRestProxy {
                 }
             }
 
-            return new ProcessingException(webAppException);
+            return webAppException;
         } catch (final Throwable t) {
-            return new ProcessingException(t);
+            return new WebApplicationException();
         }
     }
 
