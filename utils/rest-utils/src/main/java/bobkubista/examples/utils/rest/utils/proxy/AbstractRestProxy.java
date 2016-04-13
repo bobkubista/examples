@@ -34,8 +34,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.Status.Family;
 
-import org.glassfish.jersey.client.internal.LocalizationMessages;
-
 import bobkubista.examples.utils.rest.utils.cirtuitbreaker.CircuitBreakerFilter;
 
 /**
@@ -266,7 +264,7 @@ public abstract class AbstractRestProxy {
 
             return new ProcessingException(webAppException);
         } catch (final Throwable t) {
-            return new ProcessingException(LocalizationMessages.RESPONSE_TO_EXCEPTION_CONVERSION_FAILED(), t);
+            return new ProcessingException(t);
         }
     }
 
@@ -316,7 +314,7 @@ public abstract class AbstractRestProxy {
      */
     // TODO refactor to make use of template see page 84 JEE essentials
     protected WebTarget getServiceWithPaths(final String... paths) {
-        WebTarget serviceWithPath = this.getServiceWithPaths();
+        WebTarget serviceWithPath = this.buildWebTarget();
         for (final String path : paths) {
             serviceWithPath = serviceWithPath.path(path);
         }
@@ -333,7 +331,7 @@ public abstract class AbstractRestProxy {
         return serviceWithQuery;
     }
 
-    private WebTarget getServiceWithPaths() {
+    private WebTarget buildWebTarget() {
         final Client client = ClientBuilder.newClient();
         client.register(new CircuitBreakerFilter());
         // TODO refactor for service discovery
