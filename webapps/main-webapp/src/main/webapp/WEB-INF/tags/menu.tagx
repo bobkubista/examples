@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:tag="urn:jsptagdir:/WEB-INF/tags" 
+    xmlns:tools="urn:jsptagdir:/WEB-INF/tags/tools" 
+    version="2.0">
+    <jsp:directive.tag pageEncoding="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/menu.css"/>
+    <div class="admin_menu">
+        <jsp:text/>
+    </div>
+
+    <script>
+
+        //when page is ready
+        $(document).ready(function(){
+            //adds menus to the page
+            addLeftMenu('menu/load');
+        });
+
+        function menuItemAction(menuItem) {
+            $('.admin_menu').children('.admin_menu_item').each(function () {
+                if($(this).hasClass('admin_active') &amp;&amp; !$(this).hasClass(menuItem)) {
+                    $(this).children('.admin_sub_menu_items').slideToggle("slow");
+                    var iconClass = $(this).find('.fa-angle-down');
+                    $(iconClass).addClass('fa-angle-right');
+                    $(iconClass).removeClass('fa-angle-down');
+                    $(this).removeClass('admin_active');
+                }
+            });
+            if(!$('.admin_menu .' + menuItem).hasClass('admin_active')) {
+                $('.admin_menu .' + menuItem).addClass('admin_active');
+                var iconClass = $('.admin_menu .' + menuItem).find('.fa-angle-right');
+                $(iconClass).removeClass('fa-angle-right');
+                $(iconClass).addClass('fa-angle-down');
+                $('.admin_menu .' + menuItem + ' .admin_sub_menu_items').slideToggle("slow");
+            } else {
+                $('.admin_menu .' + menuItem).removeClass('admin_active');
+                var iconClass = $('.admin_menu .' + menuItem).find('.fa-angle-down');
+                $(iconClass).addClass('fa-angle-right');
+                $(iconClass).removeClass('fa-angle-down');
+                $('.admin_menu .' + menuItem + ' .admin_sub_menu_items').slideToggle("slow");
+            }
+        }
+        
+        function loadPage(url) {
+            $.get(url, function(data) {
+                $('.admin_tool_content').empty();
+                $('.admin_tool_content').append(data);
+            });
+        }
+
+        function addLeftMenu(menuName){
+            $.get(menuName, function(html) {
+                $(".admin_menu").append(html);
+            });
+        }
+    </script>
+</jsp:root>        

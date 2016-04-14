@@ -1,0 +1,13 @@
+.admin_header {
+    background-color: #fff;
+    height: 60px;
+    width: 100%;
+    float:left;
+}
+
+.admin_logo {
+    background: url(../images/logo/logo.png) no-repeat center center;
+    float: left;
+    height: 60px;
+    width: 200px;
+}

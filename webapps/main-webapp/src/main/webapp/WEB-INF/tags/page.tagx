@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:tag="urn:jsptagdir:/WEB-INF/tags" 
+    version="2.0">
+    <jsp:directive.tag pageEncoding="UTF-8" />
+    <c:set var="baseUrl" value="${pageContext.request.scheme}:${pageContext.request.localPort}" />
+    <jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+                omit-xml-declaration="true" />
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Admin Tool</title>
+            <script src="${contextPath}/static/js/jquery-1.7.2.js"><jsp:text /></script>
+            <script src="${contextPath}/static/js/jquery-1.11.0-ui.min.js"><jsp:text /></script>
+            <script src="${contextPath}/static/js/jquery-ui-timepicker-addon.js"><jsp:text /></script>
+            <script src="${contextPath}/static/js/jquery.dataTables.min.js"><jsp:text /></script>
+            <script src="${contextPath}/static/js/jquery.tablesorter.min.js"><jsp:text /></script>
+            <script src="${contextPath}/static/js/jquery.tools.min.js"><jsp:text /></script>
+            <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/main.css"/>
+            <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/tools.css"/>
+            <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/table.css"/>
+            <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/overlay.css"/>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+        </head>
+        <body bgcolor="#DEDEDE" style="margin: 0;">
+            <div class="admin_tool">
+                <div class="admin_content">
+                    <tag:header/>
+                    <tag:menu/>
+                    <div class="admin_tool_content">
+                        <jsp:text/>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+</jsp:root>        

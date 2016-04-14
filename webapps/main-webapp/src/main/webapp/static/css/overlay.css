@@ -1,0 +1,75 @@
+/* the overlayed element */
+div.overlay {
+    background-color: #F5F5F5;
+    width:600px;
+    overflow: hidden;	
+    display:none;
+    padding: 10px 20px 20px;
+}
+
+/* default close button positioned on upper right corner */
+div.overlay div.close {
+    position:absolute;
+    right: 10px;
+    top: 10px;
+    cursor:pointer;
+}
+
+div.black h2, div.petrol h2 {
+    color:#ddd;		
+}
+
+div.content  {
+    overflow: auto;	
+}
+
+div.valuecontentoverlay
+{
+    width: 900px;
+    overflow: auto;
+}
+.show {
+    display: inherit;
+}
+.hide {
+    display: none;
+}
+
+.overlay ul {
+    margin: 0;
+    padding: 0;
+}
+
+.popup_content_header {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.popup_content_values {
+    font-size: 14px;
+}
+
+.language_column {
+    width: 100px;
+}
+
+.value_column,
+.language_column {
+    list-style: none;
+    float: left;
+}
+
+.popup_content_header, 
+.popup_content_values {
+    width: 100%;
+    border-bottom: 1px solid #dedede;
+    height: 30px;
+    line-height: 30px;
+}
+
+.textitem_insert_value {
+    background-color: #eeeeee;
+    margin: 10px 0;
+    min-height: 50px;
+    padding: 10px;
+}

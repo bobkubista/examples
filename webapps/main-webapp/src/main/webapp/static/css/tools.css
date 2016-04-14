@@ -1,0 +1,275 @@
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+a.button {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    color: #ffffff;
+    font-size: 14px;
+    background: #f79520;
+    padding: 5px 20px;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background: #fba624;
+    text-decoration: none;
+}
+
+a.button.grey {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    color: #bdbdbd;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    background: #fafafa;
+}
+
+a.button.grey:hover {
+    background: #eeeeee;
+    text-decoration: none;
+}
+
+.input_box {
+    height: 30px;
+}
+
+.input_box,
+.input_box_area {
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+span.input_label {
+    display: inline-block;
+    width: 200px;
+}
+
+.add_box,
+.search_box {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.add_box h2,
+.search_box h2 {
+    border-bottom: 1px solid #f5f5f5;
+    margin-top: 0;
+    width: 100%;
+    color: #424242;
+    font-size: 16px;
+}
+
+.input_box input[type=text] {
+    border: 1px solid #dedede;
+    height: 25px;
+}
+
+.input_box select {
+    border: 1px solid #dedede;
+    height: 25px;
+}
+
+.button.textitem_result_button {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #bdbdbd;
+    color: #757575;
+    font-size: 12px;
+    background: #FFFFFF;
+}
+
+.button.textitem_result_button:hover {
+    background: #fba624;
+    color: #ffffff;
+}
+
+.button.textitem_result_button, 
+.button.search_button {
+    float: left;
+    line-height: 18px;
+}
+
+.button.search_button {
+    margin-left: 50px;
+}
+
+
+
+.sub_header {
+    border-bottom: 1px solid #eee;
+    color: #1dbfef;
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+div.result {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.result ul {
+    margin: 0;
+    padding: 0;
+}
+
+.textitem_result_header {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.textitem_result_values {
+    font-size: 14px;
+}
+
+.textitem_result_key_column,
+.textitem_result_html_key_column {
+    width: 270px;
+}
+
+.textitem_result_language_column {
+    width: 50px;
+}
+
+.textitem_result_value_column {
+    width: 300px;
+}
+
+.textitem_result_popup_column {
+    width: 100px;
+}
+
+.textitem_result_key_column,
+.textitem_result_language_column,
+.textitem_result_value_column,
+.textitem_result_popup_column,
+.textitem_result_type_column,
+.textitem_result_changed_column,
+.textitem_result_html_key_column,
+.textitem_result_html_value_column,
+.textitem_result_html_error_column {
+    list-style: none;
+    float: left;
+}
+
+.textitem_result_header, 
+.textitem_result_values {
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    height: 30px;
+    line-height: 30px;
+    list-style: none;
+}
+
+.textitem_result_values:hover {
+    background-color: #fafafa;
+}
+
+.textitem_result_type_column {
+    width: 350px;
+}
+
+.textitem_result_changed_column {
+    width: 370px;
+}
+
+.textitem_result_html_value_column {
+    width: 450px;
+}
+
+.textitem_result_html_error_column {
+    color: red;
+}
+
+.input_format {
+    background-color: #f1f8e9;
+    color: #689f38;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+}
+
+.input_area {
+    height: 200px;
+    margin-bottom: 10px;
+    width: 714px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #eeeeee;
+    background: #ffffff;
+    color: #616161;
+    font-size: 14px;
+}
+
+.input_database {
+    float: left;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.input_database_text {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.input_database select {
+    height: 25px;
+}
+
+.add_result {
+    background-color: #c8e6c9;
+    color: #4caf50;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    padding: 10px 20px;
+}
+
+.success_message .add_result {
+    margin: 0 0 20px;
+}
+
+.active {
+    color: green;
+}
+
+.inactive {
+    color: red;
+}
+
+.textitemDeleteText {
+    display: none; 
+    float: right; 
+    margin-right: 10px;
+}
