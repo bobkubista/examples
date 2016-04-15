@@ -16,6 +16,7 @@
 <!--     <module>common-resources</module> -->
     <module>main-webapp</module>
     <module>bootstrap</module>
+    <module>main-menu</module>
   </modules>
 
   <dependencyManagement>
