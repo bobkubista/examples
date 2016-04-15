@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
   href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <script
   src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
 	
@@ -19,22 +19,44 @@
 <body>
   <div class="container">
     <div class="row limit">
-      <div id="banner" class="col-xs-12 nopadding" >
+      <div id="banner" class="col-xs-12 nopadding">
         <!--  TODO get from banner service -->
         <img src="images/banner.jpg" alt="Banner" class="crop">
       </div>
     </div>
     <div class="row">
       <!--  TODO get from main menu service. Each webapp has a main menu item. The main menu service gathers all the main menu items form the smaller webapps. The menu items are not shown if a webapp is down -->
-      <div class="col-xs-12 bg-primary"><h2>Main menu</h2></div>
+      <div class="btn-group btn-group-justified">
+        <a href="#" class="btn btn-primary">App1</a> 
+        <a href="#" class="btn btn-primary">App2</a> 
+        <a href="#" class="btn btn-primary">App3</a>
+        <div class="btn-group">
+          <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Login info<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Tablet</a></li>
+            <li><a href="#">Smartphone</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="row">
       <!-- TODO get from smaller webapp of selected main menu item. Each smaller webapp has a submenu. These are loaded from the smaller webapps when the main menu item is selected -->
-      <div class="col-md-2 bg-info" >sub menu</div>
+      <div class="col-md-2 bg-info">
+        <div class="btn-group-vertical btn-group-lg btn-block">
+          <a href="#" class="btn">Sub1</a> <a href="#" class="btn">Sub2</a>
+          <a href="#" class="btn">Sub3</a>
+        </div>
+      </div>
       <div class="col-md-10">
-      <!-- This should be gotten from the smaller webapps -->
-      <h2>content</h2>
-      <p>First attempt to bootstrap with fixed viewport width.</p>
+        <!-- This should be gotten from the smaller webapps -->
+        <h2>content</h2>
+        <p>First attempt to bootstrap with fixed viewport width.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div id="footer" class="col-xs-12 bg-success">
+        <p>footer</p>
+        <span class="glyphicon glyphicon-envelope">email</span>
       </div>
     </div>
   </div>

@@ -8,6 +8,15 @@
 .col-xs-12.nopadding {
 	padding: 0;
 }
+
+.col-md-10.nopadding {
+	padding: 0;
+}
+
+.col-md-2.nopadding {
+	padding: 0;
+}
+
 .row.limit [class*="col-"]{
   max-height:400px;
   overflow:hidden;
