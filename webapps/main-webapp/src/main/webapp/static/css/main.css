@@ -1,0 +1,21 @@
+body {
+    color: #616161;
+    font-size: 14px;
+}
+
+.admin_tool {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.admin_content {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.admin_tool_content {
+    float: left;
+    margin: 20px;
+    width: 760px;
+}

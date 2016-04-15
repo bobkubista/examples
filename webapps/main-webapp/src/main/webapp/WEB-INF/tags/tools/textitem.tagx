@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:tag="urn:jsptagdir:/WEB-INF/tags" 
+    xmlns:tools="urn:jsptagdir:/WEB-INF/tags/tools" 
+    version="2.0">
+    <jsp:directive.tag pageEncoding="UTF-8" />
+    <div class="admin_menu_item textitems">
+        <a class="admin_tool_menu_item" onclick="menuItemAction('textitems');">
+            <i class="tool_icon fa fa-font fa-fw"><jsp:text/></i>
+            <span class="admin_menu_text">Text Item Tool</span>
+            <i class="arrow_icon fa fa-angle-right fa-fw"><jsp:text/></i>
+        </a>
+        <ul class="admin_sub_menu_items">
+        <!--  TODO refactor the location of the tools to be configurable -->
+            <li><a class="admin_sub_menu_item" onclick="loadPage('${baseUrl}/textitem-tool/add')"><span class="admin_menu_text">Add / Update</span></a></li>
+            <li><a class="admin_sub_menu_item" onclick="loadPage('${baseUrl}/textitem-tool/value')"><span class="admin_menu_text">Search Value</span></a></li>
+            <li><a class="admin_sub_menu_item" onclick="loadPage('${baseUrl}/textitem-tool/key')"><span class="admin_menu_text">Search Key</span></a></li>
+        </ul>
+    </div>
+</jsp:root>        

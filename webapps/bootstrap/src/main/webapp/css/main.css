@@ -8,3 +8,7 @@
 .col-xs-12.nopadding {
 	padding: 0;
 }
+.row.limit [class*="col-"]{
+  max-height:50px;
+  overflow:hidden;
+}
