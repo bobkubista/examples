@@ -15,6 +15,7 @@
 <!--     <module>single-sign-on</module> -->
 <!--     <module>common-resources</module> -->
     <module>main-webapp</module>
+    <module>bootstrap</module>
   </modules>
 
   <dependencyManagement>

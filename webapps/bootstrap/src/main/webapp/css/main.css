@@ -1,0 +1,10 @@
+/* 2. Crop portrait image (cut top and bottom) */
+.crop{
+    float:left;
+    overflow:hidden;
+    width: 100%;
+}
+
+.col-xs-12.nopadding {
+	padding: 0;
+}
