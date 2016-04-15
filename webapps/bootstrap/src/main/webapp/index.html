@@ -20,15 +20,19 @@
   <div class="container">
     <div class="row limit">
       <div id="banner" class="col-xs-12 nopadding" >
+        <!--  TODO get from banner service -->
         <img src="images/banner.jpg" alt="Banner" class="crop">
       </div>
     </div>
     <div class="row">
+      <!--  TODO get from main menu service. Each webapp has a main menu item. The main menu service gathers all the main menu items form the smaller webapps. The menu items are not shown if a webapp is down -->
       <div class="col-xs-12 bg-primary"><h2>Main menu</h2></div>
     </div>
     <div class="row">
+      <!-- TODO get from smaller webapp of selected main menu item. Each smaller webapp has a submenu. These are loaded from the smaller webapps when the main menu item is selected -->
       <div class="col-md-2 bg-info" >sub menu</div>
       <div class="col-md-10">
+      <!-- This should be gotten from the smaller webapps -->
       <h2>content</h2>
       <p>First attempt to bootstrap with fixed viewport width.</p>
       </div>
