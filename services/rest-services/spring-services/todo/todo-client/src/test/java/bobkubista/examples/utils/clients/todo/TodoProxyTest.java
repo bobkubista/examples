@@ -63,7 +63,6 @@ public class TodoProxyTest {
         PowerMockito.mockStatic(ClientBuilder.class);
         PowerMockito.when(ClientBuilder.newClient())
                 .thenReturn(this.mockClient);
-        this.proxy.base();
     }
 
     @Test
