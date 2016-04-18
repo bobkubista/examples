@@ -4,15 +4,12 @@
 <title>Bootstrap example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<script
-  src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
 	
 </script>
-<script
-  src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
 	
 </script>
 </head>
@@ -25,38 +22,90 @@
       </div>
     </div>
     <div class="row">
+      <div id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Private</a></li>
+          <li><a href="#">Pictures</a></li>
+          <li class="active">Vacation</li>
+        </ul>
+      </div>
       <!--  TODO get from main menu service. Each webapp has a main menu item. The main menu service gathers all the main menu items form the smaller webapps. The menu items are not shown if a webapp is down -->
-      <div class="btn-group btn-group-justified">
-        <a href="#" class="btn btn-primary">App1</a> 
-        <a href="#" class="btn btn-primary">App2</a> 
-        <a href="#" class="btn btn-primary">App3</a>
+      <!-- <div class="btn-group btn-group-justified">
+        <a href="#" class="btn btn-primary">App1</a> <a href="#"
+          class="btn btn-primary">App2</a> <a href="#"
+          class="btn btn-primary">App3</a>
         <div class="btn-group">
-          <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Login info<span class="caret"></span></a>
+          <a href="#" class="btn btn-primary dropdown-toggle"
+            data-toggle="dropdown">Login info<span class="badge">5</span><span
+            class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Tablet</a></li>
+            <li><a href="#">Tablet<span class="badge">5</span></a></li>
             <li><a href="#">Smartphone</a></li>
           </ul>
         </div>
+      </div> -->
+      <div id="nav" cl>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a data-toggle="collapse" data-target="#Sub_nav" href="#">App0</a></li>
+          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App1</a></li>
+          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App2</a></li>
+          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App3 <span class="badge">5</span></a></li>
+        </ul>
       </div>
     </div>
     <div class="row">
       <!-- TODO get from smaller webapp of selected main menu item. Each smaller webapp has a submenu. These are loaded from the smaller webapps when the main menu item is selected -->
-      <div class="col-md-2 bg-info">
-        <div class="btn-group-vertical btn-group-lg btn-block">
+      <div class="col-md-2 nopadding">
+        <!-- <div class="btn-group-vertical btn-group-lg btn-block">
           <a href="#" class="btn">Sub1</a> <a href="#" class="btn">Sub2</a>
           <a href="#" class="btn">Sub3</a>
+        </div> -->
+        <div id="Sub_nav" class="collapse in">
+          <ul class="nav nav-pills nav-stacked" role="tablist">
+            <li class="active"><a href="#">Sub1</a></li>
+            <li><a href="#">Sub2</a></li>
+            <li><a href="#">Sub3</a></li>
+          </ul>
         </div>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-10 nopadding">
         <!-- This should be gotten from the smaller webapps -->
-        <h2>content</h2>
-        <p>First attempt to bootstrap with fixed viewport width.</p>
+        <div class="col-md-12">
+          <h2>content</h2>
+          <div class="progress" id="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+              <span>70% Complete</span>
+            </div>
+          </div>
+          <p>First attempt to bootstrap with fixed viewport width.</p>
+          <a data-toggle="collapse" href="#demo">Collapsible</a>
+          <div id="demo" class="collapse">
+            <div class="panel panel-default">
+              <div class="panel-heading">Panel Heading</div>
+              <div class="panel-body">Panel Content</div>
+              <div class="panel-footer">Panel Footer</div>
+            </div>
+          </div>
+          <div id="pagination">
+            <ul class="pagination">
+              <li><a href="#">Previous</a></li>
+              <li><a href="#">1</a></li>
+              <li class="active"><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">Next</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div id="footer" class="col-xs-12 bg-success">
         <p>footer</p>
-        <span class="glyphicon glyphicon-envelope">email</span>
+        <a href="mailto:bobbykubista@yahoo.com"> <span class="glyphicon glyphicon-envelope">email</span>
+        </a>
       </div>
     </div>
   </div>

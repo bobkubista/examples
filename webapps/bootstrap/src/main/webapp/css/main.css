@@ -17,6 +17,10 @@
 	padding: 0;
 }
 
+.nopadding {
+	padding: 0;
+}
+
 .row.limit [class*="col-"]{
   max-height:400px;
   overflow:hidden;
