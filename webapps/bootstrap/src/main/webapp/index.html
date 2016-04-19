@@ -17,8 +17,67 @@
   <div class="container">
     <div class="row limit">
       <div id="banner" class="col-xs-12 nopadding">
+        <!--  TODO get from main menu service. Each webapp has a main menu item. The main menu service gathers all the main menu items form the smaller webapps. The menu items are not shown if a webapp is down -->
+        <nav class="navbar navbar-inverse no-bottom-margin">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a data-toggle="collapse" data-target="#Sub_nav" href="#">Home</a></li>
+                <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">Page 1</a></li>
+                <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">Page 2</a></li>
+                <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">Page 3</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <!-- TODO show when not logged in -->
+                <!-- <li>
+                  <form class="form-inline input-sm" role="form">
+                    <div class="form-group">
+                      <label class="sr-only" for="email">Email address:</label> <input type="email" class="form-control input-sm" id="email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                      <label class="sr-only" for="pwd">Password:</label> <input type="password" class="form-control input-sm" id="pwd" placeholder="Enter password">
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox"> Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-default input-sm">Submit</button>
+                  </form>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+                <!-- TODO only show when logged in -->
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> UserName <span class="badge">5</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
         <!--  TODO get from banner service -->
-        <img src="images/banner.jpg" alt="Banner" class="crop">
+        <!--         <img src="images/banner.jpg" alt="Banner" class="crop"> -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <img src="images/banner.jpg" alt="Banner" class="crop">
+            </div>
+            <div class="item">
+              <img src="images/banner.jpg" alt="Banner" class="crop">
+            </div>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+            class="sr-only">Previous</span>
+          </a> <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+            class="sr-only">Next</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -30,37 +89,10 @@
           <li class="active">Vacation</li>
         </ul>
       </div>
-      <!--  TODO get from main menu service. Each webapp has a main menu item. The main menu service gathers all the main menu items form the smaller webapps. The menu items are not shown if a webapp is down -->
-      <!-- <div class="btn-group btn-group-justified">
-        <a href="#" class="btn btn-primary">App1</a> <a href="#"
-          class="btn btn-primary">App2</a> <a href="#"
-          class="btn btn-primary">App3</a>
-        <div class="btn-group">
-          <a href="#" class="btn btn-primary dropdown-toggle"
-            data-toggle="dropdown">Login info<span class="badge">5</span><span
-            class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Tablet<span class="badge">5</span></a></li>
-            <li><a href="#">Smartphone</a></li>
-          </ul>
-        </div>
-      </div> -->
-      <div id="nav" cl>
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a data-toggle="collapse" data-target="#Sub_nav" href="#">App0</a></li>
-          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App1</a></li>
-          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App2</a></li>
-          <li><a data-toggle="collapse" data-target="#Sub_nav" href="#">App3 <span class="badge">5</span></a></li>
-        </ul>
-      </div>
     </div>
     <div class="row">
       <!-- TODO get from smaller webapp of selected main menu item. Each smaller webapp has a submenu. These are loaded from the smaller webapps when the main menu item is selected -->
       <div class="col-md-2 nopadding">
-        <!-- <div class="btn-group-vertical btn-group-lg btn-block">
-          <a href="#" class="btn">Sub1</a> <a href="#" class="btn">Sub2</a>
-          <a href="#" class="btn">Sub3</a>
-        </div> -->
         <div id="Sub_nav" class="collapse in">
           <ul class="nav nav-pills nav-stacked" role="tablist">
             <li class="active"><a href="#">Sub1</a></li>
@@ -79,12 +111,72 @@
             </div>
           </div>
           <p>First attempt to bootstrap with fixed viewport width.</p>
-          <a data-toggle="collapse" href="#demo">Collapsible</a>
-          <div id="demo" class="collapse">
+          <div class="panel-group">
             <div class="panel panel-default">
-              <div class="panel-heading">Panel Heading</div>
-              <div class="panel-body">Panel Content</div>
-              <div class="panel-footer">Panel Footer</div>
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse0">Collapsible panel</a>
+                </h4>
+              </div>
+              <div id="collapse0" class="panel-collapse collapse">
+                <div class="panel-body">Panel Body</div>
+                <div class="panel-footer">Panel Footer</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Trigger the modal with a button -->
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal tooltip" title="Tooltip text for tooltop data-toggle" data-target="#myModal">Open Modal</button>
+          <!-- Modal -->
+          <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
           <div id="pagination">
