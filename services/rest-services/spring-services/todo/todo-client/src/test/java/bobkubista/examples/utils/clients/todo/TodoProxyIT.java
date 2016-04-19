@@ -5,12 +5,14 @@ import java.util.UUID;
 import javax.servlet.ServletRegistration;
 
 import org.glassfish.grizzly.servlet.WebappContext;
+import org.junit.Ignore;
 
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 import bobkubista.examples.utils.client.BaseClientRest;
 import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
+@Ignore
 public class TodoProxyIT extends BaseClientRest<TodoList, Long, TodoListCollection> {
 
     @Override
