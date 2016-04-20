@@ -21,6 +21,12 @@
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
         <version>${hibernate-validator.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>jboss-logging</artifactId>
+            <groupId>org.jboss.logging</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>javax.validation</groupId>

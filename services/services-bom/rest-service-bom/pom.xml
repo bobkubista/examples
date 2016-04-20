@@ -73,6 +73,12 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
@@ -82,6 +88,12 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
