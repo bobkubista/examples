@@ -8,7 +8,7 @@ node('master') {
     // define maven tool
     ensureMaven()
     // git with submodules
-    git credentialsId: 'e9d3c47c-244a-4be0-80a7-492a01628556', url: 'https://github.com/bobkubista/examples.git', branch: 'master'
+    git url: 'https://github.com/bobkubista/examples.git', branch: 'master'
     def v = version()
     if (v) {
         echo "Building version ${v}"
