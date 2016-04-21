@@ -22,6 +22,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <artifactId>jboss-logging</artifactId>
+      <groupId>org.jboss.logging</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.ws.rs</groupId>
       <artifactId>javax.ws.rs-api</artifactId>
     </dependency>
