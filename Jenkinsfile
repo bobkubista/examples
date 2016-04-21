@@ -9,10 +9,10 @@ node('master') {
     ensureMaven()
     // git with submodules
     git url: 'https://github.com/bobkubista/examples.git', branch: 'master'
-    def v = version()
-    if (v) {
-        echo "Building version ${v}"
-    }
+//    def v = version()
+//    if (v) {
+//        echo "Building version ${v}"
+//    }
     // compile
     sh "mvn -B clean compile"
     // archive
