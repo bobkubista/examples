@@ -262,8 +262,8 @@ public abstract class AbstractRestProxy {
             }
 
             return webAppException;
-        } catch (final Throwable t) {
-            return new WebApplicationException();
+        } catch (final Exception t) {
+            return new WebApplicationException(t);
         }
     }
 
