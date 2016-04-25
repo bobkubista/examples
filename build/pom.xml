@@ -404,6 +404,7 @@
         <sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
         <org.sonar.plugins.jmeter.jtlpath>${project.build.directory}/jmeter/results/get-all.jtl</org.sonar.plugins.jmeter.jtlpath>
         <sonar.exclusions>
+          **/*jquery*.js,
         </sonar.exclusions>
       </properties>
     </profile>
