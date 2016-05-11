@@ -18,7 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import bobkubista.example.utils.property.ServerProperties;
 
@@ -57,7 +57,11 @@ public class AuthFilter implements ContainerRequestFilter {
 
     private Principal getUserByToken(final String token) {
         final String casUrl = ServerProperties.getString("cas.url");
-        ClientBuilder.newClient().target(casUrl).queryParam("access_token", token).request(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML).get();
+        ClientBuilder.newClient()
+                .target(casUrl)
+                .queryParam("access_token", token)
+                .request(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML)
+                .get();
 
         // Principal principal = response.readEntity(CasUser.class)
         return null;
