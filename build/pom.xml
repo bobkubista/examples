@@ -326,6 +326,8 @@
             <phase>post-integration-test</phase>
             <goals>
               <goal>report-integration</goal>
+              <!-- TODO -->
+<!--               <goal>report-aggregate</goal> -->
             </goals>
             <configuration>
               <!-- Sets the path to the file which contains the execution 
