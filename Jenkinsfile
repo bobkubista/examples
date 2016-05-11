@@ -3,7 +3,7 @@
 //try {
 // define workspace
 //    ws('$JOB_NAME-$BRANCH_NAME') {
-stage 'checkout and compile'
+stage 'checkout, merge and compile'
 node('master') {
     // define maven tool
     ensureMaven()
@@ -44,6 +44,7 @@ node('master') {
     stash includes: '*', name: 'testStash'
 }
 //})
+// TODO merge to master
 stage 'integration testing'
 node('master') {
     // unstash
