@@ -7,7 +7,7 @@ import java.io.File;
 
 import javax.ws.rs.core.Response;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 import bobkubista.examples.services.rest.api.file.FileApi;
 
 /**
@@ -18,7 +18,8 @@ import bobkubista.examples.services.rest.api.file.FileApi;
  */
 public class FileFacade implements FileApi {
 
-    private static final String BASEPATH = ServerProperties.getString("file.base.path");
+    private static final String BASEPATH = ApacheCommonsConfig.INSTANCE.get()
+            .getString("file.base.path");
 
     @Override
     public File getFile(final String filepath) {

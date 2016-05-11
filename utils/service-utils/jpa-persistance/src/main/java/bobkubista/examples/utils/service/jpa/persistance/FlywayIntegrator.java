@@ -12,7 +12,7 @@ import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 
 /**
  * @author bkubista
@@ -34,13 +34,19 @@ public class FlywayIntegrator implements Integrator {
         final Flyway flyway = new Flyway();
 
         // Point it to the database
-        flyway.setDataSource(ServerProperties.getString("database.url"), ServerProperties.getString("database.username"), ServerProperties.getString("database.password"));
+        flyway.setDataSource(ApacheCommonsConfig.INSTANCE.get()
+                .getString("database.url"),
+                ApacheCommonsConfig.INSTANCE.get()
+                        .getString("database.username"),
+                ApacheCommonsConfig.INSTANCE.get()
+                        .getString("database.password"));
 
         flyway.setEncoding(CharEncoding.UTF_8);
         flyway.setOutOfOrder(true);
         flyway.setLocations("classpath:sql");
         final Map<String, String> placeHolders = new HashMap<>();
-        final String defaultSchema = ServerProperties.getString("database.defaultSchema");
+        final String defaultSchema = ApacheCommonsConfig.INSTANCE.get()
+                .getString("database.defaultSchema");
         placeHolders.put("schema", defaultSchema);
         flyway.setPlaceholders(placeHolders);
         flyway.setSchemas(defaultSchema);

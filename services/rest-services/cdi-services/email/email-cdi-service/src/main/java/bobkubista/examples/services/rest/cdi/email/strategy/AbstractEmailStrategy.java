@@ -26,7 +26,7 @@ import org.apache.velocity.app.Velocity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 import bobkubista.examples.services.api.email.model.EmailContext;
 
 /**
@@ -78,11 +78,16 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     protected Properties getEmailProperties() {
         final Properties props = new Properties();
-        props.put("mail.smtp.host", ServerProperties.getString("email.smtp.host"));
-        props.put("mail.smtp.socketFactory.port", ServerProperties.getString("email.smtp.socket.factory.port"));
-        props.put("mail.smtp.socketFactory.class", ServerProperties.getString("email.smtp.socket.factory.class"));
-        props.put("mail.smtp.auth", ServerProperties.getString("email.smtp.auth"));
-        props.put("mail.smtp.port", ServerProperties.getString("email.smtp.port"));
+        props.put("mail.smtp.host", ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.host"));
+        props.put("mail.smtp.socketFactory.port", ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.socket.factory.port"));
+        props.put("mail.smtp.socketFactory.class", ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.socket.factory.class"));
+        props.put("mail.smtp.auth", ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.auth"));
+        props.put("mail.smtp.port", ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.port"));
         LOGGER.debug("Email propertires : {}", props);
         return props;
     }
@@ -92,12 +97,16 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(ServerProperties.getString("email.login"), ServerProperties.getString("email.password"));
+                return new PasswordAuthentication(ApacheCommonsConfig.INSTANCE.get()
+                        .getString("email.login"),
+                        ApacheCommonsConfig.INSTANCE.get()
+                                .getString("email.password"));
             }
         });
         final MimeMessage message = new MimeMessage(session);
         message.setSubject(email.getSubject());
-        message.setFrom(new InternetAddress(ServerProperties.getString("email.from")));
+        message.setFrom(new InternetAddress(ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.from")));
 
         final MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(email.getMessage(), "text/html; charset=UTF-8");

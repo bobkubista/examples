@@ -2,7 +2,7 @@ package bobkubista.examples.utils.clients.user;
 
 import javax.ws.rs.core.Response.Status;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
@@ -25,7 +25,8 @@ public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCo
 
     @Override
     protected String getBasePath() {
-        return ServerProperties.getString("user.rest.service.base.path");
+        return ApacheCommonsConfig.INSTANCE.get()
+                .getString("user.rest.service.base.path");
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
 import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
@@ -35,17 +35,17 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 public abstract class AbstractGenericIdentifiableAsyncCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         implements CacheLoader<K, GenericETagModifiedDateDomainObjectDecorator<V>> {
 
-    private static final int EXPIRE_AFTER_ACCESS = (int) ServerProperties.INSTANCE.getProperies()
-            .getOrDefault("cache.expire.after.access", 5);
+    private static final int EXPIRE_AFTER_ACCESS = ApacheCommonsConfig.INSTANCE.get()
+            .getInt("cache.expire.after.access", 5);
 
-    private static final int EXPIRE_AFTER_WRITE = (int) ServerProperties.INSTANCE.getProperies()
-            .getOrDefault("cache.expire.after.write", 10);
+    private static final int EXPIRE_AFTER_WRITE = ApacheCommonsConfig.INSTANCE.get()
+            .getInt("cache.expire.after.write", 10);
 
-    private static final int INITIAL_CAPACITY = (int) ServerProperties.INSTANCE.getProperies()
-            .getOrDefault("cache.initial.capacity", 150);
+    private static final int INITIAL_CAPACITY = ApacheCommonsConfig.INSTANCE.get()
+            .getInt("cache.initial.capacity", 150);
 
-    private static final int REFRESH_AFTER_WRITE = (int) ServerProperties.INSTANCE.getProperies()
-            .getOrDefault("cache.refresh.after.write", 1);
+    private static final int REFRESH_AFTER_WRITE = ApacheCommonsConfig.INSTANCE.get()
+            .getInt("cache.refresh.after.write", 1);
 
     private final AsyncLoadingCache<K, GenericETagModifiedDateDomainObjectDecorator<V>> cache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)

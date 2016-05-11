@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
-import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.example.utils.property.ApacheCommonsConfig;
 import bobkubista.examples.services.api.email.model.EmailContext;
 import bobkubista.examples.services.api.email.model.EmailContext.EmailBuilder;
 
@@ -23,6 +23,7 @@ import bobkubista.examples.services.api.email.model.EmailContext.EmailBuilder;
 public class EmailFacadeTest {
 
     private static SimpleSmtpServer server;
+
     private final EmailFacade facade = new EmailFacade();
 
     @After
@@ -32,7 +33,8 @@ public class EmailFacadeTest {
 
     @Before
     public void beforeClass() {
-        server = SimpleSmtpServer.start(Integer.valueOf(ServerProperties.getString("email.smtp.port")));
+        server = SimpleSmtpServer.start(Integer.valueOf(ApacheCommonsConfig.INSTANCE.get()
+                .getString("email.smtp.port")));
     }
 
     /**
