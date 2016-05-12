@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.example.utils.property.ApacheCommonsConfig;
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.service.ActiveService;
@@ -38,8 +38,8 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
     @Override
     public COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
-            final Long serverTimeout = ApacheCommonsConfig.INSTANCE.get()
-                    .getLong("server.timeout", 1L);
+            final Long serverTimeout = (Long) ServerProperties.getProperies()
+                    .getOrDefault("server.timeout", 1L);
             return this.getAllActiveASync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {

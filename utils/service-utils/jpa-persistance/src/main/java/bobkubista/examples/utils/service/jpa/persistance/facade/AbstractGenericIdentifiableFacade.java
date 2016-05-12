@@ -28,7 +28,7 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.example.utils.property.ApacheCommonsConfig;
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
@@ -66,8 +66,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(ApacheCommonsConfig.INSTANCE.get()
-            .getInt("server.thread.count", 10), this.threadFactory);
+    private final ExecutorService executorService = Executors.newFixedThreadPool((int) ServerProperties.getProperies()
+            .getOrDefault("server.thread.count", 10), this.threadFactory);
 
     @Override
     public Response create(@Valid final DMO object) {

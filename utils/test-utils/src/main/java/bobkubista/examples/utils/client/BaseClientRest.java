@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import bobkubista.example.utils.property.ApacheCommonsConfig;
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
@@ -63,22 +63,15 @@ public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObj
     public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
         // TODO dbunit
 
-        final String schema = ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.defaultSchema");
+        final String schema = ServerProperties.getString("database.defaultSchema");
         source = new ComboPooledDataSource();
         source.setDriverClass("org.postgresql.Driver");
-        source.setJdbcUrl(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.url"));
-        source.setUser(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.username"));
-        source.setPassword(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.password"));
-        source.setMinPoolSize(Integer.valueOf(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.minPoolSize")));
-        source.setMaxPoolSize(Integer.valueOf(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.maxPoolSize")));
-        source.setIdleConnectionTestPeriod(Integer.valueOf(ApacheCommonsConfig.INSTANCE.get()
-                .getString("database.idleConnectionTestPeriod")));
+        source.setJdbcUrl(ServerProperties.getString("database.url"));
+        source.setUser(ServerProperties.getString("database.username"));
+        source.setPassword(ServerProperties.getString("database.password"));
+        source.setMinPoolSize(Integer.valueOf(ServerProperties.getString("database.minPoolSize")));
+        source.setMaxPoolSize(Integer.valueOf(ServerProperties.getString("database.maxPoolSize")));
+        source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.getString("database.idleConnectionTestPeriod")));
         connection = new DatabaseConnection(source.getConnection(), schema);
 
         final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();

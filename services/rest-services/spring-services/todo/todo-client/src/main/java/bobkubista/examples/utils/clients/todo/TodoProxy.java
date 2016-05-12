@@ -6,7 +6,7 @@ package bobkubista.examples.utils.clients.todo;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import bobkubista.example.utils.property.ApacheCommonsConfig;
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.api.todo.domain.TodoList;
 import bobkubista.examples.services.api.todo.domain.TodoListCollection;
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
@@ -20,8 +20,7 @@ public class TodoProxy extends AbstractGenericActiveRestProxy<TodoList, Long, To
     private final String baseUri;
 
     public TodoProxy() {
-        this(() -> ApacheCommonsConfig.INSTANCE.get()
-                .getString("todo.rest.service.base.uri"));
+        this(() -> ServerProperties.getString("todo.rest.service.base.uri"));
     }
 
     public TodoProxy(final String baseUri) {
@@ -40,8 +39,7 @@ public class TodoProxy extends AbstractGenericActiveRestProxy<TodoList, Long, To
 
     @Override
     protected String getBasePath() {
-        final Optional<String> path = Optional.ofNullable(ApacheCommonsConfig.INSTANCE.get()
-                .getString("todo.rest.service.base.path"));
+        final Optional<String> path = Optional.ofNullable(ServerProperties.getString("todo.rest.service.base.path"));
         return path.orElse("");
     }
 

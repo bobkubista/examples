@@ -28,7 +28,7 @@ import org.apache.http.client.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bobkubista.example.utils.property.ApacheCommonsConfig;
+import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
@@ -105,8 +105,8 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
     @Override
     public COL getAll(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
-            final Long serverTimeout = ApacheCommonsConfig.INSTANCE.get()
-                    .getLong("server.timeout", 1L);
+            final Long serverTimeout = Long.valueOf((String) ServerProperties.getProperies()
+                    .getOrDefault("server.timeout", "1"));
             return this.getAllAsync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
         } catch (InterruptedException | TimeoutException e) {
