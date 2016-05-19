@@ -10,15 +10,6 @@ def matcher = readFile('pom.xml') =~ '</version>'
 matcher ? matcher[0][1] : null
 }
 
-def checkout() {
-    // git with submodules
-    git url: 'https://github.com/bobkubista/examples.git', branch: 'master'
-//    def v = version()
-//    if (v) {
-//        echo "Building version ${v}"
-//    }
-}
-
 def compile() {
     ensureMaven()
     // compile

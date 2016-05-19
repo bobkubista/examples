@@ -1,4 +1,3 @@
-load 'buildFile.groovy'
 // TODO build parameters
 // TODO maybe tar the source and archive source
 //try {
@@ -7,6 +6,7 @@ load 'buildFile.groovy'
 stage 'checkout, merge and compile'
 node('master') {
     checkout()
+    load './buildFile.groovy'
     compile()
     // archive
     step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
@@ -87,3 +87,12 @@ node('master') {
 //} catch (e) {
 //    mail()
 //}
+
+def checkout() {
+    // git with submodules
+    git url: 'https://github.com/bobkubista/examples.git', branch: 'master'
+//    def v = version()
+//    if (v) {
+//        echo "Building version ${v}"
+//    }
+}
