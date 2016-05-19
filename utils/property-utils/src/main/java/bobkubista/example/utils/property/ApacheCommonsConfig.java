@@ -3,6 +3,7 @@ package bobkubista.example.utils.property;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.function.Supplier;
 
 import org.apache.commons.configuration2.Configuration;
@@ -77,5 +78,14 @@ public enum ApacheCommonsConfig {
 
     public Configuration get() {
         return ApacheCommonsConfig.config.get();
+    }
+
+    public Properties getProperties() {
+        final Properties props = new Properties();
+        ApacheCommonsConfig.config.get()
+                .getKeys()
+                .forEachRemaining(key -> props.put(key, ApacheCommonsConfig.config.get()
+                        .getProperty(key)));
+        return props;
     }
 }
