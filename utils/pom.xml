@@ -10,9 +10,9 @@
   <artifactId>utils</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>service-utils</module>
     <module>domain-model</module>
     <module>property-utils</module>
+    <module>service-utils</module>
     <module>rest-utils</module>
     <module>test-utils</module>
     <module>jee-utils</module>

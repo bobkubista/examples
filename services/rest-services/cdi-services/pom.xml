@@ -10,14 +10,11 @@
   <artifactId>cdi-services</artifactId>
   <packaging>pom</packaging>
   <modules>
-<!--     <module>rest-example</module> -->
 <!--     <module>todo-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
 <!--     <module>user-cdi-rest-service</module> Going with spring for these modules, this is only a technical excursise -->
-<!--     <module>catalog-service</module> -->
     <module>file</module>
     <module>email</module>
     <module>datagathering</module>
-    <!--<module>catalog</module>-->
   </modules>
 
   <dependencyManagement>
