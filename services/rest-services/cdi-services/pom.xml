@@ -15,6 +15,7 @@
     <module>file</module>
     <module>email</module>
     <module>datagathering</module>
+    <module>search</module>
   </modules>
 
   <dependencyManagement>
