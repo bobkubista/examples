@@ -147,7 +147,7 @@ def deploy() {
         sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 }
 
-def performanceTesT() {
+def performanceTest() {
     // jmeter
     ensureMaven()
     sh 'mvn verify -P performance-test'
