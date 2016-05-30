@@ -61,25 +61,25 @@ def version() {
 def compile() {
     ensureMaven()
     // compile
-    sh "mvn -B clean compile"
+    sh "mvn -B -X -e clean compile"
 }
 
 def validate() {
     ensureMaven()
     // validate
-    sh "mvn -B validate"
+    sh "mvn -B -X -e validate"
 }
 
 def test() {
     ensureMaven()
     // TODO splitTests
-    sh "mvn -B test -P test"
+    sh "mvn -B -X -e test -P test"
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 }
 
 def itTesT() {
     ensureMaven()
-    retry(count:2 ) { sh "mvn -B integration-test -P integration-test" }
+    retry(count:2 ) { sh "mvn -B -X -e integration-test -P integration-test" }
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
     echo 'Finished Integration tests'
@@ -89,16 +89,16 @@ def deploy() {
     ensureMaven()
     
         // deploy to test, should eventually be build docker image and run
-        sh "mvn -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 }
 
 def performanceTest() {
     // jmeter
     ensureMaven()
-    sh 'mvn verify -P performance-test'
+    sh 'mvn verify -P performance-test -X -e'
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
     retry(5) {
@@ -110,7 +110,7 @@ def performanceTest() {
 def sonar() {
     ensureMaven()
     // sonarqube
-    sh 'mvn sonar:sonar -P sonar'
+    sh 'mvn sonar:sonar -P sonar -X -e'
 }
 
 def mail() {
@@ -122,5 +122,5 @@ def mail() {
 def nexus() {
     // nexus
     ensureMaven()
-    sh 'mvn deploy'
+    sh 'mvn deploy -X -e'
 }
