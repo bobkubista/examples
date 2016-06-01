@@ -21,7 +21,7 @@ node('master') {
 stage 'integration testing'
 node('master') {
     unstash 'testStash'
-    // itTesT()
+    itTesT()
 }
 stage name: 'performance and front-end tests', concurrency: 1
 node('master') {
