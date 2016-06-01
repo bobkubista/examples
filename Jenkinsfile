@@ -25,7 +25,7 @@ node('master') {
 }
 stage name: 'performance and front-end tests', concurrency: 1
 node('master') {
-    // deploy()
+    deploy()
 }
 node('master') {
     // performanceTest()
