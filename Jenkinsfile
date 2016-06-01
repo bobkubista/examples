@@ -89,16 +89,16 @@ def deploy() {
     ensureMaven()
     
         // deploy to test, should eventually be build docker image and run
-        sh "mvn -X -e -f -T 1C services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f -T 1C services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f -T 1C services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f -T 1C services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -T 1C -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -T 1C -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -T 1C -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 }
 
 def performanceTest() {
     // jmeter
     ensureMaven()
-    sh 'mvn verify -P -T 1C performance-test -X -e -am'
+    sh 'mvn verify -P performance-test -X -e -T 1C -am'
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
     retry(5) {
@@ -110,7 +110,7 @@ def performanceTest() {
 def sonar() {
     ensureMaven()
     // sonarqube
-    sh 'mvn sonar:sonar -P -T 1C sonar -X -e -am'
+    sh 'mvn sonar:sonar -P sonar -X -e -am -T 1C '
 }
 
 def mail() {
