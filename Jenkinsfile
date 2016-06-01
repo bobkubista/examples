@@ -21,22 +21,22 @@ node('master') {
 stage 'integration testing'
 node('master') {
     unstash 'testStash'
-    itTesT()
+    // itTesT()
 }
 stage name: 'performance and front-end tests', concurrency: 1
 node('master') {
-    deploy()
+    // deploy()
 }
 node('master') {
-    performanceTest()
+    // performanceTest()
 }
 stage name: 'Quality', concurrency: 3
 node('master') {
-	sonar()
+	// sonar()
 }
 stage name: 'archive'
 node('master') {
-	nexus()
+	// nexus()
 	}
 	// TODO ask user if we can release
 	// TODO stage name: 'release'
@@ -60,26 +60,26 @@ def version() {
 
 def compile() {
     ensureMaven()
-    // compile
-    sh "mvn -B -X -e clean compile"
+    // compile TODO add -pl, see: http://zeroturnaround.com/rebellabs/your-maven-build-is-slow-speed-it-up/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
+    sh "mvn -B -X -e compile -am"
 }
 
 def validate() {
     ensureMaven()
     // validate
-    sh "mvn -B -X -e validate"
+    sh "mvn -B -X -e -T 1C validate -am"
 }
 
 def test() {
     ensureMaven()
     // TODO splitTests
-    sh "mvn -B -X -e test -P test"
+    sh "mvn -B -X -e test -P -T 1C test -am"
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 }
 
 def itTesT() {
     ensureMaven()
-    retry(count:2 ) { sh "mvn -B -X -e integration-test -P integration-test" }
+    retry(count:2 ) { sh "mvn -B -X -e integration-test -P integration-test -am" }
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
     echo 'Finished Integration tests'
@@ -89,16 +89,16 @@ def deploy() {
     ensureMaven()
     
         // deploy to test, should eventually be build docker image and run
-        sh "mvn -X -e -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f -T 1C services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f -T 1C services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f -T 1C services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -X -e -f -T 1C services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 }
 
 def performanceTest() {
     // jmeter
     ensureMaven()
-    sh 'mvn verify -P performance-test -X -e'
+    sh 'mvn verify -P -T 1C performance-test -X -e -am'
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
     retry(5) {
@@ -110,7 +110,7 @@ def performanceTest() {
 def sonar() {
     ensureMaven()
     // sonarqube
-    sh 'mvn sonar:sonar -P sonar -X -e'
+    sh 'mvn sonar:sonar -P -T 1C sonar -X -e -am'
 }
 
 def mail() {
@@ -122,5 +122,5 @@ def mail() {
 def nexus() {
     // nexus
     ensureMaven()
-    sh 'mvn deploy -X -e'
+    sh 'mvn deploy -X -e -T 1C -am'
 }
