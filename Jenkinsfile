@@ -73,7 +73,7 @@ def validate() {
 def test() {
     ensureMaven()
     // TODO splitTests
-    sh "mvn -B -X -e test -P -T 1C test -am"
+    sh "mvn -B -X -e -T 1C test -P test -am"
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 }
 
