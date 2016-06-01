@@ -28,7 +28,7 @@ node('master') {
     deploy()
 }
 node('master') {
-    // performanceTest()
+    performanceTest()
 }
 stage name: 'Quality', concurrency: 3
 node('master') {
