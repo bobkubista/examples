@@ -32,7 +32,7 @@ node('master') {
 }
 stage name: 'Quality', concurrency: 3
 node('master') {
-	// sonar()
+	sonar()
 }
 stage name: 'archive'
 node('master') {
