@@ -28,7 +28,7 @@ node('master') {
     deploy()
 }
 node('master') {
-    // performanceTest()
+    // FIXME performanceTest()
 }
 stage name: 'Quality', concurrency: 3
 node('master') {
@@ -38,8 +38,11 @@ stage name: 'archive'
 node('master') {
 	nexus()
 	}
-	// TODO ask user if we can release
-	// TODO stage name: 'release'
+	
+stage name: 'release'
+node('master') {
+	release()
+	}
 
 def checkout() {
     // git with submodules
@@ -61,25 +64,25 @@ def version() {
 def compile() {
     ensureMaven()
     // compile TODO add -pl, see: http://zeroturnaround.com/rebellabs/your-maven-build-is-slow-speed-it-up/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
-    sh "mvn -B -X -e compile -am"
+    sh "mvn -B compile -am"
 }
 
 def validate() {
     ensureMaven()
     // validate
-    sh "mvn -B -X -e -T 1C validate -am"
+    sh "mvn -B -T 1C validate -am"
 }
 
 def test() {
     ensureMaven()
     // TODO splitTests
-    sh "mvn -B -X -e -T 1C test -P test -am"
+    sh "mvn -B -T 1C test -P test -am"
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 }
 
 def itTesT() {
     ensureMaven()
-    retry(count:2 ) { sh "mvn -B -X -e integration-test -P integration-test -am" }
+    retry(count:2 ) { sh "mvn -B integration-test -P integration-test -am" }
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
     echo 'Finished Integration tests'
@@ -89,16 +92,16 @@ def deploy() {
     ensureMaven()
     
         // deploy to test, should eventually be build docker image and run
-        sh "mvn -X -e -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -T 1C -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -T 1C -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -X -e -T 1C -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -T 1C -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -T 1C -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+        sh "mvn -T 1C -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 }
 
 def performanceTest() {
     // jmeter
     ensureMaven()
-    sh 'mvn verify -P performance-test -X -e -T 1C -am'
+    sh 'mvn verify -P performance-test -T 1C -am'
     // archive test results
     step([$class: 'JUnitResultArchiver', testResults: '**/*.jtl'])
     retry(5) {
@@ -110,7 +113,7 @@ def performanceTest() {
 def sonar() {
     ensureMaven()
     // sonarqube
-    sh 'mvn sonar:sonar -P sonar -X -e -am -T 1C '
+    sh 'mvn sonar:sonar -P sonar -am -T 1C '
 }
 
 def mail() {
@@ -122,5 +125,10 @@ def mail() {
 def nexus() {
     // nexus
     ensureMaven()
-    sh 'mvn deploy -X -e -T 1C -am'
+    sh 'mvn deploy -T 1C -am'
+}
+
+def release() {
+	// TODO Release
+	// TODO ask user if we can release
 }
