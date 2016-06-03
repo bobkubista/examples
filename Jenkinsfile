@@ -36,7 +36,7 @@ node('master') {
 }
 stage name: 'archive'
 node('master') {
-	// nexus()
+	nexus()
 	}
 	// TODO ask user if we can release
 	// TODO stage name: 'release'
