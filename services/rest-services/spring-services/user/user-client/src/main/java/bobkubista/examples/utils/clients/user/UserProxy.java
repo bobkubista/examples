@@ -25,7 +25,8 @@ public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCo
 
     @Override
     protected String getBasePath() {
-        return ServerProperties.getString("user.rest.service.base.path");
+        return ServerProperties.get()
+                .getString("user.rest.service.base.path");
     }
 
     @Override

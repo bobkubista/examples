@@ -23,6 +23,7 @@ import bobkubista.examples.services.api.email.model.EmailContext.EmailBuilder;
 public class EmailFacadeTest {
 
     private static SimpleSmtpServer server;
+
     private final EmailFacade facade = new EmailFacade();
 
     @After
@@ -32,7 +33,8 @@ public class EmailFacadeTest {
 
     @Before
     public void beforeClass() {
-        server = SimpleSmtpServer.start(Integer.valueOf(ServerProperties.getString("email.smtp.port")));
+        server = SimpleSmtpServer.start(Integer.valueOf(ServerProperties.get()
+                .getString("email.smtp.port")));
     }
 
     /**

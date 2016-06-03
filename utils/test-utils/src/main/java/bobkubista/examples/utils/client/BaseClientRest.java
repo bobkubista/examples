@@ -63,15 +63,22 @@ public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObj
     public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
         // TODO dbunit
 
-        final String schema = ServerProperties.getString("database.defaultSchema");
+        final String schema = ServerProperties.get()
+                .getString("database.defaultSchema");
         source = new ComboPooledDataSource();
         source.setDriverClass("org.postgresql.Driver");
-        source.setJdbcUrl(ServerProperties.getString("database.url"));
-        source.setUser(ServerProperties.getString("database.username"));
-        source.setPassword(ServerProperties.getString("database.password"));
-        source.setMinPoolSize(Integer.valueOf(ServerProperties.getString("database.minPoolSize")));
-        source.setMaxPoolSize(Integer.valueOf(ServerProperties.getString("database.maxPoolSize")));
-        source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.getString("database.idleConnectionTestPeriod")));
+        source.setJdbcUrl(ServerProperties.get()
+                .getString("database.url"));
+        source.setUser(ServerProperties.get()
+                .getString("database.username"));
+        source.setPassword(ServerProperties.get()
+                .getString("database.password"));
+        source.setMinPoolSize(Integer.valueOf(ServerProperties.get()
+                .getString("database.minPoolSize")));
+        source.setMaxPoolSize(Integer.valueOf(ServerProperties.get()
+                .getString("database.maxPoolSize")));
+        source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.get()
+                .getString("database.idleConnectionTestPeriod")));
         connection = new DatabaseConnection(source.getConnection(), schema);
 
         final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();

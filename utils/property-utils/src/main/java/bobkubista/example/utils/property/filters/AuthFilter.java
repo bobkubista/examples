@@ -56,7 +56,8 @@ public class AuthFilter implements ContainerRequestFilter {
     }
 
     private Principal getUserByToken(final String token) {
-        final String casUrl = ServerProperties.getString("cas.url");
+        final String casUrl = ServerProperties.get()
+                .getString("cas.url");
         ClientBuilder.newClient()
                 .target(casUrl)
                 .queryParam("access_token", token)
