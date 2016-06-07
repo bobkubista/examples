@@ -1,95 +1,108 @@
 package bobkubista.example.utils.property;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Optional;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
-import java.util.function.Supplier;
 
-import javax.resource.spi.IllegalStateException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.SystemConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Config wrapper.
+ * Singleton get property config file with name server.prop from classpath
  *
  * @author Bob Kubista
- *
+ * @deprecated Move to Apache commons config
  */
-public class ServerProperties {
+@Deprecated
+public enum ServerProperties {
+    INSTANCE;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
+    private static Properties props;
+
     private static final String SERVER_PROP_FILE = "server.properties";
 
-    private static Supplier<Configuration> config = ServerProperties::getConfig;
+    static {
+        if (props == null) {
+            InputStream serverPropLocation = null;
+            File configFile;
+            try {
+                try {
+                    LOGGER.info("Getting resource file location from JDNI");
+                    String propFolder;
+                    // http://stackoverflow.com/questions/13956651/externalizing-tomcat-webapp-config-from-war-file
 
-    public static Configuration get() {
-        return ServerProperties.config.get();
+                    // get a handle on the JNDI root context
+                    final Context ctx = new InitialContext();
+
+                    // and access the environment variable for this web
+                    // component
+                    propFolder = (String) ctx.lookup("java:comp/env/configurationPath");
+                    configFile = new File(propFolder + ServerProperties.SERVER_PROP_FILE);
+                    serverPropLocation = new FileInputStream(configFile);
+                } catch (NamingException | FileNotFoundException e1) {
+
+                    LOGGER.debug("Defaulting back to classpath", e1);
+                    LOGGER.debug("Getting resource file location from classpath");
+                    serverPropLocation = Thread.currentThread()
+                            .getContextClassLoader()
+                            .getResourceAsStream(ServerProperties.SERVER_PROP_FILE);
+                }
+
+                ServerProperties.loadProperties(serverPropLocation);
+            } finally {
+                if (serverPropLocation != null) {
+                    try {
+                        serverPropLocation.close();
+                    } catch (final IOException e) {
+                        LOGGER.error(e.getMessage(), e);
+                    }
+                }
+            }
+        }
     }
 
-    public static Properties getProperties() {
-        final Properties props = new Properties();
-        ServerProperties.config.get()
-                .getKeys()
-                .forEachRemaining(key -> props.put(key, ServerProperties.config.get()
-                        .getProperty(key)));
+    /**
+     * Get all properties
+     *
+     * @return
+     */
+    public static Properties getProperies() {
         return props;
     }
 
-    private synchronized static Configuration getConfig() {
-        class InternalConfigFactory implements Supplier<Configuration> {
-
-            private final Configuration config = this.create();
-
-            @Override
-            public Configuration get() {
-                return this.config;
-            }
-
-            private Configuration create() {
-                // load default properties from classpath
-
-                // loop through default properties
-                // check if system properties contains the default properties
-                // if not available, then set default property to system
-                // property
-                // return system properties
-                final SystemConfiguration systemConfig = new SystemConfiguration();
-                final Configurations configs = new Configurations();
-                final Configuration defaultConfig;
-                try {
-                    final Optional<URL> serverPropLocation = Optional.ofNullable(Thread.currentThread()
-                            .getContextClassLoader()
-                            .getResource(SERVER_PROP_FILE));
-
-                    defaultConfig = configs.properties(new File(serverPropLocation.orElseThrow(() -> new IllegalStateException("No default server.properties file found"))
-                            .toURI()));
-                    defaultConfig.getKeys()
-                            .forEachRemaining(key -> ServerProperties.setDefaults(key, systemConfig, defaultConfig.getProperty(key)));
-                } catch (final ConfigurationException | URISyntaxException | IllegalStateException e) {
-                    LOGGER.error("Could not find default properties", e);
-                }
-                return systemConfig;
-            }
-        }
-
-        if (!InternalConfigFactory.class.isInstance(config)) {
-            config = new InternalConfigFactory();
-        }
-        return config.get();
-
+    /**
+     *
+     * @param key
+     *            of the property @return the property value
+     */
+    public static String getString(final String key) {
+        String result = null;
+        LOGGER.debug("Getting property for key {}", key);
+        result = props.getProperty(key);
+        LOGGER.debug("Got property for key {} and value {}", key, result);
+        return result;
     }
 
-    private static void setDefaults(final String key, final SystemConfiguration systemConfig, final Object defaults) {
-        if (!systemConfig.containsKey(key)) {
-            systemConfig.addProperty(key, defaults);
+    private static void loadProperties(final InputStream serverPropLocation) {
+        props = new Properties();
+        if (serverPropLocation != null) {
+            try {
+                LOGGER.debug("Loading resource file location from classpath");
+                LOGGER.debug("Loading properties");
+                props.load(serverPropLocation);
+            } catch (final IOException e) {
+                LOGGER.error("Could not load file", e);
+            }
         }
     }
+
 }

@@ -35,17 +35,17 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 public abstract class AbstractGenericIdentifiableAsyncCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
         implements CacheLoader<K, GenericETagModifiedDateDomainObjectDecorator<V>> {
 
-    private static final int EXPIRE_AFTER_ACCESS = ServerProperties.get()
-            .getInt("cache.expire.after.access", 5);
+    private static final int EXPIRE_AFTER_ACCESS = (int) ServerProperties.INSTANCE.getProperies()
+            .getOrDefault("cache.expire.after.access", 5);
 
-    private static final int EXPIRE_AFTER_WRITE = ServerProperties.get()
-            .getInt("cache.expire.after.write", 10);
+    private static final int EXPIRE_AFTER_WRITE = (int) ServerProperties.INSTANCE.getProperies()
+            .getOrDefault("cache.expire.after.write", 10);
 
-    private static final int INITIAL_CAPACITY = ServerProperties.get()
-            .getInt("cache.initial.capacity", 150);
+    private static final int INITIAL_CAPACITY = (int) ServerProperties.INSTANCE.getProperies()
+            .getOrDefault("cache.initial.capacity", 150);
 
-    private static final int REFRESH_AFTER_WRITE = ServerProperties.get()
-            .getInt("cache.refresh.after.write", 1);
+    private static final int REFRESH_AFTER_WRITE = (int) ServerProperties.INSTANCE.getProperies()
+            .getOrDefault("cache.refresh.after.write", 1);
 
     private final AsyncLoadingCache<K, GenericETagModifiedDateDomainObjectDecorator<V>> cache = Caffeine.newBuilder()
             .initialCapacity(INITIAL_CAPACITY)

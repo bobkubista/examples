@@ -9,20 +9,19 @@ import bobkubista.example.utils.property.ServerProperties;
  */
 public final class ToolService {
 
-    /**
-     * Private Constructor
-     */
-    private ToolService() {
-        super();
-    }
+	/**
+	 * Private Constructor
+	 */
+	private ToolService() {
+		super();
+	}
 
-    /**
-     *
-     * @param appName
-     * @return
-     */
-    public static String getUrl(final String appName) {
-        return ServerProperties.get()
-                .getString(appName);
-    }
+	/**
+	 *
+	 * @param appName
+	 * @return
+	 */
+	public static String getUrl(final String appName) {
+		return ServerProperties.getString(appName);
+	}
 }

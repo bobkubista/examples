@@ -78,16 +78,11 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     protected Properties getEmailProperties() {
         final Properties props = new Properties();
-        props.put("mail.smtp.host", ServerProperties.get()
-                .getString("email.smtp.host"));
-        props.put("mail.smtp.socketFactory.port", ServerProperties.get()
-                .getString("email.smtp.socket.factory.port"));
-        props.put("mail.smtp.socketFactory.class", ServerProperties.get()
-                .getString("email.smtp.socket.factory.class"));
-        props.put("mail.smtp.auth", ServerProperties.get()
-                .getString("email.smtp.auth"));
-        props.put("mail.smtp.port", ServerProperties.get()
-                .getString("email.smtp.port"));
+        props.put("mail.smtp.host", ServerProperties.getString("email.smtp.host"));
+        props.put("mail.smtp.socketFactory.port", ServerProperties.getString("email.smtp.socket.factory.port"));
+        props.put("mail.smtp.socketFactory.class", ServerProperties.getString("email.smtp.socket.factory.class"));
+        props.put("mail.smtp.auth", ServerProperties.getString("email.smtp.auth"));
+        props.put("mail.smtp.port", ServerProperties.getString("email.smtp.port"));
         LOGGER.debug("Email propertires : {}", props);
         return props;
     }
@@ -97,16 +92,12 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(ServerProperties.get()
-                        .getString("email.login"),
-                        ServerProperties.get()
-                                .getString("email.password"));
+                return new PasswordAuthentication(ServerProperties.getString("email.login"), ServerProperties.getString("email.password"));
             }
         });
         final MimeMessage message = new MimeMessage(session);
         message.setSubject(email.getSubject());
-        message.setFrom(new InternetAddress(ServerProperties.get()
-                .getString("email.from")));
+        message.setFrom(new InternetAddress(ServerProperties.getString("email.from")));
 
         final MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(email.getMessage(), "text/html; charset=UTF-8");

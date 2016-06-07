@@ -38,8 +38,8 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
     @Override
     public COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults) {
         try {
-            final Long serverTimeout = ServerProperties.get()
-                    .getLong("server.timeout", 1L);
+            final Long serverTimeout = (Long) ServerProperties.getProperies()
+                    .getOrDefault("server.timeout", 1L);
             return this.getAllActiveASync(sort, page, maxResults)
                     .get(serverTimeout, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {

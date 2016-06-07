@@ -20,8 +20,7 @@ public class TodoProxy extends AbstractGenericActiveRestProxy<TodoList, Long, To
     private final String baseUri;
 
     public TodoProxy() {
-        this(() -> ServerProperties.get()
-                .getString("todo.rest.service.base.uri"));
+        this(() -> ServerProperties.getString("todo.rest.service.base.uri"));
     }
 
     public TodoProxy(final String baseUri) {
@@ -40,8 +39,7 @@ public class TodoProxy extends AbstractGenericActiveRestProxy<TodoList, Long, To
 
     @Override
     protected String getBasePath() {
-        final Optional<String> path = Optional.ofNullable(ServerProperties.get()
-                .getString("todo.rest.service.base.path"));
+        final Optional<String> path = Optional.ofNullable(ServerProperties.getString("todo.rest.service.base.path"));
         return path.orElse("");
     }
 
