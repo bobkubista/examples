@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
@@ -66,8 +65,10 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 
     private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool((int) ServerProperties.getProperies()
-            .getOrDefault("server.thread.count", 10), this.threadFactory);
+    // TODO
+    // http://zeroturnaround.com/rebellabs/fixedthreadpool-cachedthreadpool-or-forkjoinpool-picking-correct-java-executors-for-background-tasks/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
+    private final ExecutorService executorService = Executors.newFixedThreadPool(ServerProperties.get()
+            .getInt("server.thread.count", 10), this.threadFactory);
 
     @Override
     public Response create(@Valid final DMO object) {

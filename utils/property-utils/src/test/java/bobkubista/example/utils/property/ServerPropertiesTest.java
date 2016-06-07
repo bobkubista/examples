@@ -1,38 +1,38 @@
 /**
- *
+ * Bob Kubista's examples
  */
 package bobkubista.example.utils.property;
 
 import java.util.Properties;
 
-import javax.naming.NamingException;
-
+import org.apache.commons.configuration2.Configuration;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @author Bob Kubista
+ * @author Bob
  *
  */
 public class ServerPropertiesTest {
 
-	@Test
-	public void testGetProperies() throws NamingException {
-		final Properties result = ServerProperties.getProperies();
-		Assert.assertNotNull(result);
-		Assert.assertFalse(result.isEmpty());
-		Assert.assertEquals(1, result.size());
-	}
+    /**
+     * Test method for
+     * {@link bobkubista.example.utils.property.ServerProperties#get()}.
+     */
+    @Test
+    public void testGetDefaults() {
+        final Configuration properties = ServerProperties.get();
+        Assert.assertNotNull(properties);
+        Assert.assertNotNull(properties.getKeys());
+        Assert.assertEquals("test1", properties.getString("test"));
+        Assert.assertNotNull(properties.getString("java.version"));
+    }
 
-	/**
-	 * Test method for {@link
-	 * bobkubista.example.utils.property.ServerProperties#getString(java.lang.
-	 * String)} .
-	 */
-	@Test
-	public void testGetString() {
-		final String value = ServerProperties.getString("test");
-		Assert.assertEquals("test1", value);
-	}
+    @Test
+    public void testGetProperties() {
+        final Properties properties = ServerProperties.getProperties();
+        Assert.assertEquals("test1", properties.getProperty("test"));
+        Assert.assertNotNull(properties.getProperty("user.home"));
+    }
 
 }
