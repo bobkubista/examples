@@ -22,8 +22,7 @@ import org.slf4j.LoggerFactory;
  * @author Bob Kubista
  *
  */
-public enum ServerProperties {
-    INSTANCE;
+public class ServerProperties {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 

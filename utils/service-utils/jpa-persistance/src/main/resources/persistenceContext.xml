@@ -18,7 +18,7 @@
   <context:property-placeholder
     properties-ref="serverProperties" />
   <bean name="serverProperties" class="bobkubista.example.utils.property.ServerProperties"
-    factory-method="getProperties" />
+    factory-method="getProperies" />
 
   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
     destroy-method="close">
