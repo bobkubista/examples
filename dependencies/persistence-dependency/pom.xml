@@ -68,6 +68,11 @@
         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging</artifactId>
+        <version>3.3.0.Final</version>
+      </dependency>
+      <dependency>
         <groupId>com.mchange</groupId>
         <artifactId>c3p0</artifactId>
         <version>${c3p0.version}</version>
