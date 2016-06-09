@@ -29,7 +29,7 @@ public enum ServerProperties {
 
     private static final String SERVER_PROP_FILE = "server.properties";
 
-    private static Supplier<Configuration> config = ServerProperties::getConfig;
+    private static Supplier<Configuration> config = () -> ServerProperties.getConfig();
 
     public static Configuration get() {
         return ServerProperties.config.get();
@@ -44,7 +44,7 @@ public enum ServerProperties {
         return props;
     }
 
-    private synchronized static Configuration getConfig() {
+    private static synchronized Configuration getConfig() {
         class InternalConfigFactory implements Supplier<Configuration> {
 
             private final Configuration config = this.create();
