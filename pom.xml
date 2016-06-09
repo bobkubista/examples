@@ -15,7 +15,7 @@
   </properties>
 
   <prerequisites>
-  	<maven>3.0</maven>
+    <maven>3.0</maven>
   </prerequisites>
 
   <modules>
@@ -25,6 +25,14 @@
     <module>services</module>
     <module>webapps</module>
   </modules>
+
+  <developers>
+    <developer>
+      <name>Bob Kubsta</name>
+      <email>bobbykubista@yahoo.com</email>
+      <organizationUrl>www.bobkubista.com</organizationUrl>
+    </developer>
+  </developers>
 
   <distributionManagement>
     <snapshotRepository>
@@ -38,6 +46,8 @@
   </distributionManagement>
 
   <scm>
+    <developerConnection>scm:git:ssh:git@github.com:bobkubista/examples.git</developerConnection>
+    <connection>scm:git:ssh:git@github.com:bobkubista/examples.git</connection>
     <url>https://github.com/bobkubista/examples.git</url>
   </scm>
 
