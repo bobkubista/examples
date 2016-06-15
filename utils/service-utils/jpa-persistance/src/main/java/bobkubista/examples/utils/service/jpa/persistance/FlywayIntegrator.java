@@ -34,6 +34,8 @@ public class FlywayIntegrator implements Integrator {
         final Flyway flyway = new Flyway();
 
         // Point it to the database
+        LOGGER.debug("database: {}", ServerProperties.get()
+                .getString("database.url"));
         flyway.setDataSource(ServerProperties.get()
                 .getString("database.url"),
                 ServerProperties.get()
@@ -47,6 +49,7 @@ public class FlywayIntegrator implements Integrator {
         final Map<String, String> placeHolders = new HashMap<>();
         final String defaultSchema = ServerProperties.get()
                 .getString("database.defaultSchema");
+        LOGGER.debug("Schema: {}", defaultSchema);
         placeHolders.put("schema", defaultSchema);
         flyway.setPlaceholders(placeHolders);
         flyway.setSchemas(defaultSchema);
