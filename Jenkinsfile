@@ -5,7 +5,7 @@
     test()
     itTesT()
     deploy()
-    performanceTest()
+    //performanceTest()
 	sonar()
 	nexus()
 	release()
