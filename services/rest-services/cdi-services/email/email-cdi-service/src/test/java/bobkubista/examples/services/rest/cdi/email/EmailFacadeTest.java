@@ -51,4 +51,17 @@ public class EmailFacadeTest {
         Assert.assertEquals(200, result.getStatus());
     }
 
+    /**
+     * Test method for
+     * {@link bobkubista.examples.services.rest.cdi.email.EmailFacade#sendEmail(bobkubista.examples.services.api.email.model.EmailContext)}
+     * .
+     */
+    @Test
+    public void testSendEmailTemplate() {
+        final EmailContext context = new EmailBuilder("bla@foo.bar", "foobar").build();
+        final Response result = this.facade.sendEmail(context, "extraTestTemplate");
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(200, result.getStatus());
+    }
 }
