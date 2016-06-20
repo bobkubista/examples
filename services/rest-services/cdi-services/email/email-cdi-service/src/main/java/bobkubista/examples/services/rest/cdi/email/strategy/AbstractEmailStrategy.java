@@ -39,17 +39,6 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEmailStrategy.class);
 
-    public String processVelocityTemplate(final EmailContext email, final String templateFile, final String textToProcess) {
-        final VelocityContext context = new VelocityContext();
-        email.getReplacements()
-                .entrySet()
-                .stream()
-                .forEach((final Entry<String, ? extends Object> replacement) -> context.put(replacement.getKey(), replacement.getValue()));
-        final Writer swOut = new StringWriter();
-        Velocity.evaluate(context, swOut, templateFile, textToProcess);
-        return swOut.toString();
-    }
-
     @Override
     public boolean send() {
         LOGGER.info("Sending email : {})", this.getEmail());
@@ -73,6 +62,7 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
                     .getClassLoader()
                     .getResource(templateFile);
             final String textToProcess = IOUtils.toString(resource, Charsets.UTF_8);
+
             final String swOut = this.processVelocityTemplate(email, templateFile, textToProcess);
 
             email.setMessage(swOut);
@@ -125,4 +115,15 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
     }
 
     abstract EmailContext getEmail();
+
+    private String processVelocityTemplate(final EmailContext email, final String templateFile, final String textToProcess) {
+        final VelocityContext context = new VelocityContext();
+        email.getReplacements()
+                .entrySet()
+                .stream()
+                .forEach((final Entry<String, ? extends Object> replacement) -> context.put(replacement.getKey(), replacement.getValue()));
+        final Writer swOut = new StringWriter();
+        Velocity.evaluate(context, swOut, templateFile, textToProcess);
+        return swOut.toString();
+    }
 }
