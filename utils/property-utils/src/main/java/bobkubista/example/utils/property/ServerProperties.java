@@ -85,11 +85,11 @@ public enum ServerProperties {
             config = new InternalConfigFactory();
         }
         return config.get();
-
     }
 
     private static void setDefaults(final String key, final SystemConfiguration systemConfig, final Object defaults) {
         if (!systemConfig.containsKey(key)) {
+            LOGGER.debug("Setting default for key: {} and value: {}", key, defaults);
             systemConfig.addProperty(key, defaults);
         }
     }
