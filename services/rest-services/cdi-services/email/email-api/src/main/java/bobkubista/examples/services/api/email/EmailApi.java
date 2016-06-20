@@ -30,6 +30,15 @@ public interface EmailApi {
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     Response sendEmail(EmailContext context);
 
+    /**
+     * Send an email with given template
+     * 
+     * @param context
+     *            {@link EmailContext}
+     * @param template
+     *            template name
+     * @return {@link Response} with response code
+     */
     @GET
     @Path("{template}")
     Response sendEmail(EmailContext context, @PathParam("template") String template);

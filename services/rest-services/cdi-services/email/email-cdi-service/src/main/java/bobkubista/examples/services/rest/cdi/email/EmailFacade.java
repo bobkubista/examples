@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import bobkubista.examples.services.api.email.EmailApi;
 import bobkubista.examples.services.api.email.model.EmailContext;
 import bobkubista.examples.services.rest.cdi.email.strategy.EmailStrategy;
-import bobkubista.examples.services.rest.cdi.email.strategy.TestEmailStrategy;
 import bobkubista.examples.services.rest.cdi.email.strategy.TemplateEmailStrategy;
+import bobkubista.examples.services.rest.cdi.email.strategy.TestEmailStrategy;
 
 /**
  * @author Bob
@@ -32,6 +32,7 @@ public class EmailFacade implements EmailApi {
 
     @Override
     public Response sendEmail(final EmailContext context, final String template) {
+        LOGGER.info("Sending {} email to {}", template, context.getRecipient());
         return this.buildResponse(() -> new TemplateEmailStrategy(context, template).send());
     }
 
