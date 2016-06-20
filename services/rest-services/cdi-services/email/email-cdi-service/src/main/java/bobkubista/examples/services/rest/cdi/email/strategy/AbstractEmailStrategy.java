@@ -3,7 +3,6 @@ package bobkubista.examples.services.rest.cdi.email.strategy;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -28,6 +27,9 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.services.api.email.model.EmailContext;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 /**
  * Abstract class for shared email logic for {@link EmailStrategy}
@@ -58,16 +60,18 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     protected final void composeEmail(final EmailContext email, final String templateFile) {
         try {
-            final URL resource = this.getClass()
-                    .getClassLoader()
-                    .getResource(templateFile);
-            final String textToProcess = IOUtils.toString(resource, Charsets.UTF_8);
-
-            final String swOut = this.processVelocityTemplate(email, templateFile, textToProcess);
+            final String swOut;
+            if (ServerProperties.get()
+                    .getString("template.engine", "Velocity")
+                    .equals("Velocity")) {
+                swOut = this.processVelocityTemplate(email, templateFile);
+            } else {
+                swOut = this.processFreeMarkerTemplate(email, templateFile);
+            }
 
             email.setMessage(swOut);
-        } catch (final IOException e) {
-            LOGGER.error("Cannot load template file : {}\n{}", templateFile, e);
+        } catch (final IOException | TemplateException e) {
+            LOGGER.error("Cannot process template file : {}\n{}", templateFile, e);
         }
     }
 
@@ -116,14 +120,24 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
 
     abstract EmailContext getEmail();
 
-    private String processVelocityTemplate(final EmailContext email, final String templateFile, final String textToProcess) {
+    private String processFreeMarkerTemplate(final EmailContext email, final String templateFile) throws TemplateException, IOException {
+        final Configuration cfg = new Configuration();
+        final Template template = cfg.getTemplate(templateFile, "UTF-8");
+        final Writer swOut = new StringWriter();
+        template.process(email.getReplacements(), swOut);
+        return swOut.toString();
+    }
+
+    private String processVelocityTemplate(final EmailContext email, final String templateFile) throws IOException {
         final VelocityContext context = new VelocityContext();
         email.getReplacements()
                 .entrySet()
                 .stream()
                 .forEach((final Entry<String, ? extends Object> replacement) -> context.put(replacement.getKey(), replacement.getValue()));
         final Writer swOut = new StringWriter();
-        Velocity.evaluate(context, swOut, templateFile, textToProcess);
+        Velocity.evaluate(context, swOut, templateFile, IOUtils.toString(this.getClass()
+                .getClassLoader()
+                .getResource(templateFile), Charsets.UTF_8));
         return swOut.toString();
     }
 }
