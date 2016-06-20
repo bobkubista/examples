@@ -39,6 +39,8 @@ import freemarker.template.TemplateException;
  */
 public abstract class AbstractEmailStrategy implements EmailStrategy {
 
+    private static final String VELOCITY_ENGINE = "Velocity";
+    private static final String FREE_MARKER_ENGINE = "FreeMarker";
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEmailStrategy.class);
 
     @Override
@@ -61,12 +63,14 @@ public abstract class AbstractEmailStrategy implements EmailStrategy {
     protected final void composeEmail(final EmailContext email, final String templateFile) {
         try {
             final String swOut;
-            if (ServerProperties.get()
-                    .getString("template.engine", "Velocity")
-                    .equals("Velocity")) {
+            final String templateEngine = ServerProperties.get()
+                    .getString("template.engine", VELOCITY_ENGINE);
+            if (templateEngine.equals(VELOCITY_ENGINE)) {
                 swOut = this.processVelocityTemplate(email, templateFile);
-            } else {
+            } else if (templateEngine.equals(FREE_MARKER_ENGINE)) {
                 swOut = this.processFreeMarkerTemplate(email, templateFile);
+            } else {
+                throw new IllegalStateException("Template engine unknown");
             }
 
             email.setMessage(swOut);
