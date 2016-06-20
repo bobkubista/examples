@@ -46,9 +46,9 @@
   </distributionManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:bobkubista/examples.git</developerConnection>
     <connection>scm:git:git@github.com:bobkubista/examples.git</connection>
-    <url>http://github.com/bobkubista/examples</url>
+    <url>scm:git:git@github.com/bobkubista/examples</url>
+    <developerConnection>scm:git:git@github.com:bobkubista/examples.git</developerConnection>
   </scm>
 
   <profiles>
