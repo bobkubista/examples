@@ -20,7 +20,7 @@ import bobkubista.examples.services.api.email.model.LinkReplacement;
  * @author Bob
  *
  */
-public class GeneralEmailStrategyTest {
+public class testEmailStrategyTest {
 
     private static final String GENERAL_EMAIL = "Hello bla@foo.bar,Please click link below to activate your account, http://bla.blaThank you,";
     private static final String SUBJECT = "foobar";
@@ -32,7 +32,7 @@ public class GeneralEmailStrategyTest {
                 .addReplacement(new LinkReplacement(new URI("http://bla.bla")))
                 .build();
         email.setMessage(GENERAL_EMAIL);
-        final GeneralEmailStrategy strategy = new GeneralEmailStrategy(email);
+        final TestEmailStrategy strategy = new TestEmailStrategy(email);
 
         final EmailContext composedEmail = strategy.getEmail();
         Assert.assertEquals(recipient, composedEmail.getRecipient());
