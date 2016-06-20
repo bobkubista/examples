@@ -68,6 +68,24 @@ public class EmailFacadeIT extends JerseyTest {
         Assert.assertEquals("foobar", recievedEmail.getHeaderValue(EMAIL_SUBJECT_HEADER));
     }
 
+    @Test
+    public void testSendEmailTemplate() throws URISyntaxException {
+        final EmailContext email = new EmailBuilder("bla@foo.bar", "foobar").addReplacement(new DateReplacement(new Date()))
+                .addReplacement(new LinkReplacement(new URI("http://bla.bla")))
+                .build();
+        System.out.println(email.toString());
+        final Response response = this.target("extraTestTemplate")
+                .request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON)
+                .put(Entity.entity(email.getEmail(), MediaType.APPLICATION_XML), Response.class);
+
+        Assert.assertNotNull(response);
+        Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+        Assert.assertEquals(1, server.getReceivedEmailSize());
+        final SmtpMessage recievedEmail = (SmtpMessage) server.getReceivedEmail()
+                .next();
+        Assert.assertEquals("foobar", recievedEmail.getHeaderValue(EMAIL_SUBJECT_HEADER));
+    }
+
     @Override
     protected Application configure() {
 

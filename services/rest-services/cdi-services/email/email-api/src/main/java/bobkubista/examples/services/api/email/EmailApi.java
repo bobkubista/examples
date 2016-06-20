@@ -4,7 +4,6 @@
 package bobkubista.examples.services.api.email;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,14 +31,14 @@ public interface EmailApi {
 
     /**
      * Send an email with given template
-     * 
+     *
      * @param context
      *            {@link EmailContext}
      * @param template
      *            template name
      * @return {@link Response} with response code
      */
-    @GET
+    @PUT
     @Path("{template}")
     Response sendEmail(EmailContext context, @PathParam("template") String template);
 }
