@@ -49,6 +49,7 @@
     <connection>scm:git:git@github.com/bobkubista/examples.git</connection>
     <url>scm:git:git@github.com/bobkubista/examples.git</url>
     <developerConnection>scm:git:git@github.com/bobkubista/examples.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
 
   <profiles>
