@@ -1,8 +1,6 @@
 package bobkubista.examples.utils.service.jpa.persistance;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -47,10 +45,7 @@ public class FlywayIntegrator implements Integrator {
 
         flyway.setEncoding(CharEncoding.UTF_8);
         flyway.setOutOfOrder(true);
-        final List<String> sqlLocations = Arrays.asList(ServerProperties.get()
-                .getStringArray("sql.locations"));
-        sqlLocations.add("classpath:sql");
-        flyway.setLocations(sqlLocations.toArray(new String[sqlLocations.size()]));
+        flyway.setLocations("classpath:sql");
         final Map<String, String> placeHolders = new HashMap<>();
         final String defaultSchema = ServerProperties.get()
                 .getString("database.defaultSchema");
