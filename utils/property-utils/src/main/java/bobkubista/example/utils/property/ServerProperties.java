@@ -1,13 +1,13 @@
 package bobkubista.example.utils.property;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
 
-import javax.resource.spi.IllegalStateException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.SystemConfiguration;
@@ -62,19 +62,22 @@ public enum ServerProperties {
                 // if not available, then set default property to system
                 // property
                 // return system properties
-                final SystemConfiguration systemConfig = new SystemConfiguration();
+                final Configuration systemConfig = new SystemConfiguration();
                 final Configurations configs = new Configurations();
-                final Configuration defaultConfig;
+                Configuration defaultConfig;
                 try {
                     final Optional<URL> serverPropLocation = Optional.ofNullable(Thread.currentThread()
                             .getContextClassLoader()
                             .getResource(SERVER_PROP_FILE));
 
-                    defaultConfig = configs.properties(new File(serverPropLocation.orElseThrow(() -> new IllegalStateException("No default server.properties file found"))
-                            .toURI()));
+                    defaultConfig = configs.properties(serverPropLocation.map(l -> l.toString())
+                            .orElse(loadPropertyLocationFromJDNI().orElse(Thread.currentThread()
+                                    .getContextClassLoader()
+                                    .getResource(ServerProperties.SERVER_PROP_FILE)
+                                    .toString())));
                     defaultConfig.getKeys()
                             .forEachRemaining(key -> ServerProperties.setDefaults(key, systemConfig, defaultConfig.getProperty(key)));
-                } catch (final ConfigurationException | URISyntaxException | IllegalStateException e) {
+                } catch (final ConfigurationException e) {
                     LOGGER.error("Could not find default properties", e);
                 }
                 return systemConfig;
@@ -87,7 +90,26 @@ public enum ServerProperties {
         return config.get();
     }
 
-    private static void setDefaults(final String key, final SystemConfiguration systemConfig, final Object defaults) {
+    private static Optional<String> loadPropertyLocationFromJDNI() {
+        // http://stackoverflow.com/questions/13956651/externalizing-tomcat-webapp-config-from-war-file
+        String propFolder;
+        // get a handle on the JNDI root context
+        Context ctx;
+        // and access the environment variable for this web
+        // component
+        try {
+            ctx = new InitialContext();
+            propFolder = (String) ctx.lookup("java:comp/env/configurationPath");
+            return Optional.of(propFolder + ServerProperties.SERVER_PROP_FILE);
+        } catch (final NamingException e) {
+            LOGGER.debug("Defaulting back to classpath", e);
+            LOGGER.debug("Getting resource file location from classpath");
+            return Optional.empty();
+        }
+
+    }
+
+    private static void setDefaults(final String key, final Configuration systemConfig, final Object defaults) {
         if (!systemConfig.containsKey(key)) {
             LOGGER.debug("Setting default for key: {} and value: {}", key, defaults);
             systemConfig.addProperty(key, defaults);
