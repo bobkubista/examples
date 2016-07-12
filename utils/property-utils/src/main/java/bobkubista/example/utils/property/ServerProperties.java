@@ -106,7 +106,6 @@ public enum ServerProperties {
             LOGGER.debug("Getting resource file location from classpath");
             return Optional.empty();
         }
-
     }
 
     private static void setDefaults(final String key, final Configuration systemConfig, final Object defaults) {
