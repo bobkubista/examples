@@ -2,8 +2,12 @@
 // TODO maybe tar the source and archive source
     checkout()
     validate()
+	parallel(
+		test: {test()},
+		itTest: {itTest()}
+	)
     test()
-    itTesT()
+    itTest()
     deploy()
     //performanceTest()
 	sonar()
@@ -61,7 +65,7 @@ def test() {
 	}
 }
 
-def itTesT() {stage 'integration testing'
+def itTest() {stage 'integration testing'
 	node('master') {
 	    unstash 'testStash'
 	    ensureMaven()
