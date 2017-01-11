@@ -1,5 +1,6 @@
 // TODO build parameters
 // TODO maybe tar the source and archive source
+try{
     checkout()
     validate()
 	parallel(
@@ -13,6 +14,9 @@
 	sonar()
 	nexus()
 	release()
+} catch(Exception ex) {
+	mail()
+}
 
 def checkout() {
 	stage 'checkout, merge and compile'
