@@ -3,12 +3,11 @@
 try{
     checkout()
     validate()
-	parallel(
-		test: {test()},
-		itTest: {itTest()}
-	)
-    test()
-    itTest()
+    parallel 
+	'test': {test()},
+	'itTest': {itTest()}
+    //test()
+    //itTest()
     deploy()
     //performanceTest()
 	sonar()
