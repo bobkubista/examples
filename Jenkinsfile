@@ -26,7 +26,7 @@ def checkout() {
 	    load './buildFile.groovy'
 	    compile()
 	    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
-	    stash includes: '*', name: 'buildStash'
+	    stash includes: '*', name: 'source'
 	}
 }
 
@@ -51,7 +51,7 @@ def compile() {
 def validate() {
 	stage 'unit testing'
 	node {
-	    unstash 'buildStash'
+	    unstash 'source'
 	    ensureMaven()
 	    // validate
 	    sh "mvn -B -T 1C validate -am"
@@ -60,18 +60,18 @@ def validate() {
 
 def test() {
 	node {
-	    unstash 'buildStash'
+	    unstash 'source'
 	    ensureMaven()
 	    // TODO splitTests
 	    sh "mvn -B -T 1C test -P test -am"
 	    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
-	    stash includes: '*', name: 'testStash'
+	    stash includes: '*', name: 'source'
 	}
 }
 
 def itTest() {stage 'integration testing'
 	node {
-	    unstash 'testStash'
+	    unstash 'source'
 	    ensureMaven()
 	    retry(count:2 ) { sh "mvn -B integration-test -P integration-test -am" }
 	    // archive test results
