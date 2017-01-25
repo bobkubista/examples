@@ -14,7 +14,9 @@ try{
 	nexus()
 	release()
 } catch(Exception ex) {
+	currentBuild.result = 'FAILED'
 	mail()
+	throw ex
 }
 
 def checkout() {
@@ -114,9 +116,7 @@ def sonar() {
 }
 
 def mail() {
-    // TODO mail
-    // emailext attachLog: 'true', subject: '', body: ''
-    // mail bcc: '', body: '', cc: '', charset: '', from: '', mimeType: '', replyTo: '', subject: '', to: ''
+	mail to: '<to>', subject: '<subject>', body: '<body>', attachLog: true
 }
 
 def nexus() {
