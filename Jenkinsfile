@@ -76,6 +76,7 @@ def itTest() {stage 'integration testing'
 	    retry(count:2 ) { sh "mvn -B integration-test -P integration-test -am" }
 	    // archive test results
 	    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/*.xml'])
+	    stash includes: '*', name: 'source'
 	    echo 'Finished Integration tests'
 	}
 }
@@ -103,6 +104,7 @@ def performanceTest() {
 	        // TODO front end tests
 	        // TODO archive test results
 	    }
+	    stash includes: '*', name: 'source'
     }
 }
 
