@@ -21,7 +21,7 @@ try{
 
 def checkout() {
 	stage 'checkout, merge and compile'
-	node('master') {
+	node {
 	    // git with submodules
 	    load './buildFile.groovy'
 	    compile()
@@ -50,7 +50,7 @@ def compile() {
 
 def validate() {
 	stage 'unit testing'
-	node('master') {
+	node {
 	    unstash 'buildStash'
 	    ensureMaven()
 	    // validate
@@ -59,7 +59,7 @@ def validate() {
 }
 
 def test() {
-	node('master') {
+	node {
 	    unstash 'buildStash'
 	    ensureMaven()
 	    // TODO splitTests
@@ -70,7 +70,7 @@ def test() {
 }
 
 def itTest() {stage 'integration testing'
-	node('master') {
+	node {
 	    unstash 'testStash'
 	    ensureMaven()
 	    retry(count:2 ) { sh "mvn -B integration-test -P integration-test -am" }
@@ -82,7 +82,7 @@ def itTest() {stage 'integration testing'
 
 def deploy() {
 stage name: 'performance and front-end tests', concurrency: 1
-	node('master') {
+	node {
 	    ensureMaven()
         // deploy to test, should eventually be build docker image and run
         sh "mvn -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
@@ -93,7 +93,7 @@ stage name: 'performance and front-end tests', concurrency: 1
 }
 
 def performanceTest() {
-	node('master') {
+	node {
 	    // jmeter
 	    ensureMaven()
 	    sh 'mvn verify -P performance-test -T 1C -am'
@@ -108,7 +108,7 @@ def performanceTest() {
 
 def sonar() {
 	stage name: 'Quality', concurrency: 3
-	node('master') {
+	node {
 	    ensureMaven()
 	    // sonarqube
 	    sh 'mvn sonar:sonar -P sonar -am -T 1C '
@@ -121,7 +121,7 @@ def mail() {
 
 def nexus() {
 	stage name: 'archive'
-	node('master') {
+	node {
 	    // nexus
 	    ensureMaven()
 	    sh 'mvn deploy -T 1C -am'
@@ -131,7 +131,7 @@ def nexus() {
 def release() {
 	if (env.BRANCH_NAME == "master") {
 	    stage name: 'release'
-	    node('master') {
+	    node {
 	        // TODO Release
 	        // TODO ask user if we can release
 	        sh 'mvn -T 1C -am -DdryRun=true -e -X release:perform'
