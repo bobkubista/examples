@@ -21,7 +21,6 @@ def checkout() {
 	stage 'checkout, merge and compile'
 	node('master') {
 	    // git with submodules
-	    git url: 'https://github.com/bobkubista/examples.git', branch: 'master'
 	    load './buildFile.groovy'
 	    compile()
 	    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
