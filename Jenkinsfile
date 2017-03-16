@@ -1,3 +1,4 @@
+#!groovy
 // TODO build parameters
 // TODO maybe tar the source and archive source
 try{
