@@ -66,6 +66,7 @@ This is my examples of code that I am trying out stuff with. It is for reference
 * file web service
 * Coda hale metrics
 *  Add OWASP dependency check to maven http://search.maven.org/#artifactdetails%7Corg.owasp%7Cdependency-check-maven%7C1.4.5%7Cmaven-plugin
+* Create job for release with mvn release:prepare release:perform
 
 ### Existing:
 * Buildstreet:
