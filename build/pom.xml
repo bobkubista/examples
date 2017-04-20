@@ -371,9 +371,7 @@
       <properties>
         <maven.test.skip>false</maven.test.skip>
         <skipUnitTests>false</skipUnitTests>
-        <skipITTests>true</skipITTests>
         <maven.test.failure.ignore>false</maven.test.failure.ignore>
-        <skipPerformanceTests>true</skipPerformanceTests>
       </properties>
     </profile>
     <profile>
@@ -383,10 +381,8 @@
       </activation>
       <properties>
         <maven.test.skip>false</maven.test.skip>
-        <skipUnitTests>true</skipUnitTests>
         <skipITTests>false</skipITTests>
         <maven.test.failure.ignore>false</maven.test.failure.ignore>
-        <skipPerformanceTests>true</skipPerformanceTests>
       </properties>
     </profile>
     <profile>
@@ -395,10 +391,6 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <maven.test.skip>true</maven.test.skip>
-        <skipUnitTests>true</skipUnitTests>
-        <skipITTests>true</skipITTests>
-        <skipPerformanceTests>true</skipPerformanceTests>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
