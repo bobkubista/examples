@@ -134,7 +134,9 @@ def nexus() {
 def release() {
 	if (env.BRANCH_NAME == "master") {
 	    stage name: 'release'
-	    input 'Do you approve release candidate?'
+	    timeout(time:5, unit:'DAYS') {
+	    	input 'Do you approve release candidate?'
+	    }
 	    node {
 	        // TODO Release
 	        // TODO ask user if we can release
