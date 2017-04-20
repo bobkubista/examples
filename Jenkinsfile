@@ -11,9 +11,9 @@ try{
     //itTest()
     deploy()
     //performanceTest()
-	sonar()
-	nexus()
-	release()
+    sonar()
+    nexus()
+    release()
 } catch(Exception ex) {
 	currentBuild.result = 'FAILED'
 	mail()
@@ -84,8 +84,11 @@ def itTest() {stage 'integration testing'
 
 def deploy() {
 stage name: 'performance and front-end tests', concurrency: 1
+	timeout(time:1, unit:'HOURS') {
+	    input 'Do you approve release candidate?'
+	}
 	node {
-	    ensureMaven()
+	ensureMaven()
         // deploy to test, should eventually be build docker image and run
         sh "mvn -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
         // sh "mvn -T 1C -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
