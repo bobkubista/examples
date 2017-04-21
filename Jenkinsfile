@@ -25,7 +25,7 @@ def checkout() {
 	stage 'checkout, merge and compile'
 	node {
 	    // git with submodules
-	    load './buildFile.groovy'
+	    //load './buildFile.groovy'
 	    compile()
 	    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
 	    stash includes: '*', name: 'source'
