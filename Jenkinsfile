@@ -17,7 +17,7 @@ try{
     release()
 } catch(Exception ex) {
 	currentBuild.result = 'FAILED'
-	mail()
+	//mail()
 	throw ex
 }
 
