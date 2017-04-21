@@ -4,9 +4,10 @@
 try{
     checkout()
     validate()
-    parallel 
-	'test': {test()},
-	'itTest': {itTest()}
+    parallel( 
+		test: {test()},
+		itTest: {itTest()}
+	)
     //test()
     //itTest()
     deploy()
