@@ -13,7 +13,7 @@
     <module>file</module>
     <module>datagathering</module>
     <module>search</module>
-    <module>games</module>
+<!--     <module>games</module> -->
   </modules>
 
   <dependencyManagement>
