@@ -65,7 +65,7 @@ def test() {
 	    unstash 'source'
 	    ensureMaven()
 	    // TODO splitTests
-	    sh "mvn -B -T 1C test -P test -am -X"
+	    sh "mvn test -Ptest"
 	    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 	    stash includes: '*', name: 'source'
 	}
