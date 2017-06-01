@@ -5,12 +5,12 @@ try{
     checkout()
     validate()
 
-    parallel (
-	'test': {test()},
-	'itTest': {itTest()}
-    )
-    //test()
-    //itTest()
+    //parallel (
+	//'test': {test()},
+	//'itTest': {itTest()}
+    //)
+    test()
+    itTest()
     deploy()
     //performanceTest()
     sonar()
@@ -65,7 +65,7 @@ def test() {
 	    unstash 'source'
 	    ensureMaven()
 	    // TODO splitTests
-	    sh "mvn -B -T 1C test -P test -am"
+	    sh "mvn -B -T 1C test -P test -am -X"
 	    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
 	    stash includes: '*', name: 'source'
 	}
