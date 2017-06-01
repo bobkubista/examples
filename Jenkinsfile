@@ -93,7 +93,7 @@ stage name: 'performance and front-end tests', concurrency: 1
         // deploy to test, should eventually be build docker image and run
         sh "mvn -T 1C -f services/rest-services/spring-services/user/user-service/pom.xml cargo:undeploy cargo:deploy -X "
         // sh "mvn -T 1C -f services/rest-services/spring-services/todo/todo-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
-        sh "mvn -T 1C -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
+        // sh "mvn -T 1C -f services/rest-services/cdi-services/email/email-cdi-service/pom.xml cargo:undeploy cargo:deploy -X "
         sh "mvn -T 1C -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml cargo:undeploy cargo:deploy -X "
 	}
 }
