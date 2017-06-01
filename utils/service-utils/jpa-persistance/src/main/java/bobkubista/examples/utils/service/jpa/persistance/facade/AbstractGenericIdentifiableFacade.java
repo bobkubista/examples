@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -16,11 +18,13 @@ import java.util.function.IntSupplier;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang3.Validate;
@@ -105,22 +109,26 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
     @CacheMaxAge(time = 10, unit = TimeUnit.SECONDS)
     @Override
     public Response getAll(final SearchBean search) {
-        final Collection<TYPE> allEntities = this.getService()
-                .getAll(search);
-
-        final Long amount = this.getService()
-                .count();
+    	CompletableFuture<Collection<TYPE>> allEntriesFuture = CompletableFuture.supplyAsync(() ->this.getService()
+                .getAll(search));
+    	
+    	CompletableFuture<Long> amountFuture = CompletableFuture.supplyAsync(() -> this.getService()
+                .count());
+    	
         final List<Link> links = new ArrayList<>(2);
 
-        this.buildNextCollectionLink(search, allEntities, amount, links);
-        this.buildPreviousCollectionLink(search, links);
-
-        return Response.ok(this.getConverter()
-                .convertToDomainObject(allEntities, amount, links))
-                .build();
+        try {
+        	this.buildNextCollectionLink(search, allEntriesFuture.get(), amountFuture.get(), links);
+        	this.buildPreviousCollectionLink(search, links);
+			return Response.ok(this.getConverter()
+			        .convertToDomainObject(allEntriesFuture.get(), amountFuture.get(), links))
+			        .build();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
+		}
     }
 
-    @CacheMaxAge(time = 5, unit = TimeUnit.MINUTES)
+    @CacheMaxAge(time = 5, unit =TimeUnit.MINUTES)
     @CacheTransform
     @Override
     public Response getByID(final ID identifier, final Request request) {
