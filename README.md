@@ -10,9 +10,11 @@ This is my examples of code that I am trying out stuff with. It is for reference
 
 [nexus](http://192.168.1.108:8081)
 
+[database](http://192.168.1.109)
+
 [webservices](http://192.168.1.110)
 
-[database](http://192.168.1.109)
+[docker](http://192.168.1.111)
 
 
 ##principals:
