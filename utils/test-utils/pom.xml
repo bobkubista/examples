@@ -55,7 +55,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
-    <!-- TODO move dependency versions -->
     <dependency>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit</artifactId>

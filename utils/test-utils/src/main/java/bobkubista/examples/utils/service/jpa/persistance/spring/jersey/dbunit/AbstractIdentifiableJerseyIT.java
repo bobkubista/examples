@@ -47,6 +47,19 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 
     private static final String PREVIOUS_LINK = "previous";
 
+    @Test
+    public void shouldHealthCheck() {
+        final Response response = this.target("/healthcheck")
+                .request()
+                .get();
+        try {
+            Assert.assertNotNull(response);
+            Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+        } finally {
+            response.close();
+        }
+    }
+    
     /**
      * Test if create works
      */

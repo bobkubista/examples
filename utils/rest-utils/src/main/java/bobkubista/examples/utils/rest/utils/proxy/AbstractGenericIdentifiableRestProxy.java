@@ -142,7 +142,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
                 .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
                 .get(), byID -> {
                     if (byID.getStatus() == Status.OK.getStatusCode()) {
-                        return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
+                        return new GenericETagModifiedDateDomainObjectDecorator<>(EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
                                 Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)), byID.readEntity(this.domainClass), null);
                     } else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
                         return object;
@@ -170,7 +170,7 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
                 .header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
                 .put(Entity.entity(t.getObject(), MediaType.APPLICATION_JSON)), update -> {
                     if (update.getStatus() == Status.OK.getStatusCode()) {
-                        return new GenericETagModifiedDateDomainObjectDecorator<TYPE>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
+                        return new GenericETagModifiedDateDomainObjectDecorator<>(EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
                                 DateUtils.parseDate(update.getHeaderString(HttpHeaders.LAST_MODIFIED))
                                         .toInstant(),
                                 update.readEntity(this.domainClass), null);

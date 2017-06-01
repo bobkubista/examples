@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -16,11 +18,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.IntSupplier;
 
 import javax.validation.Valid;
+import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Link;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -30,6 +35,13 @@ import javax.ws.rs.core.UriBuilder;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codahale.metrics.annotation.Counted;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.health.HealthCheckRegistry;
+import com.codahale.metrics.health.HealthCheck.Result;
 
 import bobkubista.example.utils.property.ServerProperties;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
@@ -42,6 +54,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
+import bobkubista.examples.utils.service.jpa.persistance.metrics.annotations.Histogrammed;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
@@ -62,18 +75,37 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author bkubista
  *
  */
+@ExceptionMetered
+@Timed
+@Histogrammed
+@Counted
+@Metered
 public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
         implements IdentifiableServerApi<DMO, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
     private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+    private HealthCheckRegistry registry = new HealthCheckRegistry();
 
     // TODO
     // http://zeroturnaround.com/rebellabs/fixedthreadpool-cachedthreadpool-or-forkjoinpool-picking-correct-java-executors-for-background-tasks/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
     private final ExecutorService executorService = Executors.newFixedThreadPool(ServerProperties.get()
             .getInt("server.thread.count", 10), this.threadFactory);
 
+    @Produces(MediaType.APPLICATION_JSON)
+	@Path("healthcheck")
+	@GET
+	public Response getHealthCheck() {
+		return registry.runHealthChecks().entrySet().stream()
+				.map(Entry::getValue)
+				.filter(entry -> !entry.isHealthy())
+				.findAny()
+				.map(result -> Response.ok("Healthy"))
+				.map(ResponseBuilder::build)
+				.orElse(Response.serverError().entity("Unhealthy").build());
+	}
+    
     @Override
     public Response create(@Valid final DMO object) {
         Validate.notNull(object);
@@ -124,6 +156,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 			        .convertToDomainObject(allEntriesFuture.get(), amountFuture.get(), links))
 			        .build();
 		} catch (InterruptedException | ExecutionException e) {
+			LOGGER.warn("Could not retrieve data", e);
 			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
 		}
     }
