@@ -71,7 +71,7 @@ def test() {
 	}
 }
 
-def itTest() {stage 'integration testing'
+def itTest() {
 	node {
 	    unstash 'source'
 	    ensureMaven()
