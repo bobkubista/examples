@@ -3,8 +3,10 @@ package bobkubista.examples.utils.rest.utils.cirtuitbreaker.transaction;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class TransactionMetricsTest {
 
     TransactionMetrics transactions = new TransactionMetrics(2);
