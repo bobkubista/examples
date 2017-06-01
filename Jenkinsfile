@@ -25,7 +25,8 @@ try{
 def checkout() {
 	stage 'checkout, merge and compile'
 	node {
-		checkout([$class: 'GitSCM', branches: [[name: '*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '15e8261d-cf9d-4d33-ae9e-04d7d33c851d', url: 'https://github.com/bobkubista/examples.git']]])	    compile()
+		checkout([$class: 'GitSCM', branches: [[name: '*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '15e8261d-cf9d-4d33-ae9e-04d7d33c851d', url: 'https://github.com/bobkubista/examples.git']]])	    
+		compile()
 	    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.?ar', fingerprint: true])
 	    stash includes: '*', name: 'source'
 	}
@@ -35,7 +36,7 @@ def checkout() {
  * Deploy maven on slave if needed and add it to the path
  */
 def ensureMaven() {
-	env.Path = "${tool 'M3'}/bin:${env.PATH}"
+	tool name: 'Maven', type: 'maven'
 }
 
 def version() {
