@@ -58,5 +58,9 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
     public Class<ID> getIdentifierClass() {
         return this.identifierClass;
     }
+    
+    public boolean isConnected() {
+    	return this.entityManager.isOpen();
+    }
 
 }

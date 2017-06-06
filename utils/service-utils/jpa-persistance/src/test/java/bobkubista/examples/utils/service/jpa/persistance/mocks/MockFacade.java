@@ -13,9 +13,14 @@ import javax.ws.rs.core.Link;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.health.HealthCheckRegistry;
+import com.codahale.metrics.health.jvm.ThreadDeadlockHealthCheck;
+
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
+import bobkubista.examples.utils.service.jpa.persistance.metrics.healthchecks.DatabaseHealthCheck;
 import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntityService;
 
 /**

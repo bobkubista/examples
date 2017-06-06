@@ -41,5 +41,5 @@ public class TodoFacade extends AbstractGenericActiveFacade<TodoList, Long, Todo
     protected TodoListService getService() {
         return this.service;
     }
-
+    
 }

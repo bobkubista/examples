@@ -9,6 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.health.HealthCheckRegistry;
+
 import bobkubista.examples.services.api.user.UserServerApi;
 import bobkubista.examples.services.api.user.domain.User;
 import bobkubista.examples.services.api.user.domain.UserCollection;
@@ -50,5 +53,4 @@ public class UserFacade extends AbstractGenericActiveFacade<User, Long, UserEnti
     protected UserService getService() {
         return this.service;
     }
-
 }

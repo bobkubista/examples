@@ -126,4 +126,12 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
      */
     GenericIdentifiableDao<TYPE, ID> getDAO();
 
+    /**
+     * 
+     * @return is the database connected
+     */
+	public default boolean isDatabaseConnected() {
+		return this.getDAO().isConnected();
+	}
+
 }

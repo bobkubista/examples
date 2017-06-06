@@ -48,4 +48,10 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity<ID>, ID exte
      * @return {@link Logger}
      */
     public Logger getLogger();
+ 
+    /**
+     * 
+     * @return is the connection to th database open
+     */
+    public boolean isConnected();
 }
