@@ -35,103 +35,117 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  *            Identifier
  */
 public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGenericIdentifiableDomainObject<ID>, COL extends AbstractGenericDomainObjectCollection<DTO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
-        implements EntityToDomainConverter<DTO, COL, EO> {
+		implements EntityToDomainConverter<DTO, COL, EO> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
-    @Override
-    public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
-        final COL result = this.getNewDomainObjectCollection();
-        result.setAmount(amount);
-        result.getLinks()
-                .addAll(links);
-        LOGGER.debug("Converting entities to domain");
-        if (entities != null) {
-            result.getDomainCollection()
-                    .addAll(entities.stream()
-                            .map(v -> this.convertToDomainObject(v))
-                            .collect(Collectors.toList()));
-        }
-        return result;
-    }
+	@Override
+	public COL convertToDomainObject(Collection<EO> entities) {
+		final COL result = this.getNewDomainObjectCollection();
+		LOGGER.debug("Converting entities to domain");
 
-    @Override
-    public DTO convertToDomainObject(final EO entity) {
-        LOGGER.debug("Converting entity to domain with id {}", entity.getId());
-        return this.doConvertToDomainObject(entity);
-    }
+		if (entities != null) {
+			result.getDomainCollection()
+					.addAll(entities.stream()
+							.map(this::convertToDomainObject)
+							.collect(Collectors.toList()));
+		}
+		return result;
+	}
 
-    @Override
-    public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DTO> domainObjects) {
-        LOGGER.debug("Converting domain to entities");
-        if (domainObjects == null) {
-            return new LinkedList<EO>();
-        }
-        return domainObjects.getDomainCollection()
-                .stream()
-                .map(v -> this.convertToEntity(v))
-                .collect(Collectors.toCollection(LinkedList<EO>::new));
-    }
+	@Override
+	public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
+		final COL result = this.getNewDomainObjectCollection();
+		result.setAmount(amount);
+		result.getLinks()
+				.addAll(links);
+		LOGGER.debug("Converting entities to domain");
+		if (entities != null) {
+			result.getDomainCollection()
+					.addAll(entities.stream()
+							.map(this::convertToDomainObject)
+							.collect(Collectors.toList()));
+		}
+		return result;
+	}
 
-    @Override
-    public EO convertToEntity(final DTO domainModelObject) {
-        final EO entity;
-        if (domainModelObject == null) {
-            entity = null;
-        } else {
-            LOGGER.debug("Converting domain to entity with id {}", domainModelObject.getId());
-            final Optional<EO> oldEntity;
-            if (domainModelObject.getId() != null && this.getService()
-                    .contains(domainModelObject.getId())) {
-                oldEntity = this.getService()
-                        .getById(domainModelObject.getId());
-                entity = oldEntity.get();
-                this.doConvertToEntity(domainModelObject, entity);
-            } else {
-                entity = this.doConvertToEntity(domainModelObject);
-            }
-        }
-        return entity;
-    }
+	@Override
+	public DTO convertToDomainObject(final EO entity) {
+		LOGGER.debug("Converting entity to domain with id {}", entity.getId());
+		return this.doConvertToDomainObject(entity);
+	}
 
-    /**
-     * Convert an {@link EntityObject} to a {@link DomainObject}
-     *
-     * @param entity
-     *            the {@link EntityObject} to convert
-     * @return the converted {@link DomainObject}
-     */
-    protected abstract DTO doConvertToDomainObject(final EO entity);
+	@Override
+	public Collection<EO> convertToEntity(final AbstractGenericDomainObjectCollection<DTO> domainObjects) {
+		LOGGER.debug("Converting domain to entities");
+		if (domainObjects == null) {
+			return new LinkedList<>();
+		}
+		return domainObjects.getDomainCollection()
+				.stream()
+				.map(v -> this.convertToEntity(v))
+				.collect(Collectors.toCollection(LinkedList<EO>::new));
+	}
 
-    /**
-     * Convert a {@link DomainObject} to and {@link EntityObject}
-     *
-     * @param domainModelObject
-     *            the {@link DomainObject}
-     * @return an {@link AbstractIdentifiableEntity}
-     */
-    protected abstract EO doConvertToEntity(final DTO domainModelObject);
+	@Override
+	public EO convertToEntity(final DTO domainModelObject) {
+		final EO entity;
+		if (domainModelObject == null) {
+			entity = null;
+		} else {
+			LOGGER.debug("Converting domain to entity with id {}", domainModelObject.getId());
+			final Optional<EO> oldEntity;
+			if (domainModelObject.getId() != null && this.getService()
+					.contains(domainModelObject.getId())) {
+				oldEntity = this.getService()
+						.getById(domainModelObject.getId());
+				entity = oldEntity.get();
+				this.doConvertToEntity(domainModelObject, entity);
+			} else {
+				entity = this.doConvertToEntity(domainModelObject);
+			}
+		}
+		return entity;
+	}
 
-    /**
-     * Convert a {@link DomainObject} to an {@link EntityObject}
-     *
-     * @param domainModelObject
-     *            the {@link DomainObject} to convert
-     * @param entityObject
-     *            the {@link EntityObject} to convert to
-     */
-    protected abstract void doConvertToEntity(final DTO domainModelObject, final EO entityObject);
+	/**
+	 * Convert an {@link EntityObject} to a {@link DomainObject}
+	 *
+	 * @param entity
+	 *            the {@link EntityObject} to convert
+	 * @return the converted {@link DomainObject}
+	 */
+	protected abstract DTO doConvertToDomainObject(final EO entity);
 
-    /**
-     *
-     * @return {@link AbstractGenericDomainObjectCollection} <code>DMO</code>
-     */
-    protected abstract COL getNewDomainObjectCollection();
+	/**
+	 * Convert a {@link DomainObject} to and {@link EntityObject}
+	 *
+	 * @param domainModelObject
+	 *            the {@link DomainObject}
+	 * @return an {@link AbstractIdentifiableEntity}
+	 */
+	protected abstract EO doConvertToEntity(final DTO domainModelObject);
 
-    /**
-     *
-     * @return {@link IdentifiableEntityService}
-     */
-    protected abstract IdentifiableEntityService<EO, ID> getService();
+	/**
+	 * Convert a {@link DomainObject} to an {@link EntityObject}
+	 *
+	 * @param domainModelObject
+	 *            the {@link DomainObject} to convert
+	 * @param entityObject
+	 *            the {@link EntityObject} to convert to
+	 */
+	protected abstract void doConvertToEntity(final DTO domainModelObject, final EO entityObject);
+
+	/**
+	 *
+	 * @return {@link AbstractGenericDomainObjectCollection} <code>DMO</code>
+	 */
+	protected abstract COL getNewDomainObjectCollection();
+
+	/**
+	 *
+	 * @return {@link IdentifiableEntityService}
+	 */
+	protected abstract IdentifiableEntityService<EO, ID> getService();
 
 }

@@ -63,211 +63,225 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  *
  */
 public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable>
-        implements IdentifiableServerApi<DMO, ID> {
+		implements IdentifiableServerApi<DMO, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
 
-    private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+	private final ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
-    // TODO
-    // http://zeroturnaround.com/rebellabs/fixedthreadpool-cachedthreadpool-or-forkjoinpool-picking-correct-java-executors-for-background-tasks/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
-    private final ExecutorService executorService = Executors.newFixedThreadPool(ServerProperties.get()
-            .getInt("server.thread.count", 10), this.threadFactory);
+	// TODO
+	// http://zeroturnaround.com/rebellabs/fixedthreadpool-cachedthreadpool-or-forkjoinpool-picking-correct-java-executors-for-background-tasks/?utm_source=twitter&utm_medium=social&utm_campaign=rebellabs
+	private final ExecutorService executorService = Executors.newFixedThreadPool(ServerProperties.get()
+			.getInt("server.thread.count", 10), this.threadFactory);
 
-    @Override
-    public Response create(@Valid final DMO object) {
-        Validate.notNull(object);
-        final TYPE entity = this.getConverter()
-                .convertToEntity(object);
-        final TYPE result = this.getService()
-                .create(entity)
-                .orElseThrow(NotFoundException::new);
-        try {
-            return Response.created(new URI(result.getId()
-                    .toString()))
-                    .build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError()
-                    .build();
-        }
-    }
+	@Override
+	public Response create(@Valid final DMO object) {
+		Validate.notNull(object);
+		final TYPE entity = this.getConverter()
+				.convertToEntity(object);
+		final TYPE result = this.getService()
+				.create(entity)
+				.orElseThrow(NotFoundException::new);
+		try {
+			return Response.created(new URI(result.getId()
+					.toString()))
+					.build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError()
+					.build();
+		}
+	}
 
-    @Override
-    public Response delete(final ID identifier) {
-        final TYPE entity = this.getService()
-                .getById(identifier)
-                .orElseThrow(NotFoundException::new);
-        this.getService()
-                .delete(entity);
-        return Response.noContent()
-                .build();
-    }
+	@Override
+	public Response delete(final ID identifier) {
+		final TYPE entity = this.getService()
+				.getById(identifier)
+				.orElseThrow(NotFoundException::new);
+		this.getService()
+				.delete(entity);
+		return Response.noContent()
+				.build();
+	}
 
-    @CacheTransform
-    @CachePrivate
-    @CacheMaxAge(time = 10, unit = TimeUnit.SECONDS)
-    @Override
-    public Response getAll(final SearchBean search) {
-    	CompletableFuture<Collection<TYPE>> allEntriesFuture = CompletableFuture.supplyAsync(() ->this.getService()
-                .getAll(search));
-    	
-    	CompletableFuture<Long> amountFuture = CompletableFuture.supplyAsync(() -> this.getService()
-                .count());
-    	
-        final List<Link> links = new ArrayList<>(2);
+	@CacheTransform
+	@CachePrivate
+	@CacheMaxAge(time = 10, unit = TimeUnit.SECONDS)
+	@Override
+	public Response getAll(final SearchBean search) {
+		final CompletableFuture<Collection<TYPE>> allEntriesFuture = CompletableFuture
+				.supplyAsync(() -> this.getService()
+						.getAll(search));
 
-        try {
-        	this.buildNextCollectionLink(search, allEntriesFuture.get(), amountFuture.get(), links);
-        	this.buildPreviousCollectionLink(search, links);
+		final CompletableFuture<Long> amountFuture = CompletableFuture.supplyAsync(() -> this.getService()
+				.count());
+
+		final List<Link> links = new ArrayList<>(2);
+
+		try {
+			this.buildNextCollectionLink(search, allEntriesFuture.get(), amountFuture.get(), links);
+			this.buildPreviousCollectionLink(search, links);
 			return Response.ok(this.getConverter()
-			        .convertToDomainObject(allEntriesFuture.get(), amountFuture.get(), links))
-			        .build();
+					.convertToDomainObject(allEntriesFuture.get(), amountFuture.get(), links))
+					.build();
 		} catch (InterruptedException | ExecutionException e) {
 			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
 		}
-    }
+	}
 
-    @CacheMaxAge(time = 5, unit =TimeUnit.MINUTES)
-    @CacheTransform
-    @Override
-    public Response getByID(final ID identifier, final Request request) {
-        final TYPE result = this.getService()
-                .getById(identifier)
-                .orElseThrow(NotFoundException::new);
-        try {
-            final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
-            if (response != null) {
-                return response.build();
-            }
+	@CacheMaxAge(time = 5, unit = TimeUnit.MINUTES)
+	@CacheTransform
+	@Override
+	public Response getByID(final ID identifier, final Request request) {
+		final TYPE result = this.getService()
+				.getById(identifier)
+				.orElseThrow(NotFoundException::new);
+		try {
+			final ResponseBuilder response = request.evaluatePreconditions(result.getUpdatedDate());
+			if (response != null) {
+				return response.build();
+			}
 
-            return Response.ok(this.getConverter()
-                    .convertToDomainObject(result))
-                    .location(new URI(this.getClass()
-                            .getDeclaredAnnotation(Path.class)
-                            .value() + identifier.toString()))
-                    .lastModified(new Date(result.getUpdatedDate()
-                            .getTime()))
-                    .tag(new EntityTag(Integer.toString(result.hashCode())))
-                    .build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError()
-                    .build();
-        }
-    }
+			return Response.ok(this.getConverter()
+					.convertToDomainObject(result))
+					.location(new URI(this.getClass()
+							.getDeclaredAnnotation(Path.class)
+							.value() + identifier.toString()))
+					.lastModified(new Date(result.getUpdatedDate()
+							.getTime()))
+					.tag(new EntityTag(Integer.toString(result.hashCode())))
+					.build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError()
+					.build();
+		}
+	}
 
-    /**
-     * @return the executorService
-     */
-    public ExecutorService getExecutorService() {
-        return this.executorService;
-    }
+	@Override
+	public Response getByIDs(List<ID> ids) {
+		final Collection<TYPE> allEntriesFuture = this.getService()
+				.getByIds(ids);
 
-    @Override
-    public Response update(@Valid final DMO object, final Request request) {
-        final TYPE entity = this.getConverter()
-                .convertToEntity(object);
+		return Response.ok(this.getConverter()
+				.convertToDomainObject(allEntriesFuture))
+				.build();
+	}
 
-        final ResponseBuilder response = request.evaluatePreconditions(entity.getUpdatedDate());
+	/**
+	 * @return the executorService
+	 */
+	public ExecutorService getExecutorService() {
+		return this.executorService;
+	}
 
-        if (response != null) {
-            return response.build();
-        }
+	@Override
+	public Response update(@Valid final DMO object, final Request request) {
+		final TYPE entity = this.getConverter()
+				.convertToEntity(object);
 
-        this.getService()
-                .update(entity);
-        try {
-            final TYPE result = this.getService()
-                    .getById(entity.getId())
-                    .orElseThrow(NotFoundException::new);
-            return Response.ok(this.getConverter()
-                    .convertToDomainObject(result))
-                    .location(new URI(entity.getId()
-                            .toString()))
-                    .lastModified(new Date(result.getUpdatedDate()
-                            .getTime()))
-                    .tag(new EntityTag(Integer.toString(result.hashCode())))
-                    .build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError()
-                    .build();
-        }
-    }
+		final ResponseBuilder response = request.evaluatePreconditions(entity.getUpdatedDate());
 
-    /**
-     * Build a link for a collection result
-     *
-     * @param search
-     *            {@link SearchBean}, used to fill in some blanks
-     * @param links
-     *            a {@link List} of {@link Link}s to add the created to.
-     * @param rel
-     *            the rel value of the {@link Link}
-     * @param page
-     *            {@link IntSupplier}, to calculate the page
-     */
-    protected void buildCollectionLink(final SearchBean search, final List<Link> links, final String rel, final IntSupplier page) {
-        final URI nextUri = UriBuilder.fromResource(this.getClass())
-                .queryParam(ApiConstants.SORT, search.getSort()
-                        .toArray())
-                .queryParam(ApiConstants.MAX, search.getMaxResults())
-                .queryParam(ApiConstants.PAGE, page.getAsInt())
-                .build();
-        final Link next = Link.fromUri(nextUri)
-                .rel(rel)
-                .build();
-        links.add(next);
-    }
+		if (response != null) {
+			return response.build();
+		}
 
-    /**
-     * If a previous link is valid, it will be added to the links
-     *
-     * @param search
-     *            {@link SearchBean}, used to determain if the link should be
-     *            added
-     * @param links
-     *            a {@link List} of {@link Link}s to add the previous link to.
-     * @param allEntities
-     *            {@link Collection} of <code>TYPE</code>, used to determain if
-     *            the link should be added
-     * @param amount
-     *            amount of total results to be able to be returned. Used to
-     *            determain if the link should be added
-     */
-    protected void buildNextCollectionLink(final SearchBean search, final Collection<TYPE> allEntities, final Long amount, final List<Link> links) {
-        if (allEntities.size() == search.getMaxResults() && search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
-            this.buildCollectionLink(search, links, "next", () -> search.getPage() + 1);
-        }
-    }
+		this.getService()
+				.update(entity);
+		try {
+			final TYPE result = this.getService()
+					.getById(entity.getId())
+					.orElseThrow(NotFoundException::new);
+			return Response.ok(this.getConverter()
+					.convertToDomainObject(result))
+					.location(new URI(entity.getId()
+							.toString()))
+					.lastModified(new Date(result.getUpdatedDate()
+							.getTime()))
+					.tag(new EntityTag(Integer.toString(result.hashCode())))
+					.build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError()
+					.build();
+		}
+	}
 
-    /**
-     * If a previous link is valid, it will be added to the links
-     *
-     * @param search
-     *            {@link SearchBean}, used to determain if the link should be
-     *            added
-     * @param links
-     *            a {@link List} of {@link Link}s to add the previous link to.
-     */
-    protected void buildPreviousCollectionLink(final SearchBean search, final List<Link> links) {
-        if (search.getPage() != 0) {
-            this.buildCollectionLink(search, links, "previous", () -> search.getPage() - 1);
-        }
-    }
+	/**
+	 * Build a link for a collection result
+	 *
+	 * @param search
+	 *            {@link SearchBean}, used to fill in some blanks
+	 * @param links
+	 *            a {@link List} of {@link Link}s to add the created to.
+	 * @param rel
+	 *            the rel value of the {@link Link}
+	 * @param page
+	 *            {@link IntSupplier}, to calculate the page
+	 */
+	protected void buildCollectionLink(final SearchBean search, final List<Link> links, final String rel,
+			final IntSupplier page) {
+		final URI nextUri = UriBuilder.fromResource(this.getClass())
+				.queryParam(ApiConstants.SORT, search.getSort()
+						.toArray())
+				.queryParam(ApiConstants.MAX, search.getMaxResults())
+				.queryParam(ApiConstants.PAGE, page.getAsInt())
+				.build();
+		final Link next = Link.fromUri(nextUri)
+				.rel(rel)
+				.build();
+		links.add(next);
+	}
 
-    /**
-     * Get the {@link EntityToDomainConverter}
-     *
-     * @return {@link EntityToDomainConverter}
-     */
-    protected abstract EntityToDomainConverter<DMO, DMOL, TYPE> getConverter();
+	/**
+	 * If a previous link is valid, it will be added to the links
+	 *
+	 * @param search
+	 *            {@link SearchBean}, used to determain if the link should be
+	 *            added
+	 * @param links
+	 *            a {@link List} of {@link Link}s to add the previous link to.
+	 * @param allEntities
+	 *            {@link Collection} of <code>TYPE</code>, used to determain if
+	 *            the link should be added
+	 * @param amount
+	 *            amount of total results to be able to be returned. Used to
+	 *            determain if the link should be added
+	 */
+	protected void buildNextCollectionLink(final SearchBean search, final Collection<TYPE> allEntities,
+			final Long amount, final List<Link> links) {
+		if (allEntities.size() == search.getMaxResults()
+				&& search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
+			this.buildCollectionLink(search, links, "next", () -> search.getPage() + 1);
+		}
+	}
 
-    /**
-     * Get the {@link IdentifiableEntityService}
-     *
-     * @return {@link IdentifiableEntityService}
-     */
-    protected abstract IdentifiableEntityService<TYPE, ID> getService();
+	/**
+	 * If a previous link is valid, it will be added to the links
+	 *
+	 * @param search
+	 *            {@link SearchBean}, used to determain if the link should be
+	 *            added
+	 * @param links
+	 *            a {@link List} of {@link Link}s to add the previous link to.
+	 */
+	protected void buildPreviousCollectionLink(final SearchBean search, final List<Link> links) {
+		if (search.getPage() != 0) {
+			this.buildCollectionLink(search, links, "previous", () -> search.getPage() - 1);
+		}
+	}
+
+	/**
+	 * Get the {@link EntityToDomainConverter}
+	 *
+	 * @return {@link EntityToDomainConverter}
+	 */
+	protected abstract EntityToDomainConverter<DMO, DMOL, TYPE> getConverter();
+
+	/**
+	 * Get the {@link IdentifiableEntityService}
+	 *
+	 * @return {@link IdentifiableEntityService}
+	 */
+	protected abstract IdentifiableEntityService<TYPE, ID> getService();
 }
