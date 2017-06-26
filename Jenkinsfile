@@ -124,7 +124,7 @@ def nexus() {
 	node {
 	    // nexus
 	    ensureMaven()
-	    sh 'mvn deploy -T 1C -am'
+	    sh 'mvn deploy -T 1C -am -X -e'
 	}
 }
 
