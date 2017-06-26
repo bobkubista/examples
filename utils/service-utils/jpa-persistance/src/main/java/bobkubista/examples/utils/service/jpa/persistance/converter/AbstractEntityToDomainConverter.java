@@ -55,17 +55,10 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
 
 	@Override
 	public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
-		final COL result = this.getNewDomainObjectCollection();
+		final COL result = convertToDomainObject(entities);
 		result.setAmount(amount);
 		result.getLinks()
 				.addAll(links);
-		LOGGER.debug("Converting entities to domain");
-		if (entities != null) {
-			result.getDomainCollection()
-					.addAll(entities.stream()
-							.map(this::convertToDomainObject)
-							.collect(Collectors.toList()));
-		}
 		return result;
 	}
 

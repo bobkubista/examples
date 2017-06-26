@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -164,7 +165,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 				.getByIds(ids);
 
 		return Response.ok(this.getConverter()
-				.convertToDomainObject(allEntriesFuture))
+				.convertToDomainObject(allEntriesFuture, (long) allEntriesFuture.size(), Collections.emptyList()))
 				.build();
 	}
 

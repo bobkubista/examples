@@ -126,7 +126,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
 
 	/**
 	 * Get a {@link Collection} of all the <code>TYPE</code>, order by
-	 * <code>ID</code>
+	 * {@link SearchBean#getSort()}
 	 *
 	 * @param search
 	 *            {@link SearchBean}
@@ -159,6 +159,13 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity<
 				.find(this.getEntityClass(), id));
 	}
 
+	/**
+	 * Get a {@link Collection} of all of the <code>TYPE</code>, for given id's
+	 *
+	 * @param ids
+	 *            the ids to find
+	 * @return a {@link Collection} of <code>TYPE</code>
+	 */
 	public default Collection<TYPE> getByIds(List<ID> ids) {
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
 				.getCriteriaBuilder();

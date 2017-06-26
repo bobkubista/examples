@@ -124,14 +124,14 @@ public interface IdentifiableServerApi<DMO extends DomainObject, ID extends Seri
 
 	/**
 	 * Retrieve all entities with the id's in the put message body
-	 * 
+	 *
 	 * @param ids
 	 *            the list of id's for which to return the entities
 	 * @return all entities with the given id's
 	 */
 	@PUT
+	@Path("ids")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response getByIDs(final List<ID> ids) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(ids);
 	}

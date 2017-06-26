@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
@@ -37,7 +38,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Constra
  * @param <COL>
  *            {@link AbstractGenericDomainObjectCollection}
  */
-// TODO add test for contains, order by for id's
+// TODO add test for contains
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
 		extends AbstractBaseSpringJerseyDbUnitTest {
 
@@ -147,16 +148,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 				.queryParam(ApiConstants.MAX, 2)
 				.request()
 				.get(this.getCollectionClass());
-		Assert.assertNotNull(response.getLinks());
-		Assert.assertTrue(!(response.getDomainCollection()
-				.size() == 2)
-				|| response.getLinks()
-						.stream()
-						.anyMatch(link -> NEXT_LINK.equals(link.getRel())));
-		Assert.assertFalse(response.getLinks()
-				.stream()
-				.anyMatch(link -> PREVIOUS_LINK.equals(link.getRel())));
 
+		checkLinks(response);
 		this.checkResponseGetAll(response, this.expectedSize());
 		this.checkSorting(response, false);
 	}
@@ -220,6 +213,18 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 				.header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.now()))
 				.get(Response.class);
 		Assert.assertEquals(Status.NOT_MODIFIED.getStatusCode(), response.getStatus());
+	}
+
+	@Test
+	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
+	public void shouldGetByIds() {
+		final Response response = this.target("/ids")
+				.request()
+				.put(Entity.json(this.getIds()));
+
+		final COL collection = response.readEntity(this.getCollectionClass());
+		this.checkResponseGetAll(collection, this.getIds()
+				.size());
 	}
 
 	/**
@@ -410,6 +415,8 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	 */
 	protected abstract String getIdField();
 
+	protected abstract List<ID> getIds();
+
 	/**
 	 *
 	 * @return the single class
@@ -434,4 +441,16 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	 * @return updated object
 	 */
 	protected abstract TYPE update(TYPE response);
+
+	private void checkLinks(final COL response) {
+		Assert.assertNotNull(response.getLinks());
+		Assert.assertTrue(response.getDomainCollection()
+				.size() != 2
+				|| response.getLinks()
+						.stream()
+						.anyMatch(link -> NEXT_LINK.equals(link.getRel())));
+		Assert.assertFalse(response.getLinks()
+				.stream()
+				.anyMatch(link -> PREVIOUS_LINK.equals(link.getRel())));
+	}
 }
