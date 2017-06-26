@@ -1,21 +1,14 @@
 #!groovy
-// TODO build parameters
-// TODO maybe tar the source and archive source
 try{
     checkout()
     validate()
 
-    //parallel (
-	//'test': {test()},
-	//'itTest': {itTest()}
-    //)
     test()
     itTest()
     deploy()
     //performanceTest()
     sonar()
     nexus()
-    release()
 } catch(Exception ex) {
 	currentBuild.result = 'FAILED'
 	//mail()
