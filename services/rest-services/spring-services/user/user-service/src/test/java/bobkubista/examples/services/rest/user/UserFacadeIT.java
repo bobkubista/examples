@@ -125,7 +125,7 @@ public class UserFacadeIT extends AbstractActiveJerseyIT<User, Long, UserCollect
 
 	@Override
 	protected List<Long> getIds() {
-		return Arrays.asList(2L);
+		return Arrays.asList(1L, 2L);
 	}
 
 	@Override
