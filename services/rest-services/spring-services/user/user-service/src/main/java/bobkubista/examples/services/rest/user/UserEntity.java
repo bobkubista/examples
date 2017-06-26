@@ -23,95 +23,95 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  */
 @Entity
 @SequenceGenerator(name = "sq_user", allocationSize = 1, sequenceName = "sq_user", initialValue = 1)
-public class UserEntity extends AbstractGenericActiveEntity<Long> {
+public class UserEntity extends AbstractGenericActiveEntity {
 
-    private static final long serialVersionUID = 3230156455762101429L;
+	private static final long serialVersionUID = 3230156455762101429L;
 
-    @Column(nullable = false, unique = true)
-    @SearchField(fieldName = "functionalId")
-    private String email;
+	/**
+	 * Is the current user authorized The user, role and right should be active
+	 *
+	 * @param right
+	 *            functional name of right or role
+	 * @return true is autorized
+	 */
+	public static Predicate<UserEntity> isAuthorized(final String right) {
+		final Predicate<UserEntity> active = UserEntity::isActive;
+		final Predicate<UserEntity> roles = t -> t.roles.stream()
+				.anyMatch(Roles.isAuthorized(right));
+		return active.and(roles);
+	}
 
-    private String encryptedPassword;
+	@Column(nullable = false, unique = true)
+	@SearchField(fieldName = "functionalId")
+	private String email;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user")
-    @Column(nullable = false)
-    @SearchField(fieldName = "id")
-    private Long id;
+	private String encryptedPassword;
 
-    @Column
-    @SearchField(fieldName = "name")
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user")
+	@Column(nullable = false)
+	@SearchField(fieldName = "id")
+	private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private final List<Roles> roles = new ArrayList<>();
+	@Column
+	@SearchField(fieldName = "name")
+	private String name;
 
-    /**
-     * Is the current user authorized The user, role and right should be active
-     *
-     * @param right
-     *            functional name of right or role
-     * @return true is autorized
-     */
-    public static Predicate<UserEntity> isAuthorized(final String right) {
-        final Predicate<UserEntity> active = UserEntity::isActive;
-        final Predicate<UserEntity> roles = t -> t.roles.stream()
-                .anyMatch(Roles.isAuthorized(right));
-        return active.and(roles);
-    }
+	@ManyToMany(fetch = FetchType.LAZY)
+	private final List<Roles> roles = new ArrayList<>();
 
-    /**
-     * @return
-     */
-    public String getEncryptedPassword() {
-        return this.encryptedPassword;
-    }
+	/**
+	 * @return
+	 */
+	public String getEncryptedPassword() {
+		return this.encryptedPassword;
+	}
 
-    @Override
-    public String getFunctionalId() {
-        return this.email;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.email;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * @return the roles
-     */
-    public List<Roles> getRoles() {
-        return this.roles;
-    }
+	/**
+	 * @return the roles
+	 */
+	public List<Roles> getRoles() {
+		return this.roles;
+	}
 
-    /**
-     * @param encryptedPassword
-     */
-    public void setEncryptedPassword(final String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
-    }
+	/**
+	 * @param encryptedPassword
+	 */
+	public void setEncryptedPassword(final String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.email = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.email = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @param name
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name
+	 */
+	public void setName(final String name) {
+		this.name = name;
+	}
 }

@@ -16,80 +16,80 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class User extends AbstractGenericActiveDomainObject<Long> {
+public class User extends AbstractGenericActiveDomainObject {
 
-    private static final long serialVersionUID = 8804522919297114084L;
+	private static final long serialVersionUID = 8804522919297114084L;
 
-    @XmlElement(required = true)
-    private String encryptedPassword;
+	@XmlElement(required = true)
+	private String encryptedPassword;
 
-    @XmlElement(required = true)
-    private Long id;
+	@XmlElement(required = true)
+	private Long id;
 
-    @XmlElement(required = true)
-    private String name;
+	@XmlElement(required = true)
+	private String name;
 
-    /**
-     * Default constructor
-     */
-    public User() {
-        super();
-    }
+	/**
+	 * Default constructor
+	 */
+	public User() {
+		super();
+	}
 
-    /**
-     * Constructor
-     *
-     * @param active
-     *            active flag
-     * @param email
-     *            email adres
-     * @param encryptedPassword
-     *            password
-     * @param id
-     *            identifier
-     */
-    public User(final boolean active, final String email, final String encryptedPassword, final Long id) {
-        super(active, email);
-        this.encryptedPassword = encryptedPassword;
-        this.id = id;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param active
+	 *            active flag
+	 * @param email
+	 *            email adres
+	 * @param encryptedPassword
+	 *            password
+	 * @param id
+	 *            identifier
+	 */
+	public User(final boolean active, final String email, final String encryptedPassword, final Long id) {
+		super(active, email);
+		this.encryptedPassword = encryptedPassword;
+		this.id = id;
+	}
 
-    /**
-     * @return
-     */
-    public String getEncryptedPassword() {
-        return this.encryptedPassword;
-    }
+	/**
+	 * @return
+	 */
+	public String getEncryptedPassword() {
+		return this.encryptedPassword;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * @param encryptedPassword
-     */
-    public void setEncryptedPassword(final String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
-    }
+	/**
+	 * @param encryptedPassword
+	 */
+	public void setEncryptedPassword(final String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @param name
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name
+	 */
+	public void setName(final String name) {
+		this.name = name;
+	}
 
 }

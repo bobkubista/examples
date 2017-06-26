@@ -34,49 +34,49 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todolist", allocationSize = 1, sequenceName = "sq_todolist", initialValue = 1)
-public class TodoListEntity extends AbstractGenericActiveEntity<Long> {
+public class TodoListEntity extends AbstractGenericActiveEntity {
 
-    private static final long serialVersionUID = 9086574784838581996L;
+	private static final long serialVersionUID = 9086574784838581996L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todolist")
-    @Column(name = "todolistid")
-    @SearchField(fieldName = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todolist")
+	@Column(name = "todolistid")
+	@SearchField(fieldName = "id")
+	private Long id;
 
-    @OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private final List<TodoEntity> items = new ArrayList<>();
+	@OneToMany(mappedBy = "listEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private final List<TodoEntity> items = new ArrayList<>();
 
-    @Basic
-    @Column(unique = true, nullable = false)
-    @SearchField(fieldName = "functionalId")
-    private String todoListName;
+	@Basic
+	@Column(unique = true, nullable = false)
+	@SearchField(fieldName = "functionalId")
+	private String todoListName;
 
-    @Override
-    public String getFunctionalId() {
-        return this.todoListName;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.todoListName;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return
-     */
-    public List<TodoEntity> getTodoList() {
-        return this.items;
-    }
+	/**
+	 * @return
+	 */
+	public List<TodoEntity> getTodoList() {
+		return this.items;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.todoListName = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.todoListName = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
 }

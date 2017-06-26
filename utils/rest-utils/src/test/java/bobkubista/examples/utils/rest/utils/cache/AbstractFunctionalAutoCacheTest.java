@@ -21,65 +21,65 @@ import bobkubista.examples.utils.rest.utils.mocks.MockDomainCollection;
  *
  */
 public class AbstractFunctionalAutoCacheTest {
-    private AbstractFunctionalAutoCache<Integer, MockActiveDomainObject, MockDomainCollection> mock;
+	private AbstractFunctionalAutoCache<MockActiveDomainObject, MockDomainCollection> mock;
 
-    /**
-     * @return the mock
-     */
-    public AbstractFunctionalAutoCache<Integer, MockActiveDomainObject, MockDomainCollection> getMock() {
-        return this.mock;
-    }
+	/**
+	 * @return the mock
+	 */
+	public AbstractFunctionalAutoCache<MockActiveDomainObject, MockDomainCollection> getMock() {
+		return this.mock;
+	}
 
-    @Before
-    public void init() {
-        this.setMock(new MockCache());
-        this.getMock()
-                .loadAll();
-    }
+	@Before
+	public void init() {
+		this.setMock(new MockCache());
+		this.getMock()
+				.loadAll();
+	}
 
-    /**
-     * @param mock
-     *            the mock to set
-     */
-    public void setMock(final MockCache mock) {
-        this.mock = mock;
-    }
+	/**
+	 * @param mock
+	 *            the mock to set
+	 */
+	public void setMock(final MockCache mock) {
+		this.mock = mock;
+	}
 
-    @Test
-    public void testGetAll() {
-        final Map<Integer, MockActiveDomainObject> result = this.getMock()
-                .getAll();
-        Assert.assertEquals(2, result.size());
-    }
+	@Test
+	public void testGetAll() {
+		final Map<Long, MockActiveDomainObject> result = this.getMock()
+				.getAll();
+		Assert.assertEquals(2, result.size());
+	}
 
-    @Test
-    public void testGetAllKeys() throws ExecutionException, InterruptedException {
-        final CompletableFuture<Map<Integer, MockActiveDomainObject>> result = this.getMock()
-                .getAll(Collections.singletonList(new Integer(1)));
-        Assert.assertEquals(1, result.get()
-                .size());
-    }
+	@Test
+	public void testGetAllKeys() throws ExecutionException, InterruptedException {
+		final CompletableFuture<Map<Long, MockActiveDomainObject>> result = this.getMock()
+				.getAll(Collections.singletonList(new Long(1)));
+		Assert.assertEquals(1, result.get()
+				.size());
+	}
 
-    @Test
-    public void testGetWithFunctionalId() throws ExecutionException, InterruptedException {
-        final CompletableFuture<MockActiveDomainObject> result = this.getMock()
-                .get("F1");
-        Assert.assertEquals("F1", result.get()
-                .getFunctionalId());
-    }
+	@Test
+	public void testGetWithFunctionalId() throws ExecutionException, InterruptedException {
+		final CompletableFuture<MockActiveDomainObject> result = this.getMock()
+				.get("F1");
+		Assert.assertEquals("F1", result.get()
+				.getFunctionalId());
+	}
 
-    @Test
-    public void testGetWithId() throws ExecutionException, InterruptedException {
-        final CompletableFuture<MockActiveDomainObject> result = this.getMock()
-                .get(1);
-        Assert.assertEquals(new Integer(1), result.get()
-                .getId());
-    }
+	@Test
+	public void testGetWithId() throws ExecutionException, InterruptedException {
+		final CompletableFuture<MockActiveDomainObject> result = this.getMock()
+				.get(1L);
+		Assert.assertEquals(new Integer(1), result.get()
+				.getId());
+	}
 
-    @Test
-    public void testLoadAll() throws Exception {
-        final Map<Integer, MockActiveDomainObject> result = this.getMock()
-                .loadAll(Collections.singletonList(new Integer(2)));
-        Assert.assertEquals(2, result.size());
-    }
+	@Test
+	public void testLoadAll() throws Exception {
+		final Map<Long, MockActiveDomainObject> result = this.getMock()
+				.loadAll(Collections.singletonList(new Long(2)));
+		Assert.assertEquals(2, result.size());
+	}
 }

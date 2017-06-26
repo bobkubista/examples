@@ -9,31 +9,31 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericF
  * @author Bob
  *
  */
-public class MockFunctionalEntity extends AbstractGenericFunctionalIdentifiableEntity<Integer> {
+public class MockFunctionalEntity extends AbstractGenericFunctionalIdentifiableEntity {
 
-    private static final long serialVersionUID = -5916180822928979766L;
+	private static final long serialVersionUID = -5916180822928979766L;
 
-    private final String functionalId = "foo";
-    private final Integer id = 1;
+	private final String functionalId = "foo";
+	private final Long id = 1L;
 
-    @Override
-    public String getFunctionalId() {
-        return this.functionalId;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.functionalId;
+	}
 
-    @Override
-    public Integer getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
+	@Override
+	public void setFunctionalId(final String functionalId) {
 
-    }
+	}
 
-    @Override
-    public void setId(final Integer id) {
+	@Override
+	public void setId(final Long id) {
 
-    }
+	}
 
 }

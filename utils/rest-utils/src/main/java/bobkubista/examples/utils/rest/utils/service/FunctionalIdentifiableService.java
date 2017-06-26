@@ -1,7 +1,5 @@
 package bobkubista.examples.utils.rest.utils.service;
 
-import java.io.Serializable;
-
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericFunctionalIdentifiableDomainObject;
 
@@ -18,24 +16,24 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  * @param <COL>
  *            The {@link AbstractGenericDomainObjectCollection}
  */
-public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
-        extends IdentifiableService<TYPE, ID, COL> {
+public interface FunctionalIdentifiableService<TYPE extends AbstractGenericFunctionalIdentifiableDomainObject, COL extends AbstractGenericDomainObjectCollection<TYPE>>
+		extends IdentifiableService<TYPE, COL> {
 
-    /**
-     *
-     * @param functionalId
-     *            the functional identifier
-     * @return the {@link AbstractGenericFunctionalIdentifiableDomainObject}
-     */
-    TYPE getByFunctionalId(String functionalId);
+	/**
+	 *
+	 * @param functionalId
+	 *            the functional identifier
+	 * @return the {@link AbstractGenericFunctionalIdentifiableDomainObject}
+	 */
+	TYPE getByFunctionalId(String functionalId);
 
-    /**
-     * Map a functional id to an identifier
-     *
-     * @param fId
-     *            the functional id
-     * @return the identifier
-     */
-    ID getIdByFunctionalId(String fId);
+	/**
+	 * Map a functional id to an identifier
+	 *
+	 * @param fId
+	 *            the functional id
+	 * @return the identifier
+	 */
+	Long getIdByFunctionalId(String fId);
 
 }

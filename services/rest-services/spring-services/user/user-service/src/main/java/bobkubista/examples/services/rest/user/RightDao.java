@@ -19,18 +19,19 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalId
  *
  */
 @Named
-public class RightDao extends AbstractGenericDao<Rights, Long>implements GenericActiveDAO<Rights, Long>, GenericFunctionalIdentifiableDao<Rights, Long> {
+public class RightDao extends AbstractGenericDao<Rights>
+		implements GenericActiveDAO<Rights>, GenericFunctionalIdentifiableDao<Rights> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RightDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RightDao.class);
 
-    @Override
-    public Path<String> getFunctionalIdField(final Root<Rights> entity) {
-        return entity.<String> get("name");
-    }
+	@Override
+	public Path<String> getFunctionalIdField(final Root<Rights> entity) {
+		return entity.<String>get("name");
+	}
 
-    @Override
-    public Logger getLogger() {
-        return LOGGER;
-    }
+	@Override
+	public Logger getLogger() {
+		return LOGGER;
+	}
 
 }

@@ -24,62 +24,62 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  */
 @Entity
 @SequenceGenerator(name = "sq_role", allocationSize = 1, sequenceName = "sq_role", initialValue = 1)
-public class Roles extends AbstractGenericActiveEntity<Long> {
+public class Roles extends AbstractGenericActiveEntity {
 
-    private static final long serialVersionUID = -7212732541628102691L;
+	private static final long serialVersionUID = -7212732541628102691L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
-    @Column(nullable = false)
-    private Long id;
+	/**
+	 * Check that the {@link Roles} has an active {@link Rights} assigned to it
+	 * and is active
+	 *
+	 * @param name
+	 *            {@link Rights} to check
+	 * @return true if authorized
+	 */
+	public static Predicate<Roles> isAuthorized(final String name) {
+		final Predicate<Roles> active = Roles::isActive;
+		final Predicate<Roles> rights = t -> t.rights.stream()
+				.anyMatch(Rights.isAuthorized(name));
+		final Predicate<Roles> names = t -> t.name.equals(name);
+		return active.and(names)
+				.or(rights);
+	}
 
-    @Column(unique = true, nullable = false)
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_role")
+	@Column(nullable = false)
+	private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private final List<Rights> rights = new ArrayList<>();
+	@Column(unique = true, nullable = false)
+	private String name;
 
-    /**
-     * Check that the {@link Roles} has an active {@link Rights} assigned to it
-     * and is active
-     *
-     * @param name
-     *            {@link Rights} to check
-     * @return true if authorized
-     */
-    public static Predicate<Roles> isAuthorized(final String name) {
-        final Predicate<Roles> active = Roles::isActive;
-        final Predicate<Roles> rights = t -> t.rights.stream()
-                .anyMatch(Rights.isAuthorized(name));
-        final Predicate<Roles> names = t -> t.name.equals(name);
-        return active.and(names)
-                .or(rights);
-    }
+	@ManyToMany(fetch = FetchType.LAZY)
+	private final List<Rights> rights = new ArrayList<>();
 
-    @Override
-    public String getFunctionalId() {
-        return this.name;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.name;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return the rights
-     */
-    public List<Rights> getRights() {
-        return this.rights;
-    }
+	/**
+	 * @return the rights
+	 */
+	public List<Rights> getRights() {
+		return this.rights;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.name = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.name = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 }

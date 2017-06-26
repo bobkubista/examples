@@ -35,255 +35,255 @@ import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomai
 @PrepareForTest(ClientBuilder.class)
 public class AbstractGenericActiveRestProxyTest {
 
-    final Client mockClient = Mockito.mock(Client.class);
+	final Client mockClient = Mockito.mock(Client.class);
 
-    final Response mockResponse = Mockito.mock(Response.class);
+	final Response mockResponse = Mockito.mock(Response.class);
 
-    private final AbstractGenericActiveRestProxy<MockActiveDomainObject, Integer, MockDomainCollection> proxy = new MockActiveProxy();
+	private final AbstractGenericActiveRestProxy<MockActiveDomainObject, MockDomainCollection> proxy = new MockActiveProxy();
 
-    @Before
-    public void start() {
-        final Builder mockBuilder = Mockito.mock(Builder.class);
-        Mockito.when(mockBuilder.get())
-                .thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.post(Matchers.any()))
-                .thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.put(Matchers.any()))
-                .thenReturn(this.mockResponse);
-        Mockito.when(mockBuilder.delete())
-                .thenReturn(this.mockResponse);
+	@Before
+	public void start() {
+		final Builder mockBuilder = Mockito.mock(Builder.class);
+		Mockito.when(mockBuilder.get())
+				.thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.post(Matchers.any()))
+				.thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.put(Matchers.any()))
+				.thenReturn(this.mockResponse);
+		Mockito.when(mockBuilder.delete())
+				.thenReturn(this.mockResponse);
 
-        final MockDomainCollection mockDomainCollection = new MockDomainCollection();
-        mockDomainCollection.getDomainCollection()
-                .add(new MockActiveDomainObject(1, "F1"));
-        mockDomainCollection.getDomainCollection()
-                .add(new MockActiveDomainObject(2, "F2"));
-        Mockito.when(this.mockResponse.readEntity(Integer.class))
-                .thenReturn(1);
-        Mockito.when(this.mockResponse.getStatusInfo())
-                .thenReturn(Status.OK);
-        Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
-                .thenReturn(mockDomainCollection);
-        Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
-                .thenReturn(new MockActiveDomainObject(1, "F1"));
+		final MockDomainCollection mockDomainCollection = new MockDomainCollection();
+		mockDomainCollection.getDomainCollection()
+				.add(new MockActiveDomainObject(1L, "F1"));
+		mockDomainCollection.getDomainCollection()
+				.add(new MockActiveDomainObject(2L, "F2"));
+		Mockito.when(this.mockResponse.readEntity(Integer.class))
+				.thenReturn(1);
+		Mockito.when(this.mockResponse.getStatusInfo())
+				.thenReturn(Status.OK);
+		Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
+				.thenReturn(mockDomainCollection);
+		Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
+				.thenReturn(new MockActiveDomainObject(1L, "F1"));
 
-        Mockito.when(mockBuilder.header(Matchers.anyString(), Matchers.any()))
-                .thenReturn(mockBuilder);
+		Mockito.when(mockBuilder.header(Matchers.anyString(), Matchers.any()))
+				.thenReturn(mockBuilder);
 
-        final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
-        Mockito.when(mockWebTarget.path(Matchers.anyString()))
-                .thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any()))
-                .thenReturn(mockWebTarget);
-        Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
-                .thenReturn(mockBuilder);
+		final WebTarget mockWebTarget = Mockito.mock(WebTarget.class);
+		Mockito.when(mockWebTarget.path(Matchers.anyString()))
+				.thenReturn(mockWebTarget);
+		Mockito.when(mockWebTarget.queryParam(Matchers.anyString(), Matchers.any()))
+				.thenReturn(mockWebTarget);
+		Mockito.when(mockWebTarget.request(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
+				.thenReturn(mockBuilder);
 
-        Mockito.when(this.mockClient.target(Matchers.anyString()))
-                .thenReturn(mockWebTarget);
+		Mockito.when(this.mockClient.target(Matchers.anyString()))
+				.thenReturn(mockWebTarget);
 
-        PowerMockito.mockStatic(ClientBuilder.class);
-        PowerMockito.when(ClientBuilder.newClient())
-                .thenReturn(this.mockClient);
-    }
+		PowerMockito.mockStatic(ClientBuilder.class);
+		PowerMockito.when(ClientBuilder.newClient())
+				.thenReturn(this.mockClient);
+	}
 
-    @Test
-    public void testCreate() {
-        this.mockResponse();
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(201);
+	@Test
+	public void testCreate() {
+		this.mockResponse();
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(201);
 
-        final String create = this.proxy.create(new MockActiveDomainObject());
-        Assert.assertNotNull(create);
-        Assert.assertNotEquals("", create);
+		final String create = this.proxy.create(new MockActiveDomainObject());
+		Assert.assertNotNull(create);
+		Assert.assertNotEquals("", create);
 
-    }
+	}
 
-    @Test
-    public void testDelete() {
-        this.mockResponse();
+	@Test
+	public void testDelete() {
+		this.mockResponse();
 
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(Status.NO_CONTENT.getStatusCode());
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(Status.NO_CONTENT.getStatusCode());
 
-        Assert.assertTrue(this.proxy.delete(1));
-    }
+		Assert.assertTrue(this.proxy.delete(1L));
+	}
 
-    @Test
-    public void testGetAll() {
-        this.mockResponse();
+	@Test
+	public void testGetAll() {
+		this.mockResponse();
 
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
-        this.mockCollectionResponse();
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
+		this.mockCollectionResponse();
 
-        final MockDomainCollection result = this.proxy.getAll(new ArrayList<>(), 0, 2);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(2, result.getDomainCollection()
-                .size());
-    }
+		final MockDomainCollection result = this.proxy.getAll(new ArrayList<>(), 0, 2);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(2, result.getDomainCollection()
+				.size());
+	}
 
-    @Test
-    public void testGetAllActive() {
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
+	@Test
+	public void testGetAllActive() {
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
 
-        final MockDomainCollection result = this.proxy.getAllActive(new ArrayList<>(), null, null);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(2, result.getDomainCollection()
-                .size());
-    }
+		final MockDomainCollection result = this.proxy.getAllActive(new ArrayList<>(), null, null);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(2, result.getDomainCollection()
+				.size());
+	}
 
-    @Test
-    public void testGetByFunctionalId() {
-        this.mockResponse();
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
+	@Test
+	public void testGetByFunctionalId() {
+		this.mockResponse();
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
 
-        final MockActiveDomainObject result = this.proxy.getByFunctionalId("blaat");
-        Assert.assertNotNull(result);
-        Assert.assertEquals("F1", result.getFunctionalId());
-    }
+		final MockActiveDomainObject result = this.proxy.getByFunctionalId("blaat");
+		Assert.assertNotNull(result);
+		Assert.assertEquals("F1", result.getFunctionalId());
+	}
 
-    @Test
-    public void testGetByID() {
-        this.mockResponse();
+	@Test
+	public void testGetByID() {
+		this.mockResponse();
 
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
-        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
-                .thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
+		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+				.thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
 
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> result = this.proxy.getByID(1);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(new Integer(1), result.getObject()
-                .getId());
-    }
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> result = this.proxy.getByID(1L);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(new Integer(1), result.getObject()
+				.getId());
+	}
 
-    @Test(expected = WebApplicationException.class)
-    public void testGetByIdEtagError() {
-        this.mockError();
-        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.now()
-                        .minusMillis(5),
-                mockDomainObject, null);
-        this.proxy.getByID(object)
-                .getObject();
-        Assert.fail();
-    }
+	@Test(expected = WebApplicationException.class)
+	public void testGetByIdEtagError() {
+		this.mockError();
+		final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<>(
+				new EntityTag("tag"), Instant.now()
+						.minusMillis(5),
+				mockDomainObject, null);
+		this.proxy.getByID(object)
+				.getObject();
+		Assert.fail();
+	}
 
-    @Test
-    public void testGetByIdEtagModified() {
-        this.mockResponse();
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(Status.OK.getStatusCode());
+	@Test
+	public void testGetByIdEtagModified() {
+		this.mockResponse();
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(Status.OK.getStatusCode());
 
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.now()
-                        .minusMillis(5),
-                new MockActiveDomainObject(), null);
-        Assert.assertEquals(object.getObject(), this.proxy.getByID(object)
-                .getObject());
-    }
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<>(
+				new EntityTag("tag"), Instant.now()
+						.minusMillis(5),
+				new MockActiveDomainObject(), null);
+		Assert.assertEquals(object.getObject(), this.proxy.getByID(object)
+				.getObject());
+	}
 
-    @Test
-    public void testGetByIdEtagUnModified() {
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(Status.NOT_MODIFIED.getStatusCode());
-        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.now()
-                        .plusMillis(5),
-                mockDomainObject, null);
-        Assert.assertEquals(object, this.proxy.getByID(object));
-    }
+	@Test
+	public void testGetByIdEtagUnModified() {
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(Status.NOT_MODIFIED.getStatusCode());
+		final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<>(
+				new EntityTag("tag"), Instant.now()
+						.plusMillis(5),
+				mockDomainObject, null);
+		Assert.assertEquals(object, this.proxy.getByID(object));
+	}
 
-    @Test
-    public void testGetIdByFunctionalId() {
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
-        Mockito.when(this.mockResponse.getStatusInfo())
-                .thenReturn(Status.OK);
+	@Test
+	public void testGetIdByFunctionalId() {
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
+		Mockito.when(this.mockResponse.getStatusInfo())
+				.thenReturn(Status.OK);
 
-        final Integer result = this.proxy.getIdByFunctionalId("blaat");
-        Assert.assertNotNull(result);
-        Assert.assertEquals(new Integer(1), result);
-    }
+		final Long result = this.proxy.getIdByFunctionalId("blaat");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(new Integer(1), result);
+	}
 
-    @Test
-    public void testUpdate() {
-        this.mockResponse();
+	@Test
+	public void testUpdate() {
+		this.mockResponse();
 
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(200);
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(200);
 
-        final MockActiveDomainObject result = this.proxy.update(new MockActiveDomainObject());
-        Assert.assertNotNull(result);
-        Assert.assertEquals(new Integer(1), result.getId());
-    }
+		final MockActiveDomainObject result = this.proxy.update(new MockActiveDomainObject());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(new Integer(1), result.getId());
+	}
 
-    @Test(expected = WebApplicationException.class)
-    public void testUpdateModified() {
-        this.mockError();
-        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.now()
-                        .minusMillis(5),
-                mockDomainObject, null);
-        this.proxy.update(object);
-        Assert.fail();
-    }
+	@Test(expected = WebApplicationException.class)
+	public void testUpdateModified() {
+		this.mockError();
+		final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<>(
+				new EntityTag("tag"), Instant.now()
+						.minusMillis(5),
+				mockDomainObject, null);
+		this.proxy.update(object);
+		Assert.fail();
+	}
 
-    @Test
-    public void testUpdateUnModified() {
-        this.mockResponse();
-        Mockito.when(this.mockResponse.getStatus())
-                .thenReturn(Status.OK.getStatusCode());
-        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
-                .thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
-        final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
-        final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject>(
-                new EntityTag("tag"), Instant.now()
-                        .plusMillis(5),
-                mockDomainObject, null);
-        Assert.assertEquals(new Integer(1), this.proxy.update(object)
-                .getObject()
-                .getId());
-    }
+	@Test
+	public void testUpdateUnModified() {
+		this.mockResponse();
+		Mockito.when(this.mockResponse.getStatus())
+				.thenReturn(Status.OK.getStatusCode());
+		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+				.thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
+		final MockActiveDomainObject mockDomainObject = new MockActiveDomainObject();
+		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> object = new GenericETagModifiedDateDomainObjectDecorator<>(
+				new EntityTag("tag"), Instant.now()
+						.plusMillis(5),
+				mockDomainObject, null);
+		Assert.assertEquals(new Integer(1), this.proxy.update(object)
+				.getObject()
+				.getId());
+	}
 
-    protected void mockError() {
-        final StatusType mockStatusType = Mockito.mock(StatusType.class);
-        Mockito.when(mockStatusType.getReasonPhrase())
-                .thenReturn("blaat");
-        Mockito.when(mockStatusType.getFamily())
-                .thenReturn(Family.CLIENT_ERROR);
-        Mockito.when(this.mockResponse.getStatusInfo())
-                .thenReturn(mockStatusType);
-    }
+	protected void mockError() {
+		final StatusType mockStatusType = Mockito.mock(StatusType.class);
+		Mockito.when(mockStatusType.getReasonPhrase())
+				.thenReturn("blaat");
+		Mockito.when(mockStatusType.getFamily())
+				.thenReturn(Family.CLIENT_ERROR);
+		Mockito.when(this.mockResponse.getStatusInfo())
+				.thenReturn(mockStatusType);
+	}
 
-    protected void mockResponse() {
-        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LOCATION))
-                .thenReturn("location");
-        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.ETAG))
-                .thenReturn(new EntityTag("tag").toString());
-        Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
-                .thenReturn(Instant.EPOCH.toString());
-        Mockito.when(this.mockResponse.getStatusInfo())
-                .thenReturn(Status.OK);
+	protected void mockResponse() {
+		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LOCATION))
+				.thenReturn("location");
+		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.ETAG))
+				.thenReturn(new EntityTag("tag").toString());
+		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
+				.thenReturn(Instant.EPOCH.toString());
+		Mockito.when(this.mockResponse.getStatusInfo())
+				.thenReturn(Status.OK);
 
-        Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
-                .thenReturn(new MockActiveDomainObject(1, "F1"));
-    }
+		Mockito.when(this.mockResponse.readEntity(MockActiveDomainObject.class))
+				.thenReturn(new MockActiveDomainObject(1L, "F1"));
+	}
 
-    private void mockCollectionResponse() {
-        final MockDomainCollection mockDomainCollection = new MockDomainCollection();
-        mockDomainCollection.getDomainCollection()
-                .add(new MockActiveDomainObject(1, "F1"));
-        mockDomainCollection.getDomainCollection()
-                .add(new MockActiveDomainObject(2, "F2"));
+	private void mockCollectionResponse() {
+		final MockDomainCollection mockDomainCollection = new MockDomainCollection();
+		mockDomainCollection.getDomainCollection()
+				.add(new MockActiveDomainObject(1L, "F1"));
+		mockDomainCollection.getDomainCollection()
+				.add(new MockActiveDomainObject(2L, "F2"));
 
-        Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
-                .thenReturn(mockDomainCollection);
-    }
+		Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
+				.thenReturn(mockDomainCollection);
+	}
 
 }

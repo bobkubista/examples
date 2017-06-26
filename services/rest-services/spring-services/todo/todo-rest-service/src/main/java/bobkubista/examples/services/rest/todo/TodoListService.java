@@ -13,20 +13,20 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *
  */
 @Service
-public class TodoListService implements ActiveEntityService<TodoListEntity, Long> {
+public class TodoListService implements ActiveEntityService<TodoListEntity> {
 
-    @Autowired
-    private TodoListDao dao;
+	@Autowired
+	private TodoListDao dao;
 
-    /**
-     * Constructor
-     */
-    public TodoListService() {
-        super();
-    }
+	/**
+	 * Constructor
+	 */
+	public TodoListService() {
+		super();
+	}
 
-    @Override
-    public TodoListDao getDAO() {
-        return this.dao;
-    }
+	@Override
+	public TodoListDao getDAO() {
+		return this.dao;
+	}
 }

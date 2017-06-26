@@ -1,6 +1,5 @@
 package bobkubista.examples.utils.service.jpa.persistance.spring.dao;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -17,38 +16,37 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericF
  *
  * @param <TYPE>
  *            {@link AbstractGenericFunctionalIdentifiableEntity}
- * @param <ID>
- *            The identifier
  */
-public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable> extends AbstractIdentifiableDaoIT<TYPE, ID> {
+public abstract class AbstractFunctionalDaoIT<TYPE extends AbstractGenericFunctionalIdentifiableEntity>
+		extends AbstractIdentifiableDaoIT<TYPE> {
 
-    /**
-     * Default constructor
-     */
-    public AbstractFunctionalDaoIT() {
-        super();
-    }
+	/**
+	 * Default constructor
+	 */
+	public AbstractFunctionalDaoIT() {
+		super();
+	}
 
-    /**
-     * Test getEntityByFunctionalId
-     */
-    @Test
-    @DatabaseSetup(value = "/dataset/given/DaoIT.xml")
-    public void shouldGetEntityByFunctionalId() {
-        final Optional<TYPE> entity = this.getDao()
-                .getByFunctionalId(this.getFunctionalId());
-        this.checkAssertion(entity.orElseThrow(AssertionError::new));
-    }
+	/**
+	 * Test getEntityByFunctionalId
+	 */
+	@Test
+	@DatabaseSetup(value = "/dataset/given/DaoIT.xml")
+	public void shouldGetEntityByFunctionalId() {
+		final Optional<TYPE> entity = this.getDao()
+				.getByFunctionalId(this.getFunctionalId());
+		this.checkAssertion(entity.orElseThrow(AssertionError::new));
+	}
 
-    /**
-     * Get the {@link AbstractGenericFunctionalIdentifiableEntityDao}
-     */
-    @Override
-    protected abstract GenericFunctionalIdentifiableDao<TYPE, ID> getDao();
+	/**
+	 * Get the {@link AbstractGenericFunctionalIdentifiableEntityDao}
+	 */
+	@Override
+	protected abstract GenericFunctionalIdentifiableDao<TYPE> getDao();
 
-    /**
-     *
-     * @return the functional Id
-     */
-    protected abstract String getFunctionalId();
+	/**
+	 *
+	 * @return the functional Id
+	 */
+	protected abstract String getFunctionalId();
 }

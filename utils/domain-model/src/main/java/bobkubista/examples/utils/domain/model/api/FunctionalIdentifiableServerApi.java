@@ -1,7 +1,5 @@
 package bobkubista.examples.utils.domain.model.api;
 
-import java.io.Serializable;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,45 +17,42 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
  *
  * @param <DMO>
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
- * @param <ID>
- *            the identifier of the
- *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  *
  */
-public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, ID extends Serializable>
-        extends IdentifiableServerApi<DMO, ID> {
+public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunctionalIdentifiableDomainObject>
+		extends IdentifiableServerApi<DMO> {
 
-    /**
-     * get the <code>DMO</code>
-     *
-     * @param identifier
-     *            the identfier
-     * @param request
-     *            the request filled with headers to determain the conditional
-     *            get with
-     * @return{@link Response}
-     */
-    @GET
-    @Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Path("functionId/{id}")
-    default Response getByFunctionalId(@PathParam("id") final String identifier, @Context final Request request) {
-        return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
-    }
+	/**
+	 * get the <code>DMO</code>
+	 *
+	 * @param identifier
+	 *            the identfier
+	 * @param request
+	 *            the request filled with headers to determain the conditional
+	 *            get with
+	 * @return{@link Response}
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("functionId/{id}")
+	default Response getByFunctionalId(@PathParam("id") final String identifier, @Context final Request request) {
+		return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
+	}
 
-    /**
-     * Get the identifier that goes with the functional id
-     *
-     * @param fId
-     *            functional id
-     * @return {@link Response}
-     */
-    @GET
-    @Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Path("id/{functionalId}")
-    default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
-        return IdentifiableServerApi.buildMethodNotAllowedResponse(fId);
-    }
+	/**
+	 * Get the identifier that goes with the functional id
+	 *
+	 * @param fId
+	 *            functional id
+	 * @return {@link Response}
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("id/{functionalId}")
+	default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
+		return IdentifiableServerApi.buildMethodNotAllowedResponse(fId);
+	}
 
 }

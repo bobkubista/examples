@@ -13,14 +13,14 @@ import bobkubista.examples.utils.rest.utils.cache.AbstractActiveAutoCache;
  * @author Bob
  *
  */
-public class UserCache extends AbstractActiveAutoCache<Long, User, UserCollection> {
+public class UserCache extends AbstractActiveAutoCache<User, UserCollection> {
 
-    @Inject
-    private UserService userService;
+	@Inject
+	private UserService userService;
 
-    @Override
-    protected UserService getActiveService() {
-        return this.userService;
-    }
+	@Override
+	protected UserService getActiveService() {
+		return this.userService;
+	}
 
 }

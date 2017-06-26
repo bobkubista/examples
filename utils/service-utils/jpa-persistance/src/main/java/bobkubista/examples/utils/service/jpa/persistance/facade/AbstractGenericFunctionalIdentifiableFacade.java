@@ -3,7 +3,6 @@
  */
 package bobkubista.examples.utils.service.jpa.persistance.facade;
 
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
@@ -34,65 +33,63 @@ import bobkubista.examples.utils.service.jpa.persistance.services.FunctionalIden
  *            {@link AbstractGenericFunctionalIdentifiableDomainObject}
  * @param <TYPE>
  *            {@link AbstractGenericFunctionalIdentifiableEntity}
- * @param <ID>
- *            Identifier
  * @param <DMOL>
  *            {@link AbstractGenericDomainObjectCollection}
  */
-public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends AbstractGenericFunctionalIdentifiableDomainObject<ID>, TYPE extends AbstractGenericFunctionalIdentifiableEntity<ID>, ID extends Serializable, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
-        extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE, ID>implements FunctionalIdentifiableServerApi<DMO, ID> {
+public abstract class AbstractGenericFunctionalIdentifiableFacade<DMO extends AbstractGenericFunctionalIdentifiableDomainObject, TYPE extends AbstractGenericFunctionalIdentifiableEntity, DMOL extends AbstractGenericDomainObjectCollection<DMO>>
+		extends AbstractGenericIdentifiableFacade<DMO, DMOL, TYPE> implements FunctionalIdentifiableServerApi<DMO> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableFacade.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericFunctionalIdentifiableFacade.class);
 
-    @CacheTransform
-    @CachePrivate
-    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
-    @Override
-    public Response getByFunctionalId(final String identifier, final Request request) {
-        final Optional<TYPE> result = this.getService()
-                .getByFunctionalId(identifier);
-        try {
-            final ResponseBuilder response = request.evaluatePreconditions(result.orElseThrow(NotFoundException::new)
-                    .getUpdatedDate());
-            if (response != null) {
-                return response.build();
-            }
+	@CacheTransform
+	@CachePrivate
+	@CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
+	@Override
+	public Response getByFunctionalId(final String identifier, final Request request) {
+		final Optional<TYPE> result = this.getService()
+				.getByFunctionalId(identifier);
+		try {
+			final ResponseBuilder response = request.evaluatePreconditions(result.orElseThrow(NotFoundException::new)
+					.getUpdatedDate());
+			if (response != null) {
+				return response.build();
+			}
 
-            return Response.ok(this.getConverter()
-                    .convertToDomainObject(result.orElseThrow(NotFoundException::new)))
-                    .location(new URI(identifier))
-                    .lastModified(new Date(result.orElseThrow(NotFoundException::new)
-                            .getUpdatedDate()
-                            .getTime()))
-                    .build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError()
-                    .build();
-        }
-    }
+			return Response.ok(this.getConverter()
+					.convertToDomainObject(result.orElseThrow(NotFoundException::new)))
+					.location(new URI(identifier))
+					.lastModified(new Date(result.orElseThrow(NotFoundException::new)
+							.getUpdatedDate()
+							.getTime()))
+					.build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError()
+					.build();
+		}
+	}
 
-    @CacheTransform
-    @CachePrivate
-    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
-    @Override
-    public Response getIdByFunctionalId(final String fId) {
-        final Optional<ID> result = this.getService()
-                .getIdByFunctionalId(fId);
+	@CacheTransform
+	@CachePrivate
+	@CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
+	@Override
+	public Response getIdByFunctionalId(final String fId) {
+		final Optional<Long> result = this.getService()
+				.getIdByFunctionalId(fId);
 
-        try {
-            return Response.ok(result.orElseThrow(NotFoundException::new)
-                    .toString())
-                    .location(new URI(fId))
-                    .build();
-        } catch (final URISyntaxException e) {
-            LOGGER.warn(e.getMessage(), e);
-            return Response.serverError()
-                    .build();
-        }
-    }
+		try {
+			return Response.ok(result.orElseThrow(NotFoundException::new)
+					.toString())
+					.location(new URI(fId))
+					.build();
+		} catch (final URISyntaxException e) {
+			LOGGER.warn(e.getMessage(), e);
+			return Response.serverError()
+					.build();
+		}
+	}
 
-    @Override
-    protected abstract FunctionalIdentifiableEntityService<TYPE, ID> getService();
+	@Override
+	protected abstract FunctionalIdentifiableEntityService<TYPE> getService();
 
 }

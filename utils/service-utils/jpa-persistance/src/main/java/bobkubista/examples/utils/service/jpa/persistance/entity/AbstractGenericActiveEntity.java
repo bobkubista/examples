@@ -3,8 +3,6 @@
  */
 package bobkubista.examples.utils.service.jpa.persistance.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
@@ -18,32 +16,32 @@ import bobkubista.examples.utils.service.jpa.persistance.annotation.SearchField;
  *            Identifier of the {@link AbstractGenericActiveEntity}
  */
 @MappedSuperclass
-public abstract class AbstractGenericActiveEntity<ID extends Serializable> extends AbstractGenericFunctionalIdentifiableEntity<ID> {
+public abstract class AbstractGenericActiveEntity extends AbstractGenericFunctionalIdentifiableEntity {
 
-    private static final long serialVersionUID = -6184924216288636653L;
+	private static final long serialVersionUID = -6184924216288636653L;
 
-    @Column(nullable = false)
-    @SearchField(fieldName = "active")
-    private boolean active;
+	@Column(nullable = false)
+	@SearchField(fieldName = "active")
+	private boolean active;
 
-    /**
-     * Constructor
-     */
-    public AbstractGenericActiveEntity() {
-    }
+	/**
+	 * Constructor
+	 */
+	public AbstractGenericActiveEntity() {
+	}
 
-    /**
-     * @return isActive active flag
-     */
-    public boolean isActive() {
-        return this.active;
-    }
+	/**
+	 * @return isActive active flag
+	 */
+	public boolean isActive() {
+		return this.active;
+	}
 
-    /**
-     * @param active
-     *            flag value
-     */
-    public void setActive(final boolean active) {
-        this.active = active;
-    }
+	/**
+	 * @param active
+	 *            flag value
+	 */
+	public void setActive(final boolean active) {
+		this.active = active;
+	}
 }

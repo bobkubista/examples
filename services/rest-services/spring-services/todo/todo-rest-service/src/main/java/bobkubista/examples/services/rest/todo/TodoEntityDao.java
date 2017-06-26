@@ -13,19 +13,19 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.GenericIdentifiable
  * @author Bob
  *
  */
-public class TodoEntityDao extends AbstractGenericDao<TodoEntity, Long>implements GenericIdentifiableDao<TodoEntity, Long> {
+public class TodoEntityDao extends AbstractGenericDao<TodoEntity> implements GenericIdentifiableDao<TodoEntity> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoEntityDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TodoEntityDao.class);
 
-    /**
-     * Constructor
-     */
-    public TodoEntityDao() {
-        super();
-    }
+	/**
+	 * Constructor
+	 */
+	public TodoEntityDao() {
+		super();
+	}
 
-    @Override
-    public Logger getLogger() {
-        return LOGGER;
-    }
+	@Override
+	public Logger getLogger() {
+		return LOGGER;
+	}
 }

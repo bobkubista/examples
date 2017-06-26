@@ -6,26 +6,26 @@ package bobkubista.examples.utils.domain.model.domainmodel.identification;
  * @author bkubista
  *
  */
-public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainObject<Integer> {
+public class GenericTestActiveDomainObject extends AbstractGenericActiveDomainObject {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private final Integer id = 1;
+	private final Long id = 1L;
 
-    /**
-     * constructor
-     */
-    public GenericTestActiveDomainObject() {
-        super(true, "testObject");
-    }
+	/**
+	 * constructor
+	 */
+	public GenericTestActiveDomainObject() {
+		super(true, "testObject");
+	}
 
-    @Override
-    public Integer getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    @Override
-    public void setId(final Integer id) {
+	@Override
+	public void setId(final Long id) {
 
-    }
+	}
 }

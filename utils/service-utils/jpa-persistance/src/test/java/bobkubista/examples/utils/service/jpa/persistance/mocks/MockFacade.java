@@ -23,96 +23,98 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  *
  */
 @Path("/")
-public class MockFacade extends AbstractGenericActiveFacade<MockDomain, Long, MockEntity, MockDomainCollection> {
+public class MockFacade extends AbstractGenericActiveFacade<MockDomain, MockEntity, MockDomainCollection> {
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> getConverter() {
-        final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito.mock(EntityToDomainConverter.class);
-        Mockito.when(mock.convertToEntity((MockDomain) null))
-                .thenReturn(null);
+	@SuppressWarnings("unchecked")
+	@Override
+	protected EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> getConverter() {
+		final EntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity> mock = Mockito
+				.mock(EntityToDomainConverter.class);
+		Mockito.when(mock.convertToEntity((MockDomain) null))
+				.thenReturn(null);
 
-        final MockEntity entity = this.buildMockEntity();
-        Mockito.when(mock.convertToEntity(Matchers.any(MockDomain.class)))
-                .thenReturn(entity);
-        Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class)))
-                .thenReturn(this.buildMockDomain());
+		final MockEntity entity = this.buildMockEntity();
+		Mockito.when(mock.convertToEntity(Matchers.any(MockDomain.class)))
+				.thenReturn(entity);
+		Mockito.when(mock.convertToDomainObject(Matchers.any(MockEntity.class)))
+				.thenReturn(this.buildMockDomain());
 
-        Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong(), Matchers.anyListOf(Link.class)))
-                .thenReturn(new MockDomainCollection());
+		Mockito.when(mock.convertToDomainObject(Matchers.anyCollection(), Matchers.anyLong(),
+				Matchers.anyListOf(Link.class)))
+				.thenReturn(new MockDomainCollection());
 
-        return mock;
-    }
+		return mock;
+	}
 
-    @Override
-    protected ActiveEntityService<MockEntity, Long> getService() {
+	@Override
+	protected ActiveEntityService<MockEntity> getService() {
 
-        final MockEntityService mock = Mockito.mock(MockEntityService.class);
-        Mockito.when(mock.create(null))
-                .thenReturn(null);
+		final MockEntityService mock = Mockito.mock(MockEntityService.class);
+		Mockito.when(mock.create(null))
+				.thenReturn(null);
 
-        Mockito.when(mock.create(Matchers.any(MockEntity.class)))
-                .thenReturn(Optional.of(this.buildMockEntity()));
+		Mockito.when(mock.create(Matchers.any(MockEntity.class)))
+				.thenReturn(Optional.of(this.buildMockEntity()));
 
-        Mockito.when(mock.getById(1L))
-                .thenReturn(Optional.of(this.buildMockEntity()));
-        Mockito.when(mock.getById(2L))
-                .thenReturn(Optional.empty());
+		Mockito.when(mock.getById(1L))
+				.thenReturn(Optional.of(this.buildMockEntity()));
+		Mockito.when(mock.getById(2L))
+				.thenReturn(Optional.empty());
 
-        Mockito.when(mock.getAll(new SearchBean().setSort(Collections.singletonList("id"))
-                .setPage(0)
-                .setMaxResults(100)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity()));
-        Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
-                .setPage(1)
-                .setMaxResults(1)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity()));
+		Mockito.when(mock.getAll(new SearchBean().setSort(Collections.singletonList("id"))
+				.setPage(0)
+				.setMaxResults(100)))
+				.thenReturn(Collections.singletonList(this.buildMockEntity()));
+		Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
+				.setPage(1)
+				.setMaxResults(1)))
+				.thenReturn(Collections.singletonList(this.buildMockEntity()));
 
-        Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
-                .setPage(0)
-                .setMaxResults(100)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity()));
-        Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
-                .setPage(1)
-                .setMaxResults(1)))
-                .thenReturn(Collections.singletonList(this.buildMockEntity()));
+		Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
+				.setPage(0)
+				.setMaxResults(100)))
+				.thenReturn(Collections.singletonList(this.buildMockEntity()));
+		Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
+				.setPage(1)
+				.setMaxResults(1)))
+				.thenReturn(Collections.singletonList(this.buildMockEntity()));
 
-        Mockito.when(mock.count())
-                .thenReturn(100L);
-        Mockito.when(mock.countActive())
-                .thenReturn(100L);
+		Mockito.when(mock.count())
+				.thenReturn(100L);
+		Mockito.when(mock.countActive())
+				.thenReturn(100L);
 
-        Mockito.when(mock.getByFunctionalId("Bla"))
-                .thenReturn(Optional.ofNullable(this.buildMockEntity()));
-        Mockito.when(mock.getByFunctionalId(""))
-                .thenReturn(Optional.empty());
+		Mockito.when(mock.getByFunctionalId("Bla"))
+				.thenReturn(Optional.ofNullable(this.buildMockEntity()));
+		Mockito.when(mock.getByFunctionalId(""))
+				.thenReturn(Optional.empty());
 
-        Mockito.when(mock.getIdByFunctionalId("Bla"))
-                .thenReturn(Optional.ofNullable(1L));
-        Mockito.when(mock.getIdByFunctionalId(""))
-                .thenReturn(Optional.empty());
+		Mockito.when(mock.getIdByFunctionalId("Bla"))
+				.thenReturn(Optional.ofNullable(1L));
+		Mockito.when(mock.getIdByFunctionalId(""))
+				.thenReturn(Optional.empty());
 
-        Mockito.when(mock.update(Matchers.any(MockEntity.class)))
-                .thenReturn(Optional.of(this.buildMockEntity()));
+		Mockito.when(mock.update(Matchers.any(MockEntity.class)))
+				.thenReturn(Optional.of(this.buildMockEntity()));
 
-        return mock;
-    }
+		return mock;
+	}
 
-    private MockDomain buildMockDomain() {
-        final MockDomain domainObject = new MockDomain();
-        domainObject.setId(1L);
-        domainObject.setFunctionalId("Bla");
-        return domainObject;
-    }
+	private MockDomain buildMockDomain() {
+		final MockDomain domainObject = new MockDomain();
+		domainObject.setId(1L);
+		domainObject.setFunctionalId("Bla");
+		return domainObject;
+	}
 
-    /**
-     * @return
-     */
-    private MockEntity buildMockEntity() {
-        final MockEntity entity = new MockEntity();
-        entity.setId(1L);
-        entity.setFunctionalId("Bla");
-        return entity;
-    }
+	/**
+	 * @return
+	 */
+	private MockEntity buildMockEntity() {
+		final MockEntity entity = new MockEntity();
+		entity.setId(1L);
+		entity.setFunctionalId("Bla");
+		return entity;
+	}
 
 }

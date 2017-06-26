@@ -3,7 +3,6 @@
  */
 package bobkubista.examples.utils.rest.utils.cache;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
@@ -23,23 +22,23 @@ import bobkubista.examples.utils.rest.utils.service.FunctionalIdentifiableServic
  * @author Bob
  *
  */
-public abstract class AbstractActiveAutoCache<K extends Serializable, V extends AbstractGenericActiveDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
-        extends AbstractFunctionalAutoCache<K, V, COL> {
+public abstract class AbstractActiveAutoCache<V extends AbstractGenericActiveDomainObject, COL extends AbstractGenericDomainObjectCollection<V>>
+		extends AbstractFunctionalAutoCache<V, COL> {
 
-    /**
-     * @return get an {@link ActiveService}
-     */
-    protected abstract ActiveService<V, K, COL> getActiveService();
+	/**
+	 * @return get an {@link ActiveService}
+	 */
+	protected abstract ActiveService<V, COL> getActiveService();
 
-    @Override
-    protected Collection<V> getAllObjects() {
-        return this.getActiveService()
-                .getAllActive(null, null, null)
-                .getDomainCollection();
-    }
+	@Override
+	protected Collection<V> getAllObjects() {
+		return this.getActiveService()
+				.getAllActive(null, null, null)
+				.getDomainCollection();
+	}
 
-    @Override
-    protected final FunctionalIdentifiableService<V, K, COL> getFunctionalService() {
-        return this.getActiveService();
-    }
+	@Override
+	protected final FunctionalIdentifiableService<V, COL> getFunctionalService() {
+		return this.getActiveService();
+	}
 }

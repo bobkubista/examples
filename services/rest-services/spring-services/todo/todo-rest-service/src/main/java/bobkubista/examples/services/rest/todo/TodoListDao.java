@@ -19,18 +19,19 @@ import bobkubista.examples.utils.service.jpa.persistance.dao.GenericFunctionalId
  *
  */
 @Repository
-class TodoListDao extends AbstractGenericDao<TodoListEntity, Long>implements GenericActiveDAO<TodoListEntity, Long>, GenericFunctionalIdentifiableDao<TodoListEntity, Long> {
+class TodoListDao extends AbstractGenericDao<TodoListEntity>
+		implements GenericActiveDAO<TodoListEntity>, GenericFunctionalIdentifiableDao<TodoListEntity> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoListDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TodoListDao.class);
 
-    @Override
-    public Path<String> getFunctionalIdField(final Root<TodoListEntity> entity) {
-        return entity.<String> get("todoListName");
-    }
+	@Override
+	public Path<String> getFunctionalIdField(final Root<TodoListEntity> entity) {
+		return entity.<String>get("todoListName");
+	}
 
-    @Override
-    public Logger getLogger() {
-        return LOGGER;
-    }
+	@Override
+	public Logger getLogger() {
+		return LOGGER;
+	}
 
 }

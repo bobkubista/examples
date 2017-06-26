@@ -29,75 +29,75 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @SequenceGenerator(name = "sq_todoitem", allocationSize = 1, sequenceName = "sq_todoitem", initialValue = 1)
-public class TodoEntity extends AbstractIdentifiableEntity<Long> {
+public class TodoEntity extends AbstractIdentifiableEntity {
 
-    private static final long serialVersionUID = 8974577038350152806L;
+	private static final long serialVersionUID = 8974577038350152806L;
 
-    @Basic
-    @Column(nullable = false)
-    private boolean active;
+	@Basic
+	@Column(nullable = false)
+	private boolean active;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_todoitem")
+	private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "todolistid", nullable = false)
-    private TodoListEntity listEntity;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "todolistid", nullable = false)
+	private TodoListEntity listEntity;
 
-    @Column(nullable = false)
-    private String value;
+	@Column(nullable = false)
+	private String value;
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    /**
-     * @return
-     */
-    public TodoListEntity getListEntity() {
-        return this.listEntity;
-    }
+	/**
+	 * @return
+	 */
+	public TodoListEntity getListEntity() {
+		return this.listEntity;
+	}
 
-    /**
-     * @return
-     */
-    public String getValue() {
-        return this.value;
-    }
+	/**
+	 * @return
+	 */
+	public String getValue() {
+		return this.value;
+	}
 
-    /**
-     * @return
-     */
-    public boolean isActive() {
-        return this.active;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isActive() {
+		return this.active;
+	}
 
-    /**
-     * @param active
-     */
-    public void setActive(final boolean active) {
-        this.active = active;
-    }
+	/**
+	 * @param active
+	 */
+	public void setActive(final boolean active) {
+		this.active = active;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @param listEntity
-     */
-    public void setListEntity(final TodoListEntity listEntity) {
-        this.listEntity = listEntity;
-    }
+	/**
+	 * @param listEntity
+	 */
+	public void setListEntity(final TodoListEntity listEntity) {
+		this.listEntity = listEntity;
+	}
 
-    /**
-     * @param value
-     */
-    public void setValue(final String value) {
-        this.value = value;
-    }
+	/**
+	 * @param value
+	 */
+	public void setValue(final String value) {
+		this.value = value;
+	}
 
 }

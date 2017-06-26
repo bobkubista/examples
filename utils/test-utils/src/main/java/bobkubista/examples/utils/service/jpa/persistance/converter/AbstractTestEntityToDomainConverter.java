@@ -1,7 +1,5 @@
 package bobkubista.examples.utils.service.jpa.persistance.converter;
 
-import java.io.Serializable;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,7 +25,7 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
  * @param <ID>
  *            the identifier
  */
-public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject<ID>, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
+public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGenericIdentifiableDomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, EO extends AbstractIdentifiableEntity> {
 
 	/**
 	 * Test ConvertToDomain with null id
@@ -38,7 +36,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 		domainModelObject.setId(null);
 		final EO entityObject = this.getValidEntity();
 		entityObject.setId(null);
-		this.getConverter().doConvertToEntity(domainModelObject, entityObject);
+		this.getConverter()
+				.doConvertToEntity(domainModelObject, entityObject);
 		this.assertEntity(domainModelObject, entityObject);
 	}
 
@@ -49,7 +48,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	@Test
 	public void testConvertToDomainObject() {
 		final EO entity = this.getValidEntity();
-		final DMO domainModelObject = this.getConverter().doConvertToDomainObject(entity);
+		final DMO domainModelObject = this.getConverter()
+				.doConvertToDomainObject(entity);
 		this.assertDomainObject(domainModelObject, entity);
 	}
 
@@ -61,7 +61,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	public void testDoConvertToDomainObjectNullEntity() {
 		final EO entities = null;
 
-		final DMO result = this.getConverter().doConvertToDomainObject(entities);
+		final DMO result = this.getConverter()
+				.doConvertToDomainObject(entities);
 
 		Assert.assertNotNull(result);
 	}
@@ -73,7 +74,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	@Test
 	public void testDoConvertToEntity() {
 		final DMO domainModelObject = this.getValidDomainObject();
-		final EO entity = this.getConverter().doConvertToEntity(domainModelObject);
+		final EO entity = this.getConverter()
+				.doConvertToEntity(domainModelObject);
 		this.assertEntity(domainModelObject, entity);
 	}
 
@@ -84,7 +86,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	@Test(expected = NullPointerException.class)
 	public void testDoConvertToEntityNullDomainObject() {
 		final DMO domainModelObject = null;
-		this.getConverter().doConvertToEntity(domainModelObject);
+		this.getConverter()
+				.doConvertToEntity(domainModelObject);
 		Assert.fail();
 	}
 
@@ -96,7 +99,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	public void testDoConvertToEntityNullDomainObjectAndEntity() {
 		final DMO domainModelObject = null;
 		final EO entityObject = null;
-		this.getConverter().doConvertToEntity(domainModelObject, entityObject);
+		this.getConverter()
+				.doConvertToEntity(domainModelObject, entityObject);
 		Assert.fail();
 	}
 
@@ -108,7 +112,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	public void testDoConvertToEntityNullEntity() {
 		final DMO domainModelObject = this.getEmptyDomainObject();
 		final EO entityObject = null;
-		this.getConverter().doConvertToEntity(domainModelObject, entityObject);
+		this.getConverter()
+				.doConvertToEntity(domainModelObject, entityObject);
 		Assert.fail();
 	}
 
@@ -121,7 +126,8 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 		final DMO domainModelObject = this.getValidDomainObject();
 		final EO entityObject = this.getValidEntity();
 
-		this.getConverter().doConvertToEntity(domainModelObject, entityObject);
+		this.getConverter()
+				.doConvertToEntity(domainModelObject, entityObject);
 
 		this.assertEntity(domainModelObject, entityObject);
 	}
@@ -132,11 +138,13 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	 */
 	@Test
 	public void testGetNewDomainObjectCollection() {
-		final AbstractGenericDomainObjectCollection<DMO> domainObjectCollection = this.getConverter().getNewDomainObjectCollection();
+		final AbstractGenericDomainObjectCollection<DMO> domainObjectCollection = this.getConverter()
+				.getNewDomainObjectCollection();
 
 		Assert.assertNotNull(domainObjectCollection);
 		Assert.assertNotNull(domainObjectCollection.getDomainCollection());
-		Assert.assertTrue(domainObjectCollection.getDomainCollection().isEmpty());
+		Assert.assertTrue(domainObjectCollection.getDomainCollection()
+				.isEmpty());
 	}
 
 	/**
@@ -162,7 +170,7 @@ public abstract class AbstractTestEntityToDomainConverter<DMO extends AbstractGe
 	 *
 	 * @return an {@link AbstractEntityToDomainConverter}
 	 */
-	protected abstract AbstractEntityToDomainConverter<DMO, DMOL, EO, ID> getConverter();
+	protected abstract AbstractEntityToDomainConverter<DMO, DMOL, EO> getConverter();
 
 	/**
 	 * Get an empty {@link DomainObject}

@@ -10,33 +10,33 @@ import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy
 /**
  * @author Bob Kubista {@link AbstractGenericRestActiveProxy} for {@link User}
  */
-public class UserProxy extends AbstractGenericActiveRestProxy<User, Long, UserCollection>implements UserService {
+public class UserProxy extends AbstractGenericActiveRestProxy<User, UserCollection> implements UserService {
 
-    @Override
-    public boolean isAuthorized(final Long userId, final String right) {
-        return call(t -> this.getRequest(this.getServiceWithPaths(userId.toString(), right))
-                .get(), t -> t.getStatus() == Status.OK.getStatusCode(), null);
-    }
+	@Override
+	public boolean isAuthorized(final Long userId, final String right) {
+		return call(t -> this.getRequest(this.getServiceWithPaths(userId.toString(), right))
+				.get(), t -> t.getStatus() == Status.OK.getStatusCode(), null);
+	}
 
-    @Override
-    protected UserCollection getAllFallback() {
-        return this.getEmptyCollection();
-    }
+	@Override
+	protected UserCollection getAllFallback() {
+		return this.getEmptyCollection();
+	}
 
-    @Override
-    protected String getBasePath() {
-        return ServerProperties.get()
-                .getString("user.rest.service.base.path");
-    }
+	@Override
+	protected String getBasePath() {
+		return ServerProperties.get()
+				.getString("user.rest.service.base.path");
+	}
 
-    @Override
-    protected String getBaseUri() {
-        return "";
-    }
+	@Override
+	protected String getBaseUri() {
+		return "";
+	}
 
-    @Override
-    protected UserCollection getEmptyCollection() {
-        return new UserCollection();
-    }
+	@Override
+	protected UserCollection getEmptyCollection() {
+		return new UserCollection();
+	}
 
 }

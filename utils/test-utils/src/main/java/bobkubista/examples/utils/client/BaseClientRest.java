@@ -2,7 +2,6 @@ package bobkubista.examples.utils.client;
 
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,118 +33,118 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Abstrac
 import bobkubista.examples.utils.rest.utils.proxy.AbstractGenericActiveRestProxy;
 import bobkubista.examples.utils.rest.utils.service.GenericETagModifiedDateDomainObjectDecorator;
 
-public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
+public abstract class BaseClientRest<TYPE extends AbstractGenericActiveDomainObject, COL extends AbstractGenericDomainObjectCollection<TYPE>> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseClientRest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseClientRest.class);
 
-    private static final int port = new Random().nextInt(1000) + 10000;
+	private static final int port = new Random().nextInt(1000) + 10000;
 
-    protected static final String BASE_URI = "http://localhost:" + port;
+	protected static final String BASE_URI = "http://localhost:" + port;
 
-    private static ComboPooledDataSource source;
+	private static ComboPooledDataSource source;
 
-    private static IDatabaseConnection connection;
+	private static IDatabaseConnection connection;
 
-    private static IDataSet dataset;
+	private static IDataSet dataset;
 
-    private HttpServer server;
+	@AfterClass
+	public static void afterClass() throws SQLException {
+		// TODO close dbunit database connection
+		connection.close();
+		source.close();
+	}
 
-    private AbstractGenericActiveRestProxy<TYPE, ID, COL> client;
+	@BeforeClass
+	public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
+		// TODO dbunit
 
-    @AfterClass
-    public static void afterClass() throws SQLException {
-        // TODO close dbunit database connection
-        connection.close();
-        source.close();
-    }
+		final String schema = ServerProperties.get()
+				.getString("database.defaultSchema");
+		source = new ComboPooledDataSource();
+		source.setDriverClass("org.postgresql.Driver");
+		source.setJdbcUrl(ServerProperties.get()
+				.getString("database.url"));
+		source.setUser(ServerProperties.get()
+				.getString("database.username"));
+		source.setPassword(ServerProperties.get()
+				.getString("database.password"));
+		source.setMinPoolSize(Integer.valueOf(ServerProperties.get()
+				.getString("database.minPoolSize")));
+		source.setMaxPoolSize(Integer.valueOf(ServerProperties.get()
+				.getString("database.maxPoolSize")));
+		source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.get()
+				.getString("database.idleConnectionTestPeriod")));
+		connection = new DatabaseConnection(source.getConnection(), schema);
 
-    @BeforeClass
-    public static void beforeClass() throws PropertyVetoException, DatabaseUnitException, SQLException {
-        // TODO dbunit
+		final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
+		flatXmlDataSetBuilder.setColumnSensing(true);
+		final InputStream dataSet = BaseClientRest.class.getResourceAsStream("/dataset/given/FacadeIT.xml");
+		LOGGER.info("Loading database content for testing: {}", dataset);
+		dataset = flatXmlDataSetBuilder.build(dataSet);
+	}
 
-        final String schema = ServerProperties.get()
-                .getString("database.defaultSchema");
-        source = new ComboPooledDataSource();
-        source.setDriverClass("org.postgresql.Driver");
-        source.setJdbcUrl(ServerProperties.get()
-                .getString("database.url"));
-        source.setUser(ServerProperties.get()
-                .getString("database.username"));
-        source.setPassword(ServerProperties.get()
-                .getString("database.password"));
-        source.setMinPoolSize(Integer.valueOf(ServerProperties.get()
-                .getString("database.minPoolSize")));
-        source.setMaxPoolSize(Integer.valueOf(ServerProperties.get()
-                .getString("database.maxPoolSize")));
-        source.setIdleConnectionTestPeriod(Integer.valueOf(ServerProperties.get()
-                .getString("database.idleConnectionTestPeriod")));
-        connection = new DatabaseConnection(source.getConnection(), schema);
+	private HttpServer server;
 
-        final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
-        flatXmlDataSetBuilder.setColumnSensing(true);
-        final InputStream dataSet = BaseClientRest.class.getResourceAsStream("/dataset/given/FacadeIT.xml");
-        LOGGER.info("Loading database content for testing: {}", dataset);
-        dataset = flatXmlDataSetBuilder.build(dataSet);
-    }
+	private AbstractGenericActiveRestProxy<TYPE, COL> client;
 
-    @Before
-    public void setUp() throws Exception {
-        // TODO maybe put this in the before class
-        this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
-        final WebappContext context = new WebappContext("Integration test webapp", "");
-        this.buildContext(context);
-        context.deploy(this.server);
-        this.server.start();
+	@Before
+	public void setUp() throws Exception {
+		// TODO maybe put this in the before class
+		this.server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI));
+		final WebappContext context = new WebappContext("Integration test webapp", "");
+		this.buildContext(context);
+		context.deploy(this.server);
+		this.server.start();
 
-        this.cleanBD();
-        this.client = this.getClient();
-    }
+		this.cleanBD();
+		this.client = this.getClient();
+	}
 
-    @After
-    public void tearDown() {
-        this.server.shutdown();
-    }
+	@After
+	public void tearDown() {
+		this.server.shutdown();
+	}
 
-    @Test
-    public void testCreate() {
-        final TYPE object = this.buildNew();
-        final String result = this.client.create(object);
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result.startsWith(BASE_URI));
-    }
+	@Test
+	public void testCreate() {
+		final TYPE object = this.buildNew();
+		final String result = this.client.create(object);
+		Assert.assertNotNull(result);
+		Assert.assertTrue(result.startsWith(BASE_URI));
+	}
 
-    @Test
-    public void testGetAll() {
-        final COL all = this.client.getAll(new ArrayList<String>(), 0, 2);
-        Assert.assertNotNull(all);
-        Assert.assertTrue(all.getAmount() > 0);
-        Assert.assertFalse(all.getDomainCollection()
-                .isEmpty());
-        Assert.assertTrue(all.getDomainCollection()
-                .size() < 3);
-    }
+	@Test
+	public void testGetAll() {
+		final COL all = this.client.getAll(new ArrayList<String>(), 0, 2);
+		Assert.assertNotNull(all);
+		Assert.assertTrue(all.getAmount() > 0);
+		Assert.assertFalse(all.getDomainCollection()
+				.isEmpty());
+		Assert.assertTrue(all.getDomainCollection()
+				.size() < 3);
+	}
 
-    @Test
-    public void testUpdate() {
-        final ID id = this.getIdentifier();
-        final GenericETagModifiedDateDomainObjectDecorator<TYPE> object = this.client.getByID(id);
-        this.updateObject(object);
-        final GenericETagModifiedDateDomainObjectDecorator<TYPE> result = this.client.update(object);
-        Assert.assertNotEquals(object.getETag(), result.getETag());
-    }
+	@Test
+	public void testUpdate() {
+		final Long id = this.getIdentifier();
+		final GenericETagModifiedDateDomainObjectDecorator<TYPE> object = this.client.getByID(id);
+		this.updateObject(object);
+		final GenericETagModifiedDateDomainObjectDecorator<TYPE> result = this.client.update(object);
+		Assert.assertNotEquals(object.getETag(), result.getETag());
+	}
 
-    protected abstract void buildContext(WebappContext context);
+	protected abstract void buildContext(WebappContext context);
 
-    protected abstract TYPE buildNew();
+	protected abstract TYPE buildNew();
 
-    protected abstract AbstractGenericActiveRestProxy<TYPE, ID, COL> getClient();
+	protected abstract AbstractGenericActiveRestProxy<TYPE, COL> getClient();
 
-    protected abstract ID getIdentifier();
+	protected abstract Long getIdentifier();
 
-    protected abstract void updateObject(GenericETagModifiedDateDomainObjectDecorator<TYPE> object);
+	protected abstract void updateObject(GenericETagModifiedDateDomainObjectDecorator<TYPE> object);
 
-    private void cleanBD() throws DatabaseUnitException, SQLException {
-        DatabaseOperation.DELETE_ALL.execute(connection, dataset);
-        DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
-    }
+	private void cleanBD() throws DatabaseUnitException, SQLException {
+		DatabaseOperation.DELETE_ALL.execute(connection, dataset);
+		DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
+	}
 }

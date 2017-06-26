@@ -33,107 +33,107 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
  *            The {@link AbstractGenericDomainObjectCollection}
  */
 // TODO replace this with a smaller implementation and only use the proxy
-public abstract class AbstractIdentifiableAsyncCaffeineCache<K extends Serializable, V extends AbstractGenericIdentifiableDomainObject<K>, COL extends AbstractGenericDomainObjectCollection<V>>
-        implements CacheLoader<K, V> {
+public abstract class AbstractIdentifiableAsyncCaffeineCache<V extends AbstractGenericIdentifiableDomainObject, COL extends AbstractGenericDomainObjectCollection<V>>
+		implements CacheLoader<Long, V> {
 
-    // TODO make this configurable
-    private static final int EXPIRE_AFTER_ACCESS = 5;
+	// TODO make this configurable
+	private static final int EXPIRE_AFTER_ACCESS = 5;
 
-    private static final int EXPIRE_AFTER_WRITE = 10;
+	private static final int EXPIRE_AFTER_WRITE = 10;
 
-    private static final int INITIAL_CAPACITY = 150;
+	private static final int INITIAL_CAPACITY = 150;
 
-    private static final int REFRESH_AFTER_WRITE = 1;
+	private static final int REFRESH_AFTER_WRITE = 1;
 
-    private final AsyncLoadingCache<K, V> cache = Caffeine.newBuilder()
-            .initialCapacity(INITIAL_CAPACITY)
-            .expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
-            .expireAfterWrite(EXPIRE_AFTER_WRITE, TimeUnit.MINUTES)
-            .refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
-            .ticker(Ticker.systemTicker())
-            .recordStats()
-            .buildAsync(this);
+	private final AsyncLoadingCache<Long, V> cache = Caffeine.newBuilder()
+			.initialCapacity(INITIAL_CAPACITY)
+			.expireAfterAccess(EXPIRE_AFTER_ACCESS, TimeUnit.MINUTES)
+			.expireAfterWrite(EXPIRE_AFTER_WRITE, TimeUnit.MINUTES)
+			.refreshAfterWrite(REFRESH_AFTER_WRITE, TimeUnit.MILLISECONDS)
+			.ticker(Ticker.systemTicker())
+			.recordStats()
+			.buildAsync(this);
 
-    /**
-     * Clean up the cache. This will only replace the values when they are
-     * loaded, so old values will show up until then, so that the service will
-     * keep running
-     */
-    public void cleanUp() {
-        this.cache.synchronous()
-                .cleanUp();
-    }
+	/**
+	 * Clean up the cache. This will only replace the values when they are
+	 * loaded, so old values will show up until then, so that the service will
+	 * keep running
+	 */
+	public void cleanUp() {
+		this.cache.synchronous()
+				.cleanUp();
+	}
 
-    /**
-     *
-     * @param key
-     *            the <code>k</code> key to use
-     * @return <code>V</code> value, that is associated with that <code>K</code>
-     *         key
-     */
-    public CompletableFuture<V> get(final K key) {
-        return this.cache.get(key);
-    }
+	/**
+	 *
+	 * @param key
+	 *            the <code>k</code> key to use
+	 * @return <code>V</code> value, that is associated with that <code>K</code>
+	 *         key
+	 */
+	public CompletableFuture<V> get(final Long key) {
+		return this.cache.get(key);
+	}
 
-    /**
-     *
-     * @return get all cached objects
-     */
-    public Map<K, V> getAll() {
-        return this.cache.synchronous()
-                .asMap();
-    }
+	/**
+	 *
+	 * @return get all cached objects
+	 */
+	public Map<Long, V> getAll() {
+		return this.cache.synchronous()
+				.asMap();
+	}
 
-    /**
-     *
-     * @param keys
-     *            keys to return
-     * @return a {@link Map} of <code>K</code>, <code>V</code> pair of all the
-     *         keys
-     */
-    public CompletableFuture<Map<K, V>> getAll(final Iterable<? extends K> keys) {
-        return this.cache.getAll(keys);
-    }
+	/**
+	 *
+	 * @param keys
+	 *            keys to return
+	 * @return a {@link Map} of <code>K</code>, <code>V</code> pair of all the
+	 *         keys
+	 */
+	public CompletableFuture<Map<Long, V>> getAll(final Iterable<? extends Long> keys) {
+		return this.cache.getAll(keys);
+	}
 
-    @Override
-    public V load(final K key) throws Exception {
-        return this.getIdentifiableService()
-                .getByID(key)
-                .getObject();
-    }
+	@Override
+	public V load(final Long key) throws Exception {
+		return this.getIdentifiableService()
+				.getByID(key)
+				.getObject();
+	}
 
-    /**
-     * Load all on init
-     */
-    @PostConstruct
-    public void loadAll() {
-        final Map<K, V> map = this.getAllObjects()
-                .stream()
-                .collect(Collectors.toMap(t -> t.getId(), Function.identity()));
-        this.cache.synchronous()
-                .putAll(map);
-    }
+	/**
+	 * Load all on init
+	 */
+	@PostConstruct
+	public void loadAll() {
+		final Map<Long, V> map = this.getAllObjects()
+				.stream()
+				.collect(Collectors.toMap(t -> t.getId(), Function.identity()));
+		this.cache.synchronous()
+				.putAll(map);
+	}
 
-    @Override
-    public Map<K, V> loadAll(final Iterable<? extends K> keys) throws Exception {
-        final Collection<V> all = this.getAllObjects();
-        return all.parallelStream()
-                .collect(Collectors.toMap(value -> value.getId(), Function.identity()));
-    }
+	@Override
+	public Map<Long, V> loadAll(final Iterable<? extends Long> keys) throws Exception {
+		final Collection<V> all = this.getAllObjects();
+		return all.parallelStream()
+				.collect(Collectors.toMap(value -> value.getId(), Function.identity()));
+	}
 
-    /**
-     * Get all apropriate objects
-     *
-     * @return a {@link Collection} of V
-     */
-    protected Collection<V> getAllObjects() {
-        return this.getIdentifiableService()
-                .getAll(null, null, null)
-                .getDomainCollection();
-    }
+	/**
+	 * Get all apropriate objects
+	 *
+	 * @return a {@link Collection} of V
+	 */
+	protected Collection<V> getAllObjects() {
+		return this.getIdentifiableService()
+				.getAll(null, null, null)
+				.getDomainCollection();
+	}
 
-    /**
-     * @return {@link IdentifiableService} for <code>V</code>.
-     */
-    protected abstract IdentifiableService<V, K, COL> getIdentifiableService();
+	/**
+	 * @return {@link IdentifiableService} for <code>V</code>.
+	 */
+	protected abstract IdentifiableService<V, COL> getIdentifiableService();
 }

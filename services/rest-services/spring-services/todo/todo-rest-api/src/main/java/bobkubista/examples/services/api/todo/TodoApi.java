@@ -10,6 +10,6 @@ import bobkubista.examples.utils.domain.model.api.ActiveServerApi;
  * @author Bob Kubista
  *
  */
-public interface TodoApi extends ActiveServerApi<TodoList, Long> {
+public interface TodoApi extends ActiveServerApi<TodoList> {
 
 }

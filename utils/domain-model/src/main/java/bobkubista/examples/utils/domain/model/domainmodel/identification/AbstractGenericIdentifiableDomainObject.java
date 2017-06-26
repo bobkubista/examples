@@ -21,55 +21,54 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class AbstractGenericIdentifiableDomainObject<ID extends Serializable> implements DomainObject {
+public abstract class AbstractGenericIdentifiableDomainObject implements DomainObject {
 
-    private static final long serialVersionUID = 6041983912533900961L;
+	private static final long serialVersionUID = 6041983912533900961L;
 
-    /**
-     * Constructor
-     */
-    public AbstractGenericIdentifiableDomainObject() {
-        super();
-    }
+	/**
+	 * Constructor
+	 */
+	public AbstractGenericIdentifiableDomainObject() {
+		super();
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null) {
+			return false;
+		}
 
-        if (!obj.getClass()
-                .isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass()
-                && !this.getClass()
-                        .isAssignableFrom(obj.getClass())) {
-            return false;
-        }
-        @SuppressWarnings("unchecked")
-        final AbstractGenericIdentifiableDomainObject<ID> other = (AbstractGenericIdentifiableDomainObject<ID>) obj;
-        return new EqualsBuilder().append(this.getId(), other.getId())
-                .isEquals();
-    }
+		if (!obj.getClass()
+				.isAssignableFrom(this.getClass()) && this.getClass() != obj.getClass()
+				&& !this.getClass()
+						.isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+		final AbstractGenericIdentifiableDomainObject other = (AbstractGenericIdentifiableDomainObject) obj;
+		return new EqualsBuilder().append(this.getId(), other.getId())
+				.isEquals();
+	}
 
-    /**
-     * @return ID
-     */
-    public abstract ID getId();
+	/**
+	 * @return ID
+	 */
+	public abstract Long getId();
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(this.getId())
-                .toHashCode();
-    }
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(this.getId())
+				.toHashCode();
+	}
 
-    /**
-     * @param id
-     *            ID
-     */
-    public abstract void setId(ID id);
+	/**
+	 * @param id
+	 *            ID
+	 */
+	public abstract void setId(Long id);
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 
 }

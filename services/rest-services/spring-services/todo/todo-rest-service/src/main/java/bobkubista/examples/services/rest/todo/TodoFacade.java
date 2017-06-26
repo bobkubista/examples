@@ -18,28 +18,29 @@ import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericA
  */
 @Service
 @Path("/")
-public class TodoFacade extends AbstractGenericActiveFacade<TodoList, Long, TodoListEntity, TodoListCollection>implements TodoApi {
+public class TodoFacade extends AbstractGenericActiveFacade<TodoList, TodoListEntity, TodoListCollection>
+		implements TodoApi {
 
-    @Autowired
-    private TodoListConverter converter;
-    @Autowired
-    private TodoListService service;
+	@Autowired
+	private TodoListConverter converter;
+	@Autowired
+	private TodoListService service;
 
-    /**
-     * Constructor
-     */
-    public TodoFacade() {
-        super();
-    }
+	/**
+	 * Constructor
+	 */
+	public TodoFacade() {
+		super();
+	}
 
-    @Override
-    protected TodoListConverter getConverter() {
-        return this.converter;
-    }
+	@Override
+	protected TodoListConverter getConverter() {
+		return this.converter;
+	}
 
-    @Override
-    protected TodoListService getService() {
-        return this.service;
-    }
+	@Override
+	protected TodoListService getService() {
+		return this.service;
+	}
 
 }

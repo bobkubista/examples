@@ -15,17 +15,17 @@ import bobkubista.examples.utils.rest.utils.mocks.MockDomainCollection;
  */
 public class AbstractActiveAutoCacheTest extends AbstractFunctionalAutoCacheTest {
 
-    private MockActiveCache mock;
+	private MockActiveCache mock;
 
-    @Override
-    public AbstractFunctionalAutoCache<Integer, MockActiveDomainObject, MockDomainCollection> getMock() {
-        return this.mock;
-    }
+	@Override
+	public AbstractFunctionalAutoCache<MockActiveDomainObject, MockDomainCollection> getMock() {
+		return this.mock;
+	}
 
-    @Before
-    @Override
-    public void init() {
-        this.mock = new MockActiveCache();
-        this.mock.loadAll();
-    }
+	@Before
+	@Override
+	public void init() {
+		this.mock = new MockActiveCache();
+		this.mock.loadAll();
+	}
 }

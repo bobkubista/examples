@@ -16,14 +16,14 @@ import bobkubista.examples.utils.service.jpa.persistance.services.ActiveEntitySe
  */
 @Named
 @Transactional
-public class RightService implements ActiveEntityService<Rights, Long> {
+public class RightService implements ActiveEntityService<Rights> {
 
-    @Inject
-    private RightDao dao;
+	@Inject
+	private RightDao dao;
 
-    @Override
-    public RightDao getDAO() {
-        return this.dao;
-    }
+	@Override
+	public RightDao getDAO() {
+		return this.dao;
+	}
 
 }

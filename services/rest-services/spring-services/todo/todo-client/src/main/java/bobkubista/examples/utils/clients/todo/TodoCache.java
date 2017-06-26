@@ -13,14 +13,14 @@ import bobkubista.examples.utils.rest.utils.cache.AbstractActiveAutoCache;
  * @author Bob
  *
  */
-public class TodoCache extends AbstractActiveAutoCache<Long, TodoList, TodoListCollection> {
+public class TodoCache extends AbstractActiveAutoCache<TodoList, TodoListCollection> {
 
-    @Inject
-    private TodoServiceInteface todoService;
+	@Inject
+	private TodoServiceInteface todoService;
 
-    @Override
-    protected TodoServiceInteface getActiveService() {
-        return this.todoService;
-    }
+	@Override
+	protected TodoServiceInteface getActiveService() {
+		return this.todoService;
+	}
 
 }

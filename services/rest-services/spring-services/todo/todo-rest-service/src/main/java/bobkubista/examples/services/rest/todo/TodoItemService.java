@@ -11,14 +11,14 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author Bob
  *
  */
-public class TodoItemService implements IdentifiableEntityService<TodoEntity, Long> {
+public class TodoItemService implements IdentifiableEntityService<TodoEntity> {
 
-    @Autowired
-    private TodoEntityDao dao;
+	@Autowired
+	private TodoEntityDao dao;
 
-    @Override
-    public TodoEntityDao getDAO() {
-        return this.dao;
-    }
+	@Override
+	public TodoEntityDao getDAO() {
+		return this.dao;
+	}
 
 }

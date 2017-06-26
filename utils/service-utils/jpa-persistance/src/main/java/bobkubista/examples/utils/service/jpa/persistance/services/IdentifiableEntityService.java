@@ -1,6 +1,5 @@
 package bobkubista.examples.utils.service.jpa.persistance.services;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -22,108 +21,108 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifi
  */
 @Transactional
 @FunctionalInterface
-public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity<ID>, ID extends Serializable> {
+public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEntity> {
 
-    /**
-     * Check if object of {@link AbstractIdentifiableEntity} exists
-     *
-     * @param id
-     *            the id to check
-     * @return true if exists
-     */
-    public default boolean contains(final ID id) {
-        return this.getDAO()
-                .contains(id);
-    }
+	/**
+	 * Check if object of {@link AbstractIdentifiableEntity} exists
+	 *
+	 * @param id
+	 *            the id to check
+	 * @return true if exists
+	 */
+	public default boolean contains(final Long id) {
+		return this.getDAO()
+				.contains(id);
+	}
 
-    /**
-     * Check if object of {@link AbstractIdentifiableEntity} exists
-     *
-     * @param object
-     *            the object to check
-     * @return true if exists
-     */
-    public default boolean contains(final TYPE object) {
-        return this.getDAO()
-                .contains(object);
-    }
+	/**
+	 * Check if object of {@link AbstractIdentifiableEntity} exists
+	 *
+	 * @param object
+	 *            the object to check
+	 * @return true if exists
+	 */
+	public default boolean contains(final TYPE object) {
+		return this.getDAO()
+				.contains(object);
+	}
 
-    /**
-     *
-     * @return Return the amount found
-     */
-    public default Long count() {
-        return this.getDAO()
-                .count();
-    }
+	/**
+	 *
+	 * @return Return the amount found
+	 */
+	public default Long count() {
+		return this.getDAO()
+				.count();
+	}
 
-    /**
-     * Create the object of {@link AbstractIdentifiableEntity} type
-     *
-     * @param object
-     *            the object to create
-     * @return <code>TYPE</code> that was created
-     */
-    public default Optional<TYPE> create(final TYPE object) {
-        this.getDAO()
-                .create(object);
-        return this.getDAO()
-                .getById(object.getId());
-    }
+	/**
+	 * Create the object of {@link AbstractIdentifiableEntity} type
+	 *
+	 * @param object
+	 *            the object to create
+	 * @return <code>TYPE</code> that was created
+	 */
+	public default Optional<TYPE> create(final TYPE object) {
+		this.getDAO()
+				.create(object);
+		return this.getDAO()
+				.getById(object.getId());
+	}
 
-    /**
-     * delete the specific object of {@link AbstractIdentifiableEntity}
-     *
-     * @param object
-     *            the object to delete
-     */
-    public default void delete(final TYPE object) {
-        this.getDAO()
-                .delete(object);
-    }
+	/**
+	 * delete the specific object of {@link AbstractIdentifiableEntity}
+	 *
+	 * @param object
+	 *            the object to delete
+	 */
+	public default void delete(final TYPE object) {
+		this.getDAO()
+				.delete(object);
+	}
 
-    /**
-     * get all known {@link AbstractIdentifiableEntity} of that type
-     *
-     * @param search
-     *            {@link SearchBean}
-     * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
-     *         same type
-     */
-    public default Collection<TYPE> getAll(final SearchBean search) {
-        return this.getDAO()
-                .getAll(search);
-    }
+	/**
+	 * get all known {@link AbstractIdentifiableEntity} of that type
+	 *
+	 * @param search
+	 *            {@link SearchBean}
+	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
+	 *         same type
+	 */
+	public default Collection<TYPE> getAll(final SearchBean search) {
+		return this.getDAO()
+				.getAll(search);
+	}
 
-    /**
-     * get the {@link AbstractIdentifiableEntity}
-     *
-     * @param identifier
-     *            the identfier
-     * @return the {@link AbstractIdentifiableEntity}
-     */
-    public default Optional<TYPE> getById(final ID identifier) {
-        return this.getDAO()
-                .getById(identifier);
-    }
+	/**
+	 * get the {@link AbstractIdentifiableEntity}
+	 *
+	 * @param identifier
+	 *            the identfier
+	 * @return the {@link AbstractIdentifiableEntity}
+	 */
+	public default Optional<TYPE> getById(final Long identifier) {
+		return this.getDAO()
+				.getById(identifier);
+	}
 
-    /**
-     * update the object of {@link AbstractIdentifiableEntity}
-     *
-     * @param object
-     *            the object to update
-     * @return the updated object
-     */
-    public default Optional<TYPE> update(final TYPE object) {
-        return this.getDAO()
-                .update(object);
-    }
+	/**
+	 * update the object of {@link AbstractIdentifiableEntity}
+	 *
+	 * @param object
+	 *            the object to update
+	 * @return the updated object
+	 */
+	public default Optional<TYPE> update(final TYPE object) {
+		return this.getDAO()
+				.update(object);
+	}
 
-    /**
-     * Get the {@link GenericIdentifiableDao}
-     *
-     * @return A subtype of {@link GenericIdentifiableDao}
-     */
-    GenericIdentifiableDao<TYPE, ID> getDAO();
+	/**
+	 * Get the {@link GenericIdentifiableDao}
+	 *
+	 * @return A subtype of {@link GenericIdentifiableDao}
+	 */
+	GenericIdentifiableDao<TYPE> getDAO();
 
 }

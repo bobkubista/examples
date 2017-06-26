@@ -1,6 +1,5 @@
 package bobkubista.examples.utils.service.jpa.persistance.spring.jersey.dbunit;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.time.Instant;
 import java.util.Date;
@@ -38,7 +37,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Constra
  *            {@link AbstractGenericDomainObjectCollection}
  */
 // TODO add test for contains, order by for id's
-public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject<ID>, ID extends Serializable, COL extends AbstractGenericDomainObjectCollection<TYPE>>
+public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject, COL extends AbstractGenericDomainObjectCollection<TYPE>>
 		extends AbstractBaseSpringJerseyDbUnitTest {
 
 	private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
@@ -392,18 +391,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	 *
 	 * @return identifier
 	 */
-	protected abstract ID getId();
-
-	/**
-	 *
-	 * @return the ID
-	 */
-	@SuppressWarnings("unchecked")
-	protected Class<ID> getIdentifierClass() {
-		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
-				.getGenericSuperclass();
-		return (Class<ID>) genericSuperclass.getActualTypeArguments()[1];
-	}
+	protected abstract Long getId();
 
 	/**
 	 * @return the identifier field name

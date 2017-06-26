@@ -20,49 +20,49 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
  */
 @Entity
 @SequenceGenerator(name = "sq_rights", allocationSize = 1, sequenceName = "sq_rights", initialValue = 1)
-public class Rights extends AbstractGenericActiveEntity<Long> {
+public class Rights extends AbstractGenericActiveEntity {
 
-    private static final long serialVersionUID = 2359290515125351928L;
+	private static final long serialVersionUID = 2359290515125351928L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
-    @Column(nullable = false)
-    private Long id;
+	/**
+	 * Check that the right is active and equal to the asked right
+	 *
+	 * @param right
+	 *            {@link Rights} to check against
+	 * @return true if equal and active
+	 */
+	public static Predicate<Rights> isAuthorized(final String right) {
+		final Predicate<Rights> name = t -> t.getFunctionalId()
+				.equals(right);
+		final Predicate<Rights> active = t -> t.isActive();
+		return name.and(active);
+	}
 
-    @Column(unique = true, nullable = false)
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_rights")
+	@Column(nullable = false)
+	private Long id;
 
-    /**
-     * Check that the right is active and equal to the asked right
-     *
-     * @param right
-     *            {@link Rights} to check against
-     * @return true if equal and active
-     */
-    public static Predicate<Rights> isAuthorized(final String right) {
-        final Predicate<Rights> name = t -> t.getFunctionalId()
-                .equals(right);
-        final Predicate<Rights> active = t -> t.isActive();
-        return name.and(active);
-    }
+	@Column(unique = true, nullable = false)
+	private String name;
 
-    @Override
-    public String getFunctionalId() {
-        return this.name;
-    }
+	@Override
+	public String getFunctionalId() {
+		return this.name;
+	}
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+	@Override
+	public Long getId() {
+		return this.id;
+	}
 
-    @Override
-    public void setFunctionalId(final String functionalId) {
-        this.name = functionalId;
-    }
+	@Override
+	public void setFunctionalId(final String functionalId) {
+		this.name = functionalId;
+	}
 
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(final Long id) {
+		this.id = id;
+	}
 }

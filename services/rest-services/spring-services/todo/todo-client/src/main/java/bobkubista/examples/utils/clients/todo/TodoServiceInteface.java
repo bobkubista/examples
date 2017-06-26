@@ -10,6 +10,6 @@ import bobkubista.examples.utils.rest.utils.service.ActiveService;
  * @author Bob
  *
  */
-public interface TodoServiceInteface extends ActiveService<TodoList, Long, TodoListCollection> {
+public interface TodoServiceInteface extends ActiveService<TodoList, TodoListCollection> {
 
 }
