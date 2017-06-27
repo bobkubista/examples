@@ -26,7 +26,7 @@ public class CollectionReducerTest {
 	public void testReducerException() {
 		final Stream<AbstractGenericFunctionalIdentifiableDomainObject> stream = Stream
 				.of(new GenericTestActiveDomainObject(), new GenericTestActiveDomainObject());
-		CollectionReducer.findOnlyOne(1, stream, t -> t.getId(), IllegalStateException::new);
+		CollectionReducer.findOnlyOne(1L, stream, t -> t.getId(), IllegalStateException::new);
 	}
 
 	@Test
@@ -35,6 +35,6 @@ public class CollectionReducerTest {
 		final List<AbstractGenericFunctionalIdentifiableDomainObject> stream = new ArrayList<>(
 				Arrays.asList(result, new GenericTestFunctionalDomainObject()));
 		Assert.assertEquals(Optional.of(result),
-				CollectionReducer.findOnlyOne(1, stream.stream(), t -> t.getId(), IllegalStateException::new));
+				CollectionReducer.findOnlyOne(1L, stream.stream(), t -> t.getId(), IllegalStateException::new));
 	}
 }
