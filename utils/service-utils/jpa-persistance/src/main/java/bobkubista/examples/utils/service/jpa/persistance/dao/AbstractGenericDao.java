@@ -21,9 +21,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 	@PersistenceContext(name = "jpaData")
 	private EntityManager entityManager;
 
-	@Deprecated
-	private final Class<Long> identifierClass;
-
 	/**
 	 * Constructor
 	 */
@@ -33,7 +30,6 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 		final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass()
 				.getGenericSuperclass();
 		this.entityClass = (Class<TYPE>) genericSuperclass.getActualTypeArguments()[0];
-		this.identifierClass = (Class<Long>) genericSuperclass.getActualTypeArguments()[1];
 
 	}
 
@@ -51,11 +47,4 @@ public abstract class AbstractGenericDao<TYPE extends AbstractIdentifiableEntity
 	public EntityManager getEntityManager() {
 		return this.entityManager;
 	}
-
-	@Override
-	@Deprecated
-	public Class<Long> getIdentifierClass() {
-		return this.identifierClass;
-	}
-
 }

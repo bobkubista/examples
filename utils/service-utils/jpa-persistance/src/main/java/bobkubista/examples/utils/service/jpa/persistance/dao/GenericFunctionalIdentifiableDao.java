@@ -71,7 +71,7 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
 	public default Optional<Long> getIdByFunctionalId(final String fId) {
 		final CriteriaBuilder builder = this.getEntityManager()
 				.getCriteriaBuilder();
-		final CriteriaQuery<Long> query = builder.createQuery(this.getIdentifierClass());
+		final CriteriaQuery<Long> query = builder.createQuery(Long.class);
 		final Root<TYPE> root = query.from(this.getEntityClass());
 		query.where(builder.equal(this.getFunctionalIdField(root), fId));
 		query.multiselect(root.get("id"));

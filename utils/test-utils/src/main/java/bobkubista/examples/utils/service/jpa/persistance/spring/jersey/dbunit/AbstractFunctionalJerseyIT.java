@@ -38,10 +38,8 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 		final Response response = this.target("/functionId/" + this.getFunctionalId())
 				.request()
 				.get();
-		Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-		Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-
-		this.checkSingle(response.readEntity(this.getSingleClass()));
+		checkCacheControl(response);
+		this.checkSingle(response);
 	}
 
 	/**
@@ -68,10 +66,9 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 				.header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
 				.get();
 		Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
-		Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-		Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+		checkCacheControl(response);
 
-		this.checkSingle(response.readEntity(this.getSingleClass()));
+		this.checkSingle(response);
 	}
 
 	/**
@@ -84,8 +81,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 				.request()
 				.get();
 
-		Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
-		Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+		checkCacheControl(response);
 
 		final String actual = response.readEntity(String.class);
 
@@ -139,4 +135,9 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	 * @return a partion ID to search for
 	 */
 	protected abstract String getPartionFunctionalId();
+
+	private void checkCacheControl(final Response response) {
+		Assert.assertNotNull(response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+		Assert.assertEquals("private, max-age=600", response.getHeaderString(HttpHeaders.CACHE_CONTROL));
+	}
 }

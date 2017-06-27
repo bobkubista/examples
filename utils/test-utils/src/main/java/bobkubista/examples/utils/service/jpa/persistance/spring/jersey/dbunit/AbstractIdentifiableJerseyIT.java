@@ -40,7 +40,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.Constra
 public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericIdentifiableDomainObject, COL extends AbstractGenericDomainObjectCollection<TYPE>>
 		extends AbstractBaseSpringJerseyDbUnitTest {
 
-	private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 2;
+	private static final int COLLECTION_TYPE_ARGUMENT_NUMBER = 1;
 
 	private static final String NEXT_LINK = "next";
 
@@ -330,6 +330,16 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 	protected abstract void checkResponseGetAll(COL response, int size);
 
 	/**
+	 * Check a singel instance
+	 *
+	 * @param response
+	 *            the response to check
+	 */
+	protected void checkSingle(Response response) {
+		this.checkSingle(response.readEntity(this.getSingleClass()));
+	}
+
+	/**
 	 * check a single instance
 	 *
 	 * @param response
@@ -349,7 +359,7 @@ public abstract class AbstractIdentifiableJerseyIT<TYPE extends AbstractGenericI
 		Assert.assertEquals(this.getBaseUri()
 				.toString() + "1", response.getHeaderString(HttpHeaders.LOCATION));
 
-		this.checkSingle(response.readEntity(this.getSingleClass()));
+		this.checkSingle(response);
 	}
 
 	/**

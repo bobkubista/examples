@@ -35,13 +35,6 @@ public interface GenericDao<TYPE extends AbstractIdentifiableEntity> {
 
 	/**
 	 *
-	 * @return identifier {@link Class}
-	 */
-	@Deprecated
-	public Class<Long> getIdentifierClass();
-
-	/**
-	 *
 	 * @return {@link Logger}
 	 */
 	public Logger getLogger();
