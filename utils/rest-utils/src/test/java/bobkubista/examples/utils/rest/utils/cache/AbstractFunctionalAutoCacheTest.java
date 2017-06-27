@@ -72,7 +72,7 @@ public class AbstractFunctionalAutoCacheTest {
 	public void testGetWithId() throws ExecutionException, InterruptedException {
 		final CompletableFuture<MockActiveDomainObject> result = this.getMock()
 				.get(1L);
-		Assert.assertEquals(new Integer(1), result.get()
+		Assert.assertEquals(new Long(1), result.get()
 				.getId());
 	}
 
