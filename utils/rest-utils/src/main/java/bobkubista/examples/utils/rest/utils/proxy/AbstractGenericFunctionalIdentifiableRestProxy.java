@@ -22,13 +22,13 @@ public abstract class AbstractGenericFunctionalIdentifiableRestProxy<TYPE extend
 
 	@Override
 	public TYPE getByFunctionalId(final String functionalId) {
-		return call(t -> this.getRequest(this.getServiceWithPaths("/functionId/", t))
+		return call(t -> this.getRequest(this.getServiceWithPaths(t))
 				.get(), t -> t.readEntity(this.getDomainClass()), functionalId);
 	}
 
 	@Override
 	public Long getIdByFunctionalId(final String fId) {
-		return call(t -> this.getRequest(this.getServiceWithPaths("id", t))
+		return call(t -> this.getRequest(this.getServiceWithPaths(t, "id"))
 				.get(), t -> t.readEntity(Long.class), fId);
 	}
 }

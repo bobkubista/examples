@@ -35,7 +35,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetByFunctionalId() {
-		final Response response = this.target("/functionId/" + this.getFunctionalId())
+		final Response response = this.target("/" + this.getFunctionalId())
 				.request()
 				.get();
 		checkCacheControl(response);
@@ -48,7 +48,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetByFunctionalIdPreconditionsMet() {
-		final Response response = this.target("/functionId/" + this.getFunctionalId())
+		final Response response = this.target("/" + this.getFunctionalId())
 				.request()
 				.header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.now()))
 				.get();
@@ -61,7 +61,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetByFunctionalIdPreconditionsNotMet() {
-		final Response response = this.target("/functionId/" + this.getFunctionalId())
+		final Response response = this.target("/" + this.getFunctionalId())
 				.request()
 				.header(HttpHeaders.IF_MODIFIED_SINCE, Date.from(Instant.EPOCH))
 				.get();
@@ -77,7 +77,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldGetIdByFunctionalId() {
-		final Response response = this.target("/id/" + this.getFunctionalId())
+		final Response response = this.target("/" + this.getFunctionalId() + "/id")
 				.request()
 				.get();
 
@@ -114,7 +114,7 @@ public abstract class AbstractFunctionalJerseyIT<TYPE extends AbstractGenericFun
 	@Test
 	@DatabaseSetup(value = "/dataset/given/FacadeIT.xml")
 	public void shouldNotGetByFunctionalId() {
-		final Response response = this.target("/functionId/notthere")
+		final Response response = this.target("/notthere")
 				.request()
 				.get(Response.class);
 		try {

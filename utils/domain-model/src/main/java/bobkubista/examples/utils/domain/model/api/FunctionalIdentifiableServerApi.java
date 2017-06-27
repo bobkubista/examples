@@ -35,7 +35,7 @@ public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunc
 	@GET
 	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("functionId/{id}")
+	@Path("{id}")
 	default Response getByFunctionalId(@PathParam("id") final String identifier, @Context final Request request) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
 	}
@@ -50,7 +50,7 @@ public interface FunctionalIdentifiableServerApi<DMO extends AbstractGenericFunc
 	@GET
 	@Produces({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("id/{functionalId}")
+	@Path("{functionalId}/id")
 	default Response getIdByFunctionalId(@PathParam("functionalId") final String fId) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(fId);
 	}

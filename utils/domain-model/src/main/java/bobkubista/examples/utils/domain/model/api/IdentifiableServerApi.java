@@ -79,7 +79,7 @@ public interface IdentifiableServerApi<DMO extends DomainObject> {
 	 *         {@link Response}
 	 */
 	@DELETE
-	@Path("{id}")
+	@Path("{id : \\d+}")
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response delete(@Valid @PathParam("id") final Long identifier) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier);
@@ -116,7 +116,7 @@ public interface IdentifiableServerApi<DMO extends DomainObject> {
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("{id}")
+	@Path("{id : \\d+}")
 	default Response getByID(@Valid @PathParam("id") final Long identifier, @Context final Request request) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(identifier, request);
 	}
