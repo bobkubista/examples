@@ -49,7 +49,7 @@ import bobkubista.examples.utils.rest.utils.service.IdentifiableService;
 public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends AbstractGenericIdentifiableDomainObject, COL extends AbstractGenericDomainObjectCollection<TYPE>>
 		extends AbstractRestProxy implements IdentifiableService<TYPE, COL> {
 
-	private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 2;
+	private static final int COLLECTION_CLASS_TYPE_ARGUMENT_NUMBER = 1;
 
 	private static final int DOMAINOBJECT_CLASS_TYPE_ARGUMENT_NUMBER = 0;
 

@@ -58,8 +58,8 @@ public class AbstractGenericActiveRestProxyTest {
 				.add(new MockActiveDomainObject(1L, "F1"));
 		mockDomainCollection.getDomainCollection()
 				.add(new MockActiveDomainObject(2L, "F2"));
-		Mockito.when(this.mockResponse.readEntity(Integer.class))
-				.thenReturn(1);
+		Mockito.when(this.mockResponse.readEntity(Long.class))
+				.thenReturn(1L);
 		Mockito.when(this.mockResponse.getStatusInfo())
 				.thenReturn(Status.OK);
 		Mockito.when(this.mockResponse.readEntity(MockDomainCollection.class))
@@ -155,7 +155,7 @@ public class AbstractGenericActiveRestProxyTest {
 
 		final GenericETagModifiedDateDomainObjectDecorator<MockActiveDomainObject> result = this.proxy.getByID(1L);
 		Assert.assertNotNull(result);
-		Assert.assertEquals(new Integer(1), result.getObject()
+		Assert.assertEquals(new Long(1), result.getObject()
 				.getId());
 	}
 
@@ -207,7 +207,7 @@ public class AbstractGenericActiveRestProxyTest {
 
 		final Long result = this.proxy.getIdByFunctionalId("blaat");
 		Assert.assertNotNull(result);
-		Assert.assertEquals(new Integer(1), result);
+		Assert.assertEquals(new Long(1), result);
 	}
 
 	@Test
@@ -219,7 +219,7 @@ public class AbstractGenericActiveRestProxyTest {
 
 		final MockActiveDomainObject result = this.proxy.update(new MockActiveDomainObject());
 		Assert.assertNotNull(result);
-		Assert.assertEquals(new Integer(1), result.getId());
+		Assert.assertEquals(new Long(1), result.getId());
 	}
 
 	@Test(expected = WebApplicationException.class)
@@ -246,7 +246,7 @@ public class AbstractGenericActiveRestProxyTest {
 				new EntityTag("tag"), Instant.now()
 						.plusMillis(5),
 				mockDomainObject, null);
-		Assert.assertEquals(new Integer(1), this.proxy.update(object)
+		Assert.assertEquals(new Long(1), this.proxy.update(object)
 				.getObject()
 				.getId());
 	}
