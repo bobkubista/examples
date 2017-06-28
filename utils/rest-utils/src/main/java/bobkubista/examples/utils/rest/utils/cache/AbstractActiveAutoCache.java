@@ -33,7 +33,7 @@ public abstract class AbstractActiveAutoCache<V extends AbstractGenericActiveDom
 	@Override
 	protected Collection<V> getAllObjects() {
 		return this.getActiveService()
-				.getAllActive(null, null, null)
+				.getAllActive(null, null, null, null)
 				.getDomainCollection();
 	}
 

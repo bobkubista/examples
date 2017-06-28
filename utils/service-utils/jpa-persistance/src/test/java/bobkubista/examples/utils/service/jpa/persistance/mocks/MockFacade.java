@@ -13,6 +13,7 @@ import javax.ws.rs.core.Link;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
+import bobkubista.examples.utils.domain.model.api.ActiveSearchBean;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.facade.AbstractGenericActiveFacade;
@@ -70,18 +71,18 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, MockEnti
 				.setMaxResults(1)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));
 
-		Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
+		Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
 				.setPage(0)
 				.setMaxResults(100)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));
-		Mockito.when(mock.getAllActive(new SearchBean().setSort(new ArrayList<>())
+		Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
 				.setPage(1)
 				.setMaxResults(1)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));
 
 		Mockito.when(mock.count())
 				.thenReturn(100L);
-		Mockito.when(mock.countActive())
+		Mockito.when(mock.count(Mockito.any(ActiveSearchBean.class)))
 				.thenReturn(100L);
 
 		Mockito.when(mock.getByFunctionalId("Bla"))

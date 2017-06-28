@@ -127,7 +127,7 @@ public class AbstractGenericActiveRestProxyTest {
 		Mockito.when(this.mockResponse.getStatus())
 				.thenReturn(200);
 
-		final MockDomainCollection result = this.proxy.getAllActive(new ArrayList<>(), null, null);
+		final MockDomainCollection result = this.proxy.getAllActive(new ArrayList<>(), null, null, null);
 		Assert.assertNotNull(result);
 		Assert.assertEquals(2, result.getDomainCollection()
 				.size());

@@ -32,7 +32,8 @@ public class MockActiveCache extends AbstractActiveAutoCache<MockActiveDomainObj
 		activeObjects.add(this.buildActiveDomainObjectMock(2L, "F2"));
 		final MockDomainCollection col = new MockDomainCollection();
 		col.setDomainCollection(activeObjects);
-		Mockito.when(mockService.getAllActive(Matchers.anyListOf(String.class), Matchers.anyInt(), Matchers.anyInt()))
+		Mockito.when(mockService.getAllActive(Matchers.anyListOf(String.class), Matchers.anyInt(), Matchers.anyInt(),
+				Matchers.anyBoolean()))
 				.thenReturn(col);
 
 		Mockito.when(mockService.getIdByFunctionalId("F1"))

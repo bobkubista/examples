@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response.Status;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheTransform;
+import bobkubista.examples.utils.domain.model.api.ActiveSearchBean;
 import bobkubista.examples.utils.domain.model.api.ActiveServerApi;
-import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
@@ -40,11 +40,11 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
 	@CachePrivate
 	@CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
 	@Override
-	public Response getAllActive(@BeanParam final SearchBean search) {
+	public Response getAll(@BeanParam final ActiveSearchBean search) {
 		final CompletableFuture<Collection<TYPE>> allEntities = CompletableFuture.supplyAsync(() -> this.getService()
-				.getAllActive(search));
+				.getAll(search));
 		final CompletableFuture<Long> amount = CompletableFuture.supplyAsync(() -> this.getService()
-				.countActive());
+				.count(search));
 
 		try {
 			final List<Link> links = buildCollectionLinks(search, allEntities, amount);

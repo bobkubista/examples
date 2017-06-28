@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bobkubista.example.utils.property.ServerProperties;
+import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericActiveDomainObject;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.rest.utils.service.ActiveService;
@@ -35,12 +36,25 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericActiveRestProxy.class);
 
+	public static Map<String, Object> getQueryparameters(List<String> sort, Integer page, Integer maxResults,
+			Boolean active) {
+		final Map<String, Object> params = AbstractGenericIdentifiableRestProxy.getQueryparameters(sort, page,
+				maxResults);
+
+		if (active != null) {
+			params.put(ApiConstants.ACTIVE, active);
+		}
+
+		return params;
+	}
+
 	@Override
-	public COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults) {
+	public COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults,
+			final Boolean active) {
 		try {
 			final Long serverTimeout = ServerProperties.get()
 					.getLong("server.timeout", 1L);
-			return this.getAllActiveASync(sort, page, maxResults)
+			return this.getAllActiveASync(sort, page, maxResults, active)
 					.get(serverTimeout, TimeUnit.SECONDS);
 		} catch (InterruptedException | ExecutionException | TimeoutException e) {
 			LOGGER.warn(e.getMessage(), e);
@@ -50,11 +64,10 @@ public abstract class AbstractGenericActiveRestProxy<TYPE extends AbstractGeneri
 
 	@Override
 	public CompletableFuture<COL> getAllActiveASync(final List<String> sort, final Integer page,
-			final Integer maxResults) {
+			final Integer maxResults, final Boolean active) {
 		return CompletableFuture.supplyAsync(() -> {
 
-			final Map<String, Object> params = AbstractGenericIdentifiableRestProxy.getQueryparameters(sort, page,
-					maxResults);
+			final Map<String, Object> params = getQueryparameters(sort, page, maxResults, active);
 			return call(t -> this.getRequest(this.getServiceWithQueryParams(params, "active"))
 					.get(), t -> t.readEntity(this.getCollectionClass()), params);
 		});

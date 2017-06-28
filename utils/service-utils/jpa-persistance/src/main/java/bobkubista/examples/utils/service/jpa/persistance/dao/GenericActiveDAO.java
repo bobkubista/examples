@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import bobkubista.examples.utils.domain.model.api.ActiveSearchBean;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
 
@@ -25,8 +26,8 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity>
 	 *
 	 * @return the amount of active entities
 	 */
-	public default Long countActive() {
-		return this.count(this.getActiveCriteria());
+	public default Long count(final ActiveSearchBean search) {
+		return this.count(this.getActiveCriteria(search));
 	};
 
 	/**
@@ -36,15 +37,16 @@ public interface GenericActiveDAO<TYPE extends AbstractGenericActiveEntity>
 	 *            {@link SearchBean}
 	 * @return a {@link Collection} of {@link AbstractGenericActiveEntity}
 	 */
-	default Collection<TYPE> findAllActive(final SearchBean search) {
-		return this.getAll(search, this.getActiveCriteria());
+	default Collection<TYPE> findAll(final ActiveSearchBean search) {
+		return this.getAll(search, this.getActiveCriteria(search));
 	}
 
 	/**
 	 *
+	 * @param search
 	 * @return the active Criteria
 	 */
-	default BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> getActiveCriteria() {
-		return (root, build) -> build.equal(root.get("active"), true);
+	default BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> getActiveCriteria(final ActiveSearchBean search) {
+		return (root, build) -> build.equal(root.get("active"), search.isActive());
 	}
 }

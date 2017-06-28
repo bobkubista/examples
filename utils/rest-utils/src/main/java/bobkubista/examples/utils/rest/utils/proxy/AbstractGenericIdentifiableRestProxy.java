@@ -215,4 +215,5 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 	}
 
 	protected abstract COL getEmptyCollection();
+
 }
