@@ -1,13 +1,18 @@
 package bobkubista.examples.utils.service.jpa.persistance.facade;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.ServerErrorException;
+import javax.ws.rs.ServiceUnavailableException;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CacheMaxAge;
 import bobkubista.examples.utils.domain.model.annotation.http.cache.CachePrivate;
@@ -36,18 +41,23 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
 	@CacheMaxAge(time = 10, unit = TimeUnit.MINUTES)
 	@Override
 	public Response getAllActive(@BeanParam final SearchBean search) {
-		final List<Link> links = new ArrayList<>(2);
-		final Collection<TYPE> allEntities = this.getService()
-				.getAllActive(search);
-		final Long amount = this.getService()
-				.countActive();
+		final CompletableFuture<Collection<TYPE>> allEntities = CompletableFuture.supplyAsync(() -> this.getService()
+				.getAllActive(search));
+		final CompletableFuture<Long> amount = CompletableFuture.supplyAsync(() -> this.getService()
+				.countActive());
 
-		this.buildNextCollectionLink(search, allEntities, amount, links);
-		this.buildPreviousCollectionLink(search, links);
+		try {
+			final List<Link> links = buildCollectionLinks(search, allEntities, amount);
 
-		return Response.ok(this.getConverter()
-				.convertToDomainObject(allEntities, amount, links))
-				.build();
+			return Response.ok(this.getConverter()
+					.convertToDomainObject(allEntities.get(1, TimeUnit.SECONDS), amount.get(1, TimeUnit.SECONDS),
+							links))
+					.build();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
+		} catch (final TimeoutException e) {
+			throw new ServiceUnavailableException(5L, e);
+		}
 	}
 
 	@Override
