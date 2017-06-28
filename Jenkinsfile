@@ -15,7 +15,7 @@ try{
     //performanceTest()
     sonar()
     nexus()
-    release()
+    //release()
 } catch(Exception ex) {
 	currentBuild.result = 'FAILED'
 	//mail()
