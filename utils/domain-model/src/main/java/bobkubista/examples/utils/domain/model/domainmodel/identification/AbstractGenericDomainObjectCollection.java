@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.utils.domain.model.domainmodel.identification;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +28,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.util.CollectionReducer
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class AbstractGenericDomainObjectCollection<TYPE extends DomainObject> implements DomainObject, LinkedDomainObject {
+public abstract class AbstractGenericDomainObjectCollection<TYPE extends Serializable> implements Serializable, LinkedDomainObject {
 
 	private static final long serialVersionUID = -7020164336355743584L;
 

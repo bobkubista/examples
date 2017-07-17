@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class AbstractGenericIdentifiableDomainObject implements DomainObject {
+public abstract class AbstractGenericIdentifiableDomainObject implements Serializable {
 
 	private static final long serialVersionUID = 6041983912533900961L;
 

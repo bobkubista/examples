@@ -38,7 +38,6 @@ import bobkubista.examples.utils.domain.model.api.ApiConstants;
 import bobkubista.examples.utils.domain.model.api.IdentifiableServerApi;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.converter.EntityToDomainConverter;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
@@ -61,7 +60,7 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  * @author bkubista
  *
  */
-public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity>
+public abstract class AbstractGenericIdentifiableFacade<DMO extends Serializable, DMOL extends AbstractGenericDomainObjectCollection<DMO>, TYPE extends AbstractIdentifiableEntity>
 		implements IdentifiableServerApi<DMO> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericIdentifiableFacade.class);
@@ -109,10 +108,32 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 				.count());
 
 		try {
-			final List<Link> links = buildCollectionLinks(search, allEntriesFuture, amountFuture);
+			final List<Link> links = buildCollectionLinks(search, allEntriesFuture.get(1, TimeUnit.SECONDS)
+					.size(), amountFuture);
 			return Response.ok(this.getConverter()
 					.convertToDomainObject(allEntriesFuture.get(1, TimeUnit.SECONDS),
 							amountFuture.get(1, TimeUnit.SECONDS), links))
+					.build();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
+		} catch (final TimeoutException e) {
+			throw new ServiceUnavailableException(5L, e);
+		}
+	}
+
+	@Override
+	public Response getAllIds(SearchBean search) {
+		final CompletableFuture<Collection<Long>> allIds = CompletableFuture.supplyAsync(() -> this.getService()
+				.getAllIds(search));
+
+		final CompletableFuture<Long> amount = CompletableFuture.supplyAsync(() -> this.getService()
+				.count());
+
+		try {
+			final List<Link> links = buildCollectionLinks(search, allIds.get(1, TimeUnit.SECONDS)
+					.size(), amount);
+			return Response.ok(this.getConverter()
+					.convertIdToDomainObject(allIds.get(1, TimeUnit.SECONDS), amount.get(1, TimeUnit.SECONDS), links))
 					.build();
 		} catch (InterruptedException | ExecutionException e) {
 			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
@@ -182,12 +203,11 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 		}
 	}
 
-	protected List<Link> buildCollectionLinks(final SearchBean search,
-			final CompletableFuture<Collection<TYPE>> allEntriesFuture, final CompletableFuture<Long> amountFuture)
+	protected List<Link> buildCollectionLinks(final SearchBean search, final int allEntriesSize,
+			final CompletableFuture<Long> amountFuture)
 			throws InterruptedException, ExecutionException, TimeoutException {
 		final List<Link> links = new ArrayList<>(2);
-		this.buildNextCollectionLink(search, allEntriesFuture.get(1, TimeUnit.SECONDS),
-				amountFuture.get(1, TimeUnit.SECONDS))
+		this.buildNextCollectionLink(search, allEntriesSize, amountFuture.get(1, TimeUnit.SECONDS))
 				.ifPresent(links::add);
 		this.buildPreviousCollectionLink(search)
 				.ifPresent(links::add);
@@ -231,9 +251,9 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 	 *            determain if the link should be added
 	 * @return
 	 */
-	protected Optional<Link> buildNextCollectionLink(final SearchBean search, final Collection<TYPE> allEntities,
+	protected Optional<Link> buildNextCollectionLink(final SearchBean search, final int allEntitiesSize,
 			final Long amount) {
-		if (allEntities.size() == search.getMaxResults()
+		if (allEntitiesSize == search.getMaxResults()
 				&& search.getPage() * search.getMaxResults() + search.getMaxResults() < amount) {
 			return Optional.of(this.buildLink(search, "next", () -> search.getPage() + 1));
 		} else {

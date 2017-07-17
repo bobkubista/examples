@@ -3,6 +3,7 @@
  */
 package bobkubista.examples.utils.domain.model.api;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Collection;
 
@@ -16,8 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.NotImplementedException;
-
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 
 /**
  * An interface discribing the rest paths, accepted {@link MediaType} and http
@@ -34,7 +33,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * @author bkubista
  *
  */
-public interface IdentifiableClientApi<DMO extends DomainObject> {
+public interface IdentifiableClientApi<DMO extends Serializable> {
 
 	/**
 	 * @param entity

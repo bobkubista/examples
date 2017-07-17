@@ -47,7 +47,7 @@ public abstract class AbstractGenericActiveFacade<DMO extends AbstractGenericAct
 				.count(search));
 
 		try {
-			final List<Link> links = buildCollectionLinks(search, allEntities, amount);
+			final List<Link> links = buildCollectionLinks(search, allEntities.get(1, TimeUnit.SECONDS).size(), amount);
 
 			return Response.ok(this.getConverter()
 					.convertToDomainObject(allEntities.get(1, TimeUnit.SECONDS), amount.get(1, TimeUnit.SECONDS),
