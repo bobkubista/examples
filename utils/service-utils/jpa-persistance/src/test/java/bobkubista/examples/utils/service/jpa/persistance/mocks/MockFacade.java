@@ -70,12 +70,27 @@ public class MockFacade extends AbstractGenericActiveFacade<MockDomain, MockEnti
 				.setPage(1)
 				.setMaxResults(1)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));
-
-		Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
+		Mockito.when(mock.getAll(new SearchBean().setPage(3)))
+				.thenAnswer(invocation -> {
+					Thread.sleep(1100L);
+					return null;
+				});
+		Mockito.when(mock.getAll(new SearchBean().setPage(3)))
+				.thenAnswer(invocation -> {
+					Thread.sleep(1100L);
+					return null;
+				});
+		Mockito.when(mock.getAll(new SearchBean().setPage(4)
+				.setMaxResults(14)))
+				.thenThrow(new RuntimeException("Just to test this"));
+		Mockito.when(mock.getAll(new ActiveSearchBean().setPage(4)
+				.setMaxResults(14)))
+				.thenThrow(new RuntimeException("Just to test this"));
+		Mockito.when(mock.getAll(new ActiveSearchBean().setSort(new ArrayList<>())
 				.setPage(0)
 				.setMaxResults(100)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));
-		Mockito.when(mock.getAll(new SearchBean().setSort(new ArrayList<>())
+		Mockito.when(mock.getAll(new ActiveSearchBean().setSort(new ArrayList<>())
 				.setPage(1)
 				.setMaxResults(1)))
 				.thenReturn(Collections.singletonList(this.buildMockEntity()));

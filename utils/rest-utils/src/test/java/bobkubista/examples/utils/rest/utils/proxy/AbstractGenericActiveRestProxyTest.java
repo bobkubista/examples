@@ -127,7 +127,7 @@ public class AbstractGenericActiveRestProxyTest {
 		Mockito.when(this.mockResponse.getStatus())
 				.thenReturn(200);
 
-		final MockDomainCollection result = this.proxy.getAllActive(new ArrayList<>(), null, null, null);
+		final MockDomainCollection result = this.proxy.getAll(new ArrayList<>(), null, null);
 		Assert.assertNotNull(result);
 		Assert.assertEquals(2, result.getDomainCollection()
 				.size());
@@ -267,7 +267,7 @@ public class AbstractGenericActiveRestProxyTest {
 		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.ETAG))
 				.thenReturn(new EntityTag("tag").toString());
 		Mockito.when(this.mockResponse.getHeaderString(HttpHeaders.LAST_MODIFIED))
-				.thenReturn(Instant.EPOCH.toString());
+				.thenReturn("Wed, 1 Jan 2015 00:00:00 GMT");
 		Mockito.when(this.mockResponse.getStatusInfo())
 				.thenReturn(Status.OK);
 

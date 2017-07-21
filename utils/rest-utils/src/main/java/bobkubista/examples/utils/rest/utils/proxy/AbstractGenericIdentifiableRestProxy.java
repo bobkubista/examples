@@ -1,11 +1,7 @@
-/**
- * Bob Kubista's examples
- */
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -145,7 +141,8 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 					if (byID.getStatus() == Status.OK.getStatusCode()) {
 						return new GenericETagModifiedDateDomainObjectDecorator<>(
 								EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
-								Instant.parse(byID.getHeaderString(HttpHeaders.LAST_MODIFIED)),
+								DateUtils.parseDate(byID.getHeaderString(HttpHeaders.LAST_MODIFIED))
+										.toInstant(),
 								byID.readEntity(this.domainClass), null);
 					} else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
 						return object;
