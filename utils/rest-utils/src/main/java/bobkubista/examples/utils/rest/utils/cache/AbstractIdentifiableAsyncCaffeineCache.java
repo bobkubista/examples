@@ -109,7 +109,7 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<V extends AbstractG
 	public void loadAll() {
 		final Map<Long, V> map = this.getAllObjects()
 				.stream()
-				.collect(Collectors.toMap(t -> t.getId(), Function.identity()));
+				.collect(Collectors.toMap(V::getId, Function.identity()));
 		this.cache.synchronous()
 				.putAll(map);
 	}
@@ -118,11 +118,11 @@ public abstract class AbstractIdentifiableAsyncCaffeineCache<V extends AbstractG
 	public Map<Long, V> loadAll(final Iterable<? extends Long> keys) throws Exception {
 		final Collection<V> all = this.getAllObjects();
 		return all.parallelStream()
-				.collect(Collectors.toMap(value -> value.getId(), Function.identity()));
+				.collect(Collectors.toMap(V::getId, Function.identity()));
 	}
 
 	/**
-	 * Get all apropriate objects
+	 * Get all apropriate objectspage
 	 *
 	 * @return a {@link Collection} of V
 	 */

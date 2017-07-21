@@ -24,8 +24,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.NotImplementedException;
 
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
-
 /**
  * An interface discribing the rest paths, accepted {@link MediaType} and http
  * request methodes. This facade should be used by all applications, except
@@ -43,7 +41,7 @@ import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainO
  * @author bkubista
  *
  */
-public interface IdentifiableServerApi<DMO extends DomainObject> {
+public interface IdentifiableServerApi<DMO extends Serializable> {
 
 	/**
 	 * @param entity
@@ -86,10 +84,7 @@ public interface IdentifiableServerApi<DMO extends DomainObject> {
 	}
 
 	/**
-	 * get all known {@link DomainObject} of that type. Delegate this methode to
-	 * {@link IdentifiableServerApi#getAll(Integer, Integer)} and use set the
-	 * sort field as queryparameters. This methode is used to construct the
-	 * {@link GET}.
+	 * get all known {@link DomainObject} identifiers of that type..
 	 *
 	 * @param search
 	 *            {@link SearchBean} filled with criteria, sorts and limits
@@ -99,6 +94,21 @@ public interface IdentifiableServerApi<DMO extends DomainObject> {
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	default Response getAll(@Valid @BeanParam final SearchBean search) {
+		return IdentifiableServerApi.buildMethodNotAllowedResponse(search);
+	}
+
+	/**
+	 * get all known {@link DomainObject} of that type.
+	 *
+	 * @param search
+	 *            {@link SearchBean} filled with criteria, sorts and limits
+	 *
+	 * @return a {@link Collection} of {@link DomainObject} of the same type
+	 */
+	@GET
+	@Path("id")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	default Response getAllIds(@Valid @BeanParam final SearchBean search) {
 		return IdentifiableServerApi.buildMethodNotAllowedResponse(search);
 	}
 

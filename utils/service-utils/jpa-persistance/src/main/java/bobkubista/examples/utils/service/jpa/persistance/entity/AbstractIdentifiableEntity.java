@@ -1,5 +1,6 @@
 package bobkubista.examples.utils.service.jpa.persistance.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
 
@@ -21,7 +22,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  */
 @MappedSuperclass
-public abstract class AbstractIdentifiableEntity implements EntityObject {
+public abstract class AbstractIdentifiableEntity implements Serializable {
 
 	private static final long serialVersionUID = 4957722166359705216L;
 

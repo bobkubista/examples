@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bobkubista.examples.utils.domain.model.api.ActiveSearchBean;
 import bobkubista.examples.utils.domain.model.api.SearchBean;
 import bobkubista.examples.utils.service.jpa.persistance.dao.GenericActiveDAO;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericActiveEntity;
@@ -25,9 +26,9 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity>
 	 *
 	 * @return the amount of all active entities
 	 */
-	public default Long countActive() {
+	public default Long count(final ActiveSearchBean search) {
 		return this.getDAO()
-				.countActive();
+				.count(search);
 	}
 
 	@Override
@@ -39,9 +40,9 @@ public interface ActiveEntityService<TYPE extends AbstractGenericActiveEntity>
 	 *            {@link SearchBean}
 	 * @return all active entities of <code>TYPE</code>
 	 */
-	default Collection<TYPE> getAllActive(final SearchBean search) {
+	default Collection<TYPE> getAll(final ActiveSearchBean search) {
 		return this.getDAO()
-				.findAllActive(search);
+				.findAll(search);
 	}
 
 }

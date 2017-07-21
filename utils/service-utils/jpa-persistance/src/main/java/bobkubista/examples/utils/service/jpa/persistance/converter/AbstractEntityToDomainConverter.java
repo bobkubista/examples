@@ -3,10 +3,12 @@
  */
 package bobkubista.examples.utils.service.jpa.persistance.converter;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Link;
@@ -16,9 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
+import bobkubista.examples.utils.domain.model.domainmodel.identification.LongCollection;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
-import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEntityService;
 
 /**
@@ -39,18 +40,19 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEntityToDomainConverter.class);
 
 	@Override
+	public AbstractGenericDomainObjectCollection<Long> convertIdToDomainObject(Collection<Long> entities, Long amount,
+			List<Link> links) {
+		final LongCollection result = new LongCollection();
+		final Function<Long, Long> mapper = Function.identity();
+		convertToDomainCollection(entities, amount, links, result, mapper);
+		return result;
+	}
+
+	@Override
 	public COL convertToDomainObject(final Collection<EO> entities, final Long amount, final List<Link> links) {
 		final COL result = this.getNewDomainObjectCollection();
-		result.setAmount(amount);
-		result.getLinks()
-				.addAll(links);
-		LOGGER.debug("Converting entities to domain");
-		if (entities != null) {
-			result.getDomainCollection()
-					.addAll(entities.stream()
-							.map(v -> this.convertToDomainObject(v))
-							.collect(Collectors.toList()));
-		}
+		final Function<EO, DTO> mapper = this::convertToDomainObject;
+		convertToDomainCollection(entities, amount, links, result, mapper);
 		return result;
 	}
 
@@ -68,7 +70,7 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
 		}
 		return domainObjects.getDomainCollection()
 				.stream()
-				.map(v -> this.convertToEntity(v))
+				.map(this::convertToEntity)
 				.collect(Collectors.toCollection(LinkedList<EO>::new));
 	}
 
@@ -132,5 +134,20 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
 	 * @return {@link IdentifiableEntityService}
 	 */
 	protected abstract IdentifiableEntityService<EO> getService();
+
+	private <T extends Serializable, R extends Serializable, C extends AbstractGenericDomainObjectCollection<R>> void convertToDomainCollection(
+			final Collection<T> entities, final Long amount, final List<Link> links, final C result,
+			final Function<T, R> mapper) {
+		result.setAmount(amount);
+		result.getLinks()
+				.addAll(links);
+		LOGGER.debug("Converting entities to domain");
+		if (entities != null) {
+			result.getDomainCollection()
+					.addAll(entities.stream()
+							.map(mapper)
+							.collect(Collectors.toList()));
+		}
+	}
 
 }

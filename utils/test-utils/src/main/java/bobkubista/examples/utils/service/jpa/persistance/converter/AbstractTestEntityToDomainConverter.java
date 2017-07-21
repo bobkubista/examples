@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericDomainObjectCollection;
 import bobkubista.examples.utils.domain.model.domainmodel.identification.AbstractGenericIdentifiableDomainObject;
-import bobkubista.examples.utils.domain.model.domainmodel.identification.DomainObject;
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractIdentifiableEntity;
-import bobkubista.examples.utils.service.jpa.persistance.entity.EntityObject;
 
 /**
  * An abstract resources utility class to resources converters. Extend the

@@ -1,6 +1,3 @@
-/**
- * Bob Kubista's examples
- */
 package bobkubista.examples.utils.rest.utils.proxy;
 
 import java.io.Serializable;
@@ -13,16 +10,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -92,20 +85,16 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
 	@Override
 	public String create(final TYPE object) {
-		final Function<TYPE, Response> webServiceCall = this::doCreateCall;
-		final Predicate<Response> statusChecker = this::checkCreateStatus;
-		final Function<Response, String> responseProcessor = this::processCreateResponse;
-		final Supplier<String> fallback = () -> StringUtils.EMPTY;
-
-		return AbstractRestProxy.call(webServiceCall, statusChecker, responseProcessor, fallback, object);
+		return AbstractRestProxy.call(t -> this.getRequest(this.getServiceWithPaths())
+				.post(Entity.entity(t, MediaType.APPLICATION_JSON)),
+				response -> response.getStatus() == Status.CREATED.getStatusCode(),
+				response -> response.getHeaderString(HttpHeaders.LOCATION), () -> StringUtils.EMPTY, object);
 	}
 
 	@Override
 	public boolean delete(final Long id) {
-		final Function<Response, Boolean> responseProcessor = this::isResponseStatusNoContent;
-		final Function<Long, Response> webServiceCall = this::doDeleteCall;
-
-		return AbstractRestProxy.call(webServiceCall, responseProcessor, id);
+		return AbstractRestProxy.call(t -> this.getRequest(this.getServiceWithPaths(t.toString()))
+				.delete(), response -> response.getStatus() == Status.NO_CONTENT.getStatusCode(), id);
 	}
 
 	@Override
@@ -129,58 +118,87 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 		return CompletableFuture.supplyAsync(() -> {
 			final Map<String, Object> params = AbstractGenericIdentifiableRestProxy.getQueryparameters(sort, page,
 					maxResults);
-
-			return call(this::doGetCall, this::processResponse, params);
+			return call(t -> this.getRequest(this.getServiceWithQueryParams(t))
+					.get(), response -> {
+						if (response.getStatus() == Status.OK.getStatusCode()) {
+							return response.readEntity(this.getCollectionClass());
+						} else {
+							return this.getEmptyCollection();
+						}
+					}, params);
 		});
 	}
 
 	@Override
 	public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(
 			final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-		final Function<Response, GenericETagModifiedDateDomainObjectDecorator<TYPE>> responseProcessor = byID -> processResponse(
-				object, byID);
-		final Function<GenericETagModifiedDateDomainObjectDecorator<TYPE>, Response> webServiceCall = this::doGetCall;
-
-		return call(webServiceCall, responseProcessor, object);
+		return call(t -> this.getRequest(this.getServiceWithPaths(t.getObject()
+				.getId()
+				.toString()))
+				.header(HttpHeaders.ETAG, t.getETag())
+				.header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
+				.get(), byID -> {
+					if (byID.getStatus() == Status.OK.getStatusCode()) {
+						return new GenericETagModifiedDateDomainObjectDecorator<>(
+								EntityTag.valueOf(byID.getHeaderString(HttpHeaders.ETAG)),
+								DateUtils.parseDate(byID.getHeaderString(HttpHeaders.LAST_MODIFIED))
+										.toInstant(),
+								byID.readEntity(this.domainClass), null);
+					} else if (byID.getStatus() == Status.NOT_MODIFIED.getStatusCode()) {
+						return object;
+					}
+					throw new WebApplicationException(byID);
+				}, object);
 
 	}
 
 	@Override
 	public GenericETagModifiedDateDomainObjectDecorator<TYPE> getByID(final Long id) {
-		return call(this::doGetCall, this::processGetResponse, id);
+		return call(t -> this.getRequest(this.getServiceWithPaths(t.toString()))
+				.get(),
+				byID -> new GenericETagModifiedDateDomainObjectDecorator<>(
+						new EntityTag(byID.getHeaderString(HttpHeaders.ETAG)),
+						DateUtils.parseDate(byID.getHeaderString(HttpHeaders.LAST_MODIFIED))
+								.toInstant(),
+						byID.readEntity(this.domainClass), null),
+				id);
 	}
 
 	@Override
 	public GenericETagModifiedDateDomainObjectDecorator<TYPE> update(
 			final GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-		return call(this::doUpdateCall, this::processUpdateResponse, object);
+		return call(t -> this.getRequest(this.getServiceWithPaths())
+				.header(HttpHeaders.ETAG, t.getETag())
+				.header(HttpHeaders.LAST_MODIFIED, Date.from(t.getModifiedDate()))
+				.put(Entity.entity(t.getObject(), MediaType.APPLICATION_JSON)), update -> {
+					if (update.getStatus() == Status.OK.getStatusCode()) {
+						return new GenericETagModifiedDateDomainObjectDecorator<>(
+								EntityTag.valueOf(update.getHeaderString(HttpHeaders.ETAG)),
+								DateUtils.parseDate(update.getHeaderString(HttpHeaders.LAST_MODIFIED))
+										.toInstant(),
+								update.readEntity(this.domainClass), null);
+					} else {
+						throw new WebApplicationException(update);
+					}
+				}, object);
 	}
 
 	@Override
 	public TYPE update(final TYPE object) {
-		return call(this::doUpdateCall, this::readEntity, object);
+		return call(t -> this.getRequest(this.getServiceWithPaths())
+				.put(Entity.entity(t, MediaType.APPLICATION_JSON)), t -> t.readEntity(this.domainClass), object);
 	}
 
 	/**
 	 * Fallback method when something goes wrong. Default throws a
 	 * {@link WebApplicationException} with {@link Status#GATEWAY_TIMEOUT}
 	 *
-	 * @return throws a {@link WebApplicationException} with
-	 *         {@link Status#GATEWAY_TIMEOUT}
+	 * @return
 	 */
 	protected COL getAllFallback() {
 		throw new WebApplicationException(Status.GATEWAY_TIMEOUT);
 	}
 
-	/**
-	 * Fallback method when something goes wrong. Default throws a
-	 * {@link WebApplicationException} with {@link Status#GATEWAY_TIMEOUT}
-	 *
-	 * @param cause
-	 *            the cause of going to the fallback
-	 *
-	 * @return throws a {@link WebApplicationException} with the cause
-	 */
 	protected COL getAllFallback(final Throwable cause) {
 		throw new WebApplicationException(cause);
 	}
@@ -195,103 +213,4 @@ public abstract class AbstractGenericIdentifiableRestProxy<TYPE extends Abstract
 
 	protected abstract COL getEmptyCollection();
 
-	private boolean checkCreateStatus(Response response) {
-		return response.getStatus() == Status.CREATED.getStatusCode();
-	}
-
-	private Response doCreateCall(TYPE object) {
-		return this.getRequest(this.getServiceWithPaths())
-				.post(Entity.entity(object, MediaType.APPLICATION_JSON));
-	}
-
-	private Response doDeleteCall(Long id) {
-		return this.getRequest(this.getServiceWithPaths(id.toString()))
-				.delete();
-	}
-
-	private Response doGetCall(GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-		return this.getRequest(this.getServiceWithPaths(object.getObject()
-				.getId()
-				.toString()))
-				.header(HttpHeaders.ETAG, object.getETag())
-				.header(HttpHeaders.LAST_MODIFIED, Date.from(object.getModifiedDate()))
-				.get();
-	}
-
-	private Response doGetCall(Long id) {
-		return this.getRequest(this.getServiceWithPaths(id.toString()))
-				.get();
-	}
-
-	private Response doGetCall(Map<String, Object> params) {
-		return this.getRequest(this.getServiceWithQueryParams(params))
-				.get();
-	}
-
-	private Response doUpdateCall(GenericETagModifiedDateDomainObjectDecorator<TYPE> object) {
-		return this.getRequest(this.getServiceWithPaths())
-				.header(HttpHeaders.ETAG, object.getETag())
-				.header(HttpHeaders.LAST_MODIFIED, Date.from(object.getModifiedDate()))
-				.put(Entity.json(object.getObject()));
-	}
-
-	private Response doUpdateCall(TYPE object) {
-		return this.getRequest(this.getServiceWithPaths())
-				.put(Entity.json(object));
-	}
-
-	private boolean isResponseStatusNoContent(Response response) {
-		return response.getStatus() == Status.NO_CONTENT.getStatusCode();
-	}
-
-	private boolean isResponseStatusNotModified(Response response) {
-		return response.getStatus() == Status.NOT_MODIFIED.getStatusCode();
-	}
-
-	private boolean isResponseStatusOk(Response response) {
-		return response.getStatus() == Status.OK.getStatusCode();
-	}
-
-	private String processCreateResponse(Response response) {
-		return response.getHeaderString(HttpHeaders.LOCATION);
-	}
-
-	private GenericETagModifiedDateDomainObjectDecorator<TYPE> processGetResponse(Response response) {
-		return new GenericETagModifiedDateDomainObjectDecorator<>(
-				EntityTag.valueOf(response.getHeaderString(HttpHeaders.ETAG)),
-				DateUtils.parseDate(response.getHeaderString(HttpHeaders.LAST_MODIFIED))
-						.toInstant(),
-				readEntity(response), null);
-	}
-
-	private GenericETagModifiedDateDomainObjectDecorator<TYPE> processResponse(
-			final GenericETagModifiedDateDomainObjectDecorator<TYPE> object, Response response) {
-		if (isResponseStatusOk(response)) {
-			return processGetResponse(response);
-		} else if (isResponseStatusNotModified(response)) {
-			return object;
-		} else {
-			throw new WebApplicationException(response);
-		}
-	}
-
-	private COL processResponse(Response response) {
-		if (isResponseStatusOk(response)) {
-			return response.readEntity(this.getCollectionClass());
-		} else {
-			return this.getEmptyCollection();
-		}
-	}
-
-	private GenericETagModifiedDateDomainObjectDecorator<TYPE> processUpdateResponse(Response update) {
-		if (isResponseStatusOk(update)) {
-			return processGetResponse(update);
-		} else {
-			throw new WebApplicationException(update);
-		}
-	}
-
-	private TYPE readEntity(Response response) {
-		return response.readEntity(this.domainClass);
-	}
 }

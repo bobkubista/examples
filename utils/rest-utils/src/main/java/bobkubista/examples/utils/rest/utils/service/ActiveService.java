@@ -39,7 +39,7 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject, C
 	 *            how many results to give back
 	 * @return Get all active {@link AbstractGenericActiveDomainObject}
 	 */
-	COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults);
+	COL getAllActive(final List<String> sort, final Integer page, final Integer maxResults, final Boolean active);
 
 	/**
 	 * @param sort
@@ -50,5 +50,6 @@ public interface ActiveService<TYPE extends AbstractGenericActiveDomainObject, C
 	 *            how many results to give back
 	 * @return Get all active {@link AbstractGenericActiveDomainObject}
 	 */
-	CompletableFuture<COL> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults);
+	CompletableFuture<COL> getAllActiveASync(final List<String> sort, final Integer page, final Integer maxResults,
+			final Boolean active);
 }

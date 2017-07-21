@@ -95,6 +95,19 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	}
 
 	/**
+	 * get all known {@link AbstractIdentifiableEntity} identifiers of that type
+	 *
+	 * @param search
+	 *            {@link SearchBean}
+	 * @return a {@link Collection} of {@link AbstractIdentifiableEntity} of the
+	 *         same type
+	 */
+	public default Collection<Long> getAllIds(SearchBean search) {
+		return this.getDAO()
+				.getAllIds(search);
+	}
+
+	/**
 	 * get the {@link AbstractIdentifiableEntity}
 	 *
 	 * @param identifier

@@ -147,6 +147,23 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 	}
 
 	/**
+	 * Get a {@link Collection} of all the identifiers, order by <code>ID</code>
+	 *
+	 * @param search
+	 *            {@link SearchBean}
+	 * @return a {@link Collection} of <code>TYPE</code>
+	 */
+	public default Collection<Long> getAllIds(SearchBean search) {
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
+				.getCriteriaBuilder();
+		final CriteriaQuery<Long> cq = criteriaBuilder.createQuery(Long.class);
+		final Root<TYPE> entity = cq.from(this.getEntityClass());
+		cq.multiselect(entity.get("id"));
+
+		return this.orderedBy(search.getSort(), search.getPage(), search.getMaxResults(), cq, criteriaBuilder, entity);
+	}
+
+	/**
 	 * get a <code>TYPE</code> object by its <code>ID</code> id
 	 *
 	 * @param id

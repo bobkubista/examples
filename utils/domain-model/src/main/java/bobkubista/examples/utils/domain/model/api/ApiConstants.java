@@ -12,6 +12,10 @@ public enum ApiConstants {
 	INSTANCE;
 
 	/**
+	 * the query param name if we sould only look for active entities
+	 */
+	public static final String ACTIVE = "active";
+	/**
 	 * the query param name for the max amount of results to return
 	 */
 	public static final String MAX = "max";
