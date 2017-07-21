@@ -64,10 +64,8 @@ public interface IdentifiableEntityService<TYPE extends AbstractIdentifiableEnti
 	 * @return <code>TYPE</code> that was created
 	 */
 	public default Optional<TYPE> create(final TYPE object) {
-		this.getDAO()
-				.create(object);
 		return this.getDAO()
-				.getById(object.getId());
+				.create(object);
 	}
 
 	/**
