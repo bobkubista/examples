@@ -41,6 +41,12 @@ public class MockEntityService
 		Mockito.when(mockDao.update(Mockito.any(MockEntity.class)))
 				.thenReturn(Optional.of(new MockEntity()));
 
+		Mockito.when(mockDao.getByFunctionalId(Mockito.anyString()))
+				.thenReturn(Optional.of(new MockEntity()));
+
+		Mockito.when(mockDao.getIdByFunctionalId(Mockito.anyString()))
+				.thenReturn(Optional.of(1L));
+
 		return mockDao;
 	}
 }
