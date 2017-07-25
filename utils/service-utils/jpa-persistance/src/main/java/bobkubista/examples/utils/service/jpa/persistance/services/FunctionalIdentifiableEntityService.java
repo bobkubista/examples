@@ -28,7 +28,7 @@ public interface FunctionalIdentifiableEntityService<TYPE extends AbstractGeneri
 	 *            {@link AbstractGenericFunctionalIdentifiableEntity}
 	 * @return {@link AbstractGenericFunctionalIdentifiableEntity}
 	 */
-	public default Optional<TYPE> getByFunctionalId(final Object identifier) {
+	public default Optional<TYPE> getByFunctionalId(final String identifier) {
 		return this.getDAO()
 				.getByFunctionalId(identifier);
 	}

@@ -33,7 +33,7 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
 	 *            the <code>ID</code> id to search for
 	 * @return the <code>TYPE</code> object
 	 */
-	public default Optional<TYPE> getByFunctionalId(final Object id) {
+	public default Optional<TYPE> getByFunctionalId(final String id) {
 		getLogger().debug("Get object with functional id {}", id);
 
 		final EntityType<TYPE> entityType = this.getEntityManager()
