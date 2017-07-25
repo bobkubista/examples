@@ -47,6 +47,12 @@ public class MockEntityService
 		Mockito.when(mockDao.getIdByFunctionalId(Mockito.anyString()))
 				.thenReturn(Optional.of(1L));
 
+		Mockito.when(mockDao.countActive())
+				.thenReturn(1L);
+
+		Mockito.when(mockDao.findAllActive(Mockito.any(SearchBean.class)))
+				.thenReturn(Arrays.asList(new MockEntity()));
+
 		return mockDao;
 	}
 }

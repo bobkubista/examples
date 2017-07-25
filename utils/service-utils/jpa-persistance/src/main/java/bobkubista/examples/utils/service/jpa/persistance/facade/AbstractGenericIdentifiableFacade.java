@@ -173,6 +173,7 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 							.toString()))
 					.lastModified(new Date(result.getUpdatedDate()
 							.getTime()))
+					// TODO use java.security.MessageDigest.getInstance("MD5")
 					.tag(new EntityTag(Integer.toString(result.hashCode())))
 					.build();
 		} catch (final URISyntaxException e) {

@@ -18,6 +18,11 @@ import bobkubista.examples.utils.service.jpa.persistance.services.IdentifiableEn
  */
 public class MockConverter extends AbstractEntityToDomainConverter<MockDomain, MockDomainCollection, MockEntity>
 		implements ActiveServerApi<MockDomain> {
+	IdentifiableEntityService<MockEntity> mock;
+
+	public IdentifiableEntityService<MockEntity> getMockService() {
+		return this.mock;
+	}
 
 	@Override
 	protected MockDomain doConvertToDomainObject(final MockEntity entity) {
@@ -49,13 +54,14 @@ public class MockConverter extends AbstractEntityToDomainConverter<MockDomain, M
 		return new MockDomainCollection();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected IdentifiableEntityService<MockEntity> getService() {
-		@SuppressWarnings("unchecked")
-		final IdentifiableEntityService<MockEntity> mock = Mockito.mock(IdentifiableEntityService.class);
+		this.mock = Mockito.mock(IdentifiableEntityService.class);
 		Mockito.when(mock.getById(Matchers.anyLong()))
 				.thenReturn(Optional.of(new MockEntity()));
+		Mockito.when(mock.contains(1L))
+				.thenReturn(true);
 		return mock;
 	}
-
 }

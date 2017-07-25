@@ -80,8 +80,7 @@ public abstract class AbstractEntityToDomainConverter<DTO extends AbstractGeneri
 		} else {
 			LOGGER.debug("Converting domain to entity with id {}", domainModelObject.getId());
 			final Optional<EO> oldEntity;
-			if (domainModelObject.getId() != null && this.getService()
-					.contains(domainModelObject.getId())) {
+			if (domainModelObject.getId() != null && this.getService().contains(domainModelObject.getId())) {
 				oldEntity = this.getService()
 						.getById(domainModelObject.getId());
 				entity = oldEntity.get();
