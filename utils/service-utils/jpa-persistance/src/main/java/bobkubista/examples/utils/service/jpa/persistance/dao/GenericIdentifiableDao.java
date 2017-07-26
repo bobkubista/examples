@@ -81,7 +81,6 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 		return this.getEntityManager()
 				.createQuery(cq)
 				.getSingleResult();
-
 	}
 
 	/**

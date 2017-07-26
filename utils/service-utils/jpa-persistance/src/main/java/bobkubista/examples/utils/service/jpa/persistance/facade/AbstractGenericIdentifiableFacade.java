@@ -112,7 +112,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 			final List<Link> links = buildCollectionLinks(search, allEntriesFuture, amountFuture);
 			return Response.ok(this.getConverter()
 					.convertToDomainObject(allEntriesFuture.get(1, TimeUnit.SECONDS),
-							amountFuture.get(1, TimeUnit.SECONDS), links))
+							amountFuture.get(1, TimeUnit.SECONDS),
+							links))
 					.build();
 		} catch (InterruptedException | ExecutionException e) {
 			throw new ServerErrorException("Could not access the needed data", Status.BAD_GATEWAY);
@@ -187,7 +188,8 @@ public abstract class AbstractGenericIdentifiableFacade<DMO extends DomainObject
 			final CompletableFuture<Collection<TYPE>> allEntriesFuture, final CompletableFuture<Long> amountFuture)
 			throws InterruptedException, ExecutionException, TimeoutException {
 		final List<Link> links = new ArrayList<>(2);
-		this.buildNextCollectionLink(search, allEntriesFuture.get(1, TimeUnit.SECONDS),
+		this.buildNextCollectionLink(search,
+				allEntriesFuture.get(1, TimeUnit.SECONDS),
 				amountFuture.get(1, TimeUnit.SECONDS))
 				.ifPresent(links::add);
 		this.buildPreviousCollectionLink(search)
