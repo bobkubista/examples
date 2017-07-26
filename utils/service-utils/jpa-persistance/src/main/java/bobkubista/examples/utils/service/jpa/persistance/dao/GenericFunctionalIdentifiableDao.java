@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
 
 import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericFunctionalIdentifiableEntity;
 
@@ -36,13 +35,10 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
 	public default Optional<TYPE> getByFunctionalId(final String id) {
 		getLogger().debug("Get object with functional id {}", id);
 
-		final EntityType<TYPE> entityType = this.getEntityManager()
-				.getMetamodel()
-				.entity(this.getEntityClass());
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
 				.getCriteriaBuilder();
 		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
-		final Root<TYPE> entity = cq.from(entityType);
+		final Root<TYPE> entity = cq.from(this.getEntityClass());
 		cq.where(criteriaBuilder.equal(this.getFunctionalIdField(entity), id));
 		final TypedQuery<TYPE> tp = this.getEntityManager()
 				.createQuery(cq);

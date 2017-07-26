@@ -43,15 +43,15 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 				.when(mockEntityManager)
 				.remove(Mockito.any(MockEntity.class));
 
-		final CriteriaQuery<Long> buildMockQuery = buildMockLongQuery();
-		final CriteriaBuilder buildMockCriteriaBuilder = buildMockCriteriaBuilder(buildMockQuery);
+		final CriteriaQuery<Long> buildMockLongQuery = buildMockLongQuery();
+		final CriteriaQuery<MockEntity> buildMockEntityQuery = buildMockEntityQuery();
+		final CriteriaBuilder buildMockCriteriaBuilder = buildMockCriteriaBuilder(buildMockLongQuery,
+				buildMockEntityQuery);
 		Mockito.when(mockEntityManager.getCriteriaBuilder())
 				.thenReturn(buildMockCriteriaBuilder);
 
 		final TypedQuery<?> mockTypedLongQuery = mockTypedLongQuery();
-		final TypedQuery<?> mockTypedEntityQuery = mockTypedEntityQuery();
-		// TODO remove me
-		System.out.println(mockTypedEntityQuery);
+		mockTypedEntityQuery();
 
 		Mockito.when(mockEntityManager.createQuery(Mockito.any(CriteriaQuery.class)))
 				.thenReturn(mockTypedLongQuery);
@@ -70,11 +70,14 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 	}
 
 	@SuppressWarnings("unchecked")
-	private CriteriaBuilder buildMockCriteriaBuilder(CriteriaQuery<Long> buildMockQuery) {
+	private CriteriaBuilder buildMockCriteriaBuilder(CriteriaQuery<Long> buildMockLongQuery,
+			CriteriaQuery<MockEntity> mockEnityQuery) {
 		final CriteriaBuilder mockBuilder = Mockito.mock(CriteriaBuilder.class);
 
 		Mockito.when(mockBuilder.createQuery(Long.class))
-				.thenReturn(buildMockQuery);
+				.thenReturn(buildMockLongQuery);
+		Mockito.when(mockBuilder.createQuery(MockEntity.class))
+				.thenReturn(mockEnityQuery);
 		final CriteriaQuery<MockEntity> buildMockEntityQuery = buildMockEntityQuery();
 		Mockito.when(mockBuilder.createQuery(MockEntity.class))
 				.thenReturn(buildMockEntityQuery);
