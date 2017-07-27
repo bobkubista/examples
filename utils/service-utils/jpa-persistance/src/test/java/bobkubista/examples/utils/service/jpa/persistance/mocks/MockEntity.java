@@ -8,7 +8,6 @@ import bobkubista.examples.utils.service.jpa.persistance.entity.AbstractGenericA
 public class MockEntity extends AbstractGenericActiveEntity {
 
 	private static final long serialVersionUID = -1029339275802750276L;
-	private boolean active = true;
 	@SearchField(fieldName = "fid")
 	private String functionalId = "foo";
 	@SearchField(fieldName = "id")
@@ -27,16 +26,6 @@ public class MockEntity extends AbstractGenericActiveEntity {
 	@Override
 	public Timestamp getUpdatedDate() {
 		return new Timestamp(0);
-	}
-
-	@Override
-	public boolean isActive() {
-		return this.active;
-	}
-
-	@Override
-	public void setActive(final boolean active) {
-		this.active = active;
 	}
 
 	@Override
