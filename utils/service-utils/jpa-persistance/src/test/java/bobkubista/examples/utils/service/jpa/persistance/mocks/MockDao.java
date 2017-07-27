@@ -24,11 +24,29 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 		implements GenericActiveDAO<MockEntity>, GenericFunctionalIdentifiableDao<MockEntity> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MockDao.class);
+	private EntityManager mockEntityManager;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public EntityManager getEntityManager() {
-		final EntityManager mockEntityManager = Mockito.mock(EntityManager.class);
+		if (mockEntityManager == null) {
+			buildEntityManager();
+		}
+
+		return mockEntityManager;
+	}
+
+	@Override
+	public Path<String> getFunctionalIdField(final Root<MockEntity> entity) {
+		return entity.<String>get("functionalId");
+	}
+
+	@Override
+	public Logger getLogger() {
+		return LOGGER;
+	}
+
+	private void buildEntityManager() {
+		mockEntityManager = Mockito.mock(EntityManager.class);
 
 		Mockito.when(mockEntityManager.find(MockEntity.class, 1L))
 				.thenReturn(buildMockEntity());
@@ -50,23 +68,13 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 		Mockito.when(mockEntityManager.getCriteriaBuilder())
 				.thenReturn(buildMockCriteriaBuilder);
 
-		final TypedQuery<?> mockTypedLongQuery = mockTypedLongQuery();
-		mockTypedEntityQuery();
+		final TypedQuery<Long> mockTypedLongQuery = mockTypedLongQuery();
+		final TypedQuery<MockEntity> mockTypedEntityQuery = mockTypedEntityQuery();
 
-		Mockito.when(mockEntityManager.createQuery(Mockito.any(CriteriaQuery.class)))
+		Mockito.when(mockEntityManager.createQuery(buildMockLongQuery))
 				.thenReturn(mockTypedLongQuery);
-
-		return mockEntityManager;
-	}
-
-	@Override
-	public Path<String> getFunctionalIdField(final Root<MockEntity> entity) {
-		return entity.<String>get("functionalId");
-	}
-
-	@Override
-	public Logger getLogger() {
-		return LOGGER;
+		Mockito.when(mockEntityManager.createQuery(buildMockEntityQuery))
+				.thenReturn(mockTypedEntityQuery);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -78,9 +86,10 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 				.thenReturn(buildMockLongQuery);
 		Mockito.when(mockBuilder.createQuery(MockEntity.class))
 				.thenReturn(mockEnityQuery);
-		final CriteriaQuery<MockEntity> buildMockEntityQuery = buildMockEntityQuery();
-		Mockito.when(mockBuilder.createQuery(MockEntity.class))
-				.thenReturn(buildMockEntityQuery);
+		// final CriteriaQuery<MockEntity> buildMockEntityQuery =
+		// buildMockEntityQuery();
+		// Mockito.when(mockBuilder.createQuery(MockEntity.class))
+		// .thenReturn(buildMockEntityQuery);
 		Mockito.when(mockBuilder.count(Mockito.any(Expression.class)))
 				.thenReturn(Mockito.mock(Expression.class));
 
@@ -138,15 +147,8 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 		@SuppressWarnings("unchecked")
 		final TypedQuery<MockEntity> mockQuery = Mockito.mock(TypedQuery.class);
 
-		return mockQuery;
-	}
-
-	@SuppressWarnings({ "rawtypes" })
-	private TypedQuery mockTypedLongQuery() {
-		final TypedQuery mockQuery = Mockito.mock(TypedQuery.class);
-
 		Mockito.when(mockQuery.getSingleResult())
-				.thenReturn(3L);
+				.thenReturn(new MockEntity());
 		Mockito.when(mockQuery.setFirstResult(Mockito.anyInt()))
 				.thenReturn(mockQuery);
 		Mockito.when(mockQuery.setMaxResults(Mockito.anyInt()))
@@ -156,4 +158,19 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 				.thenReturn(Arrays.asList(new MockEntity(), new MockEntity()));
 		return mockQuery;
 	}
+
+	private TypedQuery<Long> mockTypedLongQuery() {
+		@SuppressWarnings("unchecked")
+		final TypedQuery<Long> mockQuery = Mockito.mock(TypedQuery.class);
+
+		Mockito.when(mockQuery.getSingleResult())
+				.thenReturn(3L);
+		Mockito.when(mockQuery.setFirstResult(Mockito.anyInt()))
+				.thenReturn(mockQuery);
+		Mockito.when(mockQuery.setMaxResults(Mockito.anyInt()))
+				.thenReturn(mockQuery);
+
+		return mockQuery;
+	}
+
 }

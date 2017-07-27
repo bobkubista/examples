@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.BiFunction;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -58,7 +59,11 @@ public class GenericIdentifiableDaoTest {
 
 		mockDao.delete(mockEntity);
 
-		Mockito.verifyNoMoreInteractions(this.mockDao.getEntityManager());
+		final EntityManager entityManager = this.mockDao.getEntityManager();
+		Mockito.verify(entityManager)
+				.find(this.mockDao.getEntityClass(), mockEntity.getId());
+		Mockito.verify(entityManager)
+				.remove(mockEntity);
 	}
 
 	@Test

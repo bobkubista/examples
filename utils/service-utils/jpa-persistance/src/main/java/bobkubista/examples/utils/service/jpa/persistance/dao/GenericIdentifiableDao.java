@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -68,8 +70,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 	 * @return the amount of results found
 	 */
 	public default Long count(final BiFunction<Root<TYPE>, CriteriaBuilder, Predicate> whereClause) {
-		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
-				.getCriteriaBuilder();
+		final EntityManager entityManager = this.getEntityManager();
+		final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		final CriteriaQuery<Long> cq = criteriaBuilder.createQuery(Long.class);
 
 		cq.select(criteriaBuilder.count(cq.from(this.getEntityClass())));
@@ -78,9 +80,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 		if (whereClause != null) {
 			cq.where(whereClause.apply(entity, criteriaBuilder));
 		}
-		return this.getEntityManager()
-				.createQuery(cq)
-				.getSingleResult();
+		final TypedQuery<Long> createQuery = entityManager.createQuery(cq);
+		return createQuery.getSingleResult();
 	}
 
 	/**
@@ -91,10 +92,9 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 	 * @return the created <code>TYPE</code>
 	 */
 	public default Optional<TYPE> create(final TYPE object) {
-		this.getEntityManager()
-				.persist(object);
-		return Optional.ofNullable(this.getEntityManager()
-				.find(this.getEntityClass(), object.getId()));
+		final EntityManager entityManager = this.getEntityManager();
+		entityManager.persist(object);
+		return Optional.ofNullable(entityManager.find(this.getEntityClass(), object.getId()));
 	}
 
 	/**
@@ -194,8 +194,9 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 								}
 							}));
 		}
-		return this.getEntityManager()
-				.createQuery(query)
+		TypedQuery<T> createQuery = this.getEntityManager()
+				.createQuery(query);
+		return createQuery
 				.setFirstResult(startPositon)
 				.setMaxResults(maxResults)
 				.getResultList();
