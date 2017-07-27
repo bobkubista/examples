@@ -5,6 +5,7 @@ package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -35,14 +36,13 @@ public interface GenericFunctionalIdentifiableDao<TYPE extends AbstractGenericFu
 	public default Optional<TYPE> getByFunctionalId(final String id) {
 		getLogger().debug("Get object with functional id {}", id);
 
-		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
-				.getCriteriaBuilder();
-		final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
-		final Root<TYPE> entity = cq.from(this.getEntityClass());
-		cq.where(criteriaBuilder.equal(this.getFunctionalIdField(entity), id));
-		final TypedQuery<TYPE> tp = this.getEntityManager()
-				.createQuery(cq);
 		try {
+			final EntityManager entityManager = this.getEntityManager();
+			final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			final CriteriaQuery<TYPE> cq = criteriaBuilder.createQuery(this.getEntityClass());
+			final Root<TYPE> entity = cq.from(this.getEntityClass());
+			cq.where(criteriaBuilder.equal(this.getFunctionalIdField(entity), id));
+			final TypedQuery<TYPE> tp = entityManager.createQuery(cq);
 			return Optional.ofNullable(tp.getSingleResult());
 		} catch (final NoResultException ex) {
 			getLogger().debug(String.format("object with id '%s' not found", id), ex);

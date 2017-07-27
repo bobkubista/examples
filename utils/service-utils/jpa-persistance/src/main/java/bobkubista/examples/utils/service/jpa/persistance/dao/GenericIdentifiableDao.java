@@ -94,7 +94,7 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 	public default Optional<TYPE> create(final TYPE object) {
 		final EntityManager entityManager = this.getEntityManager();
 		entityManager.persist(object);
-		return Optional.ofNullable(entityManager.find(this.getEntityClass(), object.getId()));
+		return getById(object.getId());
 	}
 
 	/**
@@ -104,10 +104,8 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 	 *            the <code>TYPE</code> object to update
 	 */
 	public default void delete(final TYPE object) {
-		final TYPE attachedEntity = this.getEntityManager()
-				.find(this.getEntityClass(), object.getId());
-		this.getEntityManager()
-				.remove(attachedEntity);
+		getById(object.getId()).ifPresent(attachedEntity -> this.getEntityManager()
+				.remove(attachedEntity));
 	}
 
 	/**
@@ -194,10 +192,9 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 								}
 							}));
 		}
-		TypedQuery<T> createQuery = this.getEntityManager()
+		final TypedQuery<T> createQuery = this.getEntityManager()
 				.createQuery(query);
-		return createQuery
-				.setFirstResult(startPositon)
+		return createQuery.setFirstResult(startPositon)
 				.setMaxResults(maxResults)
 				.getResultList();
 	}

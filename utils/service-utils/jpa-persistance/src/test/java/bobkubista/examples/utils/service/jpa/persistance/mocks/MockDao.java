@@ -3,6 +3,7 @@ package bobkubista.examples.utils.service.jpa.persistance.mocks;
 import java.util.Arrays;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -86,12 +87,11 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 				.thenReturn(buildMockLongQuery);
 		Mockito.when(mockBuilder.createQuery(MockEntity.class))
 				.thenReturn(mockEnityQuery);
-		// final CriteriaQuery<MockEntity> buildMockEntityQuery =
-		// buildMockEntityQuery();
-		// Mockito.when(mockBuilder.createQuery(MockEntity.class))
-		// .thenReturn(buildMockEntityQuery);
 		Mockito.when(mockBuilder.count(Mockito.any(Expression.class)))
 				.thenReturn(Mockito.mock(Expression.class));
+
+		Mockito.when(mockBuilder.equal(Mockito.any(Expression.class), Mockito.eq("unknown")))
+				.thenThrow(new NoResultException());
 
 		return mockBuilder;
 	}
@@ -165,10 +165,6 @@ public class MockDao extends AbstractGenericDao<MockEntity>
 
 		Mockito.when(mockQuery.getSingleResult())
 				.thenReturn(3L);
-		Mockito.when(mockQuery.setFirstResult(Mockito.anyInt()))
-				.thenReturn(mockQuery);
-		Mockito.when(mockQuery.setMaxResults(Mockito.anyInt()))
-				.thenReturn(mockQuery);
 
 		return mockQuery;
 	}
