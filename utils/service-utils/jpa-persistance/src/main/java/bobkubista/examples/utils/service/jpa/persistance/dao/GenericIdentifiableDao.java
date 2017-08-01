@@ -1,7 +1,6 @@
 package bobkubista.examples.utils.service.jpa.persistance.dao;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -177,21 +176,21 @@ public interface GenericIdentifiableDao<TYPE extends AbstractIdentifiableEntity>
 			final Root<U> queryRoot) {
 
 		// TODO refactor to make use of http://use-the-index-luke.com/no-offset
-		// There must be a better way to do this
-		try (final Stream<Field> declaredFields = Stream.of(this.getEntityClass()
-				.getDeclaredFields())) {
-			declaredFields.filter(field -> field.isAnnotationPresent(SearchField.class))
-					.forEach(searchableField -> fields.stream()
-							.filter(field -> field.endsWith(searchableField.getAnnotation(SearchField.class)
-									.fieldName()))
-							.forEachOrdered(field -> {
-								if (field.startsWith("-")) {
-									query.orderBy(builder.desc(queryRoot.get(searchableField.getName())));
-								} else {
-									query.orderBy(builder.asc(queryRoot.get(searchableField.getName())));
-								}
-							}));
-		}
+		Stream.of(this.getEntityClass()
+				.getDeclaredFields())
+				.filter(field -> field.isAnnotationPresent(SearchField.class))
+				.forEach(searchableField -> fields.stream()
+						.filter(field -> field.equals(searchableField.getAnnotation(SearchField.class)
+								.fieldName())
+								|| field.equals("-" + searchableField.getAnnotation(SearchField.class)
+										.fieldName()))
+						.forEachOrdered(field -> {
+							if (field.startsWith("-")) {
+								query.orderBy(builder.desc(queryRoot.get(searchableField.getName())));
+							} else {
+								query.orderBy(builder.asc(queryRoot.get(searchableField.getName())));
+							}
+						}));
 		final TypedQuery<T> createQuery = this.getEntityManager()
 				.createQuery(query);
 		return createQuery.setFirstResult(startPositon)
