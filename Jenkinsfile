@@ -18,23 +18,23 @@ pipeline {
 	        	steps {
 	        		sh 'mvn test'
 	        	}
-	        	post {
-	                always {
-	                    junit '**/target/surefire-reports/**/*.xml' 
-	                }
-	            }
+//	        	post {
+//	                always {
+//	                    junit '**/target/surefire-reports/**/*.xml' 
+//	                }
+//	            }
             }
  	        stage('integration tests') {
             	steps{
               		//sh 'mvn -B integration-test -P integration-test -am'
               		echo 'integration tests'
             	}
-            	post {
-	                always {
-	                    junit '**/target/failsafe-reports/*.xml' 
-	                }
-	            }
-         	}
+//           	post {
+//	                always {
+//	                    junit '**/target/failsafe-reports/*.xml' 
+//	                }
+//	            }
+        	}
 		}        
       }
       stage('nexus'){
