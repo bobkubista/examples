@@ -19,7 +19,7 @@ pipeline {
 	        		sh 'mvn test'
 	        	}
 	        	post {
-	                success {
+	                always {
 	                    junit '**/target/surefire-reports/**/*.xml' 
 	                }
 	            }
@@ -29,7 +29,7 @@ pipeline {
               		sh 'mvn -B integration-test -P integration-test -am'
             	}
             	post {
-	                success {
+	                always {
 	                    junit '**/target/failsafe-reports/*.xml' 
 	                }
 	            }
