@@ -13,7 +13,7 @@ pipeline {
             }
         }
         stage('Test'){
-        parallel {
+          parallel {
 			stage('Unit tests') {
 	        	steps {
 	        		sh 'mvn test'
@@ -35,7 +35,7 @@ pipeline {
 	            }
          	}
 		}        
-      
+      }
       stage('nexus'){
         steps{
         }
@@ -54,8 +54,8 @@ pipeline {
       }
       stage('docker'){
         steps{
-        }
       }
     }
   }
 }
+
