@@ -38,22 +38,27 @@ pipeline {
       }
       stage('nexus'){
         steps{
+          echo 'nexus step'
         }
       }
       stage('deloyment tomcat'){
         steps{
+        echo 'deploy step'
         }
       }
-      stage('jmeter'){
+      stage('performance'){
         steps{
+        echo 'performance step'
         }
       }
       stage('sonar'){
         steps{
+        echo 'sonar step'
         }
       }
       stage('docker'){
         steps{
+        echo 'containerize step'
       }
     }
   }
