@@ -9,14 +9,13 @@ pipeline {
             steps { 
                sh 'mvn -B clean compile -am'
                sh 'mvn -B -T 1C validate -am'
-        //validate
             }
         }
         stage('Test'){
           parallel {
 			stage('Unit tests') {
 	        	steps {
-	        		sh 'mvn test'
+	        		sh 'mvn test -P test -e -X'
 	        	}
 	        	post {
 	                always {
@@ -26,14 +25,13 @@ pipeline {
             }
  	        stage('integration tests') {
             	steps{
-              		//sh 'mvn -B integration-test -P integration-test -am'
-              		echo 'integration tests'
+              		sh 'mvn -B integration-test -P integration-test -am'
             	}
-//           	post {
-//	                always {
-//	                    junit '**/target/failsafe-reports/*.xml' 
-//	                }
-//	            }
+           	post {
+	                always {
+	                    junit testResults: '**/target/failsafe-reports/*.xml', allowEmptyResults: true 
+	                }
+	            }
         	}
 		}        
       }
