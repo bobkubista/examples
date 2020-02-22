@@ -42,14 +42,19 @@ pipeline {
       }
       stage('deloyment tomcat'){
         steps{
-        echo 'deploy step'
+          echo 'deploy step'
         }
       }
       stage('performance'){
         steps{
-        echo 'performance step'
+          sh 'mvn verify -P performance-test'
         }
-      }
+        post {
+ 	      always {
+            junit testResults: '**/*.jtl;**/TEST-*.xml', allowEmptyResults: true 
+          }
+        }
+	  }
       stage('sonar'){
         steps{
         sh 'mvn sonar:sonar -P sonar'
