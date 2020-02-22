@@ -52,7 +52,7 @@ pipeline {
       }
       stage('sonar'){
         steps{
-        echo 'sonar step'
+        sh 'mvn sonar:sonar -P sonar'
         }
       }
       stage('docker'){
