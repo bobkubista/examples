@@ -37,12 +37,12 @@ pipeline {
       }
       stage('nexus'){
         steps{
-          echo 'nexus step'
+          sh 'mvn deploy'
         }
       }
       stage('deloyment tomcat'){
         steps{
-          echo 'deploy step'
+          sh 'cargo:undeploy cargo:deploy -X'
         }
       }
       stage('performance'){
