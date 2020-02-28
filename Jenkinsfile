@@ -39,7 +39,7 @@ pipeline {
    }
    stage('deloyment tomcat'){
      steps{
-       sh 'cargo:deploy -X'
+       sh 'mvn cargo:deploy -X'
      }
    }
    stage('performance'){
