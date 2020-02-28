@@ -39,8 +39,8 @@ pipeline {
    }
    stage('deloyment tomcat'){
      steps{
-       sh 'mvn cargo:deploy -X - f services/rest-services/spring-services/user/user-service/pom.xml'
-	   sh 'mvn cargo:deploy -X - f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml'
+       sh 'mvn cargo:deploy -f services/rest-services/spring-services/user/user-service/pom.xml'
+	   sh 'mvn cargo:deploy -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml'
      }
    }
    stage('performance'){
