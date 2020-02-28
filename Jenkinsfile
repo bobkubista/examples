@@ -23,8 +23,7 @@ pipeline {
    }
    stage('integration tests') {
      steps{
-       echo 'integration tests need to be fixed. Database connection is not right yet'
-       // sh 'mvn -B integration-test -P integration-test -am'
+       sh 'mvn -B integration-test -P integration-test -am'
      }
      post {
        always {
@@ -39,8 +38,9 @@ pipeline {
    }
    stage('deloyment tomcat'){
      steps{
-       sh 'mvn cargo:deploy -f services/rest-services/spring-services/user/user-service/pom.xml'
-	   sh 'mvn cargo:deploy -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml'
+     	echo 'deploy to tomcat'
+       //sh 'mvn cargo:deploy -f services/rest-services/spring-services/user/user-service/pom.xml'
+	   //sh 'mvn cargo:deploy -f services/rest-services/cdi-services/datagathering/datagathering-rest-service/pom.xml'
      }
    }
    stage('performance'){
