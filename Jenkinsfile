@@ -13,7 +13,7 @@ pipeline {
     }
 	stage('Unit tests') {
      steps {
-       sh 'mvn test -P test -e -X'
+       sh 'mvn test -P test'
      }
      post {
        always {
@@ -57,7 +57,7 @@ pipeline {
    }
    stage('sonar'){
      steps{
-       sh 'mvn sonar:sonar -P sonar'
+       sh 'mvn sonar:sonar -P sonar -e'
      }
    }
    stage('docker'){
