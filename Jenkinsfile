@@ -33,7 +33,9 @@ pipeline {
    }
    stage('nexus'){
      steps{
-       sh 'mvn deploy'
+       echo 'deploy to nexus'
+       // TODO enable this again, when nexus works with java 11
+       //sh 'mvn deploy'
      }
    }
    stage('deloyment tomcat'){
