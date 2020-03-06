@@ -60,7 +60,7 @@
 				<!-- <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName> -->
 				<sonar.jdbc.username>sonar</sonar.jdbc.username>
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
-				<sonar.host.url>http://192.168.1.108:9000</sonar.host.url>
+				<sonar.host.url>http://192.168.1.108:9000/sonar</sonar.host.url>
 				<org.sonar.plugins.jmeter.jtlpath>${project.build.directory}/jmeter/results/get-all.jtl</org.sonar.plugins.jmeter.jtlpath>
 			</properties>
 		</profile>
