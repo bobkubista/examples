@@ -7,8 +7,8 @@ pipeline {
   stages { 
     stage('Compile') { 
       steps { 
-        sh 'mvn -B clean compile -am'
-        sh 'mvn -B -T 1C validate -am'
+        sh 'mvn clean compile'
+        sh 'mvn validate'
       }
     }
 	stage('Unit tests') {
@@ -23,7 +23,7 @@ pipeline {
    }
    stage('integration tests') {
      steps{
-       sh 'mvn -B integration-test -P integration-test -am'
+       sh 'mvn integration-test -P integration-test'
      }
      post {
        always {
