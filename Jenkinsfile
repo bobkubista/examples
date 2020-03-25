@@ -8,7 +8,6 @@ pipeline {
     stage('Compile') { 
       steps { 
         sh 'mvn clean compile'
-        sh 'mvn validate'
       }
     }
 	stage('Unit tests') {
@@ -23,7 +22,7 @@ pipeline {
    }
    stage('integration tests') {
      steps{
-       sh 'mvn integration-test -P integration-test'
+       sh 'mvn verify -P integration-test'
      }
      post {
        always {
