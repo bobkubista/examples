@@ -4,17 +4,17 @@ This is my examples of code that I am trying out stuff with. It is for reference
 ##tools:
 [wiki](http://192.168.1.105/mediawiki)   
 
-[jenkins](http://192.168.1.108:8080)
+[jenkins](http://build.internal.bobkubista.com:8080)
 
-[sonar](http://192.168.1.108:9000)
+[sonar](http://sonar.internal.bobkubista.com:9000)
 
-[nexus](http://192.168.1.108:8081)
+[nexus](http://nexus.internal.bobkubista.com:8081)
 
-[database](http://192.168.1.109)
+[database](http://postgres.internal.bobkubista.com)
 
-[webservices](http://192.168.1.110)
+[webservices](http://webservice.internal.bobkubista.com)
 
-[docker](http://192.168.1.111)
+[docker](http://docker.internal.bobkubista.com)
 
 
 ##principals:

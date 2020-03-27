@@ -37,11 +37,11 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>snapshots</id>
-			<url>http://192.168.1.108/nexus/content/repositories/snapshots</url>
+			<url>http://nexus.internal.bobkubista.com/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>releases</id>
-			<url>http://192.168.1.108/nexus/content/repositories/releases</url>
+			<url>http://nexus.internal.bobkubista.com/nexus/content/repositories/releases</url>
 		</repository>
 	</distributionManagement>
 
@@ -56,11 +56,11 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.jdbc.url>jdbc:postgresql://192.168.1.109/sonar</sonar.jdbc.url>
+				<sonar.jdbc.url>jdbc:postgresql://postgres.internal.bobkubista.com/sonar</sonar.jdbc.url>
 				<!-- <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName> -->
 				<sonar.jdbc.username>sonar</sonar.jdbc.username>
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
-				<sonar.host.url>http://192.168.1.108:9000/sonar</sonar.host.url>
+				<sonar.host.url>http://sonar.internal.bobkubista.com:9000/sonar</sonar.host.url>
 				<org.sonar.plugins.jmeter.jtlpath>${project.build.directory}/jmeter/results/get-all.jtl</org.sonar.plugins.jmeter.jtlpath>
 			</properties>
 		</profile>

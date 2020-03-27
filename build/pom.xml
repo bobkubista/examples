@@ -37,7 +37,7 @@
     <repository>
       <id>snapshots</id>
       <name>Snapshots</name>
-      <url>http://192.168.1.108/nexus/content/repositories/snapshots/</url>
+      <url>http://nexus.internal.bobkubista.com/nexus/content/repositories/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -48,7 +48,7 @@
     <repository>
       <id>releases</id>
       <name>Releases</name>
-      <url>http://192.168.1.108/nexus/content/repositories/releases/</url>
+      <url>http://nexus.internal.bobkubista.com/nexus/content/repositories/releases/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -61,13 +61,13 @@
     <pluginRepository>
       <id>build</id>
       <name>build</name>
-      <url>http://192.168.1.108/nexus/</url>
+      <url>http://nexus.internal.bobkubista.com/nexus/</url>
     </pluginRepository>
   </pluginRepositories>
 
   <ciManagement>
     <system>Jenkins</system>
-    <url>192.168.1.108</url>
+    <url>build.internal.bobkubista.com</url>
   </ciManagement>
 
   <issueManagement></issueManagement>
