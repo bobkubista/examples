@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +15,7 @@ public class MenuController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
 
-	@RequestMapping("/load")
+	@RequestMapping(path = "/load", method = RequestMethod.GET)
 	public String loadMenu(final Model model) {
 		LOGGER.info("Loading menu main app");
 		final RestTemplate rest = new RestTemplate();
