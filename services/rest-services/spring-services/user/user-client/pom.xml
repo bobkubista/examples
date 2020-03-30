@@ -29,7 +29,7 @@
     </dependency>
 
     <dependency>
-      <groupId>bobkubista.examples.services.api</groupId>
+      <groupId>bobkubista.examples.services.rest.api</groupId>
       <artifactId>user-service-api</artifactId>
     </dependency>
 
