@@ -32,8 +32,8 @@ pipeline {
    }
    stage('nexus'){
      steps{
-     echo 'nexus'
-      //sh 'mvn deploy'
+     //echo 'nexus'
+      sh 'mvn deploy'
      }
    }
    stage('deloyment tomcat'){
