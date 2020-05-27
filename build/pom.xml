@@ -37,7 +37,7 @@
     <repository>
       <id>snapshots</id>
       <name>Snapshots</name>
-      <url>http://nexus.internal.bobkubista.com/nexus/content/repositories/snapshots/</url>
+      <url>http://nexus.internal.bobkubista.com:32812/repository/maven-snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -48,7 +48,7 @@
     <repository>
       <id>releases</id>
       <name>Releases</name>
-      <url>http://nexus.internal.bobkubista.com/nexus/content/repositories/releases/</url>
+      <url>http://nexus.internal.bobkubista.com:32812/repository/maven-releases/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -61,7 +61,7 @@
     <pluginRepository>
       <id>build</id>
       <name>build</name>
-      <url>http://nexus.internal.bobkubista.com/nexus/</url>
+      <url>http://nexus.internal.bobkubista.com:32812/</url>
     </pluginRepository>
   </pluginRepositories>
 
