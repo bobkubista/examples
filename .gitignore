@@ -1,3 +1,6 @@
-/.settings/
-/.project
-/target/
+**/.settings/
+**/.project
+**/target/
+**/.surefire*
+**/failsafe*
+**/jacoco-it.exec
